@@ -14,9 +14,7 @@
       <li>
       <button>Gestion de Categorias</button>
       </li>
-      <li>
-        <button>GG</button>
-      </li>
+      
     </ul>
   </nav>
   <nav>
