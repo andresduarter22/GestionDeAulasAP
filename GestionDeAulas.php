@@ -7,7 +7,7 @@
 </head>
 <body>
   <p>
-    <?php $result = $mysqli->query("SELECT * FROM usuarios");  ?>
+    <?php $result = $mysqli->query("SELECT * FROM aulas");  ?>
   </p>
 
   <nav>
