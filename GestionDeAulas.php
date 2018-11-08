@@ -14,15 +14,18 @@
      die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
            . $dblink->connect_error);
    }
+
    $sql = "select * from aulas;";
    $result = $dblink->query($sql);
-   echo "Aulas:<br>\n";
-   echo "<ul>";
-   while ($fila = $result->fetch_object()) {
-     echo "<li>$fila->id_Aulas - $fila->nombre - $fila->cantidad_alumnos</li>";
-   }
-   echo "</ul>";
-   // Cerrar la conexion a la base
+?>
+   Aulas:<br>
+   <ul>
+     <?php  while ($fila = $result->fetch_object()) {
+        echo "<li>$fila->id_Aulas - $fila->nombre - $fila->cantidad_alumnos</li>";
+      } ?>
+
+  </ul>
+  <?php
    $dblink->close();
    ?>
 </body>
