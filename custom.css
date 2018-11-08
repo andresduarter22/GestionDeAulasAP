@@ -1,12 +1,18 @@
 body{
-    background-color: coral;
+    background-color: green;
 }
 
+img {
+    position: relative;
+    left: 900px;
+    padding: 5px;
+    width: 350px;
+}
 .button {
-    background-color: red;
+    background-color: white;
     border: black;
-    color: white;
-    padding: 18px 35px;
+    color: #1E90FF
+    padding: 18px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
