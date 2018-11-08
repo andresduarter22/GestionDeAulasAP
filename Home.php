@@ -14,7 +14,7 @@
       <li>
       <button>Gestion de Categorias</button>
       </li>
-      
+
     </ul>
   </nav>
   <nav>
