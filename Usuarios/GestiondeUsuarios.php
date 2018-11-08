@@ -6,7 +6,6 @@
   <button class="button">Cerrar sesión</button>
   <img src="Logo_UPB.jpg" alt="Paris">
   <?php
-
    $db_name = "bd_aulasperronas";
    $db_user = "root";
    $db_pass = "";
