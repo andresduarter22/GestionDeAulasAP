@@ -25,6 +25,9 @@
       } ?>
 
   </ul>
+
+  <button><a href="Home.php">Home</a>
+  </button>
   <?php
    $dblink->close();
    ?>
