@@ -21,12 +21,13 @@
    Aulas:<br>
    <ul>
      <?php  while ($fila = $result->fetch_object()) {
-        echo "<li>$fila->id_Aulas - $fila->nombre - $fila->cantidad_alumnos</li>";
-      } ?>
+        ?> <li><<?php $fila->id_Aulas  ?> - <<?php  $fila->nombre ?> - <<?php $fila->cantidad_alumnos ?> -
+          <button><a href="EditarAula.php">Editar Aula</a></button> - <button><a href="BorarAula.php">Borrar Aula</a></button> </li>";
+      }
 
   </ul>
 
-  <button><a href="Home.php">Home</a>
+  <button><a href="CrearAula.php">Crear Aula</a>
   </button>
   <?php
    $dblink->close();
