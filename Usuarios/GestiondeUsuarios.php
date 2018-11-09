@@ -3,7 +3,7 @@
   <title>Gestion de Usuarios</title>
 
   <!-- Bootstrap CSS -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ <link rel="stylesheet" href="css/bootstrap.min.css" >
 
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -24,7 +24,7 @@
    $sql = "select * from usuarios;";
    $result = $dblink->query($sql);
    ?>
-   <table class="table table-striped table-bordered">
+   <table class="table table-striped table-bordered table-dark">
      <thead>
        <tr>
          <th>Nombre de usuario </th>
@@ -56,10 +56,10 @@
      </tbody>
    </table>
    <!-- jQuery -->
-   <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+   <script src="js/jquery-3.3.1.min.js"></script>
 
    <!-- Bootstrap JS -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <script src="js/bootstrap.min.js" ></script>
 
 </body>
 
