@@ -3,7 +3,7 @@
   <title>Gestion de Usuarios</title>
 
   <!-- Bootstrap CSS -->
- <link rel="stylesheet" href="css/bootstrap.min.css" >
+ <link rel="stylesheet" href="css/bootstrap.css" >
 
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
@@ -11,7 +11,7 @@
 <body>
   <link href="custom.css" type="text/css" rel="stylesheet" />
   <button class="button">Cerrar sesión</button>
-    <br>
+    <img src="Logo_UPB.jpg" class="img-fluid " alt="Responsive image">
     <?php
    $db_name = "bd_aulasperronas";
    $db_user = "root";
@@ -24,18 +24,18 @@
    $sql = "select * from usuarios;";
    $result = $dblink->query($sql);
    ?>
-   <table class="table table-striped table-bordered table-dark">
-     <thead>
+   <table class="table table-striped table-bordered  table-responsive-sm m-5">
+     <thead  class="thead-dark">
        <tr>
-         <th>Nombre de usuario </th>
-         <th>Numero de interno</th>
-         <th>Correo</th>
-         <th>Rol</th>
-         <th>Editar</th>
-         <th>Borrar</th>
+         <th style="width: 15%">Nombre de usuario </th>
+         <th style="width: 10%">Numero de interno</th>
+         <th style="width: 20%"> Correo</th>
+         <th style="width: 10%">Rol</th>
+         <th style="width: 10%">Editar</th>
+         <th style="width: 10%">Borrar</th>
        </tr>
      </thead>
-     <tbody>
+      <tbody>
        <<?php   while ($fila = $result->fetch_object()){  ?>
         <tr>
            <td><?php echo " $fila->nombre"; ?></td>
@@ -53,8 +53,16 @@
            <td><?php echo "<a href=\"EliminarUsuario.php\"> Borrar";?></td>
         </tr>
        <<?php } ?>
+       <?php
+        $dblink->close();
+        ?>
      </tbody>
    </table>
+
+
+
+
+
    <!-- jQuery -->
    <script src="js/jquery-3.3.1.min.js"></script>
 
