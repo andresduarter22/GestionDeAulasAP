@@ -22,21 +22,26 @@
      die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
            . $dblink->connect_error);
    }
-   $sql = "select * from aulas;";
+   $sql = "select * from usuarios;";
    $result = $dblink->query($sql);
    ?>
    <table class="table table-striped table-bordered">
      <thead>
        <tr>
-         <th>Nombre de Aula </th>
-         <th>Cantidad de Alumnos</th>
+         <th>Nombre de usuario </th>
+         <th>Numero de interno</th>
+         <th>Correo</th>
+         <th>Rol</th>
        </tr>
      </thead>
      <tbody>
        <<?php   while ($fila = $result->fetch_object()){  ?>
         <tr>
            <td><?php echo " $fila->nombre"; ?></td>
-           <td><?php echo "$fila->cantidad_alumnos";  ?></td>
+           <td><?php echo "$fila->num_interno";  ?></td>
+           <td><?php echo " $fila->E_Mail"; ?></td>
+           <td><?php echo "$fila->Rol";  ?></td>
+
         </tr>
        <<?php } ?>
      </tbody>
