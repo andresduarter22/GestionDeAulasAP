@@ -19,7 +19,7 @@
    $db_pass = "";
    $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
    if ($dblink->connect_error) {
-     die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
+     die('Error al conectar a la Base de Datos (' .  $dblink->connect_errno . ') '
            . $dblink->connect_error);
    }
    $sql = "select * from usuarios;";
@@ -32,6 +32,8 @@
          <th>Numero de interno</th>
          <th>Correo</th>
          <th>Rol</th>
+         <th>Editar</th>
+         <th>Borrar</th>
        </tr>
      </thead>
      <tbody>
@@ -41,7 +43,8 @@
            <td><?php echo "$fila->num_interno";  ?></td>
            <td><?php echo " $fila->E_Mail"; ?></td>
            <td><?php echo "$fila->Rol";  ?></td>
-
+           <td><?php echo "<a href=\"EditarUsuario.php\"> Editar";?></td>
+           <td><?php echo "<a href=\"EliminarUsuario.php\"> Borrar";?></td>
         </tr>
        <<?php } ?>
      </tbody>
