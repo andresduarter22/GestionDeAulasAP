@@ -11,7 +11,6 @@
 <body>
   <link href="custom.css" type="text/css" rel="stylesheet" />
   <button class="button">Cerrar sesión</button>
-
     <br>
     <?php
    $db_name = "bd_aulasperronas";
@@ -42,7 +41,14 @@
            <td><?php echo " $fila->nombre"; ?></td>
            <td><?php echo "$fila->num_interno";  ?></td>
            <td><?php echo " $fila->E_Mail"; ?></td>
-           <td><?php echo "$fila->Rol";  ?></td>
+           <td><?php if ($fila->Rol ==0 ) {
+             echo "reservador";
+           } elseif ($fila->Rol ==1 ) {
+             echo "actualizador";
+           } else {
+             echo "Administrador";
+           }
+            "$fila->Rol";  ?></td>
            <td><?php echo "<a href=\"EditarUsuario.php\"> Editar";?></td>
            <td><?php echo "<a href=\"EliminarUsuario.php\"> Borrar";?></td>
         </tr>
