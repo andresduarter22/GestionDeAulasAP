@@ -18,14 +18,15 @@
    $sql = "select * from aulas;";
    $result = $dblink->query($sql);
 ?>
-   Aulas:<br>
-   <ul>
-     <?php while ($fila = $result->fetch_object()) {
-       echo"<li> $fila->nombre  -  <a href = \"EditarAula.php\">Editar</a> -  <a href = \"BorrarAula.php\">Borrar</a> </li>"
-     ; } ?>
-  </ul>
-
-  <button><a href="CrearAula.php">Crear Aula</a></button>
+Aulas:<br>
+<ul>
+  <?php while ($fila = $result->fetch_object()) {
+    echo"<li> $fila->nombre  -  <a href = \"EditarAula.php\">Editar</a> -  <a href = \"BorrarAula.php\">Borrar</a> </li>"
+  ; } ?>
+</ul>
+  <button><a href="GestionDeAulas.php">Atras</a>
+  <button><a href="GestionDeAulas.php">Confirmar</a>
+  </button>
   <?php
    $dblink->close();
    ?>
