@@ -63,6 +63,7 @@
 </table>
 
   <button><a href="CrearAula.php">Crear Aula</a></button>
+  <img  src="iconoInfo.png" class="img-fluid " alt="Responsive image" height="42" width="42"/>
 
    <!-- jQuery -->
    <script src="js/jquery-3.3.1.min.js"></script>

@@ -36,15 +36,15 @@
   <table class="table table-striped table-bordered table-responsive-sm m-5">
     <thead class="thead-dark">
       <tr>
-        <th style="width: 50%"> Categoria</th>
-        <th style="width: 50%">Hola</th>
+        <th style="width: 15%"> Categoria</th>
+        <th style="width: 15%">Hola</th>
       </tr>
     </thead>
     <tbody>
      <?php   while ($fila = $result->fetch_object()){  ?>
       <tr>
          <td><?php echo " $fila->nombre_categoria"; ?></td>
-         <td><?php echo "<input type=\"checkbox\" class=\"form-check-input\" disabled>";?></td>
+         <td><?php echo "<input type=\"checkbox\" class=\"form-check-input\" enabled>";?></td>
       </tr>
 
      <?php } ?>
