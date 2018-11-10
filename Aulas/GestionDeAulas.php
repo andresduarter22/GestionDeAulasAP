@@ -6,8 +6,8 @@
 </head>
 <body>
   <link href="custom.css" type="text/css" rel="stylesheet" />
-  <button class="button">Cerrar sesión</button>
-    <img src="Logo_UPB.jpg" class="img-fluid " alt="Responsive image">
+  <button type="button" class="btn btn-danger">Cerrar sesión</button>
+    <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid " alt="Responsive image" ></a>
   <?php
    $db_name = "bd_aulasperronas";
    $db_user = "root";
@@ -30,13 +30,13 @@
     </tr>
   </thead>
    <tbody>
-    <<?php   while ($fila = $result->fetch_object()){  ?>
+    <?php   while ($fila = $result->fetch_object()){  ?>
      <tr>
         <td><?php echo " $fila->nombre"; ?></td>
         <td><?php echo "<a href=\"EditarAula.php\"> Editar";?></td>
         <td><?php echo "<a href=\"EliminarAula.php\"> Borrar";?></td>
      </tr>
-    <<?php } ?>
+    <?php } ?>
     <?php
      $dblink->close();
      ?>
@@ -44,7 +44,7 @@
 </table>
 
   <button><a href="CrearAula.php">Crear Aula</a></button>
-  
+
    <!-- jQuery -->
    <script src="js/jquery-3.3.1.min.js"></script>
 

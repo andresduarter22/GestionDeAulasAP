@@ -1,11 +1,14 @@
 <html>
 <head>
-  <link href="Style.css" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/bootstrap.css" >
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 </head>
 <body>
+  <button type="button" class="btn btn-danger">Cerrar sesión</button>
+    <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid " alt="Responsive image" ></a>
   <?php
-
    $db_name = "bd_aulasperronas";
    $db_user = "root";
    $db_pass = "";
@@ -18,18 +21,29 @@
    $sql = "select * from aulas;";
    $result = $dblink->query($sql);
 ?>
-Aulas:<br>
-<ul>
-  <?php while ($fila = $result->fetch_object()) {
-    echo"<li> $fila->nombre  -  <a href = \"EditarAula.php\">Editar</a> -  <a href = \"BorrarAula.php\">Borrar</a> </li>"
-  ; } ?>
-</ul>
+
+
+
+<div class="form-group">
+  <label for="NombreAula">Nombre:</label>
+  <input type="text" class="form-control" id="usr">
+</div>
+<div class="form-group">
+  <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
+  <input type="password" class="form-control" id="pwd">
+</div>
 
   <button><a href="GestionDeAulas.php">Confirmar</a>
   </button>
   <?php
    $dblink->close();
    ?>
+
+   <!-- jQuery -->
+   <script src="js/jquery-3.3.1.min.js"></script>
+
+   <!-- Bootstrap JS -->
+   <script src="js/bootstrap.min.js" ></script>
 </body>
 
 </html>
