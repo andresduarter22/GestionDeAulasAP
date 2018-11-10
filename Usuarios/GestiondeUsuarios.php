@@ -35,7 +35,7 @@
          </tr>
        </thead>
         <tbody>
-         <<?php   while ($fila = $result->fetch_object()){  ?>
+         < <?php   while ($fila = $result->fetch_object()){  ?>
           <tr>
              <td><?php echo " $fila->nombre"; ?></td>
              <td><?php echo "$fila->num_interno";  ?></td>

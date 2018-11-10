@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="css/bootstrap.css" >
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Editar Usuarios</title>
+  <title>Crear Usuarios</title>
 </head>
 <body>
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
@@ -18,22 +18,42 @@
            . $dblink->connect_error);
    }
 
-   $sql = "select * from aulas;";
+   $sql = "select * from Usuarios where id_Usuario=1 ;";
    $result = $dblink->query($sql);
 ?>
+<!--
+<div class="custom-control custom-checkbox">
+  <input type="checkbox" class="custom-control-input" id="customCheck1">
+  <label class="custom-control-label" for="customCheck1">Administrador</label>
+  <input type="checkbox" class="custom-control-input" id="customCheck2">
+  <label class="custom-control-label" for="customCheck1">Actualizador</label>
+  <input type="checkbox" class="custom-control-input" id="customCheck3">
+  <label class="custom-control-label" for="customCheck1">Administrador</label>
+</div>
+-->
+<select class="custom-select" value=1>
+  <option selected>Categoria de Usuario</option>
+  <option value="1">Administrador</option>
+  <option value="2">Actualizador</option>
+  <option value="3">Reservador</option>
+</select>
 
-
-
+<?php   while ($fila = $result->fetch_object()){  ?>
 <div class="form-group">
   <label for="NombreAula">Nombre:</label>
-  <input type="text" class="form-control" id="usr">
+  <input type="text" value= <?php echo "  $fila->nombre "; ?> class="form-control" id="usr">
 </div>
 <div class="form-group">
-  <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-  <input type="password" class="form-control" id="pwd">
+  <label for="num_interno">Numero de Interno:</label>
+  <input type="text" value= <?php echo "  $fila->num_interno "; ?> class="form-control" id="interno">
 </div>
+<div class="form-group">
+  <label for"E_Mail">E-Mail:</label>
+  <input type="text"value= <?php echo "  $fila->E_Mail "; ?>  class="form-control" id="e_mail">
+</div>
+<?php }?>
 
-  <button><a href="GestionDeAulas.php">Confirmar</a>
+  <button><a href="GestionDeUsuarios.php">Confirmar</a>
   </button>
   <?php
    $dblink->close();

@@ -18,7 +18,7 @@
            . $dblink->connect_error);
    }
 
-   $sql = "select * from aulas;";
+   $sql = "select * from usuario;";
    $result = $dblink->query($sql);
 ?>
 <!--
@@ -31,6 +31,12 @@
   <label class="custom-control-label" for="customCheck1">Administrador</label>
 </div>
 -->
+<select class="custom-select">
+  <option selected>Categoria de Usuario</option>
+  <option value="1">Administrador</option>
+  <option value="2">Actualizador</option>
+  <option value="3">Reservador</option>
+</select>
 <div class="form-group">
   <label for="NombreAula">Nombre:</label>
   <input type="text" class="form-control" id="usr">
@@ -44,13 +50,8 @@
   <input type="text" class="form-control" id="e_mail">
 </div>
 
-<select class="custom-select">
-  <option selected>Categoria de Usuario</option>
-  <option value="1">Administrador</option>
-  <option value="2">Actualizador</option>
-  <option value="3">Reservador</option>
-</select>
-  <button><a href="GestionDeAulas.php">Confirmar</a>
+
+  <button><a href="GestionDeUsuarios.php">Confirmar</a>
   </button>
   <?php
    $dblink->close();
