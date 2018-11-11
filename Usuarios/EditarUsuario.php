@@ -53,8 +53,9 @@
 </div>
 <?php }?>
 
-  <button><a href="GestionDeUsuarios.php">Confirmar</a>
-  </button>
+  <button><a href="GestionDeUsuarios.php">Confirmar</a>  </button>
+  <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+
   <?php
    $dblink->close();
    ?>
