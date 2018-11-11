@@ -24,16 +24,19 @@
 
 
 
-<div class="form-group">
-  <label for="NombreAula">Nombre:</label>
-  <input type="text" class="form-control" id="usr">
-</div>
-<div class="form-group">
-  <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-  <input type="password" class="form-control" id="pwd">
-</div>
+  <div  class="container">
+    <label for="NombreAula">Nombre:</label>
+    <input type="text" class="form-control" id="usr">
+  </div>
+  <div class="container">
+    <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
+    <input type="password" class="form-control" id="pwd">
+  </div>
+
+
+
 <div>
-  <table class="table table-striped table-bordered table-responsive-sm m-5">
+  <table class="table table-striped table-bordered table-responsive-sm m-5 container">
     <thead class="thead-dark">
       <tr>
         <th style="width: 15%"> Categoria</th>

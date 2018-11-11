@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-  <link href="custom.css" type="text/css" rel="stylesheet" />
+  <link href="Style.css" type="text/css" rel="stylesheet" />
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid " alt="Responsive image" ></a>
   <?php
@@ -62,8 +62,27 @@
   </tbody>
 </table>
 
-  <button><a href="CrearAula.php">Crear Aula</a></button>
-  <img  src="iconoInfo.png" class="img-fluid " alt="Responsive image" height="42" width="42"/>
+  <button><a href="CrearAula.php" >Crear Aula</a></button>
+  <img  src="iconoInfo.png" class="img-fluid " alt="Responsive image" height="42" width="42"  data-target="info"/>
+  <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          AIUDA
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
    <!-- jQuery -->
    <script src="js/jquery-3.3.1.min.js"></script>

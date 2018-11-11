@@ -26,11 +26,11 @@
 
 <div class="form-group">
   <label for="NombreAula">Nombre:</label>
-  <input type="text" class="form-control" id="usr">
+  <input type="text" class="form-control" id="NombreAula">
 </div>
 <div class="form-group">
   <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-  <input type="password" class="form-control" id="pwd">
+  <input type="text" class="form-control" id="CantidadAlumnos">
 </div>
 
   <button><a href="GestionDeAulas.php">Confirmar</a>
