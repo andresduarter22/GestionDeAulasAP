@@ -2,7 +2,6 @@
   <head>
     <title>Gestion de Usuarios</title>
 
-    <!-- Bootstrap CSS -->
    <link rel="stylesheet" href="css/bootstrap.css" >
 
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,7 +9,7 @@
   </head>
   <body>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
-        <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid " alt="Responsive image"></a>
+        <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
       <?php
      $db_name = "bd_aulasperronas";
      $db_user = "root";

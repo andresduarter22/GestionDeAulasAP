@@ -7,7 +7,7 @@
 </head>
 <body>
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
-    <a href="GestionDeUsuarios.php"><img src="Logo_UPB.jpg" class="img-fluid " alt="Responsive image" ></a>
+    <a href="GestionDeUsuarios.php"><img src="Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
   <?php
    $db_name = "bd_aulasperronas";
    $db_user = "root";
