@@ -32,12 +32,12 @@
 </div>
 -->
 <div class="container" >
-<select class="custom-select">
+ <select class="custom-select">
   <option selected>Categoria de Usuario</option>
   <option value="1">Administrador</option>
   <option value="2">Actualizador</option>
   <option value="3">Reservador</option>
-</select>
+ </select>
 <div class="form-group">
   <label for="NombreAula">Nombre:</label>
   <input type="text" class="form-control" id="usr">
@@ -49,6 +49,7 @@
 <div class="form-group">
   <label for"E_Mail">E-Mail:</label>
   <input type="text" class="form-control" id="e_mail">
+</div>
 </div>
 <div class="container" >
 

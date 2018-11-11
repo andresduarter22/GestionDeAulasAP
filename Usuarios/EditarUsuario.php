@@ -6,10 +6,8 @@
   <title>Crear Usuarios</title>
 </head>
 <body>
-
-
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
-    <a href="GestionDeUsuarios.php"><img src="Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
+  <a href="GestionDeUsuarios.php"><img src="Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
   <?php
    $db_name = "bd_aulasperronas";
    $db_user = "root";
@@ -33,6 +31,7 @@
   <label class="custom-control-label" for="customCheck1">Administrador</label>
 </div>
 -->
+<div class="container" >
 <select class="custom-select" value=1>
   <option selected>Categoria de Usuario</option>
   <option value="1">Administrador</option>
@@ -61,7 +60,7 @@
   <?php
    $dblink->close();
    ?>
-
+</div >
    <!-- jQuery -->
    <script src="js/jquery-3.3.1.min.js"></script>
 
