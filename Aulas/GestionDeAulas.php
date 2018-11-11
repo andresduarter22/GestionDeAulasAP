@@ -4,7 +4,7 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
-<body>
+<body >
   <link href="Style.css" type="text/css" rel="stylesheet" />
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
@@ -21,10 +21,13 @@
    $sql = "select * from aulas;";
    $result = $dblink->query($sql);
 ?>
-<table class="table table-striped table-bordered  table-responsive-sm m-5">
+<div class="container" >
+
+
+<table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
     <tr>
-      <th style="width: 15%"> Nombre Del Aula </th>
+      <th style="width: 30%"> Nombre Del Aula </th>
       <th style="width: 10%">Editar</th>
       <th style="width: 20%"> Borrar</th>
     </tr>
@@ -61,6 +64,7 @@
      ?>
   </tbody>
 </table>
+</div>
 
   <button><a href="CrearAula.php" >Crear Aula</a></button>
   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
