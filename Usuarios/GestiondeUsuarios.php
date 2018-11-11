@@ -48,7 +48,7 @@
                echo "Administrador";
              }
               "$fila->Rol";  ?></td>
-                                                                          
+                                                                      
              <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"><a href=\"EditarUsuario.php?varname=<?php echo $ ?>\">Editar";?></td>
              <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal\">Borrar";?></td>
           </tr>
