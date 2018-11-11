@@ -6,6 +6,8 @@
   <title>Crear Usuarios</title>
 </head>
 <body>
+
+
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestionDeUsuarios.php"><img src="Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
   <?php
@@ -18,7 +20,7 @@
            . $dblink->connect_error);
    }
 
-   $sql = "select * from Usuarios where id_Usuario=1 ;";
+   $sql = "select * from Usuarios where id_Usuario=1;";
    $result = $dblink->query($sql);
 ?>
 <!--

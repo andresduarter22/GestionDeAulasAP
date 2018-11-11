@@ -1,4 +1,4 @@
-  <html>
+<html>
   <head>
     <title>Gestion de Usuarios</title>
 
@@ -9,30 +9,31 @@
   </head>
   <body>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
-        <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
+    <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
       <?php
-     $db_name = "bd_aulasperronas";
-     $db_user = "root";
-     $db_pass = "";
-     $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
-     if ($dblink->connect_error) {
+      $db_name = "bd_aulasperronas";
+      $db_user = "root";
+      $db_pass = "";
+      $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
+      if ($dblink->connect_error) {
        die('Error al conectar a la Base de Datos (' .  $dblink->connect_errno . ') '
              . $dblink->connect_error);
      }
-     $sql = "select * from usuarios;";
-     $result = $dblink->query($sql);
-     ?>
-       <table class="table table-striped table-bordered  table-responsive-sm m-5s">
-       <thead  class="thead-dark">
-         <tr>
-           <th style="width: 15%">Nombre de usuario </th>
-           <th style="width: 10%">Numero de interno</th>
-           <th style="width: 20%"> Correo</th>
-           <th style="width: 10%">Rol</th>
-           <th style="width: 10%">Editar</th>
-           <th style="width: 10%">Borrar</th>
-         </tr>
-       </thead>
+      $sql = "select * from usuarios;";
+      $result = $dblink->query($sql);
+      ?>
+    <div class="container" >
+     <table class="table table-striped table-bordered  table-responsive-sm  scrollbar">
+     <thead  class="thead-dark">
+       <tr>
+         <th style="width: 15%">Nombre de usuario </th>
+         <th style="width: 10%">Numero de interno</th>
+         <th style="width: 20%"> Correo</th>
+         <th style="width: 10%">Rol</th>
+         <th style="width: 10%">Editar</th>
+         <th style="width: 10%">Borrar</th>
+       </tr>
+     </thead>
         <tbody>
          < <?php   while ($fila = $result->fetch_object()){  ?>
           <tr>
@@ -47,7 +48,8 @@
                echo "Administrador";
              }
               "$fila->Rol";  ?></td>
-             <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"><a href=\"EditarUsuario.php\">Editar";?></td>
+                                                                          
+             <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"><a href=\"EditarUsuario.php?varname=<?php echo $ ?>\">Editar";?></td>
              <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal\">Borrar";?></td>
           </tr>
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -75,7 +77,7 @@
           ?>
        </tbody>
      </table>
-
+   </div>
      <button><a href="CrearUsuario.php">Crear nuevo usuario</a></button
      <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 

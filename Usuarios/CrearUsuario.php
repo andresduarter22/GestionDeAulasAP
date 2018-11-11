@@ -31,6 +31,7 @@
   <label class="custom-control-label" for="customCheck1">Administrador</label>
 </div>
 -->
+<div class="container" >
 <select class="custom-select">
   <option selected>Categoria de Usuario</option>
   <option value="1">Administrador</option>
@@ -49,6 +50,7 @@
   <label for"E_Mail">E-Mail:</label>
   <input type="text" class="form-control" id="e_mail">
 </div>
+<div class="container" >
 
 <table class="table table-striped table-bordered  table-responsive-sm m-5s">
 <thead  class="thead-dark">
@@ -81,12 +83,12 @@
         $result = $dblink->query($sql);
         while ($fila = $result->fetch_object()){  ?>
        <tr>
-          <td><?php echo " $fila->nombre_categoria"; ?></td>
+            <td><?php echo " $fila->nombre_categoria"; ?></td>
           <td><?php echo "<input type=\"checkbox\" class=\"form-check-input\" enabled>";?></td>
        </tr>
         <?php } ?>
-
-
+      </table>
+</div>
   <button><a href="GestionDeUsuarios.php">Confirmar</a> </button>
   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
