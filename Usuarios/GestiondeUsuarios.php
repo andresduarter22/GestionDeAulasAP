@@ -11,6 +11,7 @@
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
       <?php
+      session_start();
       $db_name = "bd_aulasperronas";
       $db_user = "root";
       $db_pass = "";
@@ -48,8 +49,10 @@
                echo "Administrador";
              }
               "$fila->Rol";  ?></td>
-                                                                      
-             <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"><a href=\"EditarUsuario.php?varname=<?php echo $ ?>\">Editar";?></td>
+
+             <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"><a href=\"EditarUsuario.php\">Editar";
+               $_SESSION['id'] = $fila->id_Usuario;
+             ?></td>
              <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal\">Borrar";?></td>
           </tr>
           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
