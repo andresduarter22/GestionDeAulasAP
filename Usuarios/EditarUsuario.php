@@ -9,7 +9,6 @@
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
   <a href="GestionDeUsuarios.php"><img src="Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
   <?php
-  session_start();
    $db_name = "bd_aulasperronas";
    $db_user = "root";
    $db_pass = "";
@@ -19,8 +18,9 @@
            . $dblink->connect_error);
    }
    $var_value = $_SESSION['id'];
-   echo "$var_value";
-   $sql = "select * from Usuarios where id_Usuario= $var_value  ;";
+   //Using GET
+   $_idDeUsuario = $_GET['id'];
+   $sql = "select * from Usuarios where id_Usuario= $_idDeUsuario ;";
    $result = $dblink->query($sql);
 ?>
 <!--
