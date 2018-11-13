@@ -1,13 +1,13 @@
 <html>
 <head>
-  <link rel="stylesheet" href="css/bootstrap.css" >
+  <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Crear Usuarios</title>
 </head>
 <body>
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
-  <a href="GestionDeUsuarios.php"><img src="Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
+  <a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
   <?php
    $db_name = "bd_aulasperronas";
    $db_user = "root";
@@ -57,17 +57,17 @@
 <?php }?>
 
   <button><a href="GestionDeUsuarios.php">Confirmar</a>  </button>
-  <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+  <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
   <?php
    $dblink->close();
    ?>
 </div >
    <!-- jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
+   <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
    <!-- Bootstrap JS -->
-   <script src="js/bootstrap.min.js" ></script>
+   <script src="../Booststrap/js/bootstrap.min.js" ></script>
 </body>
 
 </html>

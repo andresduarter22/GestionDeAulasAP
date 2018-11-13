@@ -2,14 +2,14 @@
   <head>
     <title>Gestion de Usuarios</title>
 
-   <link rel="stylesheet" href="css/bootstrap.css" >
+   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
 
    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
   </head>
   <body>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
-    <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
+    <a href="GestionDeAulas.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
       <?php
 
       session_start();
@@ -85,16 +85,16 @@
        </tbody>
      </table>
    </div>
-     <button><a href="CrearUsuario.php">Crear nuevo usuario</a></button
-     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+   <button><a href="CrearUsuario.php">Crear nuevo usuario</a></button
+   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
 
 
      <!-- jQuery -->
-     <script src="js/jquery-3.3.1.min.js"></script>
+     <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
      <!-- Bootstrap JS -->
-     <script src="js/bootstrap.min.js" ></script>
+     <script src="../Booststrap/js/bootstrap.min.js" ></script>
 
   </body>
 
