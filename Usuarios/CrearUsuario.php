@@ -21,24 +21,25 @@
    $sql = "select * from usuario;";
    $result = $dblink->query($sql);
 ?>
+<form action="#" method="post">
 <div class="container" >
- <select class="custom-select">
+ <select class="custom-select" name="Categoria">
   <option selected>Categoria de Usuario</option>
   <option value="1">Administrador</option>
   <option value="2">Actualizador</option>
   <option value="3">Reservador</option>
  </select>
 <div class="form-group">
-  <label for="NombreAula">Nombre:</label>
-  <input type="text" class="form-control" id="usr">
+  <label for="NombreUsuario">Nombre:</label>
+  <input type="text" class="form-control" id="usr" name="nombre">
 </div>
 <div class="form-group">
   <label for="num_interno">Numero de Interno:</label>
-  <input type="text" class="form-control" id="interno">
+  <input type="text" class="form-control" id="interno" name="numInt">
 </div>
 <div class="form-group">
   <label for"E_Mail">E-Mail:</label>
-  <input type="text" class="form-control" id="e_mail">
+  <input type="text" class="form-control" id="e_mail" name="correo">
 </div>
 </div>
 <div class="container" >
@@ -51,7 +52,7 @@
   </tr>
 </thead>
  <tbody>
-  <?php
+   <?php
     $sql = "select * from aulas;";
     $result = $dblink->query($sql);
     while ($fila = $result->fetch_object()){  ?>
@@ -60,7 +61,7 @@
       <td><?php echo "<input type=\"checkbox\" class=\"form-check-input\" enabled>";?></td>
    </tr>
     <?php } ?>
-
+</table>
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
     <thead  class="thead-dark">
       <tr>
@@ -80,8 +81,28 @@
         <?php } ?>
       </table>
 </div>
-  <button><a href="GestionDeUsuarios.php">Confirmar</a> </button>
+
+
+  <form action="CrearUsuario.php" method="post">
+    <input type="submit" name="submit" value="submit">
+  </form>
+  </form>
   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+
+
+  <?php
+  if (isset($_POST['submit']))
+  {
+     postit();
+  }
+  function postit(){
+    $_categoria= $_POST['Categoria'];
+    $_nombre= $_POST['nombre'];
+    $_interno= $_POST['numInt'];
+    $_Email= $_POST['correo'];
+    echo "$_categoria $_nombre $_interno $_Email";
+  }
+  ?>
 
 
 
