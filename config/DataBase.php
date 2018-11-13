@@ -11,13 +11,16 @@ class DataBase {
 
 
   public function getConection(){
-  $this->$connection=null;
-    $db_link = new mysqli($host, $db_username, $db_password, $db_name);
-    if ($db_link->connect_error) {
-     die('Error al conectar a la Base de Datos (' .  $db_link->connect_errno . ') '
-           . $db_link->connect_error);
-    }
-    return $db_link;
+
+    //TODO try this PDO
+      $this->$connection=null;
+       try {
+           $this->connection = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name,
+               $this->db_username, $this->db_password);
+       } catch (PDOException $e) {
+           echo "Database connection error: " . $e->getMessage();
+       }
+       return $this->connection;
   }
 }
 
