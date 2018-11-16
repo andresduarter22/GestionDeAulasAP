@@ -11,7 +11,8 @@
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestionDeAulas.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
       <?php
-        include_once "../Config/Database.php";
+        //Conexion con base
+        include "../Config/Database.php";
         session_start();
         $db= new Database();
         $dblink= $db->getConnection();
@@ -25,7 +26,7 @@
        <tr>
          <th style="width: 15%">Nombre de usuario </th>
          <th style="width: 10%">Numero de interno</th>
-         <th style="width: 20%"> Correo</th>
+         <th style="width: 20%">Correo</th>
          <th style="width: 10%">Rol</th>
          <th style="width: 10%">Editar</th>
          <th style="width: 10%">Borrar</th>
@@ -73,17 +74,11 @@
             </div>
           </div>
          <<?php } ?>
-         <?php
-          $dblink->close();
-          ?>
        </tbody>
      </table>
    </div>
    <button><a href="CrearUsuario.php">Crear nuevo usuario</a></button
    <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
-
-
-
      <!-- jQuery -->
      <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
