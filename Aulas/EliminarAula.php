@@ -23,8 +23,7 @@
    $sql = "select * from aulas;";
    $result = $dblink->query($sql);
 ?>
-  <?php
-   ?>
+
   <button><a href="GestionDeAulas.php">Atras</a>
   <button><a href="GestionDeAulas.php">Confirmar</a>
   </button>
