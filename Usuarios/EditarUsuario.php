@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Crear Usuarios</title>
+  <title>Editar Usuarios</title>
 </head>
 <body>
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
