@@ -16,7 +16,7 @@
       $db= new Database();
       $dblink= $db->getConnection();
     ?>
-<form action="#" method="post">
+<form action="CrearUsuario.php" method="post">
   <div class="container" >
     <select class="custom-select" name="Categoria">
       <option selected>Categoria de Usuario</option>
@@ -51,7 +51,7 @@
         ?>
         <tr>
           <td><?php echo $fila['nombre'] ?></td>
-          <td><?php  echo "<input type=\"checkbox\" name=\"aula[]\"class=\"form-check-input\" enabled>";?>
+          <td><?php  echo "<input type=\"checkbox\" name=\"aula[]\" id=\"aula\" value=\" ".$fila['nombre']." \" enabled>";?>
           </td>
         </tr>
         <?php } ?>
@@ -99,16 +99,14 @@
     $_Email= $_POST['correo'];
     $_aulas= $_POST['aula'];
 
-      echo "$_aulas";
-      foreach ($name as $_aulas){
-        echo $_aulas."<br />";
-    }
+    echo "$_aulas";
 
 
-    $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoria')";
-    if ($dblink->query($sql) === FALSE) {
-      echo "Error: " . $sql . "<br>" . $dblink->error;
-    }
+
+  //  $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoria')";
+  //  if ($dblink->query($sql) === FALSE) {
+  //    echo "Error: " . $sql . "<br>" . $dblink->error;
+  //  }
   }
 ?>
 
