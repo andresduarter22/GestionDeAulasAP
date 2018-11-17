@@ -36,7 +36,7 @@
     <?php   while ($fila = $result->fetch_object()){  ?>
      <tr>
         <td><?php echo " $fila->nombre"; ?></td>
-        <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"><a href=\"EditarAula.php\" >Editar";?></td>
+        <td><?php echo "<a href=\"EditarAula.php\" class=\"btn btn-primary\" > Editar";?></td>
         <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\"> Borrar";?></td>
      </tr>
      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -78,7 +78,8 @@
           </button>
         </div>
         <div class="modal-body">
-          AIUDA XD
+          Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

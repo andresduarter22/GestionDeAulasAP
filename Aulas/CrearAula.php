@@ -6,8 +6,11 @@
 
 </head>
 <body>
-  <button type="button" class="btn btn-danger">Cerrar sesión</button>
-    <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid " alt="Responsive image" ></a>
+  <div>
+    <button type="button" class="btn btn-danger">Cerrar sesión</button>
+      <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+  </div>
+
   <?php
    $db_name = "bd_aulasperronas";
    $db_user = "root";
