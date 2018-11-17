@@ -51,12 +51,11 @@
         ?>
         <tr>
           <td><?php echo $fila['nombre'] ?></td>
-          <td><?php  echo "<input type=\"checkbox\" name=\"aula[]\" id=\"aula\" value=\" ".$fila['nombre']." \" enabled>";?>
-          </td>
+          <td><?php  echo "<input type=\"checkbox\" name=\"aula[]\" id=\"aula\" value=\" ".$fila['id_Aulas']." \" enabled>";?> </td>
         </tr>
         <?php } ?>
     </table>
-    <table class="table table-striped table-bordered  table-responsive-sm m-5s">
+  <table class="table table-striped table-bordered  table-responsive-sm m-5s">
       <thead  class="thead-dark">
         <tr>
           <th style="width: 15%">Nombre de usuario </th>
@@ -72,7 +71,7 @@
         ?>
       <tr>
         <td><?php echo $fila['nombre_categoria']  ?></td>
-        <td><?php echo "<input  type=\"checkbox\" class=\"form-check-input\" enabled>";?></td>
+        <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila['id_Categorias']." \" enabled>";?></td>
       </tr>
         <?php }
         ?>
@@ -98,15 +97,25 @@
     $_interno= $_POST['numInt'];
     $_Email= $_POST['correo'];
     $_aulas= $_POST['aula'];
+    $_categorias= $_POST['categoria'];
 
-    echo "$_aulas";
+//    echo "$_categorias";
+//  foreach ($_aulas as  $value) {
+//    echo $value;
+//  }
 
+  $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoria')";
+  if ($dblink->query($sql) === FALSE) {
+    echo "Error: " . $sql . "<br>" . $dblink->error;
+  }
+  $_idUsuarioCreado=$dblink->lastInsertId();
+  foreach ($_aulas as  $value) {
+    $sql = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsuarioCreado')";
+    if ($dblink->query($sql) === FALSE) {
+      echo "Error: " . $sql . "<br>" . $dblink->error;
+    }
+  }
 
-
-  //  $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoria')";
-  //  if ($dblink->query($sql) === FALSE) {
-  //    echo "Error: " . $sql . "<br>" . $dblink->error;
-  //  }
   }
 ?>
 
