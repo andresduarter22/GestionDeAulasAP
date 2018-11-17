@@ -51,10 +51,7 @@
         ?>
         <tr>
           <td><?php echo $fila['nombre'] ?></td>
-          <td><?php  echo "<input type=\"checkbox\" class=\"form-check-input\" enabled>";?>
-    <!--    <form action="#" method="post">
-         <input type="checkbox" name="check_list[]" ><br/>
-       </form> -->
+          <td><?php  echo "<input type=\"checkbox\" name=\"aula[]\"class=\"form-check-input\" enabled>";?>
           </td>
         </tr>
         <?php } ?>
@@ -100,9 +97,13 @@
     $_nombre= $_POST['nombre'];
     $_interno= $_POST['numInt'];
     $_Email= $_POST['correo'];
-    $_aulas= $_POST['check_list'];
-    echo "$_nombre $_interno $_Email $_categoria";
-    echo "$_aulas";
+    $_aulas= $_POST['aula'];
+
+      echo "$_aulas";
+      foreach ($name as $_aulas){
+        echo $_aulas."<br />";
+    }
+
 
     $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoria')";
     if ($dblink->query($sql) === FALSE) {
