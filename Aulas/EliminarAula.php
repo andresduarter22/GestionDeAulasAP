@@ -3,6 +3,7 @@
   <link rel="stylesheet" href="css/bootstrap.css" >
 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="refresh" content="2; URL=GestionDeAulas.PHP">
 </head>
 <body>
   <link href="custom.css" type="text/css" rel="stylesheet" />
