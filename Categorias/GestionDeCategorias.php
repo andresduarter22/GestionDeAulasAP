@@ -1,19 +1,19 @@
 <html>
 <head>
-  <title>Gestion de Aulas</title>
+  <title>Gestion de Categorias</title>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body >
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
-    <a href="../Homes/HomeLogeado.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
     <?php
       //Conexion con base
       include "../Config/Database.php";
       session_start();
       $db= new Database();
       $dblink= $db->getConnection();
-      $sql = 'select * from Aulas;';
+      $sql = 'select * from Categorias;';
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
     ?>
@@ -21,7 +21,7 @@
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
     <tr>
-      <th style="width: 30%"> Nombre Del Aula </th>
+      <th style="width: 30%"> Nombre de la Categoria</th>
       <th style="width: 10%">Editar</th>
       <th style="width: 20%"> Borrar</th>
     </tr>
@@ -29,9 +29,9 @@
    <tbody>
     <?php   while ($fila = $result->fetch()){  ?>
      <tr>
-        <td><?php echo $fila['nombre']; ?></td>
-        <td><?php echo "<a href=\"EditarAula.php\" class=\"btn btn-primary\">Editar";?></td>
-        <td><?php echo '<a href= EliminarAula.php ?id_Aulas=$fila["id_Aulas"] class= "btn btn-primary" >Borrar';?></td>
+        <td><?php echo $fila['nombre_categoria']; ?></td>
+        <td><?php echo "<a href=\"EditarCategoria.php\" class=\"btn btn-primary\">Editar";?></td>
+        <td><?php echo '<a href= EliminarCategoria.php ?id_Categorias=$fila["id_Categorias"] class= "btn btn-primary" >Borrar';?></td>
          </tr>
     <?php } ?>
 
@@ -39,8 +39,8 @@
 </table>
 </div>
 
-  <a href="CrearAula.php" class="btn btn-primary" >Crear Aula</a>
-  <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+<a href="CrearCategoria.php" class="btn btn-primary" >Crear Categoria</a>
+  <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
   <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
