@@ -1,33 +1,25 @@
 <html>
 <head>
   <link rel="stylesheet" href="css/bootstrap.css" >
-
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+  <title>Crear Aulas</title>
 </head>
 <body>
   <div>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
-      <a href="GestionDeAulas.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+      <a href="../Homes/HomeLogeado.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
 
   <?php
-   $db_name = "bd_aulasperronas";
-   $db_user = "root";
-   $db_pass = "";
-   $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
-   if ($dblink->connect_error) {
-     die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
-           . $dblink->connect_error);
-   }
+    //Conexion con base
+    include "../Config/Database.php";
+    //include_once "Actions.php";
 
-   $sql = "select * from aulas;";
-   $result = $dblink->query($sql);
-?>
-
-
-
-<form action="#" method="post">
+    $db= new Database();
+    $dblink= $db->getConnection();
+  ?>
+  <!-- holaaa -->
+<form action="CrearAula.php" method="post">
   <div class="form-group">
     <label for="NombreAula">Nombre:</label>
     <input type="text" class="form-control" id="NombreAula" name="NombreAula">
