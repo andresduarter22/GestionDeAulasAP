@@ -9,6 +9,7 @@
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
       <a href="../Homes/HomeLogeado.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
+  <br/>
 
   <?php
     //Conexion con base
@@ -19,8 +20,8 @@
     $dblink= $db->getConnection();
   ?>
   <!-- holaaa -->
-<form action="CrearAula.php" method="post">
-  <div class="form-group">
+<form action="CrearAula.php"  method="post">
+  <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
     <input type="text" class="form-control" id="NombreAula" name="NombreAula">
   </div>
@@ -40,20 +41,18 @@
       <?php
        $sql = "select * from Categorias;";
        $result = $dblink->query($sql);
-       while ($fila = $result->fetch_object()){  ?>
+       while ($fila = $result->fetch()){  ?>
       <tr>
-         <td><?php echo " $fila->nombre_categoria"; ?></td>
-         <td><?php echo "<input type=\"checkbox\" class=\"form-check-input\" enabled>";?></td>
+         <td><?php echo $fila['nombre_categoria'] ?></td>
+         <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila['id_Categorias']." \" enabled>";?></td>
       </tr>
        <?php } ?>
      </tbody>
    </table>
   </div>
-  <form action="GestionDeAulas.php" method="post">
+  <form action="CrearAula.php" method="post">
     <input type="submit" name="submit" value="Confirmar" class="btn">
   </form>
-
-
 </form>
 <?php
 if (isset($_POST['submit']))
@@ -61,22 +60,22 @@ if (isset($_POST['submit']))
    create();
 }
 function create(){
-  $db_name = "bd_aulasperronas";
-  $db_user = "root";
-  $db_pass = "";
-  $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
-  if ($dblink->connect_error) {
-    die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
-          . $dblink->connect_error);
-  }
+  $db= new Database();
+  $dblink= $db->getConnection();
   $_nombre= $_POST['NombreAula'];
   $_cantAulumnos= $_POST['CantidadAlumnos'];
+  $_categorias= $_POST['categoria'];
 
-  $sql = "insert into Aulas(id_Aulas,nombre,cantidad_alumnos)
-              values(NULL,'$_nombre','$_cantAulumnos')";
-
+  $sql = "insert into Aulas(id_Aulas,nombre,cantidad_alumnos) values(NULL,'$_nombre','$_cantAulumnos')";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
+  }
+  $_idAulaCreada=$dblink->lastInsertId();
+  foreach ($_categorias as  $value) {
+    $sql = "insert into Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) values(NULL,1,1)";
+    if ($dblink->query($sql) === FALSE) {
+      echo "Error: " . $sql . "<br>" . $dblink->error;
+    }
   }
 }
 
