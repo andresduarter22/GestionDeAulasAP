@@ -8,16 +8,15 @@
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
     <?php
-      $db_name = "bd_aulasperronas";
-      $db_user = "root";
-      $db_pass = "";
-      $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
-      if ($dblink->connect_error) {
-        die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
-           . $dblink->connect_error);
-      }
+
+      //Conexion con base
+      include "../Config/Database.php";
+  //    include_once "Actions.php";
+
+      $db= new Database();
+      $dblink= $db->getConnection();
     ?>
-<form action="#" method="post">
+<form action="CrearUsuario.php" method="post">
   <div class="container" >
     <select class="custom-select" name="Categoria">
       <option selected>Categoria de Usuario</option>
@@ -46,21 +45,17 @@
       </thead>
       <tbody>
         <?php
-          $sql = "select * from aulas;";
+          $sql = 'select * from aulas;';
           $result = $dblink->query($sql);
-          while ($fila = $result->fetch_object()){
+          while ($fila = $result->fetch()){
         ?>
         <tr>
-          <td><?php echo " $fila->nombre"; ?></td>
-          <td><?php  echo "<input type=\"checkbox\" class=\"form-check-input\" enabled>";?>
-    <!--    <form action="#" method="post">
-         <input type="checkbox" name="check_list[]" ><br/>
-       </form> -->
-          </td>
+          <td><?php echo $fila['nombre'] ?></td>
+          <td><?php  echo "<input type=\"checkbox\" name=\"aula[]\" id=\"aula\" value=\" ".$fila['id_Aulas']." \" enabled>";?> </td>
         </tr>
         <?php } ?>
     </table>
-    <table class="table table-striped table-bordered  table-responsive-sm m-5s">
+  <table class="table table-striped table-bordered  table-responsive-sm m-5s">
       <thead  class="thead-dark">
         <tr>
           <th style="width: 15%">Nombre de usuario </th>
@@ -71,60 +66,62 @@
         <?php
           $sql = "select * from categorias;";
           $result = $dblink->query($sql);
-          while ($fila = $result->fetch_object()){
+          $result->setFetchMode(PDO::FETCH_ASSOC);
+          while ($fila = $result->fetch()){
         ?>
       <tr>
-        <td><?php echo " $fila->nombre_categoria"; ?></td>
-        <td><?php echo "<input  type=\"checkbox\" class=\"form-check-input\" enabled>";?></td>
+        <td><?php echo $fila['nombre_categoria']  ?></td>
+        <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila['id_Categorias']." \" enabled>";?></td>
       </tr>
-        <?php }$dblink->close(); ?>
+        <?php }
+        ?>
     </table>
   </div>
 
   <form action="CrearUsuario.php" method="post">
     <input type="submit" name="submit" value="submit">
   </form>
+
   </form>
   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
-
-  <?php
-  if (isset($_POST['submit']))
-  {
+<?php
+  if (isset($_POST['submit']))  {
      create();
-  }
+   }
   function create(){
-    $db_name = "bd_aulasperronas";
-    $db_user = "root";
-    $db_pass = "";
-    $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
-    if ($dblink->connect_error) {
-      die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
-            . $dblink->connect_error);
-    }
+    $db= new Database();
+    $dblink= $db->getConnection();
     $_categoria= $_POST['Categoria'];
     $_nombre= $_POST['nombre'];
     $_interno= $_POST['numInt'];
     $_Email= $_POST['correo'];
-   $_aulas= $_POST['check_list'];
-   echo "$_nombre $_interno $_Email $_categoria";
-    echo "$_aulas";
+    $_aulas= $_POST['aula'];
+    $_categorias= $_POST['categoria'];
 
-    $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol)
-                values(NULL,'$_nombre','$_interno','$_Email','$_categoria')";
+//    echo "$_categorias";
+//  foreach ($_aulas as  $value) {
+//    echo $value;
+//  }
 
+  $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoria')";
+  if ($dblink->query($sql) === FALSE) {
+    echo "Error: " . $sql . "<br>" . $dblink->error;
+  }
+  $_idUsuarioCreado=$dblink->lastInsertId();
+  foreach ($_aulas as  $value) {
+    $sql = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsuarioCreado')";
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
+  }
 
   }
-  ?>
+?>
 
 
 
-  <?php
-   $dblink->close();
-   ?>
+
 
    <!-- jQuery -->
    <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
