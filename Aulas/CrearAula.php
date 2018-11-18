@@ -1,13 +1,13 @@
 <html>
 <head>
-  <link rel="stylesheet" href="css/bootstrap.css" >
+  <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Crear Aulas</title>
 </head>
 <body>
   <div>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
-      <a href="../Homes/HomeLogeado.php"><img src="Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
   <br/>
 

@@ -65,10 +65,10 @@
    $dblink->close();
    ?>
    <!-- jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
+   <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
    <!-- Bootstrap JS -->
-   <script src="js/bootstrap.min.js" ></script>
+   <script src="../Booststrap/js/bootstrap.min.js" ></script>
  </body>
 
 </html>
