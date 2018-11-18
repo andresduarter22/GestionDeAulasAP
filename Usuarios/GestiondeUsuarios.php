@@ -33,7 +33,7 @@
        </tr>
      </thead>
         <tbody>
-         < <?php   while ($fila = $result->fetch()){  ?>
+          <?php   while ($fila = $result->fetch()){  ?>
           <tr>
              <td><?php echo $fila['nombre']; ?></td>
              <td><?php echo $fila['num_interno']; ?></td>
@@ -73,7 +73,7 @@
               </div>
             </div>
           </div>
-         <<?php } ?>
+         <?php } ?>
        </tbody>
      </table>
    </div>
