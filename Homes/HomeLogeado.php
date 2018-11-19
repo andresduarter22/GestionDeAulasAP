@@ -43,7 +43,7 @@
       <h1 class="display-4">Bienvenido Usuario</h1>
     <br><br><br>
   <!--      <a class="btn btn-primary btn-lg" href="HomeLogeado.php" role="button">Log </a>-->
-        <a class="btn btn-success" href="../MotorDeBusqueda.php" role="button">Realizar Reserva</a>
+        <a class="btn btn-success" href="../Busqueda/MotorDeBusqueda.php" role="button">Realizar Reserva</a>
     </div>
   </div>
   <a class="btn btn-secondary" href="#" role="button">Logs</a>

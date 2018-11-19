@@ -5,14 +5,30 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-  <body>
+  <div>
+    <button type="button" class="btn btn-danger">Cerrar sesión</button>
+      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+  </div>
+  <?php
+    //Conexion con base
+    include "../Config/Database.php";
+    //include_once "Actions.php";
+
+    $db= new Database();
+    $dblink= $db->getConnection();
+  ?>
     <form>
       <div class="container">
         <input type="checkbox" enabled>Dias Especificos</input>
         <input type="checkbox" enabled>Dias Seguidos</input>
       </div>
+      <div>
+        <select>
+          <option value="volvo">Volvo</option>
+        </select>
+      </div>
     </form>
-    <button type="button" class="btn btn-danger">Cerrar sesión</button>
+
     <form>
 
       <?php
