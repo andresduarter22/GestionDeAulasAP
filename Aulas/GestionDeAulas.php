@@ -17,7 +17,7 @@
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
     ?>
-<div class="container" >
+<div class="container form-group" >
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
     <tr>

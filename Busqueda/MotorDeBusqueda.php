@@ -23,7 +23,7 @@
         <input type="checkbox" enabled>Dias Seguidos</input>
       </div>
       <div>
-        <select>
+        <select class="form-control">
           <option value="volvo">Volvo</option>
         </select>
       </div>
