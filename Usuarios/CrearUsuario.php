@@ -92,23 +92,39 @@
   function create(){
     $db= new Database();
     $dblink= $db->getConnection();
-    $_categoria= $_POST['Categoria'];
+    $_categoriaUsuario= $_POST['Categoria'];
     $_nombre= $_POST['nombre'];
     $_interno= $_POST['numInt'];
     $_Email= $_POST['correo'];
     $_aulas= $_POST['aula'];
     $_categorias= $_POST['categoria'];
 
-//    echo "$_categorias";
-//  foreach ($_aulas as  $value) {
-//    echo $value;
-//  }
-
-  $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoria')";
+  $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoriaUsuario')";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
   $_idUsuarioCreado=$dblink->lastInsertId();
+  echo "hoal";
+
+  //revisa todas las categorias y sca la lista de los id de aulas
+  foreach ($_categorias as  $value) {
+    $sql = "select id_Aula from aulas_categoria where id_Categoria = '$value' " ;
+    if ($dblink->query($sql) === FALSE) {
+      echo "Error: " . $sql . "<br>" . $dblink->error;
+    }
+    $result = $dblink->query($sql);
+    $result->setFetchMode(PDO::FETCH_ASSOC);
+    while ($fila = $result->fetch()){
+      echo $fila['id_Aula'];
+      $valorIDDeAula= $fila['id_Aula'];
+      $sql2 = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$valorIDDeAula','$_idUsuarioCreado')";
+      if ($dblink->query($sql2) === FALSE) {
+        echo "Error: " . $sql2 . "<br>" . $dblink->error;
+      }
+    }
+  }
+
+
   foreach ($_aulas as  $value) {
     $sql = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsuarioCreado')";
     if ($dblink->query($sql) === FALSE) {

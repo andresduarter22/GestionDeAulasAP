@@ -11,7 +11,11 @@
       include "../Config/Database.php";
       $db= new Database();
       $dblink= $db->getConnection();
-      if(isset($_POST['uploadBtn'])){
+
+
+
+
+      /*if(isset($_POST['uploadBtn'])){
         $filename= $_FILES['myFile']['name'];
         $fileTmpName= $_FILES['myFile']['tmp_name'];
 
@@ -29,40 +33,20 @@
            $_fechaFin= $myData[2];
             $_Aula= $myData[3];
             $_Inscritos= $myData[4];
-            $_Docentes= $myData[6];*/
-
+            $_Docentes= $myData[6];
             echo $_Materia ;
-
-
           }
         }
-
-      }
-
-
+      }*/
 /*    $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);*/
     ?>
 
-    <div class="container" >
-      <form action="" method="post" enctype="multipart/form-data">
-          <h3 class="text-center">
-          </h3> <hr/>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="file" name="myFile" class="form-control">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <input type="submit" name="uploadBtn" class="btn btn-info">
-              </div>
-            </div>
-          </div>
-      </form>
-   </div>
+    <form method="post" enctype="multipart/form-data">
+      <input type="file" name="file">
+      <input type="submit" name="sub" value="Import">
+    </form>
+
+
   </body>
 </html>
