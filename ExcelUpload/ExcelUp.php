@@ -16,14 +16,32 @@
         $fileTmpName= $_FILES['myFile']['tmp_name'];
 
         $fileExtension = pathinfo($filename,PATHINFO_EXTENSION);
-        echo $fileExtension;
+        $allowedType= array('csv');
+        if(!in_array($fileExtension, $allowedType)){ ?>
+          <div class="alert alert-danger">
+              Tipo invalido
+          </div>
+        <?php } else {
+          $handle = fopen($fileTmpName, 'r');// read
+          while (($myData= fgetcsv($handle,1000,',')) !== FALSE) {
+           $_Materia= $myData[0];
+/*            $_fechaIni= $myData[1];
+           $_fechaFin= $myData[2];
+            $_Aula= $myData[3];
+            $_Inscritos= $myData[4];
+            $_Docentes= $myData[6];*/
+
+            echo $_Materia ;
+
+
+          }
+        }
 
       }
 
 
-      $sql = 'select * from usuarios;';
-      $result = $dblink->query($sql);
-      $result->setFetchMode(PDO::FETCH_ASSOC);
+/*    $result = $dblink->query($sql);
+      $result->setFetchMode(PDO::FETCH_ASSOC);*/
     ?>
 
     <div class="container" >
