@@ -43,6 +43,7 @@
   </tbody>
 </table>
 </div>
+
   <!-- Boton para ir atras-->
   <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
   <!-- Inicio boton de informacion -->
@@ -51,7 +52,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -61,13 +62,14 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
   </div>
   <!-- Final boton de Informacion -->
+
+
   <?php
    $dblink->close();
    ?>
