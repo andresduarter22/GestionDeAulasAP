@@ -21,7 +21,6 @@
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
     <tr>
-      <th style="width: 10%">ID</th>
       <th style="width: 30%"> Nombre Del Aula </th>
       <th style="width: 10%">Editar</th>
       <th style="width: 20%"> Borrar</th>
@@ -30,12 +29,7 @@
    <tbody>
     <?php   while ($fila = $result->fetch()){  ?>
      <tr>
-<<<<<<< HEAD
-       <td><?php echo " $fila->id_Aulas"; ?></td>
-        <td><?php echo " $fila->nombre"; ?></td>
-=======
         <td><?php echo $fila['nombre']; ?></td>
->>>>>>> f99a721a341ab368fa9574feebdadadf64bd934e
         <td><?php echo "<a href=\"EditarAula.php\" class=\"btn btn-primary\">Editar";?></td>
         <td><?php echo '<a href= EliminarAula.php ?id_Aulas=$fila["id_Aulas"] class= "btn btn-danger" >Borrar';?></td>
          </tr>
