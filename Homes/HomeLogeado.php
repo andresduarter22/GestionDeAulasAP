@@ -46,7 +46,7 @@
         <a class="btn btn-success" href="../Busqueda/MotorDeBusqueda.php" role="button">Realizar Reserva</a>
     </div>
   </div>
-  <a class="btn btn-secondary" href="#" role="button">Logs</a>
+  <a class="btn btn-secondary" href="../Logs/Logs.php" role="button">Logs</a>
 
 
 
