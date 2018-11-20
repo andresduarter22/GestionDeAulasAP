@@ -38,14 +38,14 @@
              <td><?php echo $fila['nombre']; ?></td>
              <td><?php echo $fila['num_interno']; ?></td>
              <td><?php echo $fila['E_Mail']; ?></td>
-             <td><?php if ($fila->Rol ==0 ) {
+             <td><?php if ($fila['Rol']==0 ) {
                echo "reservador";
-             } elseif ($fila->Rol ==1 ) {
+             } elseif ($fila['Rol'] == 1 ) {
                echo "actualizador";
              } else {
                echo "Administrador";
              }
-              "$fila->Rol";  ?></td>
+                ?></td>
 
              <td><form method="get" action="EditarUsuario.php">
                   <input type="hidden" name="id" value=<?php echo "$fila->id_Usuario";  ?>>
