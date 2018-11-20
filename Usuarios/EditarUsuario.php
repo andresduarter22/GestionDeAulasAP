@@ -9,6 +9,7 @@
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
   <a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
   <?php
+  session_start();
    $db_name = "bd_aulasperronas";
    $db_user = "root";
    $db_pass = "";

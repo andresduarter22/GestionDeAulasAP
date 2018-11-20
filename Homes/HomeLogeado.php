@@ -26,7 +26,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">Categorias</a>
+    <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,9 +41,9 @@
     <img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" >
     <div class="container">
       <h1 class="display-4">Bienvenido Usuario</h1>
-<br><br><br><br>
+    <br><br><br>
   <!--      <a class="btn btn-primary btn-lg" href="HomeLogeado.php" role="button">Log </a>-->
-        <a class="btn btn-success" href="#" role="button">Realizar Reserva</a>
+        <a class="btn btn-success" href="../Busqueda/MotorDeBusqueda.php" role="button">Realizar Reserva</a>
     </div>
   </div>
   <a class="btn btn-secondary" href="#" role="button">Logs</a>

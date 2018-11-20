@@ -19,7 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#"> Consultar Reserva
+          <a class="nav-link" href="../Busqueda/MotorDeBusqueda.php"> Consultar Reserva
           <span class="sr-only">(current)</span></a>
         </li>
       </ul>
@@ -35,6 +35,7 @@
         <a class="btn btn-success" href="HomeLogeado.php" role="button">Consultar Reserva</a> -->
     </div>
   </div>
+  <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
 <!-- Log In GOOGLE
 <div class="g-signin2" data-onsuccess="onSignIn">
@@ -42,7 +43,6 @@
 </div>
 -->
 
-<button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
    <!-- jQuery -->
    <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>

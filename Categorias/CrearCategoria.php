@@ -2,7 +2,7 @@
 <head>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Editar Aulas</title>
+  <title>Crear Categoria</title>
 </head>
 <body>
   <div>
@@ -12,45 +12,23 @@
   <br/>
 
   <?php
-    //Conexion con base
     include "../Config/Database.php";
-    //include_once "Actions.php";
-
     $db= new Database();
     $dblink= $db->getConnection();
   ?>
   <!-- holaaa -->
-<form action="CrearAula.php"  method="post">
+<form action="CrearCategoria.php"  method="post">
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreAula" name="NombreAula">
+    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria">
   </div>
   <div class="form-group">
-    <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-    <input type="text" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos">
+    <label for="CantidadDeAlumnos">Descripcion:</label>
+    <textarea class="form-control" id="Descripcion" name="Descripcion">
+
+    </textarea/>
   </div>
-  <div class="container">
-    <table class="table table-striped table-bordered  table-responsive-sm m-5s">
-    <thead  class="thead-dark">
-      <tr>
-        <th style="width: 15%">Nombre de Aula </th>
-        <th style="width: 15%">Check </th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-       $sql = "select * from Categorias;";
-       $result = $dblink->query($sql);
-       while ($fila = $result->fetch()){  ?>
-      <tr>
-         <td><?php echo $fila['nombre_categoria'] ?></td>
-         <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila['id_Categorias']." \" enabled>";?></td>
-      </tr>
-       <?php } ?>
-     </tbody>
-   </table>
-  </div>
-  <form action="CrearAula.php" method="post">
+  <form action="CrearCategoria.php" method="post">
     <input type="submit" name="submit" value="Confirmar" class="btn">
   </form>
 </form>
@@ -62,15 +40,14 @@ if (isset($_POST['submit']))
 function create(){
   $db= new Database();
   $dblink= $db->getConnection();
-  $_nombre= $_POST['NombreAula'];
-  $_cantAulumnos= $_POST['CantidadAlumnos'];
-  $_idAulaCreada=$dblink->lastInsertId();
-  foreach ($_categorias as  $value) {
-    $sql = "update Aulas_Categoria set(nombre = $_nombre,cantidad_alumnos=$_cantDeAlumnos)";
-    if ($dblink->query($sql) === FALSE) {
-      echo "Error: " . $sql . "<br>" . $dblink->error;
-    }
+  $_nombre= $_POST['NombreCategoria'];
+  $_descripcion= $_POST['Descripcion'];
+
+  $sql = "insert into Categorias(id_Categorias,nombre_categoria,descripcion) values(NULL,'$_nombre','$_descripcion')";
+  if ($dblink->query($sql) === FALSE) {
+    echo "Error: " . $sql . "<br>" . $dblink->error;
   }
+
 }
 
 ?>
@@ -97,11 +74,11 @@ function create(){
 <?php
  $dblink->close();
  ?>
-   <!-- jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
+ <!-- jQuery -->
+ <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
-   <!-- Bootstrap JS -->
-   <script src="js/bootstrap.min.js" ></script>
+ <!-- Bootstrap JS -->
+ <script src="../Booststrap/js/bootstrap.min.js" ></script>
 </body>
 
 </html>
