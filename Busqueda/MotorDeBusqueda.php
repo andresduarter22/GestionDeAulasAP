@@ -12,10 +12,12 @@
   <?php
     //Conexion con base
     include "../Config/Database.php";
-    //include_once "Actions.php";
-
+    session_start();
     $db= new Database();
     $dblink= $db->getConnection();
+    $sql = 'select * from Aulas;';
+    $result = $dblink->query($sql);
+    $result->setFetchMode(PDO::FETCH_ASSOC);
   ?>
     <form>
       <div class="container">
@@ -24,7 +26,9 @@
       </div>
       <div>
         <select class="form-control">
-          <option value="volvo">Volvo</option>
+          <?php   while ($fila = $result->fetch()){  ?>
+          <option value="volvo"><?php echo $fila['nombre']; ?></option>
+          <?php } ?>
         </select>
       </div>
     </form>
