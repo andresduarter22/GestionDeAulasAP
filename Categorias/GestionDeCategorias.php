@@ -39,7 +39,7 @@
 </table>
 </div>
 <!-- Boton para ir Atras -->
-<a class="btn btn-primary" href="HomeLogeado.php">Atras</a>
+<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
 <a href="CrearCategoria.php" class="btn btn-primary" >Crear Categoria</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
