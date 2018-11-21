@@ -24,16 +24,14 @@
         <input type="checkbox" enabled>Dias Especificos</input>
         <input type="checkbox" enabled>Dias Seguidos</input>
       </div>
-      <div>
+      <div class="container">
         <select class="form-control">
           <?php   while ($fila = $result->fetch()){  ?>
           <option value="volvo"><?php echo $fila['nombre']; ?></option>
           <?php } ?>
         </select>
       </div>
-    </form>
 
-    <form>
 
       <?php
       include 'FuncionCalendario.php';
@@ -42,14 +40,37 @@
 
       echo $calendar->show();
       ?>
-      <div class="input-group mb-3">
-  <div class="input-group-prepend">
+
+  <div class="input-group mb-3 container">
+   <div class="input-group-prepend">
     <div class="input-group-text">
       <input type="checkbox" aria-label="Checkbox for following text input">
     </div>
   </div>
   <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Cantidad de Alumnos">
 </div>
+  <div class="container">
+    <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
+      <thead  class="thead-dark">
+        <tr>
+          <th style="width: 30%"> Nombre de la Categoria</th>
+          <th style="width: 10%"> Check </th>
+        </tr>
+      </thead>
+       <tbody>
+        <?php
+        $sql = 'select * from Categorias;';
+        $result = $dblink->query($sql);
+         while ($fila = $result->fetch()){  ?>
+         <tr>
+            <td><?php echo $fila['nombre_categoria']; ?></td>
+            <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila['id_Categorias']." \" enabled>";?></td>
+           </tr>
+        <?php } ?>
+
+      </tbody>
+    </table>
+  </div>
     </form>
 
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
