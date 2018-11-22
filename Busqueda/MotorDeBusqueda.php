@@ -20,19 +20,25 @@
     $result->setFetchMode(PDO::FETCH_ASSOC);
   ?>
     <form>
-      <div class="container">
-        <input type="checkbox" enabled>Dias Especificos</input>
-        <input type="checkbox" enabled>Dias Seguidos</input>
-      </div>
-      <div class="container">
-        <select class="form-control">
-          <?php   while ($fila = $result->fetch()){  ?>
-          <option value="volvo"><?php echo $fila['nombre']; ?></option>
-          <?php } ?>
-        </select>
-      </div>
+      <div class="container row">
+        <div class="row">
+          <div class="col-sm-6">
+            <input type="checkbox" enabled>Dias Especificos</input>
+          </div>
+           <div class="col-sm-6">
+          <input type="checkbox" enabled>Dias Seguidos</input>
+          </div>
 
+        <div class=" col-sm-6">
+          <select class="form-control">
+            <?php   while ($fila = $result->fetch()){  ?>
+            <option value="volvo"><?php echo $fila['nombre']; ?></option>
+            <?php } ?>
+          </select>
+        </div>
+        </div>
 
+      </div>
       <?php
       include 'FuncionCalendario.php';
 
@@ -41,7 +47,9 @@
       echo $calendar->show();
       ?>
 
-  <div class="input-group mb-3 container">
+
+
+  <div class="input-group mb-3 container ">
    <div class="input-group-prepend">
     <div class="input-group-text">
       <input type="checkbox" aria-label="Checkbox for following text input">
@@ -71,8 +79,11 @@
       </tbody>
     </table>
   </div>
+  <!-- boton para ir atras-->
+  <a href="HomeLogeado.php" class="btn btn-primary">Atras</a>
+  <a href="#" class="btn btn-primary">Buscar</a>
     </form>
-
+<!--boton de informacion-->
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
     <div class="modal fade" id="info" name="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
