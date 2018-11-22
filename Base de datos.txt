@@ -194,6 +194,30 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Logs` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `BD_AulasPerronas`.`Usuarios_Categorias`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `BD_AulasPerronas`.`Usuarios_Categorias` ;
+
+CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Usuarios_Categorias` (
+  `idUsuarios_Categorias` INT NOT NULL  AUTO_INCREMENT,
+  `id_DeUsuario` INT NOT NULL,
+  `id_DeCategoria` INT NOT NULL,
+  PRIMARY KEY (`idUsuarios_Categorias`),
+  INDEX `id_Usuarios_idx` (`id_DeUsuario` ASC),
+  INDEX `id_Categoria_idx` (`id_DeCategoria` ASC),
+  CONSTRAINT `id_DeUsuarios`
+    FOREIGN KEY (`id_DeUsuario`)
+    REFERENCES `BD_AulasPerronas`.`Usuarios` (`id_Usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `id_DeCategoria`
+    FOREIGN KEY (`id_DeCategoria`)
+    REFERENCES `BD_AulasPerronas`.`Categorias` (`id_Categorias`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -39,18 +39,19 @@
              <td><?php echo $fila['num_interno']; ?></td>
              <td><?php echo $fila['E_Mail']; ?></td>
              <td><?php if ($fila['Rol']==0 ) {
-               echo "reservador";
+               echo "Reservador";
              } elseif ($fila['Rol'] == 1 ) {
-               echo "actualizador";
+               echo "Actualizador";
              } else {
                echo "Administrador";
              }
                 ?></td>
 
-             <td><form method="get" action="EditarUsuario.php">
-                  <input type="hidden" name="id" value=<?php echo "$fila->id_Usuario";  ?>>
+             <td>
+               <form method="get" action="EditarUsuario.php">
+                  <input type="hidden" name="id" value=<?php echo $fila['id_Usuario'] ;  ?>>
                   <input type="submit">
-                  </form>
+                </form>
               </td>
              <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal\">Borrar";?></td>
           </tr>
