@@ -19,6 +19,7 @@
            . $dblink->connect_error);
    }
    $var_value = $_SESSION['id'];
+   echo "$var_value";
    //Using GET
    $_idDeUsuario = $_GET['id'];
    $sql = "select * from Usuarios where id_Usuario= $_idDeUsuario ;";
