@@ -184,6 +184,7 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Logs` (
   `Materia` VARCHAR(45) NOT NULL,
   `Aula` VARCHAR(45) NOT NULL,
   `Fecha_deReserva` DATETIME NOT NULL,
+  `tipo` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id_Log`),
   INDEX `Id_Reserva_idx` (`id_Reserva` ASC),
   CONSTRAINT `Id_Reserva`
