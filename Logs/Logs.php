@@ -13,7 +13,7 @@
       session_start();
       $db= new Database();
       $dblink= $db->getConnection();
-      $sql = 'select * from Logs whrere tipo = "m";';
+      $sql = "select * from Logs where tipo = 'm';";
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
     ?>
@@ -46,7 +46,7 @@
 </div>
 <!--automaticas-->
 <?php
-$sql = 'select * from Logs whrere tipo = "a";';
+$sql = 'select * from Logs where tipo = "a";';
 $result = $dblink->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
  ?>

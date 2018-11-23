@@ -12,22 +12,30 @@
   <br/>
 
   <?php
-    include "../Config/Database.php";
-    $db= new Database();
-    $dblink= $db->getConnection();
+  session_start();
+  $db_name = "bd_aulasperronas";
+  $db_user = "root";
+  $db_pass = "";
+  $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
+  if ($dblink->connect_error) {
+    die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
+          . $dblink->connect_error);
+  }
+
+    //Using GET
+    $_idDeCategoria = $_GET['id'];
+    $sql = "select * from Categorias where id_Categorias= $_idDeCategoria ;";
+    $result = $dblink->query($sql);
   ?>
   <!-- holaaa -->
-<form action="CrearCategoria.php"  method="post">
+    <?php   while ($fila = $result->fetch_object()){  ?>
+<form action="EliminiarCategoria.php"  method="post">
+  Desea Eliminar <br />
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria">
+    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" value= <?php echo "$fila->id_Categorias" ?>>
   </div>
-  <div class="form-group">
-    <label for="CantidadDeAlumnos">Descripcion:</label>
-    <textarea class="form-control" id="Descripcion" name="Descripcion">
-
-    </textarea/>
-  </div>
+    <?php }?>
   <form action="CrearCategoria.php" method="post">
     <input type="submit" name="submit" value="Confirmar" class="btn">
   </form>
@@ -35,15 +43,14 @@
 <?php
 if (isset($_POST['submit']))
 {
-   create();
+   delete1();
 }
-function create(){
+function delete1(){
   $db= new Database();
   $dblink= $db->getConnection();
-  $_nombre= $_POST['NombreCategoria'];
-  $_descripcion= $_POST['Descripcion'];
+  $_idDeCategoria = $_POST['NombreCategoria'];
 
-  $sql = "insert into Categorias(id_Categorias,nombre_categoria,descripcion) values(NULL,'$_nombre','$_descripcion')";
+  $sql = "DELETE FROM Categorias WHERE id=$_idDeCategoria";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }

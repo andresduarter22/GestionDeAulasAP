@@ -45,7 +45,6 @@
     <textarea class="form-control" id="Descripcion" value= <?php echo "  $fila->descripcion "; ?> name="Descripcion">
 <?php echo "  $fila->descripcion "; ?>
     </textarea/>
-    <?php }?>
   </div>
   <form action="CrearCategoria.php" method="post">
     <input type="hidden" name="id" value=<?php echo $_idDeCategoria ;  ?> class="form-control">
@@ -53,13 +52,14 @@
   </form>
     </div>
 </form>
+<?php }?>
 
 <?php
 if (isset($_POST['submit']))
 {
-   create();
+   edit1();
 }
-function create(){
+function edit1(){
   $db= new Database();
   $dblink= $db->getConnection();
   $_nombre= $_POST['NombreCategoria'];
