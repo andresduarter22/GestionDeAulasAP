@@ -5,10 +5,14 @@
   <title>Editar Categoria</title>
 </head>
 <body>
-  <div>
+  <div >
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
       <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
   <br/>
 
   <?php
@@ -21,8 +25,7 @@
     die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
           . $dblink->connect_error);
   }
-    $var_value = $_SESSION['id'];
-    echo "$var_value";
+
     //Using GET
     $_idDeCategoria = $_GET['id'];
     $sql = "select * from Categorias where id_Categorias= $_idDeCategoria ;";
@@ -31,9 +34,11 @@
   <!-- holaaa -->
   <?php   while ($fila = $result->fetch_object()){  ?>
 <form action="CrearCategoria.php"  method="post">
+  <div class="container">
+    <input type="hidden" class="form-control" id="id1" name="id1" value= <?php echo "$_idDeCategoria" ?>>
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" value= <?php echo "  $fila->nombre_categoria "; ?> >
+    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" value= <?php echo "$fila->nombre_categoria" ?>>
   </div>
   <div class="form-group">
     <label for="CantidadDeAlumnos">Descripcion:</label>
@@ -43,8 +48,10 @@
     <?php }?>
   </div>
   <form action="CrearCategoria.php" method="post">
+    <input type="hidden" name="id" value=<?php echo $_idDeCategoria ;  ?> class="form-control">
     <input type="submit" name="submit" value="Confirmar" class="btn">
   </form>
+    </div>
 </form>
 
 <?php
@@ -57,9 +64,9 @@ function create(){
   $dblink= $db->getConnection();
   $_nombre= $_POST['NombreCategoria'];
   $_descripcion= $_POST['Descripcion'];
+  $_idDeCategoria=$_POST['id1'];
 
-
-  $sql = "update Categorias set(nombre_categoria = $_nombre,descripcion=$_descripcion) where id_Categorias = $_idDeCategoria";
+  $sql = "UPDATE Categorias SET nombre_categoria = $_nombre,descripcion=$_descripcion WHERE id_Categorias = $_idDeCategoria";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }

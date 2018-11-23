@@ -32,8 +32,8 @@
         <td><?php echo $fila['nombre_categoria']; ?></td>
         <td>
           <form method="get" action="EditarCategoria.php">
-             <input  type="hidden" name="id" value=<?php echo $fila['id_Categorias'] ;  ?> class="form-control">
-             <input type="submit">
+             <input type="hidden" name="id" value=<?php echo $fila['id_Categorias'] ;  ?> class="form-control">
+             <input type="submit" class="btn btn-primary" value="Enviar">
            </form>
          </td>
         <td><?php echo '<a href= EliminarCategoria.php ?id_Categorias=$fila["id_Categorias"] class= "btn btn-primary" >Borrar';?></td>
