@@ -30,7 +30,12 @@
     <?php   while ($fila = $result->fetch()){  ?>
      <tr>
         <td><?php echo $fila['nombre_categoria']; ?></td>
-        <td><?php echo "<a href=\"EditarCategoria.php\" class=\"btn btn-primary\">Editar";?></td>
+        <td>
+          <form method="get" action="EditarCategoria.php">
+             <input  type="hidden" name="id" value=<?php echo $fila['id_Categorias'] ;  ?> class="form-control">
+             <input type="submit">
+           </form>
+         </td>
         <td><?php echo '<a href= EliminarCategoria.php ?id_Categorias=$fila["id_Categorias"] class= "btn btn-primary" >Borrar';?></td>
          </tr>
     <?php } ?>
