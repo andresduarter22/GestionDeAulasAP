@@ -39,7 +39,7 @@
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
       <thead  class="thead-dark">
         <tr>
-          <th style="width: 15%">Nombre de usuario </th>
+          <th style="width: 15%">Nombre de aula </th>
           <th style="width: 15%">Check </th>
         </tr>
       </thead>
@@ -58,7 +58,7 @@
   <table class="table table-striped table-bordered  table-responsive-sm m-5s">
       <thead  class="thead-dark">
         <tr>
-          <th style="width: 15%">Nombre de usuario </th>
+          <th style="width: 15%">Nombre de categoria </th>
           <th style="width: 15%">Check </th>
         </tr>
       </thead>
@@ -104,10 +104,13 @@
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
   $_idUsuarioCreado=$dblink->lastInsertId();
-  echo "hoal";
-
-  //revisa todas las categorias y sca la lista de los id de aulas
+  
   foreach ($_categorias as  $value) {
+    $sql2 = "insert into usuarios_categorias values(NULL,'$_idUsuarioCreado','$value')";
+    if ($dblink->query($sql2) === FALSE) {
+      echo "Error: " . $sql2 . "<br>" . $dblink->error;
+    }
+
     $sql = "select id_Aula from aulas_categoria where id_Categoria = '$value' " ;
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;
@@ -115,7 +118,7 @@
     $result = $dblink->query($sql);
     $result->setFetchMode(PDO::FETCH_ASSOC);
     while ($fila = $result->fetch()){
-      echo $fila['id_Aula'];
+    //  echo $fila['id_Aula'];
       $valorIDDeAula= $fila['id_Aula'];
       $sql2 = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$valorIDDeAula','$_idUsuarioCreado')";
       if ($dblink->query($sql2) === FALSE) {

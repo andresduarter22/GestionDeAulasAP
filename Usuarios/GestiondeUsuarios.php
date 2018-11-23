@@ -46,7 +46,6 @@
                echo "Administrador";
              }
                 ?></td>
-
              <td>
                <form method="get" action="EditarUsuario.php">
                   <input type="hidden" name="id" value=<?php echo $fila['id_Usuario'] ;  ?>>
