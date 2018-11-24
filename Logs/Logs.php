@@ -13,10 +13,44 @@
       session_start();
       $db= new Database();
       $dblink= $db->getConnection();
-      $sql = 'select * from Logs;';
+      $sql = "select * from Logs where tipo = 'm';";
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
     ?>
+    <!--Manuales-->
+<div class="container form-group" >
+<table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
+  <thead  class="thead-dark">
+    <tr>
+      <th style="width: 30%">Nombre Reservador</th>
+      <th style="width: 10%">Fecha realizada</th>
+      <th style="width: 20%">Materia</th>
+      <th style="width: 30%">Nombre Del Aula</th>
+      <th style="width: 10%">Fecha Inicial</th>
+      <th style="width: 20%">Fecha Final</th>
+    </tr>
+  </thead>
+   <tbody>
+    <?php   while ($fila = $result->fetch()){  ?>
+     <tr>
+        <td><?php echo $fila['nombre_usuario']; ?></td>
+        <td><?php echo $fila['Fecha_deReserva']; ?></td>
+        <td><?php echo $fila['Materia']; ?></td>
+        <td><?php echo $fila['Aula']; ?></td>
+        <td><?php echo $fila['Fecha_ini']; ?></td>
+        <td><?php echo $fila['Fecha_fin']; ?></td>
+     </tr>
+    <?php } ?>
+  </tbody>
+</table>
+</div>
+<!--automaticas-->
+<?php
+$sql = 'select * from Logs where tipo = "a";';
+$result = $dblink->query($sql);
+$result->setFetchMode(PDO::FETCH_ASSOC);
+ ?>
+
 <div class="container form-group" >
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
