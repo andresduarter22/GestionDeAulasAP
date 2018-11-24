@@ -87,7 +87,8 @@
 
 <?php
   if (isset($_POST['submit']))  {
-     create();
+    echo "crear";
+  //   create();
    }
   function create(){
     $db= new Database();
@@ -104,7 +105,9 @@
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
   $_idUsuarioCreado=$dblink->lastInsertId();
-  
+  //echo "hoal";
+
+  //revisa todas las categorias y saca la lista de los id de aulas
   foreach ($_categorias as  $value) {
     $sql2 = "insert into usuarios_categorias values(NULL,'$_idUsuarioCreado','$value')";
     if ($dblink->query($sql2) === FALSE) {
@@ -137,12 +140,7 @@
 
   }
 ?>
-
-
-
-
-
-   <!-- jQuery -->
+  <!-- jQuery -->
    <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
    <!-- Bootstrap JS -->
