@@ -27,8 +27,9 @@
     $sql = "select * from Categorias where id_Categorias= $_idDeCategoria ;";
     $result = $dblink->query($sql);
   ?>
-  <!-- holaaa -->
+  <!-- se tira aqui -->
     <?php   while ($fila = $result->fetch_object()){  ?>
+
 <form action="EliminiarCategoria.php"  method="post">
   Desea Eliminar <br />
   <div class="form-group scrollbar">
@@ -43,6 +44,7 @@
 <?php
 if (isset($_POST['submit']))
 {
+  session_start();
    delete1();
 }
 function delete1(){
