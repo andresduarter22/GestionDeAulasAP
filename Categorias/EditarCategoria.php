@@ -33,9 +33,9 @@
   ?>
   <!-- holaaa -->
   <?php   while ($fila = $result->fetch_object()){  ?>
-<form action="CrearCategoria.php"  method="post">
+<form action="CrearCategoria.php"  method="get">
   <div class="container">
-    <input type="hidden" class="form-control" id="id1" name="id1" value= <?php echo "$_idDeCategoria" ?>>
+    <input type="hidden" class="form-control" id="id" name="id" value= <?php echo "$_idDeCategoria" ?>>
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
     <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" value= <?php echo "$fila->nombre_categoria" ?>>
@@ -46,7 +46,7 @@
 <?php echo "  $fila->descripcion "; ?>
     </textarea/>
   </div>
-  <form action="CrearCategoria.php" method="post">
+  <form action="CrearCategoria.php" method="get">
     <input type="hidden" name="id" value=<?php echo $_idDeCategoria ;  ?> class="form-control">
     <input type="submit" name="submit" value="Confirmar" class="btn">
   </form>
@@ -55,16 +55,16 @@
 <?php }?>
 
 <?php
-if (isset($_POST['submit']))
+if (isset($_GET['submit']))
 {
    edit1();
 }
 function edit1(){
   $db= new Database();
   $dblink= $db->getConnection();
-  $_nombre= $_POST['NombreCategoria'];
-  $_descripcion= $_POST['Descripcion'];
-  $_idDeCategoria=$_POST['id1'];
+  $_nombre= $_GET['NombreCategoria'];
+  $_descripcion= $_GET['Descripcion'];
+  $_idDeCategoria=$_GET['id'];
 
   $sql = "UPDATE Categorias SET nombre_categoria = $_nombre,descripcion=$_descripcion WHERE id_Categorias = $_idDeCategoria";
   if ($dblink->query($sql) === FALSE) {
