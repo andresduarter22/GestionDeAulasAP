@@ -55,7 +55,7 @@
 <?php }?>
 
 <?php
-if (isset($_GET['submit']))
+if (isset($_GET['id']))
 {
    edit1();
 }
