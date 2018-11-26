@@ -25,22 +25,22 @@
     die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
           . $dblink->connect_error);
   }
-    $_idDeCategoria = $_GET['id'];
-    $sql = "select * from Categorias where id_Categorias = $_idDeCategoria ;";
-    $result = $dblink->query($sql);
-
+    //$sql = "select * from Categorias where id_Categorias = ".$_GET['id'].";" ;
+    //$result = $dblink->query($sql);
+    //echo vardump($result);
 
   ?>
 
-    <input type="text" name="id1" value= <?php echo $_idDeCategoria ;?> class="form-control" disabled/>
-    <form method="post" action="EliminiarCategoria.php">
-        <input type="hidden" value="<?php echo $_idDeCategoria ;?>" name="id1" class="form-control"/>
+    <input type="text" name="id1" value= <?php echo  $_GET['id'] ;?> class="form-control" disabled/>
+    <form method="post" action=<?php echo '"EliminiarCategoria.php?id='.$_GET['id'].'"' ?>>
+        <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
         <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
     </form>
     <?php
-    if(isset($_POST['submit'])){
+    if(isset($_POST['id1'])){
       $_id=$_POST['id1'];
-      $sql1= "DELETE Categorias WHERE id_Categorias = $_idDeCategpria;";
+      $sql1= "DELETE from Categorias WHERE id_Categorias = ".$_id;
+      $dblink->query($sql1);
     }
      ?>
 <!-- Boton para ir Atras -->
