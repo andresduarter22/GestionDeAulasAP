@@ -33,7 +33,7 @@
         <td>
           <form method="get" action="EditarCategoria.php">
              <input type="hidden" name="id" value=<?php echo $fila['id_Categorias'] ;  ?> class="form-control">
-             <input type="submit" class="btn btn-primary" value="Enviar">
+             <input type="submit" class="btn btn-primary" value="Editar">
            </form>
          </td>
          <td>
