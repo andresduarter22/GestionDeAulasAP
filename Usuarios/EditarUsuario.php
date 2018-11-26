@@ -27,6 +27,11 @@
     /**
         A Partir de aca borrar todas las relaciones en la tabla usuarios aulas, y luego poner las aulas independtiente y por categoria
     */
+    $sql2 = "DELETE FROM usuarios_aulas WHERE id_DeUsuario= $_idUsAEditar  ";
+    if ($dblink->query($sql2) === FALSE) {
+      echo "Error: " . $sql2 . "<br>" . $dblink->error;
+    }
+
 
     //revisa todas las categorias y saca la lista de los id de aulas
     foreach ($_categorias as  $value) {
@@ -50,11 +55,6 @@
       //  echo $fila['id_Aula'];
 
         $valorIDDeAula= $fila['id_Aula'];
-        $sql2 = "DELETE FROM usuarios_aulas WHERE id_DeAula=$valorIDDeAula  AND id_DeUsuario= $_idUsAEditar LIMIT 1 ";
-
-        if ($dblink->query($sql2) === FALSE) {
-          echo "Error: " . $sql2 . "<br>" . $dblink->error;
-        }
         $sql2 = "INSERT INTO usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$valorIDDeAula','$_idUsAEditar')";
         if ($dblink->query($sql2) === FALSE) {
           echo "Error: " . $sql2 . "<br>" . $dblink->error;
@@ -65,10 +65,6 @@
     foreach ($_aulas as  $value) {
       echo "$value";
 
-      $sql2 = "DELETE FROM usuarios_aulas WHERE id_DeAula=$value  AND id_DeUsuario= $_idUsAEditar LIMIT 1 ";
-      if ($dblink->query($sql2) === FALSE) {
-        echo "Error: " . $sql2 . "<br>" . $dblink->error;
-      }
 
       $sql = "INSERT INTO usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsAEditar')";
       if ($dblink->query($sql) === FALSE) {
