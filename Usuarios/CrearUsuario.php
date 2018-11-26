@@ -87,8 +87,7 @@
 
 <?php
   if (isset($_POST['submit']))  {
-    echo "crear";
-  //   create();
+    create();
    }
   function create(){
     $db= new Database();
@@ -137,8 +136,9 @@
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
   }
-
   }
+
+
 ?>
   <!-- jQuery -->
    <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>

@@ -47,10 +47,13 @@
              }
                 ?></td>
              <td>
-               <form method="get" action="EditarUsuario.php">
-                  <input type="hidden" name="id" value=<?php echo $fila['id_Usuario'] ;  ?>>
-                  <input type="submit">
-                </form>
+               <?php
+              $_idUs=$fila['id_Usuario'];
+               echo "<a href=\"EditarUsuario.php?id= $_idUs  \" class=\"btn btn-primary\">Editar";?>
+               <!-- <form method="post" action="EditarUsuario.php">
+                  <input type="hidden" name="id" value=<?php //echo $fila['id_Usuario'] ;  ?>> -->
+                    <!--   <input type="submit">
+                </form>-->
               </td>
              <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal\">Borrar";?></td>
           </tr>
@@ -79,6 +82,10 @@
    </div>
    <button><a href="CrearUsuario.php">Crear nuevo usuario</a></button
    <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+
+
+
+
      <!-- jQuery -->
      <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 

@@ -1,3 +1,86 @@
+<?php
+  if (!empty($_POST["submit"])) {
+  //  echo "string <br>";
+
+    actua();
+  }
+
+  function actua(){
+    include_once "../Config/Database.php";
+    $db= new Database();
+    $dblink= $db->getConnection();
+    $_categoriaUsuario= $_POST['Categoria'];
+    $_nombre= $_POST['nombre'];
+    $_interno= $_POST['numInt'];
+    $_Email= $_POST['correo'];
+    $_aulas= $_POST['aula'];
+    $_categorias= $_POST['categoria'];
+    $_idUsAEditar= $_POST['idUs'];
+
+//    echo "$_categoriaUsuario";
+    $sql = " UPDATE usuarios SET nombre = '$_nombre', num_interno ='$_interno', E_Mail= '$_Email', Rol=$_categoriaUsuario WHERE id_Usuario=$_idUsAEditar;";
+  //  echo "$sql";
+    if ($dblink->query($sql) === FALSE) {
+      echo "Error: " . $sql . "<br>" . $dblink->error;
+    }
+
+    /**
+        A Partir de aca borrar todas las relaciones en la tabla usuarios aulas, y luego poner las aulas independtiente y por categoria
+    */
+
+    //revisa todas las categorias y saca la lista de los id de aulas
+    foreach ($_categorias as  $value) {
+      $sql2 = "DELETE FROM usuarios_categorias WHERE id_DeCategoria= $value AND id_DeUsuario= $_idUsAEditar";
+      if ($dblink->query($sql2) === FALSE) {
+        echo "Error: " . $sql2 . "<br>" . $dblink->error;
+      }
+
+      $sql2 = "INSERT INTO usuarios_categorias values(NULL,'$_idUsAEditar','$value')";
+      if ($dblink->query($sql2) === FALSE) {
+        echo "Error: " . $sql2 . "<br>" . $dblink->error;
+      }
+
+      $sql = "SELECT id_Aula FROM aulas_categoria where id_Categoria = '$value' " ;
+      if ($dblink->query($sql) === FALSE) {
+        echo "Error: " . $sql . "<br>" . $dblink->error;
+      }
+      $result = $dblink->query($sql);
+      $result->setFetchMode(PDO::FETCH_ASSOC);
+      while ($fila = $result->fetch()){
+      //  echo $fila['id_Aula'];
+
+        $valorIDDeAula= $fila['id_Aula'];
+        $sql2 = "DELETE FROM usuarios_aulas WHERE id_DeAula=$valorIDDeAula  AND id_DeUsuario= $_idUsAEditar LIMIT 1 ";
+
+        if ($dblink->query($sql2) === FALSE) {
+          echo "Error: " . $sql2 . "<br>" . $dblink->error;
+        }
+        $sql2 = "INSERT INTO usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$valorIDDeAula','$_idUsAEditar')";
+        if ($dblink->query($sql2) === FALSE) {
+          echo "Error: " . $sql2 . "<br>" . $dblink->error;
+        }
+      }
+    }
+
+    foreach ($_aulas as  $value) {
+      echo "$value";
+
+      $sql2 = "DELETE FROM usuarios_aulas WHERE id_DeAula=$value  AND id_DeUsuario= $_idUsAEditar LIMIT 1 ";
+      if ($dblink->query($sql2) === FALSE) {
+        echo "Error: " . $sql2 . "<br>" . $dblink->error;
+      }
+
+      $sql = "INSERT INTO usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsAEditar')";
+      if ($dblink->query($sql) === FALSE) {
+        echo "Error: " . $sql . "<br>" . $dblink->error;
+      }
+    }
+
+
+  }
+
+?>
+
 <html>
 <head>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
@@ -10,23 +93,22 @@
   <a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
   <?php
     session_start();
-    include "../Config/Database.php";
-    session_start();
-    $db= new Database();
+    include_once "../Config/Database.php";
+      $db= new Database();
     $dblink= $db->getConnection();
    if ($dblink->connect_error) {
      die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
            . $dblink->connect_error);
    }
-   $var_value = $_SESSION['id'];
-  // echo "$var_value";
-   //Using GET
+     //Using GET
    $_idDeUsuario = $_GET['id'];
    $sql = "select * from Usuarios where id_Usuario= $_idDeUsuario ;";
+   echo "$sql";
+
    $result = $dblink->query($sql);
    $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
-<form action="EditarUsuario.php" method="post">
+<form action="EditarUsuario.php?id= <?php echo $_idDeUsuario ?> " method="post">
   <div class="container" >
     <select class="custom-select"  name="Categoria">
       <option selected>Categoria de Usuario</option>
@@ -110,77 +192,22 @@
             </tr>
           <?php } ?>
         </table>
-      <?php }      ?>
+      <?php }   ?>
     </div>
 
-      <form action="Methods.php" method="post">
-        <input type="submit" name="update" value="update">
+      <form action="EditarUsuario.php?id= <?php echo $_idDeUsuario ?> " method="post">
+        <input type="submit" name="submit" value="Actualizar">
+        <input type="hidden" name="idUs" value=<?php echo "$_idDeUsuario"; ?>>
       </form>
+
 
   </form>
   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
-  <?php
-    if (isset($_POST['update']))  {
-      session_start();
 
-      echo "crear";
-       update();
-     }
-    function update(){
-      $db= new Database();
-      $dblink= $db->getConnection();
-      $_categoriaUsuario= $_POST['Categoria'];
-      $_nombre= $_POST['nombre'];
-      $_interno= $_POST['numInt'];
-      $_Email= $_POST['correo'];
-      $_aulas= $_POST['aula'];
-      $_categorias= $_POST['categoria'];
-
-    $sql = " UPDATE usuarios SET nombre = '$_nombre', num_interno ='$_interno', E_Mail= '$_Email', Rol='$_categoriaUsuario' WHERE id_Usuario=$_idDeUsuario;";
-    echo "$sql";
-    if ($dblink->query($sql) === FALSE) {
-      echo "Error: " . $sql . "<br>" . $dblink->error;
-    }
-    $_idUsuarioCreado=$dblink->lastInsertId();
-    //echo "hoal";
-/*
-    //revisa todas las categorias y saca la lista de los id de aulas
-    foreach ($_categorias as  $value) {
-      $sql2 = "insert into usuarios_categorias values(NULL,'$_idUsuarioCreado','$value')";
-      if ($dblink->query($sql2) === FALSE) {
-        echo "Error: " . $sql2 . "<br>" . $dblink->error;
-      }
-
-      $sql = "select id_Aula from aulas_categoria where id_Categoria = '$value' " ;
-      if ($dblink->query($sql) === FALSE) {
-        echo "Error: " . $sql . "<br>" . $dblink->error;
-      }
-      $result = $dblink->query($sql);
-      $result->setFetchMode(PDO::FETCH_ASSOC);
-      while ($fila = $result->fetch()){
-      //  echo $fila['id_Aula'];
-        $valorIDDeAula= $fila['id_Aula'];
-        $sql2 = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$valorIDDeAula','$_idUsuarioCreado')";
-        if ($dblink->query($sql2) === FALSE) {
-          echo "Error: " . $sql2 . "<br>" . $dblink->error;
-        }
-      }
-    }
-
-
-    foreach ($_aulas as  $value) {
-      $sql = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsuarioCreado')";
-      if ($dblink->query($sql) === FALSE) {
-        echo "Error: " . $sql . "<br>" . $dblink->error;
-      }
-    }*/
-
-    }
-  ?>
 
   <?php
-//   $dblink->close();
+  $dblink->close();
    ?>
 </div >
    <!-- jQuery -->
