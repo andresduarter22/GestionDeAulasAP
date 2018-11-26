@@ -33,9 +33,9 @@
   ?>
   <!-- holaaa -->
   <?php   while ($fila = $result->fetch_object()){?>
-<form action="CrearCategoria.php"  method="get">
+<form action="EditarCategoria.php"  method="get">
   <div class="container">
-    <input type="hidden" class="form-control" id="id" name="id" value= <?php echo "$_idDeCategoria" ?>>
+    <input type="hidden" class="form-control" id="id" name="id" value= "<?php echo $_GET['id'] ;?>">>
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
     <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" value= "<?php echo $fila->nombre_categoria; ?>">
