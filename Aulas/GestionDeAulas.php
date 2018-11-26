@@ -30,8 +30,18 @@
     <?php   while ($fila = $result->fetch()){  ?>
      <tr>
         <td><?php echo $fila['nombre']; ?></td>
-        <td><?php echo "<a href=\"EditarAula.php\" class=\"btn btn-primary\">Editar";?></td>
-        <td><?php echo '<a href= EliminarAula.php ?id_Aulas=$fila["id_Aulas"] class= "btn btn-danger" >Borrar';?></td>
+          <td>
+            <form method="get" action="EditarAula.php">
+               <input type="hidden" name="id" value=<?php echo $fila['id_Aulas'] ;  ?> class="form-control">
+               <input type="submit" class="btn btn-primary" value="Editar">
+             </form>
+           </td>
+           <td>
+             <form method="get" action="EliminarAula.php">
+                <input type="hidden" name="id" value=<?php echo $fila['id_Aulas'] ;  ?> class="form-control">
+                <input type="submit" class="btn btn-primary" value="Borrar">
+              </form>
+            </td>
          </tr>
     <?php } ?>
 
