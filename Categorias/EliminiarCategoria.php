@@ -10,6 +10,10 @@
       <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
   <br/>
+  <br />
+  <br />
+  <br />
+  <br />
 
   <?php
   session_start();
@@ -21,45 +25,24 @@
     die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
           . $dblink->connect_error);
   }
-
-    //Using GET
     $_idDeCategoria = $_GET['id'];
-    $sql = "select * from Categorias where id_Categorias= $_idDeCategoria ;";
+    $sql = "select * from Categorias where id_Categorias = $_idDeCategoria ;";
     $result = $dblink->query($sql);
+
+
   ?>
-  <!-- se tira aqui -->
-    <?php   while ($fila = $result->fetch_object()){  ?>
 
-<form action="EliminiarCategoria.php"  method="post">
-  Desea Eliminar <br />
-  <div class="form-group scrollbar">
-    <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" value= <?php echo "$fila->id_Categorias" ?>>
-  </div>
-    <?php }?>
-  <form action="CrearCategoria.php" method="post">
-    <input type="submit" name="submit" value="Confirmar" class="btn">
-  </form>
-</form>
-<?php
-if (isset($_POST['submit']))
-{
-  session_start();
-   delete1();
-}
-function delete1(){
-  $db= new Database();
-  $dblink= $db->getConnection();
-  $_idDeCategoria = $_POST['NombreCategoria'];
-
-  $sql = "DELETE FROM Categorias WHERE id=$_idDeCategoria";
-  if ($dblink->query($sql) === FALSE) {
-    echo "Error: " . $sql . "<br>" . $dblink->error;
-  }
-
-}
-
-?>
+    <input type="text" name="id1" value= <?php echo $_idDeCategoria ;?> class="form-control" disabled/>
+    <form method="post" action="EliminiarCategoria.php">
+        <input type="hidden" value="<?php echo $_idDeCategoria ;?>" name="id1" class="form-control"/>
+        <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
+    </form>
+    <?php
+    if(isset($_POST['submit'])){
+      $_id=$_POST['id1'];
+      $sql1= "DELETE Categorias WHERE id_Categorias = $_idDeCategpria;";
+    }
+     ?>
 <!-- Boton para ir Atras -->
 <a class="btn btn-primary" href="GestionDeCategorias.php">Atras</a>
 <!-- Inicio boton de informacion -->
