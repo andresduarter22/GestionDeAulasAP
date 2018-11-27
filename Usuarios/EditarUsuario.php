@@ -24,14 +24,11 @@
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
 
-    /**
-        A Partir de aca borrar todas las relaciones en la tabla usuarios aulas, y luego poner las aulas independtiente y por categoria
-    */
+
     $sql2 = "DELETE FROM usuarios_aulas WHERE id_DeUsuario= $_idUsAEditar  ";
     if ($dblink->query($sql2) === FALSE) {
       echo "Error: " . $sql2 . "<br>" . $dblink->error;
     }
-
 
     //revisa todas las categorias y saca la lista de los id de aulas
     foreach ($_categorias as  $value) {
@@ -63,7 +60,7 @@
     }
 
     foreach ($_aulas as  $value) {
-      echo "$value";
+  //    echo "$value";
 
 
       $sql = "INSERT INTO usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsAEditar')";
@@ -99,8 +96,7 @@
      //Using GET
    $_idDeUsuario = $_GET['id'];
    $sql = "select * from Usuarios where id_Usuario= $_idDeUsuario ;";
-   echo "$sql";
-
+  
    $result = $dblink->query($sql);
    $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>

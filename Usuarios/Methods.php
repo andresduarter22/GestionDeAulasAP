@@ -3,34 +3,40 @@
 /**
  * Clase para editar y borrar
  */
-class ClassName
-{
 
-  function __construct(argument)
-  {
-  }
+ include_once "../Config/Database.php";
+$db= new Database();
+$dblink= $db->getConnection();
 
 
-  function update(){
-    $db= new Database();
-    $dblink= $db->getConnection();
-    $_categoriaUsuario= $_POST['Categoria'];
-    $_nombre= $_POST['nombre'];
-    $_interno= $_POST['numInt'];
-    $_Email= $_POST['correo'];
-    $_aulas= $_POST['aula'];
-    $_categorias= $_POST['categoria'];
+$_idDeUsuario= $_GET['id'];
+echo "$_idDeUsuario";
+$sql = " DELETE FROM reservas WHERE id_Usuario_Reserva= $_idDeUsuario;";
+//echo "$sql";
+if ($dblink->query($sql) === FALSE) {
+  echo "Error: " . $sql . "<br>" . $dblink->error;
+}
 
-  $sql = " UPDATE usuarios SET nombre = '$_nombre', num_interno ='$_interno', E_Mail= '$_Email', Rol='$_categoriaUsuario' WHERE id_Usuario=$_idDeUsuario;";
-  echo "$sql";
-  if ($dblink->query($sql) === FALSE) {
-    echo "Error: " . $sql . "<br>" . $dblink->error;
-  }
+$sql = " DELETE FROM usuarios_aulas WHERE  id_DeUsuario= $_idDeUsuario;";
+//echo "$sql";
+if ($dblink->query($sql) === FALSE) {
+  echo "Error: " . $sql . "<br>" . $dblink->error;
+}
+
+$sql = " DELETE FROM usuarios_categorias WHERE  id_DeUsuario= $_idDeUsuario;";
+//echo "$sql";
+if ($dblink->query($sql) === FALSE) {
+  echo "Error: " . $sql . "<br>" . $dblink->error;
 }
 
 
+$sql = " DELETE FROM usuarios  WHERE id_Usuario= $_idDeUsuario;";
+//echo "$sql";
+if ($dblink->query($sql) === FALSE) {
+  echo "Error: " . $sql . "<br>" . $dblink->error;
 }
 
+//header("Location: GestionDeUsuarios.php");
 
 
 ?>

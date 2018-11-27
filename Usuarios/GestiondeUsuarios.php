@@ -1,3 +1,14 @@
+<?php
+  if (isset($_POST['submit']))  {
+    delete();
+  }
+  function delete(){
+    echo "borra";
+  }
+
+
+ ?>
+
 <html>
   <head>
     <title>Gestion de Usuarios</title>
@@ -46,18 +57,16 @@
                echo "Administrador";
              }
                 ?></td>
-             <td>
-               <?php
-              $_idUs=$fila['id_Usuario'];
-               echo "<a href=\"EditarUsuario.php?id= $_idUs  \" class=\"btn btn-primary\">Editar";?>
-               <!-- <form method="post" action="EditarUsuario.php">
-                  <input type="hidden" name="id" value=<?php //echo $fila['id_Usuario'] ;  ?>> -->
-                    <!--   <input type="submit">
-                </form>-->
+             <td> <?php
+                  $_idUs=$fila['id_Usuario'];
+                  echo "<a href=\"EditarUsuario.php?id=$_idUs\" class=\"btn btn-primary\">Editar";
+                ?>
               </td>
-             <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal\">Borrar";?></td>
+             <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal" .$fila['id_Usuario'] . "\"> $_idUs Borrar";
+                  $idDEUSUARI=$_idUs;
+                ?></td>
           </tr>
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="exampleModal<?php echo $fila['id_Usuario']; ?>" ta  bindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -67,10 +76,12 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  Esta seguro que desea borrar el usuario
+                  Esta seguro que desea borrar el usuario, incluidas sus reservas y todo lo relacionado a este usuario?
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                  <a href="Methods.php?id=<?php echo $fila['id_Usuario'];?>" class=\"btn btn-primary\"> <?php echo $fila['id_Usuario'];?> Editar
+
                   <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
