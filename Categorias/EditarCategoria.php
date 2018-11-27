@@ -32,9 +32,9 @@
     $_descripcion = $_POST['Descripcion'];
     $sql = "select * from Categorias where id_Categorias= $_idDeCategoria ;";
     $result = $dblink->query($sql);
-    echo var_dump($_nombre);
-    echo var_dump($_descripcion);
-    echo $_SERVER['REQUEST_METHOD']
+    //echo var_dump($_nombre);
+    //echo var_dump($_descripcion);
+    //echo $_SERVER['REQUEST_METHOD']
   ?>
   <!-- holaaa -->
   <?php   while ($fila = $result->fetch_object()){?>
@@ -63,12 +63,7 @@ if (isset($_POST['id1'])){
   $_id= $_POST['id1'];
   $_nombre= $_POST['NombreCategoria'];
   $_descripcion= $_POST['Descripcion'];
-  echo var_dump($_id);
-  echo var_dump($_nombre);
-  echo var_dump($_descripcion);
-
   $sql1 = "UPDATE Categorias SET nombre_categoria = '$_nombre',descripcion='$_descripcion' WHERE id_Categorias =".$_POST['id1'].";";
-  echo var_dump($sql1);
   $dblink->query($sql1);
 
   if ($dblink->query($sql) === FALSE) {
