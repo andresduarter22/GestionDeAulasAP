@@ -15,15 +15,14 @@
       $dblink= $db->getConnection();
       $sql = 'select * from Categorias;';
       $result = $dblink->query($sql);
-      $result->setFetchMode(PDO::FETCH_ASSOC);
     ?>
-<div class="container" >
+<div class="container form-group" >
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
     <tr>
-      <th style="width: 30%"> Nombre de la Categoria</th>
+      <th style="width: 30%">Nombre de la Categoria</th>
       <th style="width: 10%">Editar</th>
-      <th style="width: 20%"> Borrar</th>
+      <th style="width: 20%">Borrar</th>
     </tr>
   </thead>
    <tbody>
