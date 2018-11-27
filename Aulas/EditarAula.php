@@ -10,17 +10,27 @@
       <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
   <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 
   <?php
-    //Conexion con base
-    include "../Config/Database.php";
-    //include_once "Actions.php";
-
-    $db= new Database();
-    $dblink= $db->getConnection();
+  session_start();
+  $db_name = "bd_aulasperronas";
+  $db_user = "root";
+  $db_pass = "";
+  $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
+  if ($dblink->connect_error) {
+    die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
+          . $dblink->connect_error);
+  }
+  $_idAula = $_GET['id'];
+  $sql = "select * from Aulas where id_Aulas= $_idAula ;";
+  $result = $dblink->query($sql);
   ?>
   <!-- holaaa -->
-<form action="CrearAula.php"  method="post">
+<form action="EditarAula.php"  method="post">
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
     <input type="text" class="form-control" id="NombreAula" name="NombreAula">
@@ -39,18 +49,19 @@
     </thead>
     <tbody>
       <?php
-       $sql = "select * from Categorias;";
-       $result = $dblink->query($sql);
-       while ($fila = $result->fetch()){  ?>
+       $sql1 = "select * from Categorias";
+       //WHERE id_Categorias = ".$_GET['id'].";
+       $result1 = $dblink->query($sql1);
+       while ($fila1 = $result1->fetch_object()){  ?>
       <tr>
-         <td><?php echo $fila['nombre_categoria'] ?></td>
-         <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila['id_Categorias']." \" enabled>";?></td>
+         <td><?php echo $fila1->nombre_categoria; ?></td>
+         <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1->id_Categorias." \" enabled>";?></td>
       </tr>
        <?php } ?>
      </tbody>
    </table>
   </div>
-  <form action="CrearAula.php" method="post">
+  <form action="EditarAula.php" method="post">
     <input type="submit" name="submit" value="Confirmar" class="btn">
   </form>
 </form>
