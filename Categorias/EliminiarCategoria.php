@@ -24,10 +24,12 @@
   if ($dblink->connect_error) {
     die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
           . $dblink->connect_error);
+
   }
+  echo $_SERVER['REQUEST_METHOD']
     //$sql = "select * from Categorias where id_Categorias = ".$_GET['id'].";" ;
     //$result = $dblink->query($sql);
-    //echo vardump($result);
+    //echo var_dump($result);
 
   ?>
 
@@ -61,8 +63,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

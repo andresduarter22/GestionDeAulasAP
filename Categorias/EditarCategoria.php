@@ -28,14 +28,19 @@
 
     //Using GET
     $_idDeCategoria = $_GET['id'];
+    $_nombre = $_POST['NombreCategoria'];
+    $_descripcion = $_POST['Descripcion'];
     $sql = "select * from Categorias where id_Categorias= $_idDeCategoria ;";
     $result = $dblink->query($sql);
+    echo var_dump($_nombre);
+    echo var_dump($_descripcion);
+    echo $_SERVER['REQUEST_METHOD']
   ?>
   <!-- holaaa -->
   <?php   while ($fila = $result->fetch_object()){?>
-<form action="EditarCategoria.php"  method="get">
+<form method="post" action=<?php echo '"EditarCategoria.php?id='.$_GET['id'].'"' ?>>
   <div class="container">
-    <input type="hidden" class="form-control" id="id" name="id" value= "<?php echo $_GET['id'] ;?>">>
+    <input type="hidden" class="form-control" id="id" name="id" value= "<?php echo $_GET['id'] ;?>">
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
     <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" value= "<?php echo $fila->nombre_categoria; ?>">
@@ -46,32 +51,32 @@
 <?php echo "  $fila->descripcion "; ?>
     </textarea/>
   </div>
-  <form action="CrearCategoria.php" method="get">
-    <input type="hidden" name="id" value=<?php echo $_idDeCategoria ;  ?> class="form-control">
-    <input type="submit" name="submit" value="Confirmar" class="btn">
-  </form>
-    </div>
+
+    <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
+    <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
+  </div>
 </form>
-<?php }?>
+<?php } ?>
 
 <?php
-if (isset($_GET['id']))
-{
-   edit1();
-}
-function edit1(){
-  $db= new Database();
-  $dblink= $db->getConnection();
-  $_nombre= $_GET['NombreCategoria'];
-  $_descripcion= $_GET['Descripcion'];
-  $_idDeCategoria=$_GET['id'];
+if (isset($_POST['id1'])){
+  $_id= $_POST['id1'];
+  $_nombre= $_POST['NombreCategoria'];
+  $_descripcion= $_POST['Descripcion'];
+  echo var_dump($_id);
+  echo var_dump($_nombre);
+  echo var_dump($_descripcion);
 
-  $sql = "UPDATE Categorias SET nombre_categoria = $_nombre,descripcion=$_descripcion WHERE id_Categorias = $_idDeCategoria";
+  $sql1 = "UPDATE Categorias SET nombre_categoria = '$_nombre',descripcion='$_descripcion' WHERE id_Categorias =".$_POST['id1'].";";
+  echo var_dump($sql1);
+  $dblink->query($sql1);
+
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
 
 }
+
 
 ?>
 <!-- Boton para ir Atras -->
