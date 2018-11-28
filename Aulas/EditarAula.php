@@ -83,7 +83,7 @@ if (isset($_POST['id1']))
   $_cantAulumnos= $_POST['CantidadAlumnos'];
   $_idAulaCreada=$dblink->lastInsertId();
   foreach ($_categorias as  $value) {
-    $sql = "update Aulas_Categoria set(nombre = $_nombre,cantidad_alumnos=$_cantDeAlumnos)";
+    $sql = "UPDATE Aulas_Categoria SET(nombre = $_nombre,cantidad_alumnos=$_cantDeAlumnos)";
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
