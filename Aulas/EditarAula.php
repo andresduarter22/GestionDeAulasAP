@@ -28,16 +28,18 @@
   $_idAula = $_GET['id'];
   $sql = "select * from Aulas where id_Aulas= $_idAula ;";
   $result = $dblink->query($sql);
+  $fila = $result->fetch_object();
+  echo var_dump($fila->cantidad_alumnos);
   ?>
   <!-- holaaa -->
 <form action="EditarAula.php"  method="post">
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreAula" name="NombreAula">
+    <input type="text" class="form-control" id="NombreAula" name="NombreAula" value = <?php echo $fila->nombre; ?>>
   </div>
   <div class="form-group">
     <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-    <input type="text" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos">
+    <input type="text" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos" value = <?php echo $fila->cantidad_alumnos; ?>>
   </div>
   <div class="container">
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
@@ -55,24 +57,28 @@
        while ($fila1 = $result1->fetch_object()){  ?>
       <tr>
          <td><?php echo $fila1->nombre_categoria; ?></td>
-         <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1->id_Categorias." \" enabled>";?></td>
+         <?php $sql2 = "select * from Aulas_Categoria where id_Aula = ".$_GET['id']." and id_Categoria =".$fila1->id_Categorias.";";
+          $result2 = $dblink->query($sql2);
+         if ($result2->num_rows > 0){?>
+           <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1->id_Categorias." \" enabled checked>";?></td>
+         <?php  }else{ ?>
+           <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1->id_Categorias." \" enabled>";?></td>
+      <?php
+         }
+          ?>
       </tr>
        <?php } ?>
      </tbody>
    </table>
   </div>
   <form action="EditarAula.php" method="post">
-    <input type="submit" name="submit" value="Confirmar" class="btn">
+    <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
+    <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
   </form>
 </form>
 <?php
-if (isset($_POST['submit']))
+if (isset($_POST['id1']))
 {
-   create();
-}
-function create(){
-  $db= new Database();
-  $dblink= $db->getConnection();
   $_nombre= $_POST['NombreAula'];
   $_cantAulumnos= $_POST['CantidadAlumnos'];
   $_idAulaCreada=$dblink->lastInsertId();
@@ -83,7 +89,6 @@ function create(){
     }
   }
 }
-
 ?>
 <!-- Boton para ir Atras -->
 <a class="btn btn-primary" href="GestionDeAulas.php">Atras</a>
