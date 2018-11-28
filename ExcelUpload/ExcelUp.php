@@ -14,6 +14,10 @@
     <title>Upload Excel</title>
   </head>
   <body>
+    <?php
+      $_idDeUsuario = $_GET['id'];
+      echo "$_idDeUsuario";
+     ?>
     <form method="post" enctype="multipart/form-data">
       <input type="file" name="file">
       <input type="submit" name="sub" value="Import">

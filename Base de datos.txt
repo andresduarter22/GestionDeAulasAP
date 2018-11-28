@@ -141,13 +141,14 @@ DROP TABLE IF EXISTS `BD_AulasPerronas`.`Reservas` ;
 
 CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Reservas` (
   `id_Reservas` INT NOT NULL AUTO_INCREMENT,
-  `id_Aula_Reservada` INT NOT NULL,
+  `id_Aula_Reservada` INT NULL,
   `id_Usuario_Reserva` INT NOT NULL,
   `id_Materia_Reserva` INT NOT NULL,
   `fecha_inicio` DATE NOT NULL,
   `fecha_final` DATE NOT NULL,
   `tipo` TINYINT(1) NOT NULL,
   `horario` VARCHAR(5) NOT NULL,
+  `docente` VARCHAR(300) NULL,
   PRIMARY KEY (`id_Reservas`),
   INDEX `id_Aula_idx` (`id_Aula_Reservada` ASC),
   INDEX `id_Usuario_idx` (`id_Usuario_Reserva` ASC),
