@@ -14,7 +14,7 @@
   <br/>
   <br/>
   <br/>
-
+hola
   <?php
   session_start();
   $db_name = "bd_aulasperronas";
@@ -27,10 +27,11 @@
   }
   $_idAula = $_GET['id'];
   $sql = "select * from Aulas where id_Aulas= $_idAula ;";
+  echo var_dump($sql);
   $result = $dblink->query($sql);
   $fila = $result->fetch_object();
-  echo var_dump($fila->cantidad_alumnos);
   ?>
+  hola
   <!-- holaaa -->
 <form action="EditarAula.php"  method="post">
   <div class="form-group scrollbar">
@@ -76,14 +77,20 @@
     <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
   </form>
 </form>
+
 <?php
 if (isset($_POST['id1']))
 {
+  $_id = $_POST['id1'];
   $_nombre= $_POST['NombreAula'];
   $_cantAulumnos= $_POST['CantidadAlumnos'];
-  $_idAulaCreada=$dblink->lastInsertId();
+  echo var_dump($_id);
+  echo var_dump($_nombre);
+  echo var_dump($_cantAulumnos);
+  $sql3 = "UPDATE Aulas_Categoria SET nombre = $_nombre,cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_id.";";
+  $dblink->query($sql3);
   foreach ($_categorias as  $value) {
-    $sql = "UPDATE Aulas_Categoria SET(nombre = $_nombre,cantidad_alumnos=$_cantDeAlumnos)";
+
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
