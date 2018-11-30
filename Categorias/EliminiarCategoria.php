@@ -26,7 +26,7 @@
           . $dblink->connect_error);
 
   }
-  echo $_SERVER['REQUEST_METHOD']
+  //echo $_SERVER['REQUEST_METHOD']
     //$sql = "select * from Categorias where id_Categorias = ".$_GET['id'].";" ;
     //$result = $dblink->query($sql);
     //echo var_dump($result);
@@ -34,6 +34,27 @@
   ?>
 
     <input type="text" name="id1" value= <?php echo  $_GET['id'] ;?> class="form-control" disabled/>
+    <table class="table table-striped table-bordered  table-responsive-sm m-5s">
+      <thead  class="thead-dark">
+      <tr>
+        <th style="width: 15%">Lista de Aulas afectadas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
+      $res=$dblink->query($sql2);
+        $aulas = array();
+      while (()$fila = $res->fetch_object()) && ($row =  mysql_fetch_assoc($res))){     
+          $aulas[] = $row[$fila->id_Aula];
+         ?>
+        <tr>
+          <?php var_dump($fila->id_Aula); ?>
+          <td><?php echo "$fila->id_Aula"; ?></td>
+        </tr>
+      <?php } ?>
+    </tbody>
+  </table>
+    </table>
     <form method="post" action=<?php echo '"EliminiarCategoria.php?id='.$_GET['id'].'"' ?>>
         <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
         <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
