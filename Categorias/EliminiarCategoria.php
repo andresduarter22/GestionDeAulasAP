@@ -42,16 +42,22 @@
     </thead>
     <tbody>
       <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
+      var_dump($sql2);
       $res=$dblink->query($sql2);
-        $aulas = array();
-      while (()$fila = $res->fetch_object()) && ($row =  mysql_fetch_assoc($res))){     
-          $aulas[] = $row[$fila->id_Aula];
+        $aulas = array("Hola");
+        $contador=0;
+      while ($fila = $res->fetch_object()){
+        var_dump($fila->id_Aula);
+          $aulas[$contador] = $fila->id_Aula;
+          $sql3 = "SELECT * FROM  aulas WHERE id_Aulas =".$aulas[$contador].";";
+                    $res1=$dblink->query($sql3);
+                    $fila1 = $res1->fetch_object();
          ?>
         <tr>
-          <?php var_dump($fila->id_Aula); ?>
-          <td><?php echo "$fila->id_Aula"; ?></td>
+          <td><?php echo "$fila1->nombre"; ?></td>
         </tr>
-      <?php } ?>
+      <?php $contador = $contador + 1;
+    } ?>
     </tbody>
   </table>
     </table>
