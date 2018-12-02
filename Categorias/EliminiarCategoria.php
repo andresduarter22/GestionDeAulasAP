@@ -30,7 +30,9 @@
     //$sql = "select * from Categorias where id_Categorias = ".$_GET['id'].";" ;
     //$result = $dblink->query($sql);
     //echo var_dump($result);
-
+    $aulas = array("Hola");
+    $aulas1 = array("Hola");
+    $contador=0;
   ?>
 
     <input type="text" name="id1" value= <?php echo  $_GET['id'] ;?> class="form-control" disabled/>
@@ -44,10 +46,8 @@
       <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
       var_dump($sql2);
       $res=$dblink->query($sql2);
-        $aulas = array("Hola");
-        $contador=0;
+
       while ($fila = $res->fetch_object()){
-        var_dump($fila->id_Aula);
           $aulas[$contador] = $fila->id_Aula;
           $sql3 = "SELECT * FROM  aulas WHERE id_Aulas =".$aulas[$contador].";";
                     $res1=$dblink->query($sql3);
@@ -58,6 +58,32 @@
         </tr>
       <?php $contador = $contador + 1;
     } ?>
+    </tbody>
+  </table>
+    </table>
+    <!--tabla 2 -->
+    <table class="table table-striped table-bordered  table-responsive-sm m-5s">
+      <thead  class="thead-dark">
+      <tr>
+        <th style="width: 15%">Lista de Aulas que se que quedan sin categoria</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      for($i=0;$i<conut($aulas);$i++){
+        $sql4 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id']."AND id_Aula = ".$aulas[$i].";";
+        var_dump($sql4);
+        $res4=$dblink->query($sql4);
+        $fila4 = $res4->fetch_object();
+        $aulas1[$i] = $fila4->id_Aula;
+      }
+          $res1=$dblink->query($sql3);
+                    $fila1 = $res1->fetch_object();
+         ?>
+        <tr>
+          <td><?php echo "$fila1->nombre"; ?></td>
+        </tr>
+      <?php $contador = $contador + 1; ?>
     </tbody>
   </table>
     </table>

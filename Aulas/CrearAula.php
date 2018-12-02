@@ -57,22 +57,21 @@
 <?php
 if (isset($_POST['submit']))
 {
-   create();
-}
-function create(){
   $db= new Database();
   $dblink= $db->getConnection();
   $_nombre= $_POST['NombreAula'];
   $_cantAulumnos= $_POST['CantidadAlumnos'];
   $_categorias= $_POST['categoria'];
-
-  $sql = "insert into Aulas(id_Aulas,nombre,cantidad_alumnos) values(NULL,'$_nombre','$_cantAulumnos')";
+  $sql = "INSERT INTO Aulas(id_Aulas,nombre,cantidad_alumnos) VALUES(NULL,'$_nombre','$_cantAulumnos');";
+  $dblink->query($sql);
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
   $_idAulaCreada=$dblink->lastInsertId();
   foreach ($_categorias as  $value) {
-    $sql = "insert into Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) values(NULL,1,1)";
+    $sql1 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_idAulaCreada,$value);";
+    echo var_dump($sql1);
+    $dblink->query($sql1);
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
