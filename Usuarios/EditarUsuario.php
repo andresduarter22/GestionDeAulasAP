@@ -21,7 +21,7 @@
     $sql = " UPDATE usuarios SET nombre = '$_nombre', num_interno ='$_interno', E_Mail= '$_Email', Rol=$_categoriaUsuario WHERE id_Usuario=$_idUsAEditar;";
   //  echo "$sql";
     if ($dblink->query($sql) === FALSE) {
-      echo "Error: " . $sql . "<br>" . $dblink->error;
+      echo "Error en la modificacion de usuarios, uno o mas campos no fueron llenados " ;
     }
 
 
@@ -96,7 +96,7 @@
      //Using GET
    $_idDeUsuario = $_GET['id'];
    $sql = "select * from Usuarios where id_Usuario= $_idDeUsuario ;";
-  
+
    $result = $dblink->query($sql);
    $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
@@ -194,6 +194,8 @@
 
 
   </form>
+
+  <a class="btn btn-primary" href="GestionDeUsuarios.php">Atras</a>
   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
 

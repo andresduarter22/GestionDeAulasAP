@@ -34,7 +34,8 @@ if(isset($_POST['submmit'])){
         <div class="row">
           <div class="col-sm-6">
             <input type="radio" enabled>Dias Especificos</input>
-        
+          </div>
+          <div class="col-sm-6">
             <input type="radio" enabled>Dias Seguidos</input>
           </div>
 
@@ -85,7 +86,7 @@ if(isset($_POST['submmit'])){
         </table>
       </div>
   <!-- boton para ir atras-->
-      <a href="HomeLogeado.php" class="btn btn-primary">Atras</a>
+      <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
 
       <form action="search.php" method="post">
         <input type="submit" class="btn btn-primary" name="submit" value="Buscar">
