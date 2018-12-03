@@ -26,7 +26,7 @@
           . $dblink->connect_error);
 
   }
-  //echo $_SERVER['REQUEST_METHOD']
+    //echo $_SERVER['REQUEST_METHOD']
     //$sql = "select * from Categorias where id_Categorias = ".$_GET['id'].";" ;
     //$result = $dblink->query($sql);
     //echo var_dump($result);
@@ -44,7 +44,6 @@
     </thead>
     <tbody>
       <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
-      var_dump($sql2);
       $res=$dblink->query($sql2);
 
       while ($fila = $res->fetch_object()){
@@ -52,6 +51,7 @@
           $sql3 = "SELECT * FROM  aulas WHERE id_Aulas =".$aulas[$contador].";";
                     $res1=$dblink->query($sql3);
                     $fila1 = $res1->fetch_object();
+                  //  echo var_dump($aulas[$contador]);
          ?>
         <tr>
           <td><?php echo "$fila1->nombre"; ?></td>
@@ -69,18 +69,29 @@
       </tr>
     </thead>
     <tbody>
+      
       <?php
-      echo count($aulas);
       for($i=0;$i<count($aulas);$i++){
         $sql4 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id']." AND id_Aula = ".$aulas[$i].";";
         $res4=$dblink->query($sql4);
         $fila4 = $res4->fetch_object();
-        $aulas1[$i] = $fila4->id_Aula;
-        echo count($aulas1[$i]);
+
+        $aux=false;
+        for($j=0;$j<count($aulas1);$j++){
+          if($j == 0){
+            $aulas1[$i] = $fila4->id_Aula;
+          } else if($aulas1[$j] == $fila4->id_Aula){
+            $aux=true;
+          }
+        }
+        if($aux=false){
+          $aulas1[$i] = $fila4->id_Aula;
+        }
+        //echo count($aulas1[$i]);
         $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aulas1[$i].";";
         $res5=$dblink->query($sql5);
         $fila5 = $res5->fetch_object();
-        if($res5->num_rows = 1){
+        if($res5->num_rows == 1){
           ?>
           <tr>
             <td><?php echo "$fila5->nombre"; ?></td>

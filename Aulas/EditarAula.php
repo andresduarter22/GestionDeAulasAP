@@ -25,9 +25,9 @@
           . $dblink->connect_error);
   }
   $_idAula = $_GET['id'];
-  echo var_dump($_GET['id']);
+  //echo var_dump($_GET['id']);
   $sql = "select * from Aulas where id_Aulas= $_idAula ;";
-  echo var_dump($sql);
+  //echo var_dump($sql);
   $result = $dblink->query($sql);
   $fila = $result->fetch_object();
   ?>
