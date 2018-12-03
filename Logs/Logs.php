@@ -30,9 +30,8 @@
    <tbody>
     <?php
     $sql = "SELECT * FROM Logs WHERE tipo = 'm';";
-    echo var_dump($sql);
     $result = $dblink->query($sql);
-    echo var_dump($result);
+    if($result != null){
     while ($fila = $result->fetch()){  ?>
      <tr>
         <td><?php echo $fila['nombre_usuario']; ?></td>
@@ -42,7 +41,8 @@
         <td><?php echo $fila['Fecha_ini']; ?></td>
         <td><?php echo $fila['Fecha_fin']; ?></td>
      </tr>
-    <?php } ?>
+    <?php }
+    } ?>
   </tbody>
 </table>
 </div>
@@ -62,8 +62,8 @@
    <tbody>
     <?php
     $sql1 = "SELECT * FROM Logs WHERE tipo = 'a';";
-    echo var_dump($sql);
     $result1 = $dblink->query($sql1);
+    if($result1 != null){
     while ($fila1 = $result1->fetch()){  ?>
      <tr>
         <td><?php echo $fila['nombre_usuario']; ?></td>
@@ -73,7 +73,8 @@
         <td><?php echo $fila['Fecha_ini']; ?></td>
         <td><?php echo $fila['Fecha_fin']; ?></td>
      </tr>
-    <?php } ?>
+    <?php }
+  }?>
   </tbody>
 </table>
 </div>
