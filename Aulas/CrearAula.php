@@ -57,6 +57,8 @@
 <?php
 if (isset($_POST['submit']))
 {
+  $db= new Database();
+  $dblink= $db->getConnection();
   $_nombre= $_POST['NombreAula'];
   $_cantAulumnos= $_POST['CantidadAlumnos'];
   $_categorias= $_POST['categoria'];
@@ -67,6 +69,7 @@ if (isset($_POST['submit']))
   }
   $_idAulaCreada=$dblink->lastInsertId();
   foreach ($_categorias as  $value) {
+    //echo var_dump($_idAulaCreada);
     $sql1 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_idAulaCreada,$value);";
     $dblink->query($sql1);
     if ($dblink->query($sql) === FALSE) {
