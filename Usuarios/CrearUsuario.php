@@ -82,6 +82,7 @@
     <input type="submit" name="submit" value="submit">
   </form>
 
+  <a class="btn btn-primary" href="GestionDeUsuarios.php">Atras</a>
   </form>
   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 

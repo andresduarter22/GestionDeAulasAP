@@ -36,7 +36,7 @@ if ($dblink->query($sql) === FALSE) {
   echo "Error: " . $sql . "<br>" . $dblink->error;
 }
 
-//header("Location: GestionDeUsuarios.php");
+header("Location: GestionDeUsuarios.php");
 
 
 ?>

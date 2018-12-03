@@ -62,7 +62,7 @@
                   echo "<a href=\"EditarUsuario.php?id=$_idUs\" class=\"btn btn-primary\">Editar";
                 ?>
               </td>
-             <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal" .$fila['id_Usuario'] . "\"> $_idUs Borrar";
+             <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal" .$fila['id_Usuario'] . "\"> Borrar";
                   $idDEUSUARI=$_idUs;
                 ?></td>
           </tr>
@@ -70,7 +70,7 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Advertincia</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -80,9 +80,8 @@
                 </div>
                 <div class="modal-footer">
 
-                  <a href="Methods.php?id=<?php echo $fila['id_Usuario'];?>" class=\"btn btn-primary\"> <?php echo $fila['id_Usuario'];?> Editar
+                  <button type="button" class="btn " > <a href="Methods.php?id=<?php echo $fila['id_Usuario'];?>" >  Eliminar </button>
 
-                  <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
               </div>
             </div>
@@ -91,7 +90,9 @@
        </tbody>
      </table>
    </div>
-   <button><a href="CrearUsuario.php">Crear nuevo usuario</a></button
+   <button><a href="CrearUsuario.php">Crear nuevo usuario</a></button>
+
+   <a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
    <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 
 

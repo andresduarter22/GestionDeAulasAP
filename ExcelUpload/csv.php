@@ -53,19 +53,12 @@ class csv
     $result = $dblink->query($sql);
     $result->setFetchMode(PDO::FETCH_ASSOC);
     if($result->rowCount() || $_Aula===""){
-      //echo "existe Aula</br>";
-      //echo "insertando... </br>";
-      //obteniendo id de Materia
-    /*  $sql = "SELECT id_Materias from materias WHERE nombre_materia='$_Materia';";
-      $result = $dblink->query($sql);
-      $result->setFetchMode(PDO::FETCH_ASSOC);
-      $_IdMateria = $result->fetchColumn(); */
       $_IdMateria=2;
       $sql = "SELECT * FROM materias WHERE nombre_materia= '$_Materia';";
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
       if($result->rowCount()){
-          echo "ya existio";
+          //echo "ya existio";
           $sql = "SELECT id_Materias FROM materias WHERE nombre_materia= '$_Materia';";
           $result2 =$dblink->query($sql);
           $result2->setFetchMode(PDO::FETCH_ASSOC);
@@ -77,17 +70,12 @@ class csv
         $_IdMateria=$dblink->lastInsertId();
 
       }
-      //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedyijkkj    echo "insertada";
-      //echo "$_IdMateria <br>";
-      //echo "$_IdMateria";
-      //echo "  ";
 
       //obteniendo id de Aula
       $sql = "SELECT id_Aulas from aulas WHERE nombre='$_Aula';";
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
       $_IdAula = $result->fetchColumn();
-      //echo "$_IdAula";
 
       //ordenando fechas
       $ArregloFechaIni = explode('/', $_FechaInicio);
