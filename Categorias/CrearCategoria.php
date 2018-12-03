@@ -24,9 +24,7 @@
   </div>
   <div class="form-group">
     <label for="CantidadDeAlumnos">Descripcion:</label>
-    <textarea class="form-control" id="Descripcion" name="Descripcion">
-
-    </textarea/>
+    <textarea class="form-control" id="Descripcion" name="Descripcion">  </textarea/>
   </div>
   <form action="CrearCategoria.php" method="post">
     <input type="submit" name="submit" value="Confirmar" class="btn">

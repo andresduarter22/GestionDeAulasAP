@@ -1,12 +1,4 @@
-<?php
-include "search.php";
 
-$search=new search();
-if(isset($_POST['submmit'])){
-    $csv->import();
-}
-
- ?>
 <html>
 <head>
 <link href="Style.css" type="text/css" rel="stylesheet" />
@@ -30,24 +22,21 @@ if(isset($_POST['submmit'])){
     $result->setFetchMode(PDO::FETCH_ASSOC);
   ?>
     <form>
+    <div class="container" >
       <div class="container row">
         <div class="row">
           <div class="col-sm-6">
             <input type="radio" enabled>Dias Especificos</input>
-          </div>
-          <div class="col-sm-6">
             <input type="radio" enabled>Dias Seguidos</input>
           </div>
-
-          <div class=" col-sm-6">
-            <select class="form-control">
+            <select class="form-control col-xs-3 ">
               <?php   while ($fila = $result->fetch()){  ?>
                 <option value="volvo"><?php echo $fila['nombre']; ?></option>
               <?php } ?>
             </select>
           </div>
         </div>
-      </div>
+
       <?php
       /*include 'FuncionCalendario.php';
 
@@ -64,7 +53,6 @@ if(isset($_POST['submmit'])){
         </div>
         <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Cantidad de Alumnos">
       </div>
-      <div class="container">
         <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
           <thead  class="thead-dark">
             <tr>
@@ -84,14 +72,16 @@ if(isset($_POST['submmit'])){
             <?php } ?>
           </tbody>
         </table>
-      </div>
+
   <!-- boton para ir atras-->
-      <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
 
       <form action="search.php" method="post">
         <input type="submit" class="btn btn-primary" name="submit" value="Buscar">
       </form>
+    </div>
     </form>
+    <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
+
 <!--boton de informacion-->
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
     <div class="modal fade" id="info" name="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
