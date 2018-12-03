@@ -3,7 +3,7 @@
 
 class csv
 {
-  public function import($file){
+  public function import($file, $idUploader){
     $file = fopen($file, 'r');
     $_cont=0;
     $this->borrarReservasPrevias();
@@ -15,9 +15,9 @@ class csv
         if($primerCaracter ===";"){
           break;
         }
-        //echo $_cadenaDeDatos   ."</br>";
-          $this->AgregarReservasAutomaticas($_cadenaDeDatos);
-
+        // echo $_cadenaDeDatos   ."</br>";
+        $this->AgregarReservasAutomaticas($_cadenaDeDatos, $idUploader);
+        //$this->AgregarAulas($_cadenaDeDatos);
       }
       $_cont++;
     }
@@ -33,7 +33,7 @@ class csv
     $dblink=null;
   }
 
-  public function AgregarReservasAutomaticas($cadena){
+  public function AgregarReservasAutomaticas($cadena,$idUploader){
     $myArray = explode(';', $cadena);
 
     $_Materia=$myArray[0];
@@ -48,22 +48,45 @@ class csv
     $db= new Database();
     $dblink= $db->getConnection();
 
-
-
     // Verificar si exite aula
     $sql = "SELECT * FROM aulas WHERE nombre= '$_Aula';";
     $result = $dblink->query($sql);
     $result->setFetchMode(PDO::FETCH_ASSOC);
-    if($result->rowCount()){
+    if($result->rowCount() || $_Aula===""){
       //echo "existe Aula</br>";
       //echo "insertando... </br>";
       //obteniendo id de Materia
-      $sql = "SELECT id_Materias from materias WHERE nombre_materia='$_Materia';";
+    /*  $sql = "SELECT id_Materias from materias WHERE nombre_materia='$_Materia';";
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
-      $_IdMateria = $result->fetchColumn();
+      $_IdMateria = $result->fetchColumn(); */
+      $_IdMateria=2;
+      $sql = "SELECT * FROM materias WHERE nombre_materia= '$_Materia';";
+      $result = $dblink->query($sql);
+      $result->setFetchMode(PDO::FETCH_ASSOC);
+      echo "$result->rowCount()";
+      if($result->rowCount()){
+          echo "ya existio";
+          $sql = "SELECT id_Materias FROM materias WHERE nombre_materia= '$_Materia';";
+          $result2 =$dblink->query($sql);
+          $result2->setFetchMode(PDO::FETCH_ASSOC);
+          $_IdMateria=$result2->fetchColumn();
+
+        echo " existe";
+      }else {
+        $sql = "INSERT INTO materias values(NULL,'$_Materia');";
+        //      echo "$sql <br>";
+        $dblink->query($sql);
+        $_IdMateria=$dblink->lastInsertId();
+
+        echo "no existe";
+      }
+      echo "$_IdMateria";
+      //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedyijkkj    echo "insertada";
+      //echo "$_IdMateria <br>";
       //echo "$_IdMateria";
       //echo "  ";
+
       //obteniendo id de Aula
       $sql = "SELECT id_Aulas from aulas WHERE nombre='$_Aula';";
       $result = $dblink->query($sql);
@@ -80,12 +103,18 @@ class csv
       //echo "$_FInicial";
       //echo "$_FFinal";
 
-      //insertando en la base
-      $sql = "INSERT INTO reservas values(NULL,$_IdAula,2,$_IdMateria,'$_FInicial','$_FFinal',0,'$_Horario','$_Docente');";
-      if ($dblink->query($sql) === FALSE) {
-        echo "Error: " . $sql . "<br>" . $dblink->error;
+      if($_Aula===""){
+        $sql = "INSERT INTO reservas values(NULL,NULL,$idUploader,$_IdMateria,'$_FInicial','$_FFinal',0,'$_Horario','$_Docente');";
+        if ($dblink->query($sql) === FALSE) {
+          echo "Error: " . $sql . "<br>" . $dblink->error;
+        }
+      }else {
+        //insertando en la base
+        $sql = "INSERT INTO reservas values(NULL,$_IdAula,$idUploader,$_IdMateria,'$_FInicial','$_FFinal',0,'$_Horario','$_Docente');";
+        if ($dblink->query($sql) === FALSE) {
+          echo "Error: " . $sql . "<br>" . $dblink->error;
+        }
       }
-
     }else {
       echo "$sql";
       echo "no existe Aula <br>";
@@ -113,8 +142,9 @@ class csv
   //    echo "no se inserto";
     }else {
       $sql = "INSERT INTO materias values(NULL,'$_Materia');";
+  //      echo "$sql <br>";
       $result = $dblink->query($sql);
-  //    echo "insertada";
+  //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedyijkkj    echo "insertada";
     }
   //  echo "</br>";
 

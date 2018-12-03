@@ -67,7 +67,7 @@ DROP TABLE IF EXISTS `BD_AulasPerronas`.`Materias` ;
 
 CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Materias` (
   `id_Materias` INT NOT NULL AUTO_INCREMENT,
-  `nombre_materia` VARCHAR(45) NOT NULL,
+  `nombre_materia` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id_Materias`))
 ENGINE = InnoDB;
 

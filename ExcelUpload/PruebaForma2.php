@@ -37,6 +37,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <input type="submit" name="uploadBtn" class="btn btn-info">
+              <input type="date" name="chibolo pulpin" class="btn btn-info">
             </div>
           </div>
         </div>

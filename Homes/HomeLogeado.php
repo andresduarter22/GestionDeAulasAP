@@ -21,9 +21,7 @@
       <li class="nav-item ">
        <a class="nav-link" href="../ExcelUpload/ExcelUp.php?id= <?php echo $_idDeUsuario ?>">Cargar Archivo <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item ">
-       <a class="nav-link" href="#">Descargar Archivo</a>
-      </li>
+  
     </ul>
     </div>
     <a class="navbar-brand" href="../Usuarios/GestiondeUsuarios.php">Usuarios</a>
@@ -45,7 +43,7 @@
     <img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" >
     <div class="container">
       <h1 class="display-4">Bienvenido Usuario</h1>
-      <?php echo "$_idDeUsuario"; ?>
+
     <br><br><br>
   <!--      <a class="btn btn-primary btn-lg" href="HomeLogeado.php" role="button">Log </a>-->
         <a class="btn btn-success" href="../Busqueda/MotorDeBusqueda.php" role="button">Realizar Reserva</a>

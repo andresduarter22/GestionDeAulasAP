@@ -4,7 +4,7 @@
 
   $csv=new csv();
   if(isset($_POST['sub'])){
-      $csv->import($_FILES['file']['tmp_name']);
+      $csv->import($_FILES['file']['tmp_name'], $_POST['id']);
   }
 ?>
 <html>
@@ -20,6 +20,7 @@
      ?>
     <form method="post" enctype="multipart/form-data">
       <input type="file" name="file">
+      <input type='hidden' name='id' value='<?php echo "$_idDeUsuario";?>'/>
       <input type="submit" name="sub" value="Import">
     </form>
   </body>
