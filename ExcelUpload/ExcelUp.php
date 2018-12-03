@@ -1,6 +1,5 @@
 <?php
   include "csv.php";
-  include "../Config/Database.php";
 
   $csv=new csv();
   if(isset($_POST['sub'])){

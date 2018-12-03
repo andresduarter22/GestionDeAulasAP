@@ -1,3 +1,12 @@
+<?php
+include "search.php";
+
+$search=new search();
+if(isset($_POST['submmit'])){
+    $csv->import();
+}
+
+ ?>
 <html>
 <head>
 <link href="Style.css" type="text/css" rel="stylesheet" />
@@ -5,6 +14,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
+
   <div>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
       <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
@@ -23,65 +33,63 @@
       <div class="container row">
         <div class="row">
           <div class="col-sm-6">
-            <input type="checkbox" enabled>Dias Especificos</input>
-          </div>
-           <div class="col-sm-6">
-          <input type="checkbox" enabled>Dias Seguidos</input>
+            <input type="radio" enabled>Dias Especificos</input>
+        
+            <input type="radio" enabled>Dias Seguidos</input>
           </div>
 
-        <div class=" col-sm-6">
-          <select class="form-control">
-            <?php   while ($fila = $result->fetch()){  ?>
-            <option value="volvo"><?php echo $fila['nombre']; ?></option>
-            <?php } ?>
-          </select>
+          <div class=" col-sm-6">
+            <select class="form-control">
+              <?php   while ($fila = $result->fetch()){  ?>
+                <option value="volvo"><?php echo $fila['nombre']; ?></option>
+              <?php } ?>
+            </select>
+          </div>
         </div>
-        </div>
-
       </div>
       <?php
-      include 'FuncionCalendario.php';
+      /*include 'FuncionCalendario.php';
 
       $calendar = new Calendar();
 
-      echo $calendar->show();
+      echo $calendar->show();*/
       ?>
-
-
-
-  <div class="input-group mb-3 container ">
-   <div class="input-group-prepend">
-    <div class="input-group-text">
-      <input type="checkbox" aria-label="Checkbox for following text input">
-    </div>
-  </div>
-  <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Cantidad de Alumnos">
-</div>
-  <div class="container">
-    <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
-      <thead  class="thead-dark">
-        <tr>
-          <th style="width: 30%"> Nombre de la Categoria</th>
-          <th style="width: 10%"> Check </th>
-        </tr>
-      </thead>
-       <tbody>
-        <?php
-        $sql = 'select * from Categorias;';
-        $result = $dblink->query($sql);
-         while ($fila = $result->fetch()){  ?>
-         <tr>
-            <td><?php echo $fila['nombre_categoria']; ?></td>
-            <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila['id_Categorias']." \" enabled>";?></td>
-           </tr>
-        <?php } ?>
-
-      </tbody>
-    </table>
-  </div>
+      <input id="date" type="date" >
+      <div class="input-group mb-3 container ">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <input type="checkbox" aria-label="Checkbox for following text input">
+          </div>
+        </div>
+        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Cantidad de Alumnos">
+      </div>
+      <div class="container">
+        <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
+          <thead  class="thead-dark">
+            <tr>
+              <th style="width: 30%"> Nombre de la Categoria</th>
+              <th style="width: 10%"> Check </th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $sql = 'select * from Categorias;';
+            $result = $dblink->query($sql);
+            while ($fila = $result->fetch()){  ?>
+              <tr>
+                <td><?php echo $fila['nombre_categoria']; ?></td>
+                <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila['id_Categorias']." \" enabled>";?></td>
+              </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
   <!-- boton para ir atras-->
-  <a href="HomeLogeado.php" class="btn btn-primary">Atras</a>
-  <a href="#" class="btn btn-primary">Buscar</a>
+      <a href="HomeLogeado.php" class="btn btn-primary">Atras</a>
+
+      <form action="search.php" method="post">
+        <input type="submit" class="btn btn-primary" name="submit" value="Buscar">
+      </form>
     </form>
 <!--boton de informacion-->
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>

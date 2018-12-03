@@ -64,24 +64,19 @@ class csv
       $sql = "SELECT * FROM materias WHERE nombre_materia= '$_Materia';";
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
-      echo "$result->rowCount()";
       if($result->rowCount()){
           echo "ya existio";
           $sql = "SELECT id_Materias FROM materias WHERE nombre_materia= '$_Materia';";
           $result2 =$dblink->query($sql);
           $result2->setFetchMode(PDO::FETCH_ASSOC);
           $_IdMateria=$result2->fetchColumn();
-
-        echo " existe";
       }else {
         $sql = "INSERT INTO materias values(NULL,'$_Materia');";
         //      echo "$sql <br>";
         $dblink->query($sql);
         $_IdMateria=$dblink->lastInsertId();
 
-        echo "no existe";
       }
-      echo "$_IdMateria";
       //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedyijkkj    echo "insertada";
       //echo "$_IdMateria <br>";
       //echo "$_IdMateria";
