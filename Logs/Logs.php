@@ -10,12 +10,9 @@
     <?php
       //Conexion con base
       include "../Config/Database.php";
-      session_start();
       $db= new Database();
       $dblink= $db->getConnection();
-      $sql = "select * from Logs where tipo = 'm';";
-      $result = $dblink->query($sql);
-      $result->setFetchMode(PDO::FETCH_ASSOC);
+
     ?>
     <!--Manuales-->
 <div class="container form-group" >
@@ -31,7 +28,12 @@
     </tr>
   </thead>
    <tbody>
-    <?php   while ($fila = $result->fetch()){  ?>
+    <?php
+    $sql = "SELECT * FROM Logs WHERE tipo = 'm';";
+    echo var_dump($sql);
+    $result = $dblink->query($sql);
+    echo var_dump($result);
+    while ($fila = $result->fetch()){  ?>
      <tr>
         <td><?php echo $fila['nombre_usuario']; ?></td>
         <td><?php echo $fila['Fecha_deReserva']; ?></td>
@@ -45,12 +47,6 @@
 </table>
 </div>
 <!--automaticas-->
-<?php
-$sql = 'select * from Logs where tipo = "a";';
-$result = $dblink->query($sql);
-$result->setFetchMode(PDO::FETCH_ASSOC);
- ?>
-
 <div class="container form-group" >
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
@@ -64,7 +60,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
     </tr>
   </thead>
    <tbody>
-    <?php   while ($fila = $result->fetch()){  ?>
+    <?php
+    $sql1 = "SELECT * FROM Logs WHERE tipo = 'a';";
+    echo var_dump($sql);
+    $result1 = $dblink->query($sql1);
+    while ($fila1 = $result1->fetch()){  ?>
      <tr>
         <td><?php echo $fila['nombre_usuario']; ?></td>
         <td><?php echo $fila['Fecha_deReserva']; ?></td>
