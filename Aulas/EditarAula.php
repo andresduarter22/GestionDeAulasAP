@@ -14,7 +14,6 @@
   <br/>
   <br/>
   <br/>
-hola
   <?php
   session_start();
   $db_name = "bd_aulasperronas";
@@ -26,12 +25,12 @@ hola
           . $dblink->connect_error);
   }
   $_idAula = $_GET['id'];
+  //echo var_dump($_GET['id']);
   $sql = "select * from Aulas where id_Aulas= $_idAula ;";
-  echo var_dump($sql);
+  //echo var_dump($sql);
   $result = $dblink->query($sql);
   $fila = $result->fetch_object();
   ?>
-  hola
   <!-- holaaa -->
 <form action="EditarAula.php"  method="post">
   <div class="form-group scrollbar">
@@ -84,15 +83,13 @@ if (isset($_POST['id1']))
   $_id = $_POST['id1'];
   $_nombre= $_POST['NombreAula'];
   $_cantAulumnos= $_POST['CantidadAlumnos'];
-  echo var_dump($_id);
-  echo var_dump($_nombre);
-  echo var_dump($_cantAulumnos);
-  $sql3 = "UPDATE Aulas_Categoria SET nombre = $_nombre,cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_id.";";
+  $_categorias= $_POST['categoria'];
+  $sql3 = "UPDATE Aulas_Categoria SET nombre = $_nombre,cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_POST['id1'].";";
   $dblink->query($sql3);
   $sql4 = "DELETE FROM aulas_categoria WHERE id_Aula = $_id ;";
   $dblink->query($sql4);
   foreach ($_categorias as  $value) {
-    $sql1 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_id,$value)";
+    $sql1 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_id,$value) WHERE id_Aula = $_id;" ;
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
