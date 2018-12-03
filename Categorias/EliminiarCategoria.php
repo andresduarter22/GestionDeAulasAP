@@ -70,20 +70,25 @@
     </thead>
     <tbody>
       <?php
-      for($i=0;$i<conut($aulas);$i++){
-        $sql4 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id']."AND id_Aula = ".$aulas[$i].";";
-        var_dump($sql4);
+      echo count($aulas);
+      for($i=0;$i<count($aulas);$i++){
+        $sql4 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id']." AND id_Aula = ".$aulas[$i].";";
         $res4=$dblink->query($sql4);
         $fila4 = $res4->fetch_object();
         $aulas1[$i] = $fila4->id_Aula;
+        echo count($aulas1[$i]);
+        $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aulas1[$i].";";
+        $res5=$dblink->query($sql5);
+        $fila5 = $res5->fetch_object();
+        if($res5->num_rows = 1){
+          ?>
+          <tr>
+            <td><?php echo "$fila5->nombre"; ?></td>
+          </tr>
+          <?php
+        }
       }
-          $res1=$dblink->query($sql3);
-                    $fila1 = $res1->fetch_object();
          ?>
-        <tr>
-          <td><?php echo "$fila1->nombre"; ?></td>
-        </tr>
-      <?php $contador = $contador + 1; ?>
     </tbody>
   </table>
     </table>
