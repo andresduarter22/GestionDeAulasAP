@@ -30,7 +30,7 @@
     $_idDeCategoria = $_GET['id'];
     $_nombre = $_POST['NombreCategoria'];
     $_descripcion = $_POST['Descripcion'];
-    $sql = "select * from Categorias where id_Categorias= $_idDeCategoria ;";
+    $sql = "SELECT * FROM Categorias WHERE id_Categorias= $_idDeCategoria ;";
     $result = $dblink->query($sql);
     //echo var_dump($_nombre);
     //echo var_dump($_descripcion);

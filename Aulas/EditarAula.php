@@ -24,15 +24,16 @@
     die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
           . $dblink->connect_error);
   }
+  //echo $_SERVER['REQUEST_METHOD'];
   $_idAula = $_GET['id'];
   //echo var_dump($_GET['id']);
-  $sql = "select * from Aulas where id_Aulas= $_idAula ;";
+  $sql = "select * from Aulas where id_Aulas= $_idAula;";
   //echo var_dump($sql);
   $result = $dblink->query($sql);
   $fila = $result->fetch_object();
   ?>
   <!-- holaaa -->
-<form action="EditarAula.php"  method="post">
+<form action=<?php echo '"EditarAula.php?id='.$_GET['id'].'"' ?> method="post">
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
     <input type="text" class="form-control" id="NombreAula" name="NombreAula" value = <?php echo $fila->nombre; ?>>
@@ -51,13 +52,13 @@
     </thead>
     <tbody>
       <?php
-       $sql1 = "select * from Categorias";
+       $sql1 = "SELECT * FROM Categorias";
        //WHERE id_Categorias = ".$_GET['id'].";
        $result1 = $dblink->query($sql1);
        while ($fila1 = $result1->fetch_object()){  ?>
       <tr>
          <td><?php echo $fila1->nombre_categoria; ?></td>
-         <?php $sql2 = "select * from Aulas_Categoria where id_Aula = ".$_GET['id']." and id_Categoria =".$fila1->id_Categorias.";";
+         <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Aula = ".$_GET['id']." AND id_Categoria =".$fila1->id_Categorias.";";
           $result2 = $dblink->query($sql2);
          if ($result2->num_rows > 0){?>
            <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1->id_Categorias." \" enabled checked>";?></td>
@@ -85,11 +86,15 @@ if (isset($_POST['id1']))
   $_cantAulumnos= $_POST['CantidadAlumnos'];
   $_categorias= $_POST['categoria'];
   $sql3 = "UPDATE Aulas_Categoria SET nombre = $_nombre,cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_POST['id1'].";";
+  echo var_dump($sql3);
   $dblink->query($sql3);
-  $sql4 = "DELETE FROM aulas_categoria WHERE id_Aula = $_id ;";
+  $sql4 = "DELETE FROM aulas_categoria WHERE id_Aula = $_id;";
+  echo var_dump($sql4);
   $dblink->query($sql4);
   foreach ($_categorias as  $value) {
-    $sql1 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_id,$value) WHERE id_Aula = $_id;" ;
+    $sql5 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_id,$value);" ;
+    echo var_dump($sql5);
+    $dblink->query($sql5);
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
