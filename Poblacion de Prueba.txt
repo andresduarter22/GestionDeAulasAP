@@ -56,7 +56,7 @@ insert into reservas(id_Reservas,id_Aula_Reservada,id_Usuario_Reserva,id_Materia
 
 
 
-/*WARNIG DO NOT ADD DO NOT ADD*/
+/*WARNIG DO NOT ADD NIGGA DO NOT ADD*/
 /*
 insert into aulas_categoria values (null, 13,2);
   insert into aulas_categoria values (null, 29,2);

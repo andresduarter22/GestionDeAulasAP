@@ -5,12 +5,12 @@
   {
 
     public $_tipoDeReserva=false; //$_POST['tipores'];
-    // 0 Dias especificos
-    // 1 Dias seguidos
+    // FALSE Dias especificos
+    // TRUE Dias seguidos
     //array para dias seguidos
-  //  public $_fechasArray= array('fechaini'=>'2018-10-1 ','fechafin'=>'2018-11-1'); //$_POST['fechas'];
+    //public $_fechasArray= array('fechaini'=>'2018-8-15 ','fechafin'=>'2018-9-28'); //$_POST['fechas'];
     //array para dias variados
-    public $_fechasArray= array('2018-10-1','2018-10-3','2018-10-5'); //$_POST['fechas'];
+    public $_fechasArray= array('2018-8-1','2018-8-3','2018-8-5'); //$_POST['fechas'];
 
     public $_aulaEspecifica=50; //$_POST['aulaEspecifica']
     public $_esAula=false; //$_POST['esAula'];
@@ -19,9 +19,12 @@
     public $_ReqcantidadAlumnos=true; //$_POST['reqcantAlumno'];
     // true requiere preveer la cantidad de alumnos
     // false no importa cantdad de alumnos
-    public $_cantidadAlumnos= 20; //$_POST['cantAlumno'];
+    public $_cantidadAlumnos= 30; //$_POST['cantAlumno'];
     public $_categoriasArrays=array(2,1); //$_POST['categorias'];
     public $dblink=0;
+
+    public $_AulasDisponibles=array();
+    public $_AulasNoDisponibles=array();
 
     function __construct() {
       include_once '../Config/Database.php';
@@ -42,10 +45,13 @@
         $this->reservDiasEspecificos();
       }else {
         $this->reservDiasSeguidos();
+
       }
+      echo implode(",",$this->_AulasDisponibles);
 
-
-//      header("Location MotorDeBusqueda.php");
+      $query = http_build_query(array('r' => $this->_AulasDisponibles));
+      echo "$query";
+      header("Location: Resultados.php?" . $query);
 
     }
 
@@ -64,6 +70,7 @@
                 $sql = $sql .  " OR AC.id_Categoria= $varArregloDeCategorias1[$i] ";
           }
           $sql = $sql . ") AND A.cantidad_alumnos >=  $this->_cantidadAlumnos ; ";
+          //El resultado es una lista de id's de aula que cumplen la categoria y la cantidad de Alumnos
           $result = $this->dblink->query($sql);
           $result->setFetchMode(PDO::FETCH_ASSOC);
           while ($fila = $result->fetch()){
@@ -177,7 +184,13 @@
             break;
         }
       }
-      $this->imprimirResultados($_disponibilidad);
+    //   echo implode("|",$_disponibilidad);
+      if($_disponibilidad['A']=true || $_disponibilidad['B']=true || $_disponibilidad['C']=true|| $_disponibilidad['D']=true|| $_disponibilidad['E']=true){
+        array_push ($this->_AulasDisponibles, $_disponibilidad);
+        $this->imprimirResultados($_disponibilidad);
+      }else {
+        array_push ($this->_AulasNoDisponibles, $_disponibilidad);
+      }
 
     }
 
@@ -227,7 +240,14 @@
               break;
           }
         }
-        $this->imprimirResultados($_disponibilidad);
+        $this->resultados= $_disponibilidad;
+    //    echo implode("|",$_disponibilidad);
+        if($_disponibilidad['A']=true || $_disponibilidad['B']=true || $_disponibilidad['C']=true|| $_disponibilidad['D']=true|| $_disponibilidad['E']=true){
+          array_push ($this->_AulasDisponibles, $_disponibilidad);
+          $this->imprimirResultados($_disponibilidad);
+        }else {
+          array_push ($this->_AulasNoDisponibles, $_disponibilidad);
+        }
       }
 
       private function imprimirResultados($disp){
@@ -241,7 +261,7 @@
 
       }
   }
-  //implode("|",$type); to char array
+    //implode("|",$type); to char array
 
 
 
