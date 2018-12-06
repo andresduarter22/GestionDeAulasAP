@@ -45,7 +45,7 @@
       </thead>
       <tbody>
         <?php
-          $sql = 'select * from aulas;';
+          $sql = 'select * from aulas order by nombre;';
           $result = $dblink->query($sql);
           while ($fila = $result->fetch()){
         ?>

@@ -1,4 +1,11 @@
-
+<?php
+  include "search.php";
+  include "../Config/Database.php";
+  $se=new search();
+  if(isset($_POST['sub'])){
+    $se->busca();
+  }
+?>
 <html>
 <head>
 <link href="Style.css" type="text/css" rel="stylesheet" />
@@ -13,7 +20,6 @@
   </div>
   <?php
     //Conexion con base
-    include "../Config/Database.php";
     session_start();
     $db= new Database();
     $dblink= $db->getConnection();
@@ -21,7 +27,7 @@
     $result = $dblink->query($sql);
     $result->setFetchMode(PDO::FETCH_ASSOC);
   ?>
-    <form>
+  <form action="MotorDeBusqueda.php" method="post">
     <div class="container" >
       <div class="container row">
         <div class="row">
@@ -51,7 +57,7 @@
             <input type="checkbox" aria-label="Checkbox for following text input">
           </div>
         </div>
-        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="Cantidad de Alumnos">
+        <input type="text" name="cantalumnos" class="form-control" aria-label="Text input with checkbox" placeholder="Cantidad de Alumnos">
       </div>
         <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
           <thead  class="thead-dark">
@@ -75,8 +81,8 @@
 
   <!-- boton para ir atras-->
 
-      <form action="search.php" method="post">
-        <input type="submit" class="btn btn-primary" name="submit" value="Buscar">
+      <form action="MotorDeBusqueda.php" method="post">
+        <input type="submit" class="btn btn-primary" name="sub" value="Buscar">
       </form>
     </div>
     </form>
