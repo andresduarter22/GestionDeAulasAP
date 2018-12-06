@@ -1,6 +1,7 @@
 <?php
     //$_resultados = $_GET['res'];
-    $_resultados = $_GET['r'];
+    $_resultadosDisp = $_GET['disp'];
+    $_resultadosNoDisp = $_GET['nodisp'];
 
  ?>
 
@@ -35,23 +36,6 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <p class="display-5">Resultados De Busqueda  </p>
-        <?php
-        //  echo $_resultados;
-          $arrRes= implode(",",$_resultados);
-          //echo implode(",",$_resultados[2]);
-          for ($i=0; $i <count($_resultados) ; $i++) {
-            $nombre= array_values($_resultados[$i]);
-            echo $nombre[0] . " ";
-            foreach ($_resultados[$i] as $key => $valor) {
-            //  echo "$valor";
-              if($valor==1){
-                echo $key . "  ";
-              }
-            }
-            echo "<br>";
-          }
-
-         ?>
           <div class="container" >
             Aulas Diponibles
             <table class="table table-striped table-bordered  table-responsive-sm m-5s">
@@ -64,12 +48,74 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>hola</td>
-                  <td>x2 </td>
-                  <td>x3 </td>
-                </tr>
-            </table>
+                <?php
+                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
+                  $nombre= array_values($_resultadosDisp[$i]);
+                  foreach ($_resultadosDisp[$i] as $key => $valor) {
+                  //  echo "$valor";
+                    if($valor==1 && $key == 'A'){
+                      echo "<tr>";
+                        echo "<td>" . $nombre[0] . "</td> ";
+                        echo "<td>" . $key . " </td> ";
+                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                      echo "</tr>";
+                    }
+                  }
+                }
+                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
+                  $nombre= array_values($_resultadosDisp[$i]);
+                  foreach ($_resultadosDisp[$i] as $key => $valor) {
+                  //  echo "$valor";
+                    if($valor==1 && $key == 'B'){
+                      echo "<tr>";
+                        echo "<td>" . $nombre[0] . "</td> ";
+                        echo "<td>" . $key . " </td> ";
+                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                      echo "</tr>";
+                    }
+                  }
+                }
+                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
+                  $nombre= array_values($_resultadosDisp[$i]);
+                  foreach ($_resultadosDisp[$i] as $key => $valor) {
+                  //  echo "$valor";
+                    if($valor==1 && $key == 'C'){
+                      echo "<tr>";
+                        echo "<td>" . $nombre[0] . "</td> ";
+                        echo "<td>" . $key . " </td> ";
+                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                      echo "</tr>";
+                    }
+                  }
+                }
+                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
+                  $nombre= array_values($_resultadosDisp[$i]);
+                  foreach ($_resultadosDisp[$i] as $key => $valor) {
+                  //  echo "$valor";
+                    if($valor==1 && $key == 'D'){
+                      echo "<tr>";
+                        echo "<td>" . $nombre[0] . "</td> ";
+                        echo "<td>" . $key . " </td> ";
+                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                      echo "</tr>";
+                    }
+                  }
+                }
+                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
+                  $nombre= array_values($_resultadosDisp[$i]);
+                  foreach ($_resultadosDisp[$i] as $key => $valor) {
+                  //  echo "$valor";
+                    if($valor==1 && $key == 'E'){
+                      echo "<tr>";
+                        echo "<td>" . $nombre[0] . "</td> ";
+                        echo "<td>" . $key . " </td> ";
+                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                      echo "</tr>";
+                    }
+                  }
+                }
+                ?>
+              </table>
           </div>
           <div class="container" >
             Aulas Reservadas
@@ -77,20 +123,28 @@
               <thead  class="thead-dark">
                 <tr>
                   <th style="width: 40%">Nombre de aula </th>
-                  <th style="width: 30%">Horario </th>
-                  <th style="width: 30%">Reservar </th>
+                  <th style="width: 30%">Infromacion</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>hola</td>
-                  <td>x2 </td>
-                  <td>x3 </td>
-                </tr>
+
+                  <?php
+                    for ($i=0; $i <count($_resultadosNoDisp) ; $i++) {
+                      echo "<tr>";
+                      $nombre= array_values($_resultadosNoDisp[$i]);
+                      echo "<td>" . $nombre[0] . "</td>";
+                      echo "<td> <a href=\"#\" class=\"btn btn-primary\">Infromacion </td>";
+
+                      echo "</tr>";
+                    }
+                   ?>
+
             </table>
           </div>
       <br><br><br>
       </div>
+      <a class="btn btn-primary" href="MotorDeBusqueda.php">Atras</a>
     </div>
   </body>
+
 </html>

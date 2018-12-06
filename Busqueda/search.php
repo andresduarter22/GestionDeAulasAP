@@ -10,13 +10,13 @@
     //array para dias seguidos
     //public $_fechasArray= array('fechaini'=>'2018-8-15 ','fechafin'=>'2018-9-28'); //$_POST['fechas'];
     //array para dias variados
-    public $_fechasArray= array('2018-8-1','2018-8-3','2018-8-5'); //$_POST['fechas'];
+    public $_fechasArray= array('2018-8-2','2018-8-15','2018-8-20'); //$_POST['fechas'];
 
     public $_aulaEspecifica=50; //$_POST['aulaEspecifica']
     public $_esAula=false; //$_POST['esAula'];
     // true aula aulaEspecifica
     // false sin aula
-    public $_ReqcantidadAlumnos=true; //$_POST['reqcantAlumno'];
+    public $_ReqcantidadAlumnos=false; //$_POST['reqcantAlumno'];
     // true requiere preveer la cantidad de alumnos
     // false no importa cantdad de alumnos
     public $_cantidadAlumnos= 30; //$_POST['cantAlumno'];
@@ -47,11 +47,15 @@
         $this->reservDiasSeguidos();
 
       }
-      echo implode(",",$this->_AulasDisponibles);
+//      echo implode(",",$this->_AulasDisponibles);
 
-      $query = http_build_query(array('r' => $this->_AulasDisponibles));
-      echo "$query";
-      header("Location: Resultados.php?" . $query);
+      $queryDisponibles = http_build_query(array('disp' => $this->_AulasDisponibles));
+      $queryNoDisponibles = http_build_query(array('nodisp' => $this->_AulasNoDisponibles));
+
+      echo implode(",",$this->_AulasDisponibles) . "<br>";
+      echo implode(",",$this->_AulasNoDisponibles);
+      //echo "$query";
+      header("Location: Resultados.php?" . $queryDisponibles . $queryNoDisponibles);
 
     }
 
@@ -84,7 +88,7 @@
               $sql = $sql .  " OR id_Categoria= $varArregloDeCategorias1[$i] ";
           }
           $sql= $sql . ";";
-          //echo "$sql";
+          echo "$sql <br>";
           $result = $this->dblink->query($sql);
           $result->setFetchMode(PDO::FETCH_ASSOC);
           while ($fila = $result->fetch()){
@@ -184,8 +188,8 @@
             break;
         }
       }
-    //   echo implode("|",$_disponibilidad);
-      if($_disponibilidad['A']=true || $_disponibilidad['B']=true || $_disponibilidad['C']=true|| $_disponibilidad['D']=true|| $_disponibilidad['E']=true){
+      // echo implode("|",$_disponibilidad) ;
+      if($_disponibilidad['A']==1 || $_disponibilidad['B']==1 || $_disponibilidad['C']==1|| $_disponibilidad['D']==1|| $_disponibilidad['E']==1){
         array_push ($this->_AulasDisponibles, $_disponibilidad);
         $this->imprimirResultados($_disponibilidad);
       }else {
@@ -242,7 +246,7 @@
         }
         $this->resultados= $_disponibilidad;
     //    echo implode("|",$_disponibilidad);
-        if($_disponibilidad['A']=true || $_disponibilidad['B']=true || $_disponibilidad['C']=true|| $_disponibilidad['D']=true|| $_disponibilidad['E']=true){
+        if($_disponibilidad['A']==1 || $_disponibilidad['B']==1 || $_disponibilidad['C']==1|| $_disponibilidad['D']==1|| $_disponibilidad['E']==1){
           array_push ($this->_AulasDisponibles, $_disponibilidad);
           $this->imprimirResultados($_disponibilidad);
         }else {
@@ -254,7 +258,7 @@
           //echo  implode("|",$disp);
           echo "El aula: ". $disp['nombreDeAula'] ." se encuentra disponible en Los Horarios: ";
           foreach ($disp as $key=>$valor) {
-            if($valor==1){
+            if($valor=='1'){
               echo $key . "  ";
             }
         }
