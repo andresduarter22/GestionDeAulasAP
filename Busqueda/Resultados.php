@@ -1,4 +1,9 @@
 <?php
+    include "../Config/Database.php";
+    $db= new Database();
+    $dblink= $db->getConnection();
+
+
     //$_resultados = $_GET['res'];
     $_resultadosDisp = $_GET['disp'];
     $_resultadosNoDisp = $_GET['nodisp'];
@@ -32,7 +37,7 @@
           <span class="navbar-toggler-icon"></span>
       </button>
     </nav>
-
+    <?php echo implode(",",$_resultadosNoDisp[1]); ?>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <p class="display-5">Resultados De Busqueda  </p>
@@ -123,22 +128,30 @@
               <thead  class="thead-dark">
                 <tr>
                   <th style="width: 40%">Nombre de aula </th>
-                  <th style="width: 30%">Infromacion</th>
+                  <th style="width: 30%">Informacion</th>
                 </tr>
               </thead>
               <tbody>
-
                   <?php
                     for ($i=0; $i <count($_resultadosNoDisp) ; $i++) {
                       echo "<tr>";
-                      $nombre= array_values($_resultadosNoDisp[$i]);
-                      echo "<td>" . $nombre[0] . "</td>";
-                      echo "<td> <a href=\"#\" class=\"btn btn-primary\">Infromacion </td>";
+                        $nombre= array_values($_resultadosNoDisp[$i]);
+                        echo "<td>" . $nombre[0] . "</td>";
+                        /*
+                        * En la posicion 6 del arreglo se tiene las fechas
+                        * tentativamente se deberia tener el tipo de reserva (seguida o especifica)
+                        * id de aula    check
+                        * id de materia  !!!! no funciona sql buscando por nombre para que ingrese la materia
+                        * id de usuario
+                        * idealmente deberiamos tener una pagina mas donde se ingrese la materia, autocompletar si es necesario
+                        * o crear una nueva materia
+                        */
+
+                        echo "<td>" . $nombre[6] . "</td>";
 
                       echo "</tr>";
                     }
                    ?>
-
             </table>
           </div>
       <br><br><br>

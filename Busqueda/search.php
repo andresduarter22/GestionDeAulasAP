@@ -152,7 +152,10 @@
                               'B'=>true,
                               'C'=>true,
                               'D'=>true,
-                              'E'=>true);
+                              'E'=>true,
+                              'Dates'=> $this->_fechasArray,
+                              'idAula'=> $id_AulaEspecifica
+                            );
       //echo  implode("|",$_disponibilidad);
       $fechainicial=  $this->_fechasArray['fechaini'];
       $fechafinal=  $this->_fechasArray['fechafin'];
@@ -211,7 +214,10 @@
                                 'B'=>true,
                                 'C'=>true,
                                 'D'=>true,
-                                'E'=>true);
+                                'E'=>true,
+                                'Dates'=> $this->_fechasArray,
+                                'idAula'=> $id_AulaEspecifica
+                                  );
         //echo  implode("|",$_disponibilidad);
         $fechainicial=  $this->_fechasArray['fechaini'];
         $fechafinal=  $this->_fechasArray['fechafin'];
