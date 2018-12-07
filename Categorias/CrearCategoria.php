@@ -1,5 +1,10 @@
 <html>
 <head>
+  <!-- jQuery -->
+  <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Crear Categoria</title>
@@ -77,11 +82,6 @@ function create(){
 <?php
  $dblink->close();
  ?>
- <!-- jQuery -->
- <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
-
- <!-- Bootstrap JS -->
- <script src="../Booststrap/js/bootstrap.min.js" ></script>
 </body>
 
 </html>

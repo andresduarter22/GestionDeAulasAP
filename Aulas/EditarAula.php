@@ -1,5 +1,10 @@
 <html>
 <head>
+  <!-- jQuery -->
+  <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Editar Aulas</title>
@@ -129,11 +134,6 @@ if (isset($_POST['id1']))
 <?php
  $dblink->close();
  ?>
-   <!-- jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
-
-   <!-- Bootstrap JS -->
-   <script src="js/bootstrap.min.js" ></script>
 </body>
 
 </html>

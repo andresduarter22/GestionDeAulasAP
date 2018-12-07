@@ -1,5 +1,10 @@
 <html>
 <head>
+  <!-- jQuery -->
+  <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Crear Aulas</title>
@@ -63,7 +68,6 @@ if (isset($_POST['submit']))
   $_cantAulumnos= $_POST['CantidadAlumnos'];
   $_categorias= $_POST['categoria'];
   $sql = "INSERT INTO Aulas(id_Aulas,nombre,cantidad_alumnos) VALUES(NULL,'$_nombre','$_cantAulumnos');";
-  $dblink->query($sql);
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
@@ -71,9 +75,8 @@ if (isset($_POST['submit']))
   foreach ($_categorias as  $value) {
     //echo var_dump($_idAulaCreada);
     $sql1 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_idAulaCreada,$value);";
-    $dblink->query($sql1);
-    if ($dblink->query($sql) === FALSE) {
-      echo "Error: " . $sql . "<br>" . $dblink->error;
+    if ($dblink->query($sql1) === FALSE) {
+      echo "Error: " . $sql1 . "<br>" . $dblink->error;
     }
   }
 }
@@ -107,11 +110,6 @@ if (isset($_POST['submit']))
 <?php
  $dblink->close();
  ?>
-   <!-- jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
-
-   <!-- Bootstrap JS -->
-   <script src="js/bootstrap.min.js" ></script>
 </body>
 
 </html>

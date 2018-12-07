@@ -1,5 +1,10 @@
 <html>
 <head>
+  <!-- jQuery -->
+  <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Borrar Categoria</title>
@@ -69,37 +74,25 @@
       </tr>
     </thead>
     <tbody>
-      
-      <?php
-      for($i=0;$i<count($aulas);$i++){
-        $sql4 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id']." AND id_Aula = ".$aulas[$i].";";
-        $res4=$dblink->query($sql4);
-        $fila4 = $res4->fetch_object();
 
-        $aux=false;
-        for($j=0;$j<count($aulas1);$j++){
-          if($j == 0){
-            $aulas1[$i] = $fila4->id_Aula;
-          } else if($aulas1[$j] == $fila4->id_Aula){
-            $aux=true;
-          }
-        }
-        if($aux=false){
-          $aulas1[$i] = $fila4->id_Aula;
-        }
-        //echo count($aulas1[$i]);
-        $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aulas1[$i].";";
-        $res5=$dblink->query($sql5);
-        $fila5 = $res5->fetch_object();
-        if($res5->num_rows == 1){
-          ?>
-          <tr>
-            <td><?php echo "$fila5->nombre"; ?></td>
-          </tr>
-          <?php
-        }
+      <?php
+      foreach($aulas as $aula){
+          $sql4 = "SELECT count(id_Aula) AS num FROM aulas_categoria WHERE id_Aula =".$aula." ;";
+          $res4=$dblink->query($sql4);
+          $fila4 = $res4->fetch_object();
+            if($fila4->num == 1){
+              $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aula.";";
+              $res5=$dblink->query($sql5);
+              $fila5 = $res5->fetch_object();
+                ?>
+                <tr>
+                  <td><?php echo "$fila5->nombre"; ?></td>
+                </tr>
+        <?php
+            }
       }
          ?>
+
     </tbody>
   </table>
     </table>
@@ -141,11 +134,6 @@
 <?php
  $dblink->close();
  ?>
- <!-- jQuery -->
- <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
-
- <!-- Bootstrap JS -->
- <script src="../Booststrap/js/bootstrap.min.js" ></script>
 </body>
 
 </html>

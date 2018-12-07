@@ -1,7 +1,13 @@
 <html>
 <head>
+  <!-- jQuery -->
+  <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
 </head>
 <body>
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
@@ -18,16 +24,17 @@
 
    $sql = "select * from aulas where id_Aulas=".$_GET['id'];
    $result = $dblink->query($sql);
+   //echo $_SERVER['REQUEST_METHOD']
 ?>
-  <input type="text" name="id1" value= <?php echo  $_GET['id'] ;?> class="form-control" disabled />
+<!--  <input type="text" name="id2" value= <?php //echo  $_GET['id'] ;?> class="form-control" disabled />-->
   <form method="post" action=<?php echo '"EliminarAula.php?id='.$_GET['id'].'"' ?>>
-      <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
+      <input type="text" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
       <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
   </form>
   <?php
   if(isset($_POST['id1'])){
     $_id=$_POST['id1'];
-    $sql1= "DELETE from Aulas WHERE id_Aulas = ".$_id;
+    $sql1= "DELETE from Aulas WHERE id_Aulas = ".$_id.";";
     $dblink->query($sql1);
   }
    ?>
@@ -59,11 +66,6 @@
   <?php
    $dblink->close();
    ?>
-   <!-- jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
-
-   <!-- Bootstrap JS -->
-   <script src="js/bootstrap.min.js" ></script>
 </body>
 
 </html>

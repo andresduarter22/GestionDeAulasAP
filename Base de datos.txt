@@ -100,8 +100,8 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Aulas_Categoria` (
   CONSTRAINT `id_Aula`
     FOREIGN KEY (`id_Aula`)
     REFERENCES `BD_AulasPerronas`.`Aulas` (`id_Aulas`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `id_Categoria`
     FOREIGN KEY (`id_Categoria`)
     REFERENCES `BD_AulasPerronas`.`Categorias` (`id_Categorias`)
