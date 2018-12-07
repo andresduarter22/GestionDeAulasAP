@@ -1,5 +1,10 @@
 <html>
 <head>
+  <!-- jQuery -->
+  <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Crear Aulas</title>
@@ -63,7 +68,6 @@ if (isset($_POST['submit']))
   $_cantAulumnos= $_POST['CantidadAlumnos'];
   $_categorias= $_POST['categoria'];
   $sql = "INSERT INTO Aulas(id_Aulas,nombre,cantidad_alumnos) VALUES(NULL,'$_nombre','$_cantAulumnos');";
-  $dblink->query($sql);
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
@@ -71,9 +75,8 @@ if (isset($_POST['submit']))
   foreach ($_categorias as  $value) {
     //echo var_dump($_idAulaCreada);
     $sql1 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_idAulaCreada,$value);";
-    $dblink->query($sql1);
-    if ($dblink->query($sql) === FALSE) {
-      echo "Error: " . $sql . "<br>" . $dblink->error;
+    if ($dblink->query($sql1) === FALSE) {
+      echo "Error: " . $sql1 . "<br>" . $dblink->error;
     }
   }
 }
@@ -87,31 +90,24 @@ if (isset($_POST['submit']))
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos
+        Esta es la pantalla donde se puede crear un aula nueva.
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
-<!-- Final boton de Informacion -->
-<?php
+<!-- Final boton de Informacion --><?php
  $dblink->close();
  ?>
-   <!-- jQuery -->
-   <script src="js/jquery-3.3.1.min.js"></script>
-
-   <!-- Bootstrap JS -->
-   <script src="js/bootstrap.min.js" ></script>
 </body>
 
 </html>

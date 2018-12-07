@@ -1,5 +1,10 @@
 <html>
 <head>
+  <!-- jQuery -->
+  <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <title>Tabla de Logs</title>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -93,7 +98,7 @@
           </button>
         </div>
         <div class="modal-body">
-          Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos
+          Esta es la pantalla donde se puede consultar todas las reservas hechas.
 
         </div>
         <div class="modal-footer">
@@ -108,11 +113,6 @@
   <?php
    $dblink->close();
    ?>
-   <!-- jQuery -->
-   <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
-
-   <!-- Bootstrap JS -->
-   <script src="../Booststrap/js/bootstrap.min.js" ></script>
  </body>
 
 </html>

@@ -12,11 +12,19 @@
 
 <html>
   <head>
+    <!-- jQuery -->
+    <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="../Booststrap/js/bootstrap.min.js" ></script>
     <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Resultados de Busqueda</title>
   </head>
   <body>
+    <div>
+        <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="Home.php">Log Out</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -157,6 +165,27 @@
       <br><br><br>
       </div>
       <a class="btn btn-primary" href="MotorDeBusqueda.php">Atras</a>
+      <!--boton de informacion-->
+          <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+          <div class="modal fade" id="info" name="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  AIUDA XD
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
   </body>
 
