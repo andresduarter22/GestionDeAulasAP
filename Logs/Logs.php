@@ -98,7 +98,7 @@
           </button>
         </div>
         <div class="modal-body">
-          Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos
+          Esta es la pantalla donde se puede consultar todas las reservas hechas.
 
         </div>
         <div class="modal-footer">

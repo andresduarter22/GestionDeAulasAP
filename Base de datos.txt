@@ -105,8 +105,8 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Aulas_Categoria` (
   CONSTRAINT `id_Categoria`
     FOREIGN KEY (`id_Categoria`)
     REFERENCES `BD_AulasPerronas`.`Categorias` (`id_Categorias`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
