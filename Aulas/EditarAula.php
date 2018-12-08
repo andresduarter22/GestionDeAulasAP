@@ -20,32 +20,26 @@
   <br/>
   <br/>
   <?php
-  session_start();
-  $db_name = "bd_aulasperronas";
-  $db_user = "root";
-  $db_pass = "";
-  $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
-  if ($dblink->connect_error) {
-    die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
-          . $dblink->connect_error);
-  }
+  include_once "../Config/Database.php";
+  $db= new Database();
+  $dblink= $db->getConnection();
   //echo $_SERVER['REQUEST_METHOD'];
   $_idAula = $_GET['id'];
   //echo var_dump($_GET['id']);
   $sql = "select * from Aulas where id_Aulas= $_idAula;";
   //echo var_dump($sql);
   $result = $dblink->query($sql);
-  $fila = $result->fetch_object();
+  $fila = $result->fetch();
   ?>
   <!-- holaaa -->
 <form action=<?php echo '"EditarAula.php?id='.$_GET['id'].'"' ?> method="post">
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreAula" name="NombreAula" value = <?php echo $fila->nombre; ?>>
+    <input type="text" class="form-control" id="NombreAula" name="NombreAula" value = "<?php echo $fila['nombre']; ?>">
   </div>
   <div class="form-group">
     <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-    <input type="text" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos" value = <?php echo $fila->cantidad_alumnos; ?>>
+    <input type="text" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos" value = <?php echo $fila['cantidad_alumnos']; ?>>
   </div>
   <div class="container">
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
@@ -60,15 +54,16 @@
        $sql1 = "SELECT * FROM Categorias";
        //WHERE id_Categorias = ".$_GET['id'].";
        $result1 = $dblink->query($sql1);
-       while ($fila1 = $result1->fetch_object()){  ?>
+       while ($fila1 = $result1->fetch()){  ?>
       <tr>
-         <td><?php echo $fila1->nombre_categoria; ?></td>
-         <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Aula = ".$_GET['id']." AND id_Categoria =".$fila1->id_Categorias.";";
+         <td><?php echo $fila1['nombre_categoria']; ?></td>
+         <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Aula = ".$_GET['id']." AND id_Categoria =".$fila1['id_Categorias'].";";
+         //echo var_dump($sql2);
           $result2 = $dblink->query($sql2);
-         if ($result2->num_rows > 0){?>
-           <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1->id_Categorias." \" enabled checked>";?></td>
+         if ($result2->fetchColumn() > 0){?>
+           <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1['id_Categorias']." \" enabled checked>";?></td>
          <?php  }else{ ?>
-           <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1->id_Categorias." \" enabled>";?></td>
+           <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1['id_Categorias']." \" enabled>";?></td>
       <?php
          }
           ?>
