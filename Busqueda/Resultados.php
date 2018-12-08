@@ -1,10 +1,13 @@
 <?php
+
     include "../Config/Database.php";
     $db= new Database();
     $dblink= $db->getConnection();
 
+    //$data = json_decode(trim(file_get_contents('php://input')),true);
+    //echo implode(",",$data);
+    //echo $data;
 
-    //$_resultados = $_GET['res'];
     $_resultadosDisp = $_GET['disp'];
     $_resultadosNoDisp = $_GET['nodisp'];
 
@@ -70,7 +73,7 @@
                       echo "<tr>";
                         echo "<td>" . $nombre[0] . "</td> ";
                         echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
                       echo "</tr>";
                     }
                   }
@@ -83,7 +86,7 @@
                       echo "<tr>";
                         echo "<td>" . $nombre[0] . "</td> ";
                         echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
                       echo "</tr>";
                     }
                   }
@@ -96,7 +99,7 @@
                       echo "<tr>";
                         echo "<td>" . $nombre[0] . "</td> ";
                         echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
                       echo "</tr>";
                     }
                   }
@@ -109,7 +112,7 @@
                       echo "<tr>";
                         echo "<td>" . $nombre[0] . "</td> ";
                         echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
                       echo "</tr>";
                     }
                   }
@@ -122,7 +125,7 @@
                       echo "<tr>";
                         echo "<td>" . $nombre[0] . "</td> ";
                         echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"#\" class=\"btn btn-primary\">Reservar </td>";
+                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
                       echo "</tr>";
                     }
                   }

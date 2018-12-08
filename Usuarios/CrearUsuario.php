@@ -16,9 +16,10 @@
 
       //Conexion con base
       include "../Config/Database.php";
-  //    include_once "Actions.php";
 
+      // se crea una nueva instancia de la clase
       $db= new Database();
+      // se llama a la conexion, caulquier cosa que se quiera hacer con la base se llama a esa variable
       $dblink= $db->getConnection();
     ?>
 <form action="CrearUsuario.php" method="post">
@@ -50,7 +51,9 @@
       </thead>
       <tbody>
         <?php
+          // se crea el query
           $sql = 'select * from aulas order by nombre;';
+          //  $result tiene el resultado de la busqueda
           $result = $dblink->query($sql);
           while ($fila = $result->fetch()){
         ?>
