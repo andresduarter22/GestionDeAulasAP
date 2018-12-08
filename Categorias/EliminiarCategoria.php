@@ -21,20 +21,10 @@
   <br />
 
   <?php
-  session_start();
-  $db_name = "bd_aulasperronas";
-  $db_user = "root";
-  $db_pass = "";
-  $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
-  if ($dblink->connect_error) {
-    die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
-          . $dblink->connect_error);
-
-  }
+  include_once "../Config/Database.php";
+  $db= new Database();
+  $dblink= $db->getConnection();
     //echo $_SERVER['REQUEST_METHOD']
-    //$sql = "select * from Categorias where id_Categorias = ".$_GET['id'].";" ;
-    //$result = $dblink->query($sql);
-    //echo var_dump($result);
     $aulas = array("Hola");
     $aulas1 = array("Hola");
     $contador=0;
@@ -51,15 +41,15 @@
       <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
       $res=$dblink->query($sql2);
 
-      while ($fila = $res->fetch_object()){
-          $aulas[$contador] = $fila->id_Aula;
+      while ($fila = $res->fetch()){
+          $aulas[$contador] = $fila['id_Aula'];
           $sql3 = "SELECT * FROM  aulas WHERE id_Aulas =".$aulas[$contador].";";
                     $res1=$dblink->query($sql3);
-                    $fila1 = $res1->fetch_object();
+                    $fila1 = $res1->fetch();
                   //  echo var_dump($aulas[$contador]);
          ?>
         <tr>
-          <td><?php echo "$fila1->nombre"; ?></td>
+          <td><?php echo $fila1['nombre'] ; ?></td>
         </tr>
       <?php $contador = $contador + 1;
     } ?>
@@ -79,14 +69,14 @@
       foreach($aulas as $aula){
           $sql4 = "SELECT count(id_Aula) AS num FROM aulas_categoria WHERE id_Aula =".$aula." ;";
           $res4=$dblink->query($sql4);
-          $fila4 = $res4->fetch_object();
-            if($fila4->num == 1){
+          $fila4 = $res4->fetch();
+            if($fila4['num'] == 1){
               $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aula.";";
               $res5=$dblink->query($sql5);
-              $fila5 = $res5->fetch_object();
+              $fila5 = $res5->fetch();
                 ?>
                 <tr>
-                  <td><?php echo "$fila5->nombre"; ?></td>
+                  <td><?php echo $fila5['nombre'] ; ?></td>
                 </tr>
         <?php
             }

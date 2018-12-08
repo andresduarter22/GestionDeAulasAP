@@ -18,9 +18,7 @@
 
   <?php
     //Conexion con base
-    include "../Config/Database.php";
-    //include_once "Actions.php";
-
+    include_once "../Config/Database.php";
     $db= new Database();
     $dblink= $db->getConnection();
   ?>
@@ -73,7 +71,6 @@ if (isset($_POST['submit']))
   }
   $_idAulaCreada=$dblink->lastInsertId();
   foreach ($_categorias as  $value) {
-    //echo var_dump($_idAulaCreada);
     $sql1 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_idAulaCreada,$value);";
     if ($dblink->query($sql1) === FALSE) {
       echo "Error: " . $sql1 . "<br>" . $dblink->error;
@@ -105,7 +102,8 @@ if (isset($_POST['submit']))
     </div>
   </div>
 </div>
-<!-- Final boton de Informacion --><?php
+<!-- Final boton de Informacion -->
+<?php
  $dblink->close();
  ?>
 </body>
