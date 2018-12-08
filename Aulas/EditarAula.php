@@ -58,7 +58,7 @@
       <tr>
          <td><?php echo $fila1['nombre_categoria']; ?></td>
          <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Aula = ".$_GET['id']." AND id_Categoria =".$fila1['id_Categorias'].";";
-         echo var_dump($sql2);
+         //echo var_dump($sql2);
           $result2 = $dblink->query($sql2);
          if ($result2->fetchColumn() > 0){?>
            <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" ".$fila1['id_Categorias']." \" enabled checked>";?></td>

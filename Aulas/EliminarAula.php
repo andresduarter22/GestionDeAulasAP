@@ -13,18 +13,12 @@
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   <?php
-   $db_name = "bd_aulasperronas";
-   $db_user = "root";
-   $db_pass = "";
-   $dblink = new mysqli('localhost', $db_user, $db_pass, $db_name);
-   if ($dblink->connect_error) {
-     die('Error al conectar a la Base de Datos (' . $dblink->connect_errno . ') '
-           . $dblink->connect_error);
-   }
-
+  include_once "../Config/Database.php";
+  $db= new Database();
+  $dblink= $db->getConnection();
    $sql = "select * from aulas where id_Aulas=".$_GET['id'];
    $result = $dblink->query($sql);
-   $fila = $result->fetch_object();
+   $fila = $result->fetch();
    //echo $_SERVER['REQUEST_METHOD']
 ?>
 <br/>
@@ -37,9 +31,9 @@
 <br />
 <br />
 <br />
- <input type="text" name="id2" value= 'Desea eliminar el aula: <?php echo $fila->nombre; ?>?' class="form-control" disabled />
+ <input type="text" name="id2" value= "Desea eliminar el aula: <?php echo $fila['nombre']; ?>?" class="form-control" disabled />
   <form method="post" action=<?php echo '"EliminarAula.php?id='.$_GET['id'].'"' ?>>
-      
+
       <br/>
       <br />
       <br />
