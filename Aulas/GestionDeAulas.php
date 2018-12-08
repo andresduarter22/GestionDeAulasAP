@@ -15,7 +15,6 @@
     <?php
       //Conexion con base
       include "../Config/Database.php";
-      session_start();
       $db= new Database();
       $dblink= $db->getConnection();
       $sql = 'select * from Aulas;';
