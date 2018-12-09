@@ -129,8 +129,8 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Usuarios_Aulas` (
   CONSTRAINT `id_DeUsuario`
     FOREIGN KEY (`id_DeUsuario`)
     REFERENCES `BD_AulasPerronas`.`Usuarios` (`id_Usuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE )
 ENGINE = InnoDB;
 
 
@@ -211,8 +211,8 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Usuarios_Categorias` (
   CONSTRAINT `id_DeUsuarios`
     FOREIGN KEY (`id_DeUsuario`)
     REFERENCES `BD_AulasPerronas`.`Usuarios` (`id_Usuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE ,
   CONSTRAINT `id_DeCategoria`
     FOREIGN KEY (`id_DeCategoria`)
     REFERENCES `BD_AulasPerronas`.`Categorias` (`id_Categorias`)

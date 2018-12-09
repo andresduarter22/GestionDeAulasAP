@@ -107,35 +107,6 @@ class csv
 
 }
 
-
-  //agrega materias por excel
-  public function AgregarMaterias($cadena){
-    $myArray = explode(';', $cadena);
-    $_Materia=$myArray[0];
-//    echo "$_Materia </br>";
-
-  if(!empty($_Materia) ){
-    include_once "../Config/Database.php";
-    $db= new Database();
-    $dblink= $db->getConnection();
-    $sql = "SELECT * FROM materias WHERE nombre_materia= '$_Materia';";
-    $result = $dblink->query($sql);
-    $result->setFetchMode(PDO::FETCH_ASSOC);
-    if($result->rowCount()){
-  //    echo "no se inserto";
-    }else {
-      $sql = "INSERT INTO materias values(NULL,'$_Materia');";
-  //      echo "$sql <br>";
-      $result = $dblink->query($sql);
-  //eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedyijkkj    echo "insertada";
-    }
-  //  echo "</br>";
-
-  }
-}
-
-
-
   //funcion que agrega solo aulas
  function AgregarAulas($cadena){
     $myArray = explode(';', $cadena);

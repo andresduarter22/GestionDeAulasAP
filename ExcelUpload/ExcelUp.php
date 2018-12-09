@@ -1,7 +1,9 @@
 <?php
   include "csv.php";
 
-  $_idDeUsuario = $_GET['id'];
+  $_idDeUsuario = 3;
+
+//  $_idDeUsuario = $_GET['id'];
 //  echo "$_idDeUsuario";
 
   $csv=new csv();
