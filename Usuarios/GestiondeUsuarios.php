@@ -1,13 +1,16 @@
 <?php
-  if (isset($_POST['submit']))  {
-    delete();
-  }
-  function delete(){
-    echo "borra";
-  }
+//header("Refresh:200");
+  $_err= $_GET['err'];
+  if($_err==true){
+    echo "hubo un error";
+    //echo "<div class= \"alert alert-danger \" role= \"alert \"> ";
+    //echo "El usuario que intenta borrar realizo reservas Automaticas en el sistema, elminarlo comprometera
+    //      sus reservas y la integridad de la informacion del sistema";
+    //echo "</div>";
+  }else {
 
-
- ?>
+  }
+?>
 
 <html>
   <head>
@@ -24,7 +27,11 @@
 
   </head>
   <body>
+    <?php
+
+     ?>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
+
     <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
       <?php
         //Conexion con base
@@ -106,6 +113,7 @@
          <div class="modal-header">
            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
