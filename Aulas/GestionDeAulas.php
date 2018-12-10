@@ -16,7 +16,7 @@
       include "../Config/Database.php";
       $db= new Database();
       $dblink= $db->getConnection();
-      $sql = 'select * from Aulas order by nombre;';
+      $sql = 'SELECT * FROM Aulas ORDER BY nombre;';
       $result = $dblink->query($sql);
     ?>
 <div class="container form-group" >
