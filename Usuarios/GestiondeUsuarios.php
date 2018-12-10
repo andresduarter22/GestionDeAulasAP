@@ -1,7 +1,7 @@
 <?php
 //header("Refresh:200");
   $_err= $_GET['err'];
-  if($_err==true){
+  /*if($_err==true){
     echo "hubo un error";
     //echo "<div class= \"alert alert-danger \" role= \"alert \"> ";
     //echo "El usuario que intenta borrar realizo reservas Automaticas en el sistema, elminarlo comprometera
@@ -9,7 +9,7 @@
     //echo "</div>";
   }else {
 
-  }
+  }*/
 ?>
 
 <html>

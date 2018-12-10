@@ -1,3 +1,56 @@
+<?php
+$corrErr = $NumintErr = $NombreErr =$CatErr ="";
+if(isset($_POST['creaUsuario'])){
+  if (empty($_POST["Categoria"])) {
+    $CatErr = "Categoria es requerida";
+  }
+
+  if (empty($_POST["nombre"])) {
+    $NombreErr = "Nombre es requerido";
+  }else {
+    $name = $_POST["nombre"];
+    if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+      $NombreErr = "Solo letras y espacios requeridos";
+    }
+  }
+
+  if (empty($_POST["numInt"])) {
+    $NumintErr = "Numero de Interno es Requerido";
+  }else {
+    $name = $_POST["numInt"];
+    if (!is_numeric($name)) {
+      $NumintErr = "Solo numeros en como numero de interno ";
+    }
+  }
+  if (empty($_POST["correo"])) {
+    $corrErr = "Correo es requerido";
+  }else {
+    $email = $_POST["correo"];
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $corrErr = "Invalid email format";
+    }
+  }
+
+  if (empty($corrErr) && empty($CatErr) && empty($NumintErr) && empty($NombreErr)){
+    echo "crear";
+  }
+
+//  validar();
+//  if(validar()==1){
+    //create();
+    /*echo "Posteo";
+    echo $_POST['Categoria'];
+    echo $_POST['nombre'];
+    echo $_POST['numInt']*/
+//  }else {
+//    echo "error";
+  //}
+}
+
+
+
+ ?>
+
 <html>
 <head>
   <!-- jQuery -->
@@ -30,17 +83,21 @@
       <option value="2">Actualizador</option>
       <option value="3">Reservador</option>
     </select>
+      <span class="error"> <?php echo $CatErr;?></span>
     <div class="form-group">
       <label for="NombreUsuario">Nombre:</label>
       <input type="text" class="form-control" id="usr" name="nombre">
+      <span class="error"> <?php echo $NombreErr;?></span>
     </div>
     <div class="form-group">
       <label for="num_interno">Numero de Interno:</label>
       <input type="text" class="form-control" id="interno" name="numInt">
+      <span class="error"> <?php echo $NumintErr;?></span>
     </div>
     <div class="form-group">
       <label for"E_Mail">E-Mail:</label>
       <input type="text" class="form-control" id="e_mail" name="correo">
+      <span class="error"> <?php echo $corrErr;?></span>
     </div>
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
       <thead  class="thead-dark">
@@ -87,7 +144,7 @@
   </div>
 
   <form action="CrearUsuario.php" method="post">
-    <input type="submit" name="submit" value="submit">
+    <input type="submit" name="creaUsuario" value="submit">
   </form>
 
   <a class="btn btn-primary" href="GestionDeUsuarios.php">Atras</a>
@@ -115,9 +172,7 @@
     </div>
   </div>
 <?php
-  if (isset($_POST['submit']))  {
-    create();
-   }
+
   function create(){
     $db= new Database();
     $dblink= $db->getConnection();
