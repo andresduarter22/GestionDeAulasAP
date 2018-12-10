@@ -94,7 +94,9 @@
     if(isset($_POST['id1'])){
       $_id=$_POST['id1'];
       $sql1= "DELETE from Categorias WHERE id_Categorias = ".$_id;
+      //echo var_dump($sql1);
       $dblink->query($sql1);
+      header("Location: GestionDeCategorias.php");
     }
      ?>
 <!-- Boton para ir Atras -->

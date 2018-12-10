@@ -13,11 +13,10 @@
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
     <?php
-      //Conexion con base
       include "../Config/Database.php";
       $db= new Database();
       $dblink= $db->getConnection();
-      $sql = 'select * from Aulas order by nombre;';
+      $sql = 'SELECT * FROM Aulas ORDER BY nombre;';
       $result = $dblink->query($sql);
     ?>
 <div class="container form-group" >
@@ -40,12 +39,34 @@
              </form>
            </td>
            <td>
-             <form method="get" action="EliminarAula.php">
-                <input type="hidden" name="id" value=<?php echo $fila['id_Aulas'] ;  ?> class="form-control">
+             <?php
+            echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#borrarAula" .$fila['id_Aulas'] . "\"> Borrar";
+             $idAula= $fila['id_Aulas'];
+                  ?>
+            <!-- <form method="get" action="EliminarAula.php">
+                <input type="hidden" name="id" value=<?php //echo $fila['id_Aulas'] ;  ?> class="form-control">
                 <input type="submit" class="btn btn-primary" value="Borrar">
-              </form>
+              </form>-->
             </td>
          </tr>
+         <div class="modal fade" id="borrarAula<?php echo $fila['id_Aulas']; ?>" ta  bindex="-1" role="dialog" aria-labelledby="borrarAulaLabel" aria-hidden="true">
+           <div class="modal-dialog" role="document">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <h5 class="modal-title" id="borrarAulaLabel">Advertencia</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+                 </button>
+               </div>
+               <div class="modal-body">
+                 Esta seguro que desea borrar el usuario, incluidas sus reservas y todo lo relacionado a este usuario?
+               </div>
+               <div class="modal-footer">
+                 <a class="btn btn-primary" href="EliminarAula.php?id=<?php echo $fila['id_Aulas'];?>" value = "Eliminar" >  Eliminar </a>
+               </div>
+             </div>
+           </div>
+         </div>
     <?php } ?>
 
   </tbody>
