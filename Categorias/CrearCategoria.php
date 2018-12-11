@@ -51,6 +51,15 @@ function create(){
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
 
+// the message
+$msg = "Se creo la categoria: ";
+
+// use wordwrap() if lines are longer than 70 characters
+$msg1 = wordwrap($msg,70);
+
+// send email
+mail("andresduarter13@gmail.com","Prueba",$msg1);
+
 }
 
 ?>
