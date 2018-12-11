@@ -3,7 +3,7 @@
 
 class csv
 {
-  public function import($file, $idUploader){
+  public function import($file, $idUploader, $tipoDeUpload){
     $file = fopen($file, 'r');
     $_cont=0;
     $this->borrarReservasPrevias();
@@ -16,8 +16,11 @@ class csv
           break;
         }
         // echo $_cadenaDeDatos   ."</br>";
-        $this->AgregarReservasAutomaticas($_cadenaDeDatos, $idUploader);
-        //$this->AgregarAulas($_cadenaDeDatos);
+        if ($tipoDeUpload==0) {
+          $this->AgregarReservasAutomaticas($_cadenaDeDatos, $idUploader);
+        }else {
+          $this->AgregarAulas($_cadenaDeDatos);
+        }
       }
       $_cont++;
     }
