@@ -26,7 +26,7 @@ if(isset($_POST['creaUsuario'])){
   }else {
     $email = $_POST["correo"];
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $corrErr = "Invalid email format";
+      $corrErr = "Formato de Correo invalido ";
     }
   }
 

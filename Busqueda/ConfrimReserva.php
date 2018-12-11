@@ -44,5 +44,7 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
+
+ <!--  <a class="btn btn-primary" href="Resultados.php">Atras</a> -->
   </body>
 </html>

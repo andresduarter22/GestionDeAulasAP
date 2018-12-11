@@ -26,6 +26,9 @@
     public $_AulasDisponibles=array();
     public $_AulasNoDisponibles=array();
 
+    
+
+
     function __construct() {
       include_once '../Config/Database.php';
       $db= new Database();
@@ -47,15 +50,20 @@
         $this->reservDiasSeguidos();
 
       }
-//      echo implode(",",$this->_AulasDisponibles);
-
-      $queryDisponibles = http_build_query(array('disp' => $this->_AulasDisponibles));
+      //echo implode(",",$this->_AulasDisponibles[0
+          //  echo implode("|",$this->_AulasDisponibles[0]);
+      //echo "$this->_AulasNoDisponibles[1]";
+      return  array($this->_AulasDisponibles, $this->_AulasNoDisponibles);
+/*      $queryDisponibles = http_build_query(array('disp' => $this->_AulasDisponibles));
       $queryNoDisponibles = http_build_query(array('nodisp' => $this->_AulasNoDisponibles));
 
       echo implode(",",$this->_AulasDisponibles) . "<br>";
       echo implode(",",$this->_AulasNoDisponibles);
       //echo "$query";
       header("Location: Resultados.php?" . $queryDisponibles . $queryNoDisponibles);
+*/
+      //Buscar que devuelva los 2 arreglos
+
 
     }
 
@@ -79,7 +87,7 @@
           $result->setFetchMode(PDO::FETCH_ASSOC);
           while ($fila = $result->fetch()){
             $this->verificarDisponibilidadAulaEspecificos($fila['id_Aula']);
-            echo "<br>";
+
           }
         }else{
           //busca por categoria
@@ -88,14 +96,13 @@
               $sql = $sql .  " OR id_Categoria= $varArregloDeCategorias1[$i] ";
           }
           $sql= $sql . ";";
-          echo "$sql <br>";
+          //echo "$sql <br>";
           $result = $this->dblink->query($sql);
           $result->setFetchMode(PDO::FETCH_ASSOC);
           while ($fila = $result->fetch()){
             //echo $fila['id_Aula'] . "<br>";
             $this->verificarDisponibilidadAulaEspecificos($fila['id_Aula']);
-            echo "<br>";
-          }
+            }
         }
       }
     }
@@ -135,7 +142,6 @@
             while ($fila = $result->fetch()){
               //echo $fila['id_Aula'] . "<br>";
               $this->verificarDisponibilidadAulaSeguidos($fila['id_Aula']);
-              echo "<br>";
             }
           }
         }
@@ -188,10 +194,10 @@
             break;
         }
       }
-      // echo implode("|",$_disponibilidad) ;
+      // echo implode("|",$_disponibilidad) . "<br>" ;
       if($_disponibilidad['A']==1 || $_disponibilidad['B']==1 || $_disponibilidad['C']==1|| $_disponibilidad['D']==1|| $_disponibilidad['E']==1){
         array_push ($this->_AulasDisponibles, $_disponibilidad);
-        $this->imprimirResultados($_disponibilidad);
+    //    $this->imprimirResultados($_disponibilidad);
       }else {
         array_push ($this->_AulasNoDisponibles, $_disponibilidad);
       }
@@ -248,7 +254,7 @@
     //    echo implode("|",$_disponibilidad);
         if($_disponibilidad['A']==1 || $_disponibilidad['B']==1 || $_disponibilidad['C']==1|| $_disponibilidad['D']==1|| $_disponibilidad['E']==1){
           array_push ($this->_AulasDisponibles, $_disponibilidad);
-          $this->imprimirResultados($_disponibilidad);
+    //      $this->imprimirResultados($_disponibilidad);
         }else {
           array_push ($this->_AulasNoDisponibles, $_disponibilidad);
         }
