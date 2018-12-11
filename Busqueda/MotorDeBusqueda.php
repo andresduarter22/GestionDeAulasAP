@@ -1,10 +1,6 @@
 <?php
-  include "search.php";
   include "../Config/Database.php";
-  $se=new search();
-  if(isset($_POST['sub'])){
-    $se->busca();
-  }
+
 ?>
 <html>
 <head>
@@ -32,7 +28,7 @@
     $result = $dblink->query($sql);
     $result->setFetchMode(PDO::FETCH_ASSOC);
   ?>
-  <form action="MotorDeBusqueda.php" method="post">
+  <form action="Resultados.php" method="post">
     <div class="container" >
       <div class="container row">
         <div class="row">
@@ -87,7 +83,7 @@
   <!-- boton para ir atras-->
 
       <form action="MotorDeBusqueda.php" method="post">
-        <input type="submit" class="btn btn-primary" name="sub" value="Buscar">
+        <input type="submit" class="btn btn-primary" name="startSearch" value="Buscar">
       </form>
     </div>
     </form>

@@ -1,15 +1,26 @@
 <?php
 
     include "../Config/Database.php";
+    include "search.php";
     $db= new Database();
     $dblink= $db->getConnection();
 
+    $se=new search();
+    $arregDisp=0;
+    if(isset($_POST['startSearch'])){
+      $arregDisp=$se->busca();
+    }
     //$data = json_decode(trim(file_get_contents('php://input')),true);
     //echo implode(",",$data);
     //echo $data;
 
-    $_resultadosDisp = $_GET['disp'];
-    $_resultadosNoDisp = $_GET['nodisp'];
+    //$_resultadosDisp = $_GET['disp'];
+    //$_resultadosNoDisp = $_GET['nodisp'];
+
+
+    $_resultadosDisp = $arregDisp[0];
+    $_resultadosNoDisp = $arregDisp[1];
+  //  echo $_resultadosDisp;
 
  ?>
 
@@ -48,7 +59,7 @@
           <span class="navbar-toggler-icon"></span>
       </button>
     </nav>
-    <?php echo implode(",",$_resultadosNoDisp[1]); ?>
+    <?php // echo implode(",",$_resultadosNoDisp[1]); ?>
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <p class="display-5">Resultados De Busqueda  </p>
