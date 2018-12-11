@@ -7,9 +7,13 @@
 //  echo "$_idDeUsuario";
 
   $csv=new csv();
-  if(isset($_POST['sub'])){
-      $csv->import($_FILES['file']['tmp_name'], $_POST['id']);
+  if(isset($_POST['Reserva'])){
+      $csv->import($_FILES['file']['tmp_name'], $_POST['id'],0);
   }
+  if(isset($_POST['Aulas'])){
+      $csv->import($_FILES['file']['tmp_name'], $_POST['id'],1);
+  }
+
 ?>
 <html>
   <head>
@@ -45,7 +49,9 @@
             <form method="post" enctype="multipart/form-data">
               <input type="file" name="file">
               <input type='hidden' name='id' value='<?php echo "$_idDeUsuario";?>'/>
-              <input type="submit" name="sub" value="Import">
+              <input type="submit" name="Reserva" value="Reservas">
+              <input type="submit" name="Aulas" value="Ingresar Aulas">
+
             </form>
           </div>
       <br><br><br>

@@ -13,7 +13,6 @@ if(isset($_POST['creaUsuario'])){
       $NombreErr = "Solo letras y espacios requeridos";
     }
   }
-
   if (empty($_POST["numInt"])) {
     $NumintErr = "Numero de Interno es Requerido";
   }else {
@@ -32,23 +31,9 @@ if(isset($_POST['creaUsuario'])){
   }
 
   if (empty($corrErr) && empty($CatErr) && empty($NumintErr) && empty($NombreErr)){
-    echo "crear";
+    create();
   }
-
-//  validar();
-//  if(validar()==1){
-    //create();
-    /*echo "Posteo";
-    echo $_POST['Categoria'];
-    echo $_POST['nombre'];
-    echo $_POST['numInt']*/
-//  }else {
-//    echo "error";
-  //}
 }
-
-
-
  ?>
 
 <html>
@@ -66,10 +51,8 @@ if(isset($_POST['creaUsuario'])){
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
     <?php
-
       //Conexion con base
       include "../Config/Database.php";
-
       // se crea una nueva instancia de la clase
       $db= new Database();
       // se llama a la conexion, caulquier cosa que se quiera hacer con la base se llama a esa variable
