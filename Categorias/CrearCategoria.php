@@ -59,9 +59,8 @@ $msg1 = wordwrap($msg,70);
 
 // send email
 mail("andresduarter13@gmail.com","Prueba",$msg1);
-
+header("Location: GestionDeCategorias.php");
 }
-
 ?>
 <!-- Boton para ir Atras -->
 <a class="btn btn-primary" href="GestionDeCategorias.php">Atras</a>

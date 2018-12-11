@@ -101,6 +101,7 @@ if (isset($_POST['id1']))
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
   }
+  header("Location: GestionDeAulas.php");
 }
 ?>
 <!-- Boton para ir Atras -->
