@@ -26,11 +26,11 @@
 <form action="CrearAula.php"  method="post">
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreAula" name="NombreAula">
+    <input type="text" class="form-control" id="NombreAula" name="NombreAula" required>
   </div>
   <div class="form-group">
     <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-    <input type="text" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos">
+    <input type="number" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos" required>
   </div>
   <div class="container">
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">

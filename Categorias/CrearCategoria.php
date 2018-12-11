@@ -25,11 +25,11 @@
 <form action="CrearCategoria.php"  method="post">
   <div class="form-group scrollbar">
     <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria">
+    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" required>
   </div>
   <div class="form-group">
     <label for="CantidadDeAlumnos">Descripcion:</label>
-    <textarea class="form-control" id="Descripcion" name="Descripcion">  </textarea/>
+    <textarea class="form-control" id="Descripcion" name="Descripcion" required></textarea/>
   </div>
   <form action="CrearCategoria.php" method="post">
     <input type="submit" name="submit" value="Confirmar" class="btn">
