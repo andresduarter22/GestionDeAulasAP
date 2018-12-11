@@ -83,9 +83,11 @@ if (isset($_POST['id1']))
 {
   $_id = $_POST['id1'];
   $_nombre= $_POST['NombreAula'];
-  $_cantAulumnos= $_POST['CantidadAlumnos'];
+  $_cantDeAlumnos= $_POST['CantidadAlumnos'];
   $_categorias= $_POST['categoria'];
-  $sql3 = "UPDATE Aulas_Categoria SET nombre = $_nombre,cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_POST['id1'].";";
+  //echo var_dump($_POST['CantidadAlumnos']);
+  //echo var_dump($_cantAulumnos);
+  $sql3 = "UPDATE Aulas SET nombre = '$_nombre',cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_POST['id1'].";";
   //echo var_dump($sql3);
   $dblink->query($sql3);
   $sql4 = "DELETE FROM aulas_categoria WHERE id_Aula = $_id;";
