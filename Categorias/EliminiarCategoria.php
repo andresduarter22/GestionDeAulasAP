@@ -31,6 +31,12 @@
   ?>
 
     <input type="text" name="id1" value= <?php echo  $_GET['id'] ;?> class="form-control" disabled/>
+    <!--tabla 1 -->
+    <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
+    $res=$dblink->query($sql2);
+    $comprobacion = $res->fetch();
+    //echo var_dump($fila4);
+    if($comprobacion){ ?>
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
       <thead  class="thead-dark">
       <tr>
@@ -38,25 +44,45 @@
       </tr>
     </thead>
     <tbody>
-      <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
-      $res=$dblink->query($sql2);
-
+      <?php
+          //Primer elemento de la tabla
+          $aulas[0] = $comprobacion['id_Aula'];
+          $sql3 = "SELECT * FROM  aulas WHERE id_Aulas =".$aulas[0].";";
+                    $res1=$dblink->query($sql3);
+                    $fila1 = $res1->fetch();
+         ?>
+        <tr>
+          <td><?php echo $fila1['nombre'] ; ?></td>
+        </tr>
+      <?php
       while ($fila = $res->fetch()){
           $aulas[$contador] = $fila['id_Aula'];
           $sql3 = "SELECT * FROM  aulas WHERE id_Aulas =".$aulas[$contador].";";
                     $res1=$dblink->query($sql3);
                     $fila1 = $res1->fetch();
-                  //  echo var_dump($aulas[$contador]);
          ?>
         <tr>
           <td><?php echo $fila1['nombre'] ; ?></td>
         </tr>
       <?php $contador = $contador + 1;
-    } ?>
+    }
+   ?>
     </tbody>
   </table>
     </table>
     <!--tabla 2 -->
+    <?php
+    foreach($aulas as $aula){
+        $sql4 = "SELECT count(id_Aula) AS num FROM aulas_categoria WHERE id_Aula =".$aula." ;";
+        $res4=$dblink->query($sql4);
+        $fila4 = $res4->fetch();
+        if($fila4){
+          if($fila4['num'] == 1){
+            $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aula.";";
+            $res5=$dblink->query($sql5);
+            $fila5 = $res5->fetch();
+
+              ?>
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
       <thead  class="thead-dark">
       <tr>
@@ -64,23 +90,18 @@
       </tr>
     </thead>
     <tbody>
-
-      <?php
-      foreach($aulas as $aula){
-          $sql4 = "SELECT count(id_Aula) AS num FROM aulas_categoria WHERE id_Aula =".$aula." ;";
-          $res4=$dblink->query($sql4);
-          $fila4 = $res4->fetch();
-            if($fila4['num'] == 1){
-              $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aula.";";
-              $res5=$dblink->query($sql5);
-              $fila5 = $res5->fetch();
-                ?>
                 <tr>
                   <td><?php echo $fila5['nombre'] ; ?></td>
                 </tr>
         <?php
-            }
+      }else{
+        echo "Ningun aula se quedara sin categoria";
+          }
+        }
       }
+    }else{
+      echo "Ningun Aula sera afectada";
+    }
          ?>
 
     </tbody>

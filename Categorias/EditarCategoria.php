@@ -70,7 +70,7 @@ if (isset($_POST['id1'])){
   if ($dblink->query($sql1) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
-
+header("Location: GestionDeCategorias.php");
 }
 
 

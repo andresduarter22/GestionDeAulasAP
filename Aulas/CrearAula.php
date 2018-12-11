@@ -76,6 +76,7 @@ if (isset($_POST['submit']))
       echo "Error: " . $sql1 . "<br>" . $dblink->error;
     }
   }
+  header("Location: GestionDeAulas.php");
 }
 
 ?>
