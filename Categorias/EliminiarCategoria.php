@@ -28,11 +28,15 @@
     $aulas = array("Hola");
     $aulas1 = array("Hola");
     $contador=0;
+    $sql = "SELECT * FROM Categorias WHERE id_Categorias =".$_GET['id']." ;";
+    $nombre_categoria = $dblink->query($sql);
+    $nombre_catego = $nombre_categoria->fetch();
   ?>
-
-    <input type="text" name="id1" value= <?php echo  $_GET['id'] ;?> class="form-control" disabled/>
+    <div class="container">
+    <input type="text" name="id1" value= "Desea borrar la categoria: <?php echo  $nombre_catego['nombre_categoria'];?> ?" class="form-control" disabled/>
     <!--tabla 1 -->
-    <?php $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
+    <?php
+    $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
     $res=$dblink->query($sql2);
     $comprobacion = $res->fetch();
     //echo var_dump($fila4);
@@ -111,6 +115,7 @@
         <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
         <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
     </form>
+    </div>
     <?php
     if(isset($_POST['id1'])){
       $_id=$_POST['id1'];

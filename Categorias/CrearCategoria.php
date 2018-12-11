@@ -15,25 +15,32 @@
       <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
   <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 
   <?php
     include "../Config/Database.php";
     $db= new Database();
     $dblink= $db->getConnection();
   ?>
-  <!-- holaaa -->
+
 <form action="CrearCategoria.php"  method="post">
-  <div class="form-group scrollbar">
-    <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" required>
+  <div class="container">
+    <div class="form-group scrollbar">
+      <label for="NombreAula">Nombre:</label>
+      <input type="text" class="form-control" id="NombreCategoria" name="NombreCategoria" required>
+    </div>
+    <div class="form-group">
+      <label for="CantidadDeAlumnos">Descripcion:</label>
+      <textarea class="form-control" id="Descripcion" name="Descripcion" required></textarea/>
+    </div>
+    <form action="CrearCategoria.php" method="post">
+      <input type="submit" name="submit" value="Confirmar" class="btn btn-info">
+    </form>
   </div>
-  <div class="form-group">
-    <label for="CantidadDeAlumnos">Descripcion:</label>
-    <textarea class="form-control" id="Descripcion" name="Descripcion" required></textarea/>
-  </div>
-  <form action="CrearCategoria.php" method="post">
-    <input type="submit" name="submit" value="Confirmar" class="btn">
-  </form>
 </form>
 <?php
 if (isset($_POST['submit']))

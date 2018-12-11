@@ -7,13 +7,18 @@
   <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Crear Aulas</title>
+  <title>Crear Aula</title>
 </head>
 <body>
   <div>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
       <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
   <br/>
 
   <?php
@@ -24,13 +29,15 @@
   ?>
   <!-- holaaa -->
 <form action="CrearAula.php"  method="post">
-  <div class="form-group scrollbar">
-    <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreAula" name="NombreAula" required>
-  </div>
-  <div class="form-group">
-    <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-    <input type="number" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos" required>
+  <div class="container">
+    <div class="form-group scrollbar">
+      <label for="NombreAula">Nombre:</label>
+      <input type="text" class="form-control" id="NombreAula" name="NombreAula" required>
+    </div>
+    <div class="form-group">
+      <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
+      <input type="number" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos" required>
+    </div>
   </div>
   <div class="container">
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
@@ -52,10 +59,10 @@
        <?php } ?>
      </tbody>
    </table>
+   <form action="CrearAula.php" method="post">
+     <input type="submit" name="submit" value="Confirmar" class="btn btn-info">
+   </form>
   </div>
-  <form action="CrearAula.php" method="post">
-    <input type="submit" name="submit" value="Confirmar" class="btn">
-  </form>
 </form>
 <?php
 if (isset($_POST['submit']))

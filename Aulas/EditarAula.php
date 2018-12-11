@@ -7,7 +7,7 @@
   <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Editar Aulas</title>
+  <title>Editar Aula</title>
 </head>
 <body>
   <div>
@@ -33,14 +33,17 @@
   ?>
   <!-- holaaa -->
 <form action=<?php echo '"EditarAula.php?id='.$_GET['id'].'"' ?> method="post">
-  <div class="form-group scrollbar">
-    <label for="NombreAula">Nombre:</label>
-    <input type="text" class="form-control" id="NombreAula" name="NombreAula" value = "<?php echo $fila['nombre']; ?>">
+  <div class="container">
+    <div class="form-group scrollbar">
+      <label for="NombreAula">Nombre:</label>
+      <input type="text" class="form-control" id="NombreAula" name="NombreAula" value = "<?php echo $fila['nombre']; ?>">
+    </div>
+    <div class="form-group">
+      <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
+      <input type="text" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos" value = <?php echo $fila['cantidad_alumnos']; ?>>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="CantidadDeAlumnos">Cantidad de Alumnos:</label>
-    <input type="text" class="form-control" id="CantidadAlumnos" name="CantidadAlumnos" value = <?php echo $fila['cantidad_alumnos']; ?>>
-  </div>
+
   <div class="container">
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
     <thead  class="thead-dark">
@@ -71,11 +74,11 @@
        <?php } ?>
      </tbody>
    </table>
+   <form action="EditarAula.php" method="post">
+     <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
+     <input type="submit" name="submit" class="btn btn-info" value="Confirmar" />
+   </form>
   </div>
-  <form action="EditarAula.php" method="post">
-    <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
-    <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
-  </form>
 </form>
 
 <?php

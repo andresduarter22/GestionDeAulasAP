@@ -40,7 +40,7 @@
            </td>
            <td>
              <?php
-            echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#borrarAula" .$fila['id_Aulas'] . "\"> Borrar";
+            echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\"data-target=\"#borrarAula" .$fila['id_Aulas'] . "\"> Borrar";
              $idAula= $fila['id_Aulas'];
                   ?>
             <!-- <form method="get" action="EliminarAula.php">
@@ -59,10 +59,10 @@
                  </button>
                </div>
                <div class="modal-body">
-                 Esta seguro que desea borrar el usuario, incluidas sus reservas y todo lo relacionado a este usuario?
+                 Esta seguro que desea borrar esta aula?
                </div>
                <div class="modal-footer">
-                 <a class="btn btn-primary" href="EliminarAula.php?id=<?php echo $fila['id_Aulas'];?>" value = "Eliminar" >  Eliminar </a>
+                 <a class="btn btn-primary" href="EliminarAula.php?id=<?php echo $fila['id_Aulas'];?>" value = "Eliminar" >  Confirmar </a>
                </div>
              </div>
            </div>

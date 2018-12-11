@@ -50,9 +50,8 @@
 <?php echo  $fila['descripcion']; ?>
     </textarea/>
   </div>
-
     <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
-    <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
+    <input type="submit" name="submit" class="btn btn-info" value="Confirmar" />
   </div>
 </form>
 <?php } ?>

@@ -42,7 +42,7 @@
          <td>
            <form method="get" action="EliminiarCategoria.php">
               <input type="hidden" name="id" value=<?php echo $fila['id_Categorias'] ;  ?> class="form-control">
-              <input type="submit" class="btn btn-primary" value="Borrar">
+              <input type="submit" class="btn btn-danger" value="Borrar">
             </form>
           </td>
          </tr>
