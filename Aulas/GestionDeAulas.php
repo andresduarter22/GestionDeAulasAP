@@ -42,6 +42,7 @@
              <?php
             echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\"data-target=\"#borrarAula" .$fila['id_Aulas'] . "\"> Borrar";
              $idAula= $fila['id_Aulas'];
+//           echo var_dump ($fila['id_Aulas']);
                   ?>
             <!-- <form method="get" action="EliminarAula.php">
                 <input type="hidden" name="id" value=<?php //echo $fila['id_Aulas'] ;  ?> class="form-control">
@@ -62,7 +63,7 @@
                  Esta seguro que desea borrar esta aula?
                </div>
                <div class="modal-footer">
-                 <a class="btn btn-primary" href="EliminarAula.php?id=<?php echo $fila['id_Aulas'];?>" value = "Eliminar" >  Confirmar </a>
+                 <a class="btn btn-primary" href="EliminarAula.php?id=<?php echo $fila['id_Aulas'];?>" value = "Eliminar" Name="id_borrar">  Confirmar </a>
                </div>
              </div>
            </div>
