@@ -69,11 +69,11 @@
   </div>
   <!-- Final boton de Informacion -->
 
-<!-- Log In GOOGLE
+<!-- Log In GOOGLE-->
 <div class="g-signin2" data-onsuccess="onSignIn">
   <button type="button" class="btn">  Log in GOOGLE </button>
 </div>
--->
+
 </body>
 
 </html>
