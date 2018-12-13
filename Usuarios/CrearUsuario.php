@@ -1,4 +1,5 @@
 <?php
+include "../Config/Database.php";
 $corrErr = $NumintErr = $NombreErr =$CatErr ="";
 if(isset($_POST['creaUsuario'])){
   if (empty($_POST["Categoria"])) {
@@ -52,7 +53,6 @@ if(isset($_POST['creaUsuario'])){
     <a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"  alt="Responsive image" ></a>
     <?php
       //Conexion con base
-      include "../Config/Database.php";
       // se crea una nueva instancia de la clase
       $db= new Database();
       // se llama a la conexion, caulquier cosa que se quiera hacer con la base se llama a esa variable
