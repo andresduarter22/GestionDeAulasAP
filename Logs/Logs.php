@@ -24,65 +24,35 @@
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
     <tr>
-      <th style="width: 30%">Nombre Reservador</th>
-      <th style="width: 10%">Fecha realizada</th>
-      <th style="width: 20%">Materia</th>
-      <th style="width: 30%">Nombre Del Aula</th>
-      <th style="width: 10%">Fecha Inicial</th>
-      <th style="width: 20%">Fecha Final</th>
+      <th style="width: 5%">Nombre del Reservador</th>
+      <th style="width: 10%">Numero Interno dek Reservador</th>
+      <th style="width: 10%">Correo del Reservador</th>
+      <th style="width: 5%">Rango Reservador</th>
+      <th style="width: 40%">Accion</th>
+      <th style="width: 30%">Fecha de la Accion realizada</th>
+
     </tr>
   </thead>
    <tbody>
     <?php
-    $sql = "SELECT * FROM Logs WHERE tipo = 'm';";
+    $sql = "SELECT * FROM Logs;";
     $result = $dblink->query($sql);
     if($result != null){
     while ($fila = $result->fetch()){  ?>
      <tr>
         <td><?php echo $fila['nombre_usuario']; ?></td>
-        <td><?php echo $fila['Fecha_deReserva']; ?></td>
-        <td><?php echo $fila['Materia']; ?></td>
-        <td><?php echo $fila['Aula']; ?></td>
-        <td><?php echo $fila['Fecha_ini']; ?></td>
-        <td><?php echo $fila['Fecha_fin']; ?></td>
+        <td><?php echo $fila['num_interno_usuario']; ?></td>
+        <td><?php echo $fila['correo_usuario']; ?></td>
+        <td><?php echo $fila['tipo_usuario']; ?></td>
+        <td><?php echo $fila['Accion']; ?></td>
+        <td><?php echo $fila['Fecha_Accion']; ?></td>
      </tr>
     <?php }
     } ?>
   </tbody>
 </table>
 </div>
-<!--automaticas-->
-<div class="container form-group" >
-<table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
-  <thead  class="thead-dark">
-    <tr>
-      <th style="width: 30%">Nombre Reservador</th>
-      <th style="width: 10%">Fecha realizada</th>
-      <th style="width: 20%">Materia</th>
-      <th style="width: 30%">Nombre Del Aula</th>
-      <th style="width: 10%">Fecha Inicial</th>
-      <th style="width: 20%">Fecha Final</th>
-    </tr>
-  </thead>
-   <tbody>
-    <?php
-    $sql1 = "SELECT * FROM Logs WHERE tipo = 'a';";
-    $result1 = $dblink->query($sql1);
-    if($result1 != null){
-    while ($fila1 = $result1->fetch()){  ?>
-     <tr>
-        <td><?php echo $fila['nombre_usuario']; ?></td>
-        <td><?php echo $fila['Fecha_deReserva']; ?></td>
-        <td><?php echo $fila['Materia']; ?></td>
-        <td><?php echo $fila['Aula']; ?></td>
-        <td><?php echo $fila['Fecha_ini']; ?></td>
-        <td><?php echo $fila['Fecha_fin']; ?></td>
-     </tr>
-    <?php }
-  }?>
-  </tbody>
-</table>
-</div>
+
 
   <!-- Boton para ir atras-->
   <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
@@ -98,7 +68,7 @@
           </button>
         </div>
         <div class="modal-body">
-          Esta es la pantalla donde se puede consultar todas las reservas hechas.
+          Esta es la pantalla donde se puede consultar todas las reservas, ademas de la creacion, edicion y eliminacion de Aulas,Categorias y Usuarios.
 
         </div>
         <div class="modal-footer">

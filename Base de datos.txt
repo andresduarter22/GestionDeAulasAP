@@ -178,21 +178,13 @@ DROP TABLE IF EXISTS `BD_AulasPerronas`.`Logs` ;
 
 CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Logs` (
   `id_Log` INT NOT NULL AUTO_INCREMENT,
-  `id_Reserva` INT NOT NULL,
   `nombre_usuario` VARCHAR(100) NOT NULL,
-  `Fecha_ini` DATETIME NOT NULL,
-  `Fecha_fin` DATETIME NOT NULL,
-  `Materia` VARCHAR(45) NOT NULL,
-  `Aula` VARCHAR(45) NOT NULL,
-  `Fecha_deReserva` DATETIME NOT NULL,
-  `tipo` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`id_Log`),
-  INDEX `Id_Reserva_idx` (`id_Reserva` ASC),
-  CONSTRAINT `Id_Reserva`
-    FOREIGN KEY (`id_Reserva`)
-    REFERENCES `BD_AulasPerronas`.`Reservas` (`id_Reservas`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `num_interno_usuario` INT NOT NULL,
+  `correo_usuario` VARCHAR(100) NOT NULL,
+  `tipo_usuario` VARCHAR(100) NOT NULL,
+  `Accion` VARCHAR(200) NOT NULL,
+  `Fecha_Accion` DATETIME NOT NULL,
+  PRIMARY KEY (`id_Log`))
 ENGINE = InnoDB;
 
 

@@ -53,7 +53,7 @@ function create(){
   $_nombre= $_POST['NombreCategoria'];
   $_descripcion= $_POST['Descripcion'];
 
-  $sql = "insert into Categorias(id_Categorias,nombre_categoria,descripcion) values(NULL,'$_nombre','$_descripcion')";
+  $sql = "INSERT INTO Categorias(id_Categorias,nombre_categoria,descripcion) VALUES(NULL,'$_nombre','$_descripcion')";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
@@ -67,6 +67,8 @@ $msg1 = wordwrap($msg,70);
 // send email
 mail("andresduarter13@gmail.com","Prueba",$msg1);
 header("Location: GestionDeCategorias.php");
+  $sql_log = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se creo una categoria llamada $_nombre',now())";
+  $dblink->query($sql_log);
 }
 ?>
 <!-- Boton para ir Atras -->
