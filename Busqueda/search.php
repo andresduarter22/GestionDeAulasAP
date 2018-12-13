@@ -4,7 +4,7 @@
   class search
   {
 
-    public $_tipoDeReserva=false; //$_POST['tipores'];
+    public $_tipoDeReserva=true; //$_POST['tipores'];
     // FALSE Dias especificos
     // TRUE Dias seguidos
     //array para dias seguidos
@@ -42,12 +42,13 @@
   }
 
     public function busca(){
+      $this->ListaDeAulas();
+      /*
       if($this->_tipoDeReserva==0){
         $this->reservDiasEspecificos();
       }else {
         $this->reservDiasSeguidos();
-
-      }
+      }*/
       //echo implode(",",$this->_AulasDisponibles[0
           //  echo implode("|",$this->_AulasDisponibles[0]);
       //echo "$this->_AulasNoDisponibles[1]";
@@ -61,8 +62,7 @@
 */      //Buscar que devuelva los 2 arreglos
     }
 
-    public function reservDiasEspecificos(){
-      //se tiene uno o varios dias, por ende un array en $_fechasArray
+    public funCtion ListaDeAulas(){
       if($this->_esAula==1){
         $this->verificarDisponibilidadAulaEspecificos($this->_aulaEspecifica );
       }else{
@@ -85,42 +85,14 @@
         $result = $this->dblink->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
         while ($fila = $result->fetch()){
-          $_d= $fila['id_Aula'];
-          echo "$_d <br>";
-          $this->verificarDisponibilidadAulaEspecificos($fila['id_Aula']);
-        }
-      }
-    }
-
-
-    public function reservDiasSeguidos(){
-        if($this->_esAula==1){
-            // tiene un aula especifica para la busqueda
-            $this->verificarDisponibilidadAulaSeguidos($this->_aulaEspecifica );
-        }else{
-          $varArregloDeCategorias1=$this->_categoriasArrays;
-          if($this->_ReqcantidadAlumnos==1){
-            $sql= "SELECT DISTINCT id_Aula FROM aulas_categoria AC  INNER JOIN aulas A ON AC.id_Aula=A.id_Aulas WHERE (AC.id_Categoria= $varArregloDeCategorias1[0] ";
-
-            for ($i=1; $i < count($varArregloDeCategorias1); $i++) {
-                  $sql = $sql .  " OR AC.id_Categoria= $varArregloDeCategorias1[$i] ";
-            }
-            $sql = $sql . ") AND A.cantidad_alumnos >=  $this->_cantidadAlumnos ; ";
+          if($this->_tipoDeReserva==0){
+            $this->verificarDisponibilidadAulaEspecificos($fila['id_Aula']);
           }else {
-            $sql= "SELECT id_Aula FROM aulas_categoria WHERE id_Categoria= $varArregloDeCategorias1[0]";
-            for ($i=1; $i < count($varArregloDeCategorias1); $i++) {
-                $sql = $sql .  " OR id_Categoria= $varArregloDeCategorias1[$i] ";
-            }
-            $sql= $sql . ";";
-          }
-          $result = $this->dblink->query($sql);
-          $result->setFetchMode(PDO::FETCH_ASSOC);
-          while ($fila = $result->fetch()){
-
             $this->verificarDisponibilidadAulaSeguidos($fila['id_Aula']);
           }
         }
       }
+    }
 
     private function verificarDisponibilidadAulaEspecificos($id_AulaEspecifica){
       $sql= "SELECT nombre FROM aulas WHERE id_Aulas= $id_AulaEspecifica ; ";
@@ -136,6 +108,7 @@
       //echo  implode("|",$_disponibilidad);
       $fechainicial=  $this->_fechasArray['fechaini'];
       $fechafinal=  $this->_fechasArray['fechafin'];
+      $varArregloDeCategorias1= $this->_fechasArray;
 
       $sql= "SELECT horario FROM reservas WHERE id_Aula_Reservada= $id_AulaEspecifica AND ";
       $sql= $sql . "( '$varArregloDeCategorias1[0]' BETWEEN fecha_inicio AND fecha_final ";
