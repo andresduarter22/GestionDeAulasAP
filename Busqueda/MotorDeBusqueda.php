@@ -52,14 +52,26 @@
       echo $calendar->show();*/
       ?>
       <input id="date" type="date" >
-      <div class="input-group mb-3 container ">
-        <div class="input-group-prepend">
+          <div class="input-group-prepend">
           <div class="input-group-text">
             <input type="checkbox" aria-label="Checkbox for following text input">
           </div>
         </div>
         <input type="text" name="cantalumnos" class="form-control" aria-label="Text input with checkbox" placeholder="Cantidad de Alumnos">
-      </div>
+        Horarios
+        <div class="row-fluid">
+          <select class="selectpicker"  id="horario" name="horario" data-live-search="true">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="Z">Z</option>
+            <option value="Z1">Z1</option>
+          </select>
+        </div>
+
         <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
           <thead  class="thead-dark">
             <tr>

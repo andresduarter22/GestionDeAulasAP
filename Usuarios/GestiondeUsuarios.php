@@ -92,7 +92,7 @@
                 </div>
                 <div class="modal-footer">
 
-                  <button type="button" class="btn " > <a href="Methods.php?id=<?php echo $fila['id_Usuario'];?>" >  Eliminar </button>
+                  <a class="btn btn-primary" href="Methods.php?id=<?php echo $fila['id_Usuario'];?>"  value=  "Eliminar" > Confirmar </a>
 
                 </div>
               </div>

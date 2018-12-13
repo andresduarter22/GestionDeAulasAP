@@ -97,18 +97,20 @@
       <option value="2">Actualizador</option>
       <option value="3">Reservador</option>
     </select>
-    <?php   while ($fila = $result->fetch()){  ?>
+    <?php   while ($fila = $result->fetch()){
+
+      ?>
       <div class="form-group">
         <label for="NombreAula">Nombre:</label>
-        <input type="text" value= <?php echo   $fila['nombre'] ; ?> class="form-control" id="usr" name="nombre">
+        <input type="text" value="<?php echo $fila['nombre'] ; ?>" class="form-control" id="usr" name="nombre">
       </div>
       <div class="form-group">
         <label for="num_interno">Numero de Interno:</label>
-        <input type="text" value= <?php echo   $fila['num_interno']; ?> class="form-control" id="interno"  name="numInt">
+        <input type="text" value="<?php echo $fila['num_interno'];?>" class="form-control" id="interno"  name="numInt">
       </div>
       <div class="form-group">
         <label for"E_Mail">E-Mail:</label>
-        <input type="text"value= <?php echo   $fila['E_Mail']; ?>  class="form-control" id="e_mail" name="correo">
+        <input type="text"value="<?php echo $fila['E_Mail']; ?>" class="form-control" id="e_mail" name="correo">
       </div>
 
       <table class="table table-striped table-bordered  table-responsive-sm m-5s">
