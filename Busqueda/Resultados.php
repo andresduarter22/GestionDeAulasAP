@@ -13,6 +13,7 @@
       $arregDisp=$se->busca();
     }
 
+    echo $se->_aulaEspecifica;
   //  echo $se->__get($_horario);
     //$data = json_decode(trim(file_get_contents('php://input')),true);
     //echo implode(",",$data);

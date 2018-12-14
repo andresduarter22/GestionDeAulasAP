@@ -26,6 +26,12 @@
     public $_AulasDisponibles=array();
     public $_AulasNoDisponibles=array();
 
+    public function __get($property) {
+         if (property_exists($this, $property)) {
+             return $this->$property;
+         }
+    }
+
 
     function __construct() {
       include_once '../Config/Database.php';
