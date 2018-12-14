@@ -26,6 +26,7 @@
     public $_AulasDisponibles=array();
     public $_AulasNoDisponibles=array();
 
+
     function __construct() {
       include_once '../Config/Database.php';
       $db= new Database();
@@ -44,8 +45,8 @@
     public function busca(){
       $this->ListaDeAulas();
 
-      echo "Disponibles " . implode(",",$this->_AulasDisponibles) . "<br>";
-      echo "No disponibles " . implode(",",$this->_AulasNoDisponibles[5]);
+      //echo "Disponibles " . implode(",",$this->_AulasDisponibles) . "<br>";
+      //echo "No disponibles " . implode(",",$this->_AulasNoDisponibles[5]);
       //echo $this->_AulasNoDisponibles[0][0];
       /*
       if($this->_tipoDeReserva==0){

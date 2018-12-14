@@ -1,3 +1,9 @@
+<?php
+  $id_DeAulaAReservar= $_POST['id_AulasParaReservar'];
+  echo "$id_DeAulaAReservar";
+
+ ?>
+
 <html>
   <head>
     <!-- jQuery -->
@@ -7,7 +13,7 @@
     <script src="../Booststrap/js/bootstrap.min.js" ></script>
     <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Confirmacion de Busqueda</title>
+    <title>Confirmacion de Reserva</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

@@ -29,7 +29,7 @@
     $result->setFetchMode(PDO::FETCH_ASSOC);
   ?>
   <form action="Resultados.php" method="post">
-    <div class="container" >
+    <div class="container" style="width:900px;">
       <div class="container row">
         <div class="row">
           <div class="col-sm-6">

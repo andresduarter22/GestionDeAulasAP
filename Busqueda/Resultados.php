@@ -2,14 +2,18 @@
 
     include "../Config/Database.php";
     include "search.php";
+  //  session_start();
     $db= new Database();
     $dblink= $db->getConnection();
+    $idDeUsuarioReservador=6;
 
     $se=new search();
     $arregDisp=0;
     if(isset($_POST['startSearch'])){
       $arregDisp=$se->busca();
     }
+
+  //  echo $se->__get($_horario);
     //$data = json_decode(trim(file_get_contents('php://input')),true);
     //echo implode(",",$data);
     //echo $data;
@@ -70,20 +74,37 @@
                 <tr>
                   <th style="width: 40%">Nombre de aula </th>
                   <th style="width: 30%">Reservar </th>
-
                 </tr>
               </thead>
               <tbody>
                 <?php
                 for ($i=0; $i <count($_resultadosDisp) ; $i++) {
                   //  echo "$valor";
-                  $sql = "SELECT nombre FROM aulas WHERE id_Aulas= $_resultadosDisp[$i] ";
+                  $sql = "SELECT * FROM aulas WHERE id_Aulas= $_resultadosDisp[$i] ";
                   $result = $dblink->query($sql);
-                  $nombre=$result->fetch();
-                  echo "<tr>";
-                  echo "<td>" . $nombre['nombre'] . "</td> ";
-                  echo "<td>  <button>  oa</button> </td>";
-                  echo "</tr>";
+                  $infoAulas=$result->fetch();
+
+                  $sql = "SELECT * FROM usuarios_aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
+                  $infoUsCatego = $dblink->query($sql);
+                //  echo "$sql";
+                    echo "<tr>";
+                      if($infoUsCatego->rowCount()){
+                        echo "<td class=\"table-success\">" . $infoAulas[1] . "</td> ";
+                        echo "<td class=\"table-success\">
+                          <form method=\"POST\" action= \"ConfrimReserva.php\">
+                            <input type=\"hidden\" name=\"id_AulasParaReservar\" value= " . $infoAulas[0] . " >
+                            <input type=\"submit\" value=\"Realizar Reserva\" />
+                          </form>
+                         </td>";
+                      }else {
+                        echo "<td class=\"table-danger\">" . $infoAulas[1] . "</td> ";
+                        echo "<td class=\"table-danger\">
+                              <form action= \"AutoComplete.php\">
+                                <input type=\"submit\" value=\"RTest\" />
+                                </form>
+                         </td>";
+                      }
+                    echo "</tr>";
                 }
                 ?>
               </table>
@@ -145,13 +166,15 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  AIUDA XD
+                  En esta pagina se pueden ver las aulas disponibles que cumplen los parametros requeridos
+                  El color verde muestra que se puede realizar la reserva
+                  El color rojo significa que este usuario no tiene el permiso para realizar la reserva
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
