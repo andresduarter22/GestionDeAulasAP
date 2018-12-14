@@ -8,9 +8,9 @@
     // FALSE Dias especificos
     // TRUE Dias seguidos
     //array para dias seguidos
-    //public $_fechasArray= array('fechaini'=>'2018-8-15 ','fechafin'=>'2018-9-28'); //$_POST['fechas'];
-    //array para dias variados
-    public $_fechasArray= array('2018-8-2','2018-8-15','2018-8-20'); //$_POST['fechas'];
+    public $_fechasArray= array('fechaini'=>'2018-8-15 ','fechafin'=>'2018-9-28'); //$_POST['fechas'];
+    //array para dias especificos
+    //public $_fechasArray= array('2018-8-2','2018-8-15','2018-8-20'); //$_POST['fechas'];
     public $_horario= "A";
     public $_aulaEspecifica=50; //$_POST['aulaEspecifica']
     public $_esAula=false; //$_POST['esAula'];
@@ -43,6 +43,10 @@
 
     public function busca(){
       $this->ListaDeAulas();
+
+      echo "Disponibles " . implode(",",$this->_AulasDisponibles) . "<br>";
+      echo "No disponibles " . implode(",",$this->_AulasNoDisponibles[5]);
+      //echo $this->_AulasNoDisponibles[0][0];
       /*
       if($this->_tipoDeReserva==0){
         $this->reservDiasEspecificos();
@@ -81,141 +85,65 @@
           }
           $sql= $sql . ";";
         }
-        echo $sql;
+        //echo $sql;
         $result = $this->dblink->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
+        //echo $this->_tipoDeReserva;
         while ($fila = $result->fetch()){
-          if($this->_tipoDeReserva==0){
-            $this->verificarDisponibilidadAulaEspecificos($fila['id_Aula']);
-          }else {
-            $this->verificarDisponibilidadAulaSeguidos($fila['id_Aula']);
-          }
+
+          $this->verificarDiponibilidad($fila['id_Aula']);
+
         }
+
       }
     }
 
-    private function verificarDisponibilidadAulaEspecificos($id_AulaEspecifica){
-      $sql= "SELECT nombre FROM aulas WHERE id_Aulas= $id_AulaEspecifica ; ";
-      $result = $this->dblink->query($sql);
-      $nombreAula=$result->fetch();
-      // Arreglo que marca la disponibilidad de un aula
-      $_disponibilidad= array('nombreDeAula'=>$nombreAula[0] ,
-                              'A'=>true,
-                              'B'=>true,
-                              'C'=>true,
-                              'D'=>true,
-                              'E'=>true              );
-      //echo  implode("|",$_disponibilidad);
-      $fechainicial=  $this->_fechasArray['fechaini'];
-      $fechafinal=  $this->_fechasArray['fechafin'];
-      $varArregloDeCategorias1= $this->_fechasArray;
-
-      $sql= "SELECT horario FROM reservas WHERE id_Aula_Reservada= $id_AulaEspecifica AND ";
-      $sql= $sql . "( '$varArregloDeCategorias1[0]' BETWEEN fecha_inicio AND fecha_final ";
-      for ($i=1; $i <count($varArregloDeCategorias1) ; $i++) {
-        $sql= $sql . "OR '$varArregloDeCategorias1[$i]' BETWEEN fecha_inicio AND fecha_final ";
-      }
-      $sql= $sql . ");";
-      //echo "$sql";
-      $result = $this->dblink->query($sql);
-      while ($fila = $result->fetch()) {
-        switch ($fila[0]) {
-          case 'A':
-              $_disponibilidad['A']=false;
-            break;
-          case 'B':
-                $_disponibilidad['B']=false;
-            break;
-          case 'C':
-                $_disponibilidad['C']=false;
-          break;
-          case 'D':
-                $_disponibilidad['D']=false;
-          break;
-          case 'E':
-                $_disponibilidad['E']=false;
-          break;
-
-          default:
-            break;
+    private function verificarDiponibilidad($id_AulaEspecifica){
+      $_AulaDisponible=true;
+      if($this->_tipoDeReserva==0){
+        //reserva especifica
+        $varArregloDeCategorias1= $this->_fechasArray;
+        $hora= $this->_horario;
+        $sql= "SELECT * FROM reservas WHERE id_Aula_Reservada= $id_AulaEspecifica AND horario= '$hora' AND";
+        $sql= $sql . "( '$varArregloDeCategorias1[0]' BETWEEN fecha_inicio AND fecha_final   ";
+        for ($i=1; $i <count($varArregloDeCategorias1) ; $i++) {
+          $sql= $sql . "OR '$varArregloDeCategorias1[$i]' BETWEEN fecha_inicio AND fecha_final ";
         }
-      }
-       //echo implode("|",$_disponibilidad) . "<br>" ;
-      if($_disponibilidad['A']==1 || $_disponibilidad['B']==1 || $_disponibilidad['C']==1|| $_disponibilidad['D']==1|| $_disponibilidad['E']==1){
-        array_push ($this->_AulasDisponibles, $_disponibilidad);
-    //    $this->imprimirResultados($_disponibilidad);
-      }else {
-        array_push ($this->_AulasNoDisponibles, $_disponibilidad);
-      }
-
-    }
-
-    private function verificarDisponibilidadAulaSeguidos($id_AulaEspecifica){
-        //busca nombre de aula
-        $sql= "SELECT nombre FROM aulas WHERE id_Aulas= $id_AulaEspecifica ; ";
-      //  echo "$sql";
+        $sql= $sql . " );";
+  //      echo $sql . "<br>";
         $result = $this->dblink->query($sql);
-        $nombreAula=$result->fetch();
 
-        // Arreglo que marca la disponibilidad de un aula
-        $_disponibilidad= array('nombreDeAula'=>$nombreAula[0] ,
-                                'A'=>true,
-                                'B'=>true,
-                                'C'=>true,
-                                'D'=>true,
-                                'E'=>true   );
-        //echo  implode("|",$_disponibilidad);
+      //  echo $id_AulaEspecifica;
+        if($result->rowCount()){
+            array_push ($this->_AulasNoDisponibles, $id_AulaEspecifica);
+        }else {
+              array_push ($this->_AulasDisponibles, $id_AulaEspecifica);
+        }
+      }else {
         $fechainicial=  $this->_fechasArray['fechaini'];
         $fechafinal=  $this->_fechasArray['fechafin'];
-
         //busca en la tabla reserva
-        $sql= "SELECT horario FROM reservas WHERE id_Aula_Reservada= '$id_AulaEspecifica'
+        $sql= "SELECT * FROM reservas WHERE id_Aula_Reservada= '$id_AulaEspecifica' AND horario= '$this->_horario'
                 AND ((fecha_inicio BETWEEN '$fechainicial' AND '$fechafinal' )
                  OR (fecha_final BETWEEN '$fechainicial' AND '$fechafinal' )); ";
-        //echo "$sql";
+        //echo "$sql <br>";
         $result = $this->dblink->query($sql);
-        while ($fila = $result->fetch()) {
-          switch ($fila[0]) {
-            case 'A':
-                $_disponibilidad['A']=false;
-              break;
-            case 'B':
-                  $_disponibilidad['B']=false;
-              break;
-            case 'C':
-                  $_disponibilidad['C']=false;
-            break;
-            case 'D':
-                  $_disponibilidad['D']=false;
-            break;
-            case 'E':
-                  $_disponibilidad['E']=false;
-            break;
-
-            default:
-              break;
+        //$q=$result->fetch();
+        if($result->rowCount()){
+          $arrayDeIdReservas=array();
+          while ($q=$result->fetch()) {
+            //echo  $q['id_Reservas'] . "<br>";
+            array_push ($arrayDeIdReservas, $q['id_Reservas']);
           }
-        }
-        $this->resultados= $_disponibilidad;
-    //    echo implode("|",$_disponibilidad);
-        if($_disponibilidad['A']==1 || $_disponibilidad['B']==1 || $_disponibilidad['C']==1|| $_disponibilidad['D']==1|| $_disponibilidad['E']==1){
-          array_push ($this->_AulasDisponibles, $_disponibilidad);
-    //      $this->imprimirResultados($_disponibilidad);
+        //  echo implode(",", $arrayDeIdReservas) . "<br>";
+
+          array_push ($this->_AulasNoDisponibles, $arrayDeIdReservas);
         }else {
-          array_push ($this->_AulasNoDisponibles, $_disponibilidad);
-        }
-      }
-
-      private function imprimirResultados($disp){
-          //echo  implode("|",$disp);
-          echo "El aula: ". $disp['nombreDeAula'] ." se encuentra disponible en Los Horarios: ";
-          foreach ($disp as $key=>$valor) {
-            if($valor=='1'){
-              echo $key . "  ";
-            }
+          array_push ($this->_AulasDisponibles, $id_AulaEspecifica);
         }
 
       }
+    }
   }
     //implode("|",$type); to char array
 

@@ -69,7 +69,6 @@
               <thead  class="thead-dark">
                 <tr>
                   <th style="width: 40%">Nombre de aula </th>
-                  <th style="width: 30%">Horario </th>
                   <th style="width: 30%">Reservar </th>
 
                 </tr>
@@ -77,69 +76,14 @@
               <tbody>
                 <?php
                 for ($i=0; $i <count($_resultadosDisp) ; $i++) {
-                  $nombre= array_values($_resultadosDisp[$i]);
-                  foreach ($_resultadosDisp[$i] as $key => $valor) {
                   //  echo "$valor";
-                    if($valor==1 && $key == 'A'){
-                      echo "<tr>";
-                        echo "<td>" . $nombre[0] . "</td> ";
-                        echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
-                      echo "</tr>";
-                    }
-                  }
-                }
-                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
-                  $nombre= array_values($_resultadosDisp[$i]);
-                  foreach ($_resultadosDisp[$i] as $key => $valor) {
-                  //  echo "$valor";
-                    if($valor==1 && $key == 'B'){
-                      echo "<tr>";
-                        echo "<td>" . $nombre[0] . "</td> ";
-                        echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
-                      echo "</tr>";
-                    }
-                  }
-                }
-                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
-                  $nombre= array_values($_resultadosDisp[$i]);
-                  foreach ($_resultadosDisp[$i] as $key => $valor) {
-                  //  echo "$valor";
-                    if($valor==1 && $key == 'C'){
-                      echo "<tr>";
-                        echo "<td>" . $nombre[0] . "</td> ";
-                        echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
-                      echo "</tr>";
-                    }
-                  }
-                }
-                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
-                  $nombre= array_values($_resultadosDisp[$i]);
-                  foreach ($_resultadosDisp[$i] as $key => $valor) {
-                  //  echo "$valor";
-                    if($valor==1 && $key == 'D'){
-                      echo "<tr>";
-                        echo "<td>" . $nombre[0] . "</td> ";
-                        echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
-                      echo "</tr>";
-                    }
-                  }
-                }
-                for ($i=0; $i <count($_resultadosDisp) ; $i++) {
-                  $nombre= array_values($_resultadosDisp[$i]);
-                  foreach ($_resultadosDisp[$i] as $key => $valor) {
-                  //  echo "$valor";
-                    if($valor==1 && $key == 'E'){
-                      echo "<tr>";
-                        echo "<td>" . $nombre[0] . "</td> ";
-                        echo "<td>" . $key . " </td> ";
-                        echo "<td>  <a href=\"ConfrimReserva.php\" class=\"btn btn-primary\">Reservar </td>";
-                      echo "</tr>";
-                    }
-                  }
+                  $sql = "SELECT nombre FROM aulas WHERE id_Aulas= $_resultadosDisp[$i] ";
+                  $result = $dblink->query($sql);
+                  $nombre=$result->fetch();
+                  echo "<tr>";
+                  echo "<td>" . $nombre['nombre'] . "</td> ";
+                  echo "<td>  <button>  oa</button> </td>";
+                  echo "</tr>";
                 }
                 ?>
               </table>
@@ -157,21 +101,63 @@
                   <?php
                     for ($i=0; $i <count($_resultadosNoDisp) ; $i++) {
                       echo "<tr>";
-                        $nombre= array_values($_resultadosNoDisp[$i]);
-                        echo "<td>" . $nombre[0] . "</td>";
-                        /*
-                        * En la posicion 6 del arreglo se tiene las fechas
-                        * tentativamente se deberia tener el tipo de reserva (seguida o especifica)
-                        * id de aula    check
-                        * id de materia  !!!! no funciona sql buscando por nombre para que ingrese la materia
-                        * id de usuario
-                        * idealmente deberiamos tener una pagina mas donde se ingrese la materia, autocompletar si es necesario
-                        * o crear una nueva materia
-                        */
 
-                        echo "<td>" . $nombre[6] . "</td>";
+                      for ($j=0; $j<  count($_resultadosNoDisp[$i]); $j++) {
+                        $idReserv=$_resultadosNoDisp[$i][$j];
+                        $sql = "SELECT * FROM reservas WHERE id_Reservas =  $idReserv; " ;
+                        $result = $dblink->query($sql);
+                        $infoReserva= $result->fetch();
 
+                        if($j==0){
+                          $sql = "SELECT nombre FROM aulas WHERE id_Aulas =  $infoReserva[1] ; " ;
+                          $result = $dblink->query($sql);
+                          $q= $result->fetch();
+
+                            echo "<td>" . $q[0] . "</td> ";
+                        }
+
+                        $sql = "SELECT * FROM usuarios WHERE id_Usuario =  $infoReserva[2] ; " ;
+                        $result = $dblink->query($sql);
+                        $infoUsuario= $result->fetch();
+
+                        $sql = "SELECT * FROM materias WHERE id_Materias =  $infoReserva[3] ; " ;
+                        $result = $dblink->query($sql);
+                        $infoMaterias= $result->fetch();
+                        if ($j==0) {
+                          echo "<td>";
+                        }
+                        echo "" . $infoUsuario[1] . " Interno:". $infoUsuario[2] ." Docente: ". $infoReserva[8] ." Materia: " . $infoMaterias[1] . "<br>";
+                        if($j==(count($_resultadosNoDisp)-1)){
+                          echo "</td>";
+                        }
+                      //    echo "<td>" . $infoUsuario[1] . " Interno:". $infoUsuario[2] ." Docente: ". $infoReserva[8] ." Materia: " . $infoMaterias[1] . "</td>";
+                      }
                       echo "</tr>";
+                      /*
+                      //echo implode(",",$arrayDeIdReservas);
+                      $idReserv=$_resultadosNoDisp[$i][0];
+                      $sql = "SELECT * FROM reservas WHERE id_Reservas =  $idReserv; " ;
+                      $result = $dblink->query($sql);
+                      $infoReserva= $result->fetch();
+
+                      $sql = "SELECT nombre FROM aulas WHERE id_Aulas =  $infoReserva[1] ; " ;
+                      $result = $dblink->query($sql);
+                      $q= $result->fetch();
+
+                        echo "<td>" . $q[0] . "</td> ";
+
+                      $sql = "SELECT * FROM usuarios WHERE id_Usuario =  $infoReserva[2] ; " ;
+                      $result = $dblink->query($sql);
+                      $infoUsuario= $result->fetch();
+
+                      $sql = "SELECT * FROM materias WHERE id_Materias =  $infoReserva[3] ; " ;
+                      $result = $dblink->query($sql);
+                      $infoMaterias= $result->fetch();
+
+
+                        echo "<td>" . $infoUsuario[1] . " Interno:". $infoUsuario[2] ." Docente: ". $infoReserva[8] ." Materia: " . $infoMaterias[1] . "</td>";
+
+                      echo "</tr>";*/
                     }
                    ?>
             </table>
