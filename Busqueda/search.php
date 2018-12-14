@@ -4,13 +4,13 @@
   class search
   {
 
-    public $_tipoDeReserva=true; //$_POST['tipores'];
+    public $_tipoDeReserva=false; //$_POST['tipores'];
     // FALSE Dias especificos
     // TRUE Dias seguidos
     //array para dias seguidos
-    public $_fechasArray= array('fechaini'=>'2018-8-15 ','fechafin'=>'2018-9-28'); //$_POST['fechas'];
+    //public $_fechasArray= array('fechaini'=>'2018-8-15 ','fechafin'=>'2018-9-28'); //$_POST['fechas'];
     //array para dias especificos
-    //public $_fechasArray= array('2018-8-2','2018-8-15','2018-8-20'); //$_POST['fechas'];
+    public $_fechasArray= array('2018-8-2','2018-8-15','2018-8-20'); //$_POST['fechas'];
     public $_horario= "A";
     public $_aulaEspecifica=50; //$_POST['aulaEspecifica']
     public $_esAula=false; //$_POST['esAula'];
@@ -101,6 +101,7 @@
     private function verificarDiponibilidad($id_AulaEspecifica){
       $_AulaDisponible=true;
       if($this->_tipoDeReserva==0){
+
         //reserva especifica
         $varArregloDeCategorias1= $this->_fechasArray;
         $hora= $this->_horario;
@@ -110,12 +111,17 @@
           $sql= $sql . "OR '$varArregloDeCategorias1[$i]' BETWEEN fecha_inicio AND fecha_final ";
         }
         $sql= $sql . " );";
-  //      echo $sql . "<br>";
+       // echo $sql . "<br>";
         $result = $this->dblink->query($sql);
 
       //  echo $id_AulaEspecifica;
         if($result->rowCount()){
-            array_push ($this->_AulasNoDisponibles, $id_AulaEspecifica);
+            $arrayDeIdReservas=array();
+            while ($q=$result->fetch()) {
+            //echo  $q['id_Reservas'] . "<br>";
+              array_push ($arrayDeIdReservas, $q['id_Reservas']);
+            }
+            array_push ($this->_AulasNoDisponibles, $arrayDeIdReservas);
         }else {
               array_push ($this->_AulasDisponibles, $id_AulaEspecifica);
         }

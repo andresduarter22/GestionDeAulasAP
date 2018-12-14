@@ -126,39 +126,13 @@
                         if ($j==0) {
                           echo "<td>";
                         }
-                        echo "" . $infoUsuario[1] . " Interno:". $infoUsuario[2] ." Docente: ". $infoReserva[8] ." Materia: " . $infoMaterias[1] . "<br>";
+                        echo "--" . $infoUsuario[1] . " Interno:". $infoUsuario[2] ."<br> Docente: ". $infoReserva[8] ."<br> Materia: " . $infoMaterias[1] . "<br> Fechas: Del " . $infoReserva[4] . " al " . $infoReserva[5]  . "<br>";
                         if($j==(count($_resultadosNoDisp)-1)){
                           echo "</td>";
                         }
-                      //    echo "<td>" . $infoUsuario[1] . " Interno:". $infoUsuario[2] ." Docente: ". $infoReserva[8] ." Materia: " . $infoMaterias[1] . "</td>";
                       }
                       echo "</tr>";
-                      /*
-                      //echo implode(",",$arrayDeIdReservas);
-                      $idReserv=$_resultadosNoDisp[$i][0];
-                      $sql = "SELECT * FROM reservas WHERE id_Reservas =  $idReserv; " ;
-                      $result = $dblink->query($sql);
-                      $infoReserva= $result->fetch();
-
-                      $sql = "SELECT nombre FROM aulas WHERE id_Aulas =  $infoReserva[1] ; " ;
-                      $result = $dblink->query($sql);
-                      $q= $result->fetch();
-
-                        echo "<td>" . $q[0] . "</td> ";
-
-                      $sql = "SELECT * FROM usuarios WHERE id_Usuario =  $infoReserva[2] ; " ;
-                      $result = $dblink->query($sql);
-                      $infoUsuario= $result->fetch();
-
-                      $sql = "SELECT * FROM materias WHERE id_Materias =  $infoReserva[3] ; " ;
-                      $result = $dblink->query($sql);
-                      $infoMaterias= $result->fetch();
-
-
-                        echo "<td>" . $infoUsuario[1] . " Interno:". $infoUsuario[2] ." Docente: ". $infoReserva[8] ." Materia: " . $infoMaterias[1] . "</td>";
-
-                      echo "</tr>";*/
-                    }
+                                }
                    ?>
             </table>
           </div>
