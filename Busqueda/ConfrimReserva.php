@@ -1,16 +1,55 @@
 <?php
-  $id_DeAulaAReservar= $_POST['id_AulasParaReservar'];
-  $id_UsuarioQueReserva= $_POST['id_UsuarioQueReserva'];
-  $fechas= $_POST['fechas'];
-  $tipoDeReserva= $_POST['tipoDeReserva'];
+  include "../Config/Database.php";
+  session_start();
+  $db= new Database();
+  $dblink= $db->getConnection();
 
-  echo "$id_DeAulaAReservar";
-  echo $id_UsuarioQueReserva;
-  echo $fechas;
-  echo $tipoDeReserva;
+  $id_DeAulaAReservar=  $_SESSION["id_AulasParaReservar"];
+  $id_UsuarioQueReserva= $_SESSION['id_UsuarioQueReserva'];
+  $fechas= $_SESSION['fechas'];
+  $tipoDeReserva= $_SESSION['tipoDeReserva'];
+  $horario= $_SESSION['horario'];
+
+  $nombreDeMateria= $_POST['NombreMateria'];
+  $docente = $_POST['NombreDocente'];
+
+
+  //echo "$id_DeAulaAReservar ";
+  //echo $id_UsuarioQueReserva;
+  //echo implode(",",$fechas);
+  //echo $fechas['fechaini'];
+  //echo $tipoDeReserva;
 
   if(isset($_POST['confirmReservation'])){
-      echo "confirma viejo";
+        $sql = "SELECT * FROM materias WHERE nombre_materia = '$nombreDeMateria' ;";
+        $result = $dblink->query($sql);
+        $idDeMateria= 0;
+        if($result->rowCount()){
+            $infoMateria= $result->fetch();
+            $idDeMateria= $infoMateria[0];
+         }else{
+            $sql = "INSERT INTO materias VALUES (NULL, '$nombreDeMateria'); ";
+            $result = $dblink->query($sql);
+            $idDeMateria= $dblink->lastInsertId();
+        }
+
+        if($tipoDeReserva==1){
+            //seguidos
+            $fechainicial=$fechas['fechaini'];
+            $fechafinal=$fechas['fechafin'];
+            $sql= "INSERT INTO reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria,'$fechainicial', '$fechafinal', 1, '$horario', '$docente' ) ;";
+            $dblink->query($sql);
+        }else{
+            for( $i =0 ; $i< count($fechas) ; $i++){
+                $sql= "INSERT INTO reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria,'$fechas[$i]' ,'$fechas[$i]' , 1, '$horario', '$docente' ) ;";
+                echo $sql . "<br>";
+                $dblink->query($sql);
+            }
+        }
+
+     //   echo "<br>";
+       // $sql= "INSERT INTO reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria, , , 1, '$horario',  ) ;";
+        //echo $sql;
   }
 
 

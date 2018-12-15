@@ -4,13 +4,13 @@
   class search
   {
 
-    public $_tipoDeReserva=false; //$_POST['tipores'];
+    public $_tipoDeReserva=true; //$_POST['tipores'];
     // FALSE Dias especificos
     // TRUE Dias seguidos
     //array para dias seguidos
-    //public $_fechasArray= array('fechaini'=>'2018-8-15 ','fechafin'=>'2018-9-28'); //$_POST['fechas'];
+    public $_fechasArray= array('fechaini'=>'2018-8-15 ','fechafin'=>'2018-9-28'); //$_POST['fechas'];
     //array para dias especificos
-    public $_fechasArray= array('2018-8-2','2018-8-15','2018-8-20'); //$_POST['fechas'];
+    //public $_fechasArray= array('2018-8-2','2018-8-15','2018-8-20'); //$_POST['fechas'];
     public $_horario= "A";
     public $_aulaEspecifica=50; //$_POST['aulaEspecifica']
     public $_esAula=false; //$_POST['esAula'];
@@ -49,23 +49,9 @@
       //echo "Disponibles " . implode(",",$this->_AulasDisponibles) . "<br>";
       //echo "No disponibles " . implode(",",$this->_AulasNoDisponibles[5]);
       //echo $this->_AulasNoDisponibles[0][0];
-      /*
-      if($this->_tipoDeReserva==0){
-        $this->reservDiasEspecificos();
-      }else {
-        $this->reservDiasSeguidos();
-      }*/
-      //echo implode(",",$this->_AulasDisponibles[0
-          //  echo implode("|",$this->_AulasDisponibles[0]);
-      //echo "$this->_AulasNoDisponibles[1]";
+
       return  array($this->_AulasDisponibles, $this->_AulasNoDisponibles);
-/*      $queryDisponibles = http_build_query(array('disp' => $this->_AulasDisponibles));
-      $queryNoDisponibles = http_build_query(array('nodisp' => $this->_AulasNoDisponibles));
-      echo implode(",",$this->_AulasDisponibles) . "<br>";
-      echo implode(",",$this->_AulasNoDisponibles);
-      //echo "$query";
-      header("Location: Resultados.php?" . $queryDisponibles . $queryNoDisponibles);
-*/      //Buscar que devuelva los 2 arreglos
+
     }
 
     public funCtion ListaDeAulas(){

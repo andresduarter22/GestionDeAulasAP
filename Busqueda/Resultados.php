@@ -2,7 +2,7 @@
 
     include "../Config/Database.php";
     include "search.php";
-  //  session_start();
+    session_start();
     $db= new Database();
     $dblink= $db->getConnection();
     $idDeUsuarioReservador=6;
@@ -13,9 +13,6 @@
       $arregDisp=$se->busca();
     }
 
-
-  //  echo $se->__get($_horario);
-    //$data = json_decode(trim(file_get_contents('php://input')),true);
     //echo implode(",",$data);
     //echo $data;
 
@@ -89,14 +86,19 @@
                   $infoUsCatego = $dblink->query($sql);
                 //  echo "$sql";
                     echo "<tr>";
+                         //<input type=\"hidden\" name=\"id_AulasParaReservar\" value= " . $infoAulas[0] . " >
                       if($infoUsCatego->rowCount()){
-                        echo "<td class=\"table-success\">" . $infoAulas[1] . "</td> ";
-                        echo "<td class=\"table-success\">
+                          $_SESSION["id_AulasParaReservar"]=$infoAulas[0];
+                          $_SESSION["id_UsuarioQueReserva"]=$idDeUsuarioReservador;
+                          $_SESSION["fechas"]=$se->_fechasArray;
+                          $_SESSION["tipoDeReserva"]=$se->_tipoDeReserva ;
+                          $_SESSION["horario"]=$se->_horario;
+
+                          echo "<td class=\"table-success\">" . $infoAulas[1] . "</td> ";
+                          echo "<td class=\"table-success\">
                           <form method=\"POST\" action= \"ConfrimReserva.php\">
-                            <input type=\"hidden\" name=\"id_AulasParaReservar\" value= " . $infoAulas[0] . " >
-                            <input type=\"hidden\" name=\"id_UsuarioQueReserva\" value= " . $idDeUsuarioReservador . " >
-                            <input type=\"hidden\" name=\"fechas\" value= " . $se->_fechasArray . " >
-                            <input type=\"hidden\" name=\"tipoDeReserva\" value= " . $se->_tipoDeReserva . " >
+                                
+                          
                             <input type=\"submit\" value=\"Realizar Reserva\" />
                           </form>
                          </td>";
