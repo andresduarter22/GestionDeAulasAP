@@ -13,7 +13,7 @@
       $arregDisp=$se->busca();
     }
 
-    echo $se->_aulaEspecifica;
+
   //  echo $se->__get($_horario);
     //$data = json_decode(trim(file_get_contents('php://input')),true);
     //echo implode(",",$data);
@@ -94,6 +94,9 @@
                         echo "<td class=\"table-success\">
                           <form method=\"POST\" action= \"ConfrimReserva.php\">
                             <input type=\"hidden\" name=\"id_AulasParaReservar\" value= " . $infoAulas[0] . " >
+                            <input type=\"hidden\" name=\"id_UsuarioQueReserva\" value= " . $idDeUsuarioReservador . " >
+                            <input type=\"hidden\" name=\"fechas\" value= " . $se->_fechasArray . " >
+                            <input type=\"hidden\" name=\"tipoDeReserva\" value= " . $se->_tipoDeReserva . " >
                             <input type=\"submit\" value=\"Realizar Reserva\" />
                           </form>
                          </td>";

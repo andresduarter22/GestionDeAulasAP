@@ -26,11 +26,7 @@
     public $_AulasDisponibles=array();
     public $_AulasNoDisponibles=array();
 
-    public function __get($property) {
-         if (property_exists($this, $property)) {
-             return $this->$property;
-         }
-    }
+
 
 
     function __construct() {
@@ -50,7 +46,6 @@
 
     public function busca(){
       $this->ListaDeAulas();
-
       //echo "Disponibles " . implode(",",$this->_AulasDisponibles) . "<br>";
       //echo "No disponibles " . implode(",",$this->_AulasNoDisponibles[5]);
       //echo $this->_AulasNoDisponibles[0][0];

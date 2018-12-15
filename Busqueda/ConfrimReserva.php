@@ -1,6 +1,19 @@
 <?php
   $id_DeAulaAReservar= $_POST['id_AulasParaReservar'];
+  $id_UsuarioQueReserva= $_POST['id_UsuarioQueReserva'];
+  $fechas= $_POST['fechas'];
+  $tipoDeReserva= $_POST['tipoDeReserva'];
+
   echo "$id_DeAulaAReservar";
+  echo $id_UsuarioQueReserva;
+  echo $fechas;
+  echo $tipoDeReserva;
+
+  if(isset($_POST['confirmReservation'])){
+      echo "confirma viejo";
+  }
+
+
 
  ?>
 
@@ -37,17 +50,17 @@
       </button>
     </nav>
   <div class="container">
-    <form>
+    <form action="ConfrimReserva.php" method="post" >
       <div class="form-group">
         <label for="exampleInputEmail1">Materia</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ingrese Materia">
-        <small id="emailHelp" class="form-text text-muted">Ingrese el nombre de la materia a la cual se guardara la reserva</small>
+        <input type="text" name="NombreMateria" class="form-control" id="NombreMateria"  placeholder="Ingrese Materia">
+        <small id="Materia Help" class="form-text text-muted">Ingrese el nombre de la materia a la cual se guardara la reserva</small>
       </div>
       <div class="form-group">
-        <label for="exampleInputPassword1">Nombre de Docente</label>
-        <input  class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <label >Nombre de Docente</label>
+        <input  class="form-control" name="NombreDocente" id="NombreDocente" placeholder="Nombre de docente">
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary"  name="confirmReservation" value="submit" >Submit</button>
     </form>
   </div>
 
