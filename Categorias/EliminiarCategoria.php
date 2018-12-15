@@ -119,9 +119,15 @@
     <?php
     if(isset($_POST['id1'])){
       $_id=$_POST['id1'];
+      $sql_nombre= "SELECT * from Categorias WHERE id_Categorias = ".$_id;
+      $res_n = $dblink->query($sql_nombre);
+      $_aux = $res_n->fetch();
+      $_nombre = $_aux['nombre_categoria'];
       $sql1= "DELETE from Categorias WHERE id_Categorias = ".$_id;
       //echo var_dump($sql1);
       $dblink->query($sql1);
+      $sql_log_ec = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se elimino una categoria llamada $_nombre',now())";
+      $dblink->query($sql_log_ec);
       header("Location: GestionDeCategorias.php");
     }
      ?>

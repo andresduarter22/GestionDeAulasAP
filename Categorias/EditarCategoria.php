@@ -69,6 +69,8 @@ if (isset($_POST['id1'])){
   if ($dblink->query($sql1) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
+  $sql_log_ec = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se edito una categoria llamada $_nombre',now())";
+  $dblink->query($sql_log_ec);
 header("Location: GestionDeCategorias.php");
 }
 

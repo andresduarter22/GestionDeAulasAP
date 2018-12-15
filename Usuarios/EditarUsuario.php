@@ -56,6 +56,8 @@
         echo "Error: " . $sql . "<br>" . $dblink->error;
       }
     }
+    $sql_log_edu = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se edito un usuario llamado $_nombre',now())";
+    $dblink->query($sql_log_edu);
   }
 ?>
 
