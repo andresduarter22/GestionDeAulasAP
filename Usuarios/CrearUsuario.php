@@ -171,7 +171,6 @@ if(isset($_POST['creaUsuario'])){
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
   $_idUsuarioCreado=$dblink->lastInsertId();
-  //echo "hoal";
 
   //revisa todas las categorias y saca la lista de los id de aulas
   foreach ($_categorias as  $value) {
@@ -180,6 +179,11 @@ if(isset($_POST['creaUsuario'])){
       echo "Error: " . $sql2 . "<br>" . $dblink->error;
     }
 
+    /*
+     * Esta selecciona el id de Aula para cada categoria y la vuelve a ingresar a la tabla usuarios_aulas cada uno de
+     * los ids de aula que encuentra
+     *
+     *
     $sql = "select id_Aula from aulas_categoria where id_Categoria = '$value' " ;
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;
@@ -193,7 +197,7 @@ if(isset($_POST['creaUsuario'])){
       if ($dblink->query($sql2) === FALSE) {
         echo "Error: " . $sql2 . "<br>" . $dblink->error;
       }
-    }
+    }*/
   }
 
 

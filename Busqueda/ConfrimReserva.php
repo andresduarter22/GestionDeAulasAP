@@ -47,9 +47,6 @@
             }
         }
 
-     //   echo "<br>";
-       // $sql= "INSERT INTO reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria, , , 1, '$horario',  ) ;";
-        //echo $sql;
   }
 
 

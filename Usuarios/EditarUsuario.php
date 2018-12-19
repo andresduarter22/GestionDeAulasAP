@@ -20,20 +20,30 @@
     if ($dblink->query($sql) === FALSE) {
       echo "Error en la modificacion de usuarios, uno o mas campos no fueron llenados " ;
     }
+
     $sql2 = "DELETE FROM usuarios_aulas WHERE id_DeUsuario= $_idUsAEditar  ";
     if ($dblink->query($sql2) === FALSE) {
       echo "Error: " . $sql2 . "<br>" . $dblink->error;
     }
+
+    $sql2 = "DELETE FROM usuarios_categorias WHERE id_DeUsuario= $_idUsAEditar";
+    if ($dblink->query($sql2) === FALSE) {
+        echo "Error: " . $sql2 . "<br>" . $dblink->error;
+    }
+
     //revisa todas las categorias y saca la lista de los id de aulas
     foreach ($_categorias as  $value) {
-      $sql2 = "DELETE FROM usuarios_categorias WHERE id_DeCategoria= $value AND id_DeUsuario= $_idUsAEditar";
-      if ($dblink->query($sql2) === FALSE) {
-        echo "Error: " . $sql2 . "<br>" . $dblink->error;
-      }
+
       $sql2 = "INSERT INTO usuarios_categorias values(NULL,'$_idUsAEditar','$value')";
       if ($dblink->query($sql2) === FALSE) {
         echo "Error: " . $sql2 . "<br>" . $dblink->error;
       }
+
+
+
+      /*
+       * Saca una lista de id de Aula, respecto a las categorias y las inserta en usuarios aulas, repitiendo la inserccion de datos
+       *
       $sql = "SELECT id_Aula FROM aulas_categoria where id_Categoria = '$value' " ;
       if ($dblink->query($sql) === FALSE) {
         echo "Error: " . $sql . "<br>" . $dblink->error;
@@ -47,7 +57,7 @@
         if ($dblink->query($sql2) === FALSE) {
           echo "Error: " . $sql2 . "<br>" . $dblink->error;
         }
-      }
+      }*/
     }
     foreach ($_aulas as  $value) {
   //    echo "$value";
