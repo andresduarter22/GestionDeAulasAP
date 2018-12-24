@@ -1,8 +1,21 @@
 <?php
 
-class csv
+require 'vendor/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+class ReadExcel
 {
-  public function import($file, $idUploader, $tipoDeUpload){
+  public function import($fileName, $idUploader, $tipoDeUpload){
+    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+    $spread = $reader->load($fileName);
+    $sheet = $spread->getActiveSheet();
+    foreach ($sheet->getRowIterator(6) as $row) {
+
+    }
+  }
+
+  public function importOG($file, $idUploader, $tipoDeUpload){
+
     $file = fopen($file, 'r');
     $_cont=0;
     $this->borrarReservasPrevias();
@@ -18,12 +31,14 @@ class csv
         if ($tipoDeUpload==0) {
           $this->AgregarReservasAutomaticas($_cadenaDeDatos, $idUploader);
         }else {
+
           $this->AgregarAulas($_cadenaDeDatos);
         }
       }
       $_cont++;
     }
   }
+
 
   public function borrarReservasPrevias(){
     include_once "../Config/Database.php";
