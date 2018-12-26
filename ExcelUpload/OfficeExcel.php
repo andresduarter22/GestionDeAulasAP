@@ -16,8 +16,13 @@ $readClass = new ReadExcel();
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 if (isset($_POST['Aulas'])) {
-    read( $_FILES['file']['tmp_name']);
-//    $readClass->import($_FILES['file']['tmp_name'], $_POST[id],1);
+    //read( $_FILES['file']['tmp_name']);
+    $readClass->import($_FILES['file']['tmp_name'], $_POST[id],1);
+}
+
+if (isset($_POST['Reserva'])) {
+    //read( $_FILES['file']['tmp_name']);
+    $readClass->import($_FILES['file']['tmp_name'], $_POST[id],0);
 }
 
 function read($routa)

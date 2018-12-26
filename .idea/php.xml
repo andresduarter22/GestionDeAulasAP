@@ -3,6 +3,10 @@
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="C:/PHP" />
+      <path value="$PROJECT_DIR$/ExcelUpload/vendor/composer" />
+      <path value="$PROJECT_DIR$/ExcelUpload/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/ExcelUpload/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/ExcelUpload/vendor/phpoffice/phpspreadsheet" />
     </include_path>
   </component>
 </project>
