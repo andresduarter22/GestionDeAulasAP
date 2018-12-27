@@ -11,18 +11,20 @@ $_idDeUsuario = 1;
 require 'vendor/autoload.php';
 include "ReadExcel.php";
 
-$readClass = new ReadExcel();
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 if (isset($_POST['Aulas'])) {
     //read( $_FILES['file']['tmp_name']);
-    $readClass->import($_FILES['file']['tmp_name'], $_POST[id],1);
+    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+    $readClass->import(1);
 }
 
 if (isset($_POST['Reserva'])) {
     //read( $_FILES['file']['tmp_name']);
-    $readClass->import($_FILES['file']['tmp_name'], $_POST[id],0);
+    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+    $readClass->checkIntegrity();
+    $readClass->import(0);
 }
 
 function read($routa)
