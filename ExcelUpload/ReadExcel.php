@@ -16,7 +16,9 @@ class ReadExcel
 
     //flags
     private $contenidoExcel;
+    private $cruzeConReservasManuales;
 
+    private $arregloReservasManualesAfectadas = array();
 
     public function __construct($fileName, $idUploader)
     {
@@ -101,7 +103,7 @@ class ReadExcel
         //echo $sql . "<br>";
         $result = $this->dblink->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
-        if ($_Materia != "" && $_FechaInicio != "" && $_FechaFinal != "" && $_Horario != ""  ) {
+        if ($_Materia != "" && $_FechaInicio != "" && $_FechaFinal != "" && $_Horario != "") {
             if (($result->rowCount() || $_Aula == "")) {
                 $_IdMateria = 2;
                 $sql = "SELECT * FROM materias WHERE nombre_materia= '$_Materia';";
@@ -208,10 +210,65 @@ class ReadExcel
                 $read = true;
             }
         }
-        if (!$this->contenidoExcel){
+        if (!$this->contenidoExcel) {
             echo "El contenido del documento excel contiene conflictos como falta de materias fechas y horarios, estas reservas no seran anadidas a la base";
-        }else{
+        } else {
             echo "Estado excel ... Ok";
+        }
+    }
+
+    function cruzeConReservManuales()
+    {
+        //variable que habilita lectura de excel
+        $read = false;
+
+        $this->cruzeConReservasManuales = false;
+        foreach ($this->sheet->getRowIterator() as $row) {
+            $_cadenaDeDatos = array(
+                $this->sheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue(),
+                $this->sheet->getCellByColumnAndRow(2, $row->getRowIndex())->getFormattedValue(),
+                $this->sheet->getCellByColumnAndRow(3, $row->getRowIndex())->getFormattedValue(),
+                $this->sheet->getCellByColumnAndRow(4, $row->getRowIndex()),
+                $this->sheet->getCellByColumnAndRow(5, $row->getRowIndex()),
+                $this->sheet->getCellByColumnAndRow(8, $row->getRowIndex())
+            );
+            //flag para detener lectura
+            if ($_cadenaDeDatos[0] == 'Total Materias') {
+                break;
+            }
+            if ($read && $_cadenaDeDatos[4] != "") {
+                //obteniendo id de Aula
+                $sql = "SELECT id_Aulas from aulas WHERE nombre='$_cadenaDeDatos[4]';";
+                $result = $this->dblink->query($sql);
+                $result->setFetchMode(PDO::FETCH_ASSOC);
+                $_IdAula = $result->fetchColumn();
+
+                //ordenando fechas
+                $ArregloFechaIni = explode('/', $_cadenaDeDatos[1]);
+                $ArregloFechaFin = explode('/', $_cadenaDeDatos[2]);
+
+                $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
+                $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
+                $sql = "SELECT * FROM reservas WHERE  (tipo=1) AND (id_Aula_Reservada = $_IdAula)
+                                                              AND (horario = '$_cadenaDeDatos[3]') 
+                                                              AND (('$_FInicial'  BETWEEN fecha_inicio AND  fecha_final) 
+                                                                   OR ('$_FFinal' BETWEEN fecha_inicio AND fecha_final));";
+                //echo $sql . "<br>";
+                $result = $this->dblink->query($sql);
+                $result->setFetchMode(PDO::FETCH_ASSOC);
+                if ($result->rowCount()) {
+                    echo "hay cruze con reservas manuales D:";
+                    $this->cruzeConReservasManuales = true;
+                    while ($fila = $result->fetch()) {
+                        // echo implode(" | ", $fila) . "<br>";
+                        array_push($this->arregloReservasManualesAfectadas, $fila);
+                    }
+                }
+            }
+            //flag para iniciar ingreso de datos
+            if ($_cadenaDeDatos[0] == 'Materia') {
+                $read = true;
+            }
         }
     }
 }
