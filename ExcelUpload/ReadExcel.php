@@ -249,18 +249,14 @@ class ReadExcel
 
                 $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
                 $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
-                $sql = "SELECT * FROM reservas WHERE  (tipo=1) AND (id_Aula_Reservada = $_IdAula)
-                                                              AND (horario = '$_cadenaDeDatos[3]') 
-                                                              AND (('$_FInicial'  BETWEEN fecha_inicio AND  fecha_final) 
-                                                                   OR ('$_FFinal' BETWEEN fecha_inicio AND fecha_final));";
+                $sql = "SELECT * FROM reservas WHERE  (tipo=1) AND (id_Aula_Reservada = $_IdAula)AND (horario = '$_cadenaDeDatos[3]') AND (('$_FInicial'  BETWEEN fecha_inicio AND  fecha_final) OR ('$_FFinal' BETWEEN fecha_inicio AND fecha_final));";
                 //echo $sql . "<br>";
                 $result = $this->dblink->query($sql);
                 $result->setFetchMode(PDO::FETCH_ASSOC);
                 if ($result->rowCount()) {
-                    echo "hay cruze con reservas manuales D:";
                     $this->cruzeConReservasManuales = true;
                     while ($fila = $result->fetch()) {
-                        // echo implode(" | ", $fila) . "<br>";
+                       // echo implode(" | ", $fila) . "<br>";
                         array_push($this->arregloReservasManualesAfectadas, $fila);
                     }
                 }
@@ -269,6 +265,20 @@ class ReadExcel
             if ($_cadenaDeDatos[0] == 'Materia') {
                 $read = true;
             }
+        }
+        if ($this->cruzeConReservasManuales){
+            echo "Las sigientes reservas seran borradas";
+            foreach ($this->arregloReservasManualesAfectadas as $row){
+           //     echo implode(" | ", $row) . "<br>";
+            }
+        }
+    }
+
+    function deleteManualReserv(){
+        foreach ($this->arregloReservasManualesAfectadas as $row){
+            $reserv= array_values($row);
+            $sql  = "DELETE FROM reservas where id_Reservas = $reserv[0]";
+            $this->dblink->query($sql);
         }
     }
 }

@@ -25,6 +25,7 @@ if (isset($_POST['Reserva'])) {
     $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
    // $readClass->checkIntegrity();
     $readClass->cruzeConReservManuales();
+    $readClass->deleteManualReserv();
    // $readClass->import(0);
 }
 
