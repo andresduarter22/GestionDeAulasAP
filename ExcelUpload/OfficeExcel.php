@@ -24,9 +24,10 @@ if (isset($_POST['Reserva'])) {
     //read( $_FILES['file']['tmp_name']);
     $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
    // $readClass->checkIntegrity();
-    $readClass->cruzeConReservManuales();
-    $readClass->deleteManualReserv();
+   // $readClass->cruzeConReservManuales();
+   // $readClass->deleteManualReserv();
    // $readClass->import(0);
+    $readClass->verificarReservaSeQuedaSinAula();
 }
 
 function read($routa)

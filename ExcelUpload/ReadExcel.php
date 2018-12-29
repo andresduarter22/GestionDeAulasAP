@@ -17,8 +17,10 @@ class ReadExcel
     //flags
     private $contenidoExcel;
     private $cruzeConReservasManuales;
+    private $materiasQuePerdieronAula;
 
     private $arregloReservasManualesAfectadas = array();
+    private $arregloMateriasSinAula= array();
 
     public function __construct($fileName, $idUploader)
     {
@@ -180,7 +182,6 @@ class ReadExcel
 
     function checkIntegrity()
     {
-
         //variable que habilita lectura de excel
         $read = false;
 
@@ -272,6 +273,62 @@ class ReadExcel
            //     echo implode(" | ", $row) . "<br>";
             }
         }
+    }
+
+    function verificarReservaSeQuedaSinAula(){
+        $this->materiasQuePerdieronAula=false;
+
+        //variable que habilita lectura de excel
+        $read = false;
+
+        foreach ($this->sheet->getRowIterator() as $row) {
+            $_cadenaDeDatos = array(
+                $this->sheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue(),
+                $this->sheet->getCellByColumnAndRow(2, $row->getRowIndex())->getFormattedValue(),
+                $this->sheet->getCellByColumnAndRow(3, $row->getRowIndex())->getFormattedValue(),
+                $this->sheet->getCellByColumnAndRow(4, $row->getRowIndex()),
+                $this->sheet->getCellByColumnAndRow(5, $row->getRowIndex()),
+                $this->sheet->getCellByColumnAndRow(8, $row->getRowIndex())
+            );
+            //flag para detener lectura
+            if ($_cadenaDeDatos[0] == 'Total Materias') {
+                break;
+            }
+            if ($read) {
+                $sql = "SELECT id_Materias FROM materias WHERE nombre_materia= '$_cadenaDeDatos[0]';";
+                $result=$this->dblink->query($sql);
+                $result->setFetchMode(PDO::FETCH_ASSOC);
+                $_IdMateria = $result->fetchColumn();
+
+                if($_cadenaDeDatos[4]=="" && $_IdMateria != null ){
+                    //echo "sin aula <br>";
+                    //ordenando fechas
+                    $ArregloFechaIni = explode('/', $_cadenaDeDatos[1]);
+                    $ArregloFechaFin = explode('/', $_cadenaDeDatos[2]);
+
+                    $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
+                    $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
+                    $sql2 ="SELECT id_Aula_Reservada FROM reservas WHERE  horario = '$_cadenaDeDatos[3]' AND fecha_inicio = '$_FInicial' AND fecha_final = '$_FFinal' AND tipo=0 AND docente = '$_cadenaDeDatos[5]'
+                      AND id_Materia_Reserva = $_IdMateria ;";
+                    $result2=$this->dblink->query($sql2);
+                    $aulsAnterior= $result2->fetchColumn();
+                    if( is_numeric($aulsAnterior)){
+                        $this->materiasQuePerdieronAula=true;
+                        /**
+                         * obtener id de reserva para guardar nombre de reserva que perdio el aula
+                         * Apurate pendejo
+                         */
+                        echo "Existe un que perdio su aula";
+                    }
+                }
+            }
+            //flag para iniciar ingreso de datos
+            if ($_cadenaDeDatos[0] == 'Materia') {
+                $read = true;
+            }
+        }
+
+
     }
 
     function deleteManualReserv(){
