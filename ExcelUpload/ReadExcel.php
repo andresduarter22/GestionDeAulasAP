@@ -210,12 +210,12 @@ class ReadExcel
             if ($_cadenaDeDatos[0] == 'Materia') {
                 $read = true;
             }
-        }
+        }/*
         if (!$this->contenidoExcel) {
             echo "El contenido del documento excel contiene conflictos como falta de materias fechas y horarios, estas reservas no seran anadidas a la base";
         } else {
             echo "Estado excel ... Ok";
-        }
+        }*/
     }
 
     function cruzeConReservManuales()
@@ -257,7 +257,7 @@ class ReadExcel
                 if ($result->rowCount()) {
                     $this->cruzeConReservasManuales = true;
                     while ($fila = $result->fetch()) {
-                       // echo implode(" | ", $fila) . "<br>";
+                        //echo implode(" | ", $fila) . "<br>";
                         array_push($this->arregloReservasManualesAfectadas, $fila);
                     }
                 }
@@ -268,9 +268,10 @@ class ReadExcel
             }
         }
         if ($this->cruzeConReservasManuales){
-            echo "Las sigientes reservas seran borradas";
-            foreach ($this->arregloReservasManualesAfectadas as $row){
-           //     echo implode(" | ", $row) . "<br>";
+            //echo "Las sigientes reservas seran borradas";
+            $arreglsinRep=array_unique($this->arregloReservasManualesAfectadas);
+            foreach ($arreglsinRep as $row){
+                echo implode(" | ", $row) . "<br>";
             }
         }
     }
@@ -328,12 +329,33 @@ class ReadExcel
                 $read = true;
             }
         }
+        /*
         if($this->materiasQuePerdieronAula){
             foreach ($this->arregloMateriasSinAula as $row){
                 echo implode(";",$row). "<br>";
             }
+        }*/
+
+
+    }
+
+    function anytrouble(){
+        if($this->contenidoExcel == 0 || $this->cruzeConReservasManuales == 1 || $this ->materiasQuePerdieronAula== 1){
+
+            if($this->contenidoExcel == 0){
+                echo "Existen problemas respecto al contenido del excel <br>";
+            }
+            if($this->cruzeConReservasManuales == 1){
+                echo "Existen problemas respecto al cruce con reservas manuales<br>";
+            }
+            if($this->materiasQuePerdieronAula == 1){
+                echo "Existen problemas respecto a materias que perdieron su aula<br>";
+            }
         }
 
+    }
+
+    function sendmail(){
 
     }
 

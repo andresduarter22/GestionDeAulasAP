@@ -23,11 +23,12 @@ if (isset($_POST['Aulas'])) {
 if (isset($_POST['Reserva'])) {
     //read( $_FILES['file']['tmp_name']);
     $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
-   // $readClass->checkIntegrity();
-   // $readClass->cruzeConReservManuales();
-   // $readClass->deleteManualReserv();
-   // $readClass->import(0);
+    $readClass->checkIntegrity();
+    $readClass->cruzeConReservManuales();
     $readClass->verificarReservaSeQuedaSinAula();
+    $readClass->anytrouble();
+    // $readClass->deleteManualReserv();
+    // $readClass->import(0);
 }
 
 function read($routa)
@@ -44,7 +45,7 @@ function read($routa)
         $aula = $sheet->getCellByColumnAndRow(5, $row->getRowIndex());
         $docente = $sheet->getCellByColumnAndRow(8, $row->getRowIndex());
         if (!($mat[0] === 'T' && $mat[1] === 'o' && $mat[2] === 't' && $mat[3] === 'a')) {
-               echo $mat . " "  . $ini . " " . $fin . " " .$horario . " " . $aula . " " .$docente . " " ."<br>";
+            echo $mat . " " . $ini . " " . $fin . " " . $horario . " " . $aula . " " . $docente . " " . "<br>";
         }
     }
 }

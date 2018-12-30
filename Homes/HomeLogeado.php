@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
    <ul class="navbar-nav">
       <li class="nav-item ">
-       <a class="nav-link" href="../ExcelUpload/ExcelUp.php?id= <?php echo $_idDeUsuario ?>">Cargar Archivo <span class="sr-only">(current)</span></a>
+       <a class="nav-link" href="../ExcelUpload/OfficeExcel.php?id= <?php echo $_idDeUsuario ?>">Cargar Archivo <span class="sr-only">(current)</span></a>
       </li>
 
     </ul>
