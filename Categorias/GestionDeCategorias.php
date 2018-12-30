@@ -67,7 +67,6 @@
       </div>
       <div class="modal-body">
         Esta es la pantalla donde se puede consultar la lista de Categorias dentro de la base de Datos
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

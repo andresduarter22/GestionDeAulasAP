@@ -25,7 +25,6 @@
       <li class="nav-item ">
        <a class="nav-link" href="../ExcelUpload/OfficeExcel.php?id= <?php echo $_idDeUsuario ?>">Cargar Archivo <span class="sr-only">(current)</span></a>
       </li>
-
     </ul>
     </div>
     <a class="navbar-brand" href="../Usuarios/GestiondeUsuarios.php">Usuarios</a>

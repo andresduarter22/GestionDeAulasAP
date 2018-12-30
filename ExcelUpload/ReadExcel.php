@@ -9,18 +9,20 @@ include "../Config/Database.php";
 
 class ReadExcel
 {
+    //variables que contienen la conexion con la base, id del usuario que sube el documento y el documento excel
     public $db;
     public $dblink;
     public $idUploader;
     public $sheet;
 
     //flags
-    private $contenidoExcel;
+    private $IntegridadDeExcel;
     private $cruzeConReservasManuales;
     private $materiasQuePerdieronAula;
 
+    //arreglos que contienen los conflictos en el proceso  de subir excel
     private $arregloReservasManualesAfectadas = array();
-    private $arregloMateriasSinAula= array();
+    private $arregloMateriasSinAula = array();
 
     public function __construct($fileName, $idUploader)
     {
@@ -30,6 +32,7 @@ class ReadExcel
 
 
         //librerias de PHPspreadsheet
+        //se lee el archivo excel
         try {
             $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
             $spread = $reader->load($fileName);
@@ -40,6 +43,9 @@ class ReadExcel
 
     }
 
+    /**
+     * funcion que ingresa las reservas a la base de datos
+     */
     public function import($tipoDeUpload)
     {
         //variable que habilita lectura de excel
@@ -79,6 +85,9 @@ class ReadExcel
     }
 
 
+    /**
+     * Funcion que borra las reservas automaticas en la base de datos
+     */
     public function borrarReservasPrevias()
     {
         //borrar todas las reservas automaticas previas
@@ -88,9 +97,11 @@ class ReadExcel
     }
 
 
+    /**
+     * Funcion que agrega las reservas en la base de datos
+     */
     public function AgregarReservasAutomaticas($cadena, $idUploader)
     {
-
         $_Materia = $cadena[0];
         $_FechaInicio = $cadena[1];
         $_FechaFinal = $cadena[2];
@@ -105,12 +116,15 @@ class ReadExcel
         //echo $sql . "<br>";
         $result = $this->dblink->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
+        //si no contiene al menos materia, fecha inicial, fecha final y horario no la inserta
         if ($_Materia != "" && $_FechaInicio != "" && $_FechaFinal != "" && $_Horario != "") {
+            // solo si el aula esta en blanco o existe en la base de datos la inserta
             if (($result->rowCount() || $_Aula == "")) {
                 $_IdMateria = 2;
                 $sql = "SELECT * FROM materias WHERE nombre_materia= '$_Materia';";
                 $result = $this->dblink->query($sql);
                 $result->setFetchMode(PDO::FETCH_ASSOC);
+                //busca el id de materia o ingresa la materia en la base de datos
                 if ($result->rowCount()) {
                     //echo "ya existio";
                     $sql = "SELECT id_Materias FROM materias WHERE nombre_materia= '$_Materia';";
@@ -140,6 +154,7 @@ class ReadExcel
                 //echo "$_FInicial";
                 //echo "$_FFinal ";
 
+                //si el aula esta vacia la ingresa a la base como null
                 if ($_Aula == "") {
                     $sql3 = "INSERT INTO reservas values(NULL,NULL,$idUploader,$_IdMateria,'$_FInicial','$_FFinal',0,'$_Horario','$_Docente');";
                     if ($this->dblink->query($sql3) === FALSE) {
@@ -154,14 +169,16 @@ class ReadExcel
                     }
                 }
             } else {
-                echo "$sql  ";
-                echo "no existe Aula en la base de Datos<br>";
+                echo "$_Aula esta aula no existe en la base de Datos por lo tanto no sera ingrsada<br>";
             }
         }
 
     }
 
-    //funcion que agrega solo aulas
+    /**
+     *
+     * Funcion que agrega solo aulas a la base de datos
+     */
     function AgregarAulas($cadena)
     {
         $_Aula = $cadena[4];
@@ -180,13 +197,20 @@ class ReadExcel
         }
     }
 
+    /**
+     * verifica que el contenido del documento excel sea integro
+     * lo que significa que cada entrada debe poseer al menos materia, ambas fechas y el horario en que se realiza esa reserva
+     *
+     * si alguna entrada no cumple esta condicion se levanta la bandera
+     *    $this->IntegridadDeExcel con el valor de false
+     */
     function checkIntegrity()
     {
         //variable que habilita lectura de excel
         $read = false;
 
         //flag estado del excel
-        $this->contenidoExcel = true;
+        $this->IntegridadDeExcel = true;
 
         foreach ($this->sheet->getRowIterator() as $row) {
             $_cadenaDeDatos = array(
@@ -203,7 +227,7 @@ class ReadExcel
             }
             if ($read) {
                 if ($_cadenaDeDatos[0] == "" || $_cadenaDeDatos[1] == "" || $_cadenaDeDatos[2] == "" || $_cadenaDeDatos[3] == "") {
-                    $this->contenidoExcel = false;
+                    $this->IntegridadDeExcel = false;
                 }
             }
             //flag para iniciar ingreso de datos
@@ -218,6 +242,15 @@ class ReadExcel
         }*/
     }
 
+    /**
+     * Funcion que verifica si existe alguna reserva manual previa que cruze con las nuevas reservas automaticas levantando la bandera
+     *
+     * $this->cruzeConReservasManuales a true
+     *
+     * Si la reserva manual se realiza durante fin de semana como ser sabado o domingo no sera eliminada ya que las reservas automaticas
+     * son estrictamente de lunes a viernes
+     *
+     */
     function cruzeConReservManuales()
     {
         //variable que habilita lectura de excel
@@ -242,42 +275,58 @@ class ReadExcel
                 $sql = "SELECT id_Aulas from aulas WHERE nombre='$_cadenaDeDatos[4]';";
                 $result = $this->dblink->query($sql);
                 $result->setFetchMode(PDO::FETCH_ASSOC);
-                $_IdAula = $result->fetchColumn();
+                if ($result->rowCount() >= 1) {
+                    $_IdAula = $result->fetchColumn();
 
-                //ordenando fechas
-                $ArregloFechaIni = explode('/', $_cadenaDeDatos[1]);
-                $ArregloFechaFin = explode('/', $_cadenaDeDatos[2]);
+                    //ordenando fechas
+                    $ArregloFechaIni = explode('/', $_cadenaDeDatos[1]);
+                    $ArregloFechaFin = explode('/', $_cadenaDeDatos[2]);
 
-                $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
-                $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
-                $sql = "SELECT * FROM reservas WHERE  (tipo=1) AND (id_Aula_Reservada = $_IdAula)AND (horario = '$_cadenaDeDatos[3]') AND (('$_FInicial'  BETWEEN fecha_inicio AND  fecha_final) OR ('$_FFinal' BETWEEN fecha_inicio AND fecha_final));";
-                //echo $sql . "<br>";
-                $result = $this->dblink->query($sql);
-                $result->setFetchMode(PDO::FETCH_ASSOC);
-                if ($result->rowCount()) {
-                    $this->cruzeConReservasManuales = true;
-                    while ($fila = $result->fetch()) {
-                        //echo implode(" | ", $fila) . "<br>";
-                        array_push($this->arregloReservasManualesAfectadas, $fila);
+                    $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
+                    $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
+                    //query que busca similitud de entrada que tenga la misma aula, horario, y cruze de horarios.ademas de asegurarse de que es dia de semana
+                    $sql = "SELECT * FROM reservas WHERE  (tipo=1)  AND (dayofweek(fecha_inicio)>1 AND dayofweek(fecha_inicio)<7)
+                                            AND (dayofweek(fecha_final)>1 AND dayofweek(fecha_final)<7)
+                                            AND (id_Aula_Reservada = $_IdAula)AND (horario = '$_cadenaDeDatos[3]')
+                                            AND (('$_FInicial'  BETWEEN fecha_inicio AND  fecha_final) OR ('$_FFinal' BETWEEN fecha_inicio AND fecha_final)
+                                            OR (fecha_inicio BETWEEN '$_FInicial' AND '$_FFinal') OR (fecha_final BETWEEN '$_FInicial' AND '$_FFinal'));";
+                    //echo $sql . "<br>";
+                    $result = $this->dblink->query($sql);
+                    $result->setFetchMode(PDO::FETCH_ASSOC);
+                    if ($result->rowCount()) {
+                        $this->cruzeConReservasManuales = true;
+                        while ($fila = $result->fetch()) {
+                            //echo implode(" | ", $fila) . "<br>";
+                            array_push($this->arregloReservasManualesAfectadas, $fila);
+                        }
                     }
                 }
             }
+
+
             //flag para iniciar ingreso de datos
             if ($_cadenaDeDatos[0] == 'Materia') {
                 $read = true;
             }
         }
-        if ($this->cruzeConReservasManuales){
+        /*if ($this->cruzeConReservasManuales) {
             //echo "Las sigientes reservas seran borradas";
-            $arreglsinRep=array_unique($this->arregloReservasManualesAfectadas);
-            foreach ($arreglsinRep as $row){
-                echo implode(" | ", $row) . "<br>";
+            $arreglsinRep = array_unique($this->arregloReservasManualesAfectadas);
+            foreach ($arreglsinRep as $row) {
+               //     echo implode(" | ", $row) . "<br>";
             }
-        }
+        }*/
     }
 
-    function verificarReservaSeQuedaSinAula(){
-        $this->materiasQuePerdieronAula=false;
+    /**
+     * Funcion que verifica que reservas automaticas pasadas que tenian una aula asignada sean reincertadas
+     * en la base sin aula asignada mostrando la bandera
+     *
+     *  $this->materiasQuePerdieronAula a true
+     */
+    function verificarReservaSeQuedaSinAula()
+    {
+        $this->materiasQuePerdieronAula = false;
 
         //variable que habilita lectura de excel
         $read = false;
@@ -297,11 +346,11 @@ class ReadExcel
             }
             if ($read) {
                 $sql = "SELECT id_Materias FROM materias WHERE nombre_materia= '$_cadenaDeDatos[0]';";
-                $result=$this->dblink->query($sql);
+                $result = $this->dblink->query($sql);
                 $result->setFetchMode(PDO::FETCH_ASSOC);
                 $_IdMateria = $result->fetchColumn();
 
-                if($_cadenaDeDatos[4]=="" && $_IdMateria != null ){
+                if ($_cadenaDeDatos[4] == "" && $_IdMateria != null) {
                     //echo "sin aula <br>";
                     //ordenando fechas
                     $ArregloFechaIni = explode('/', $_cadenaDeDatos[1]);
@@ -310,16 +359,17 @@ class ReadExcel
 
                     $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
                     $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
-                    $sql2 ="SELECT * FROM reservas WHERE  horario = '$_cadenaDeDatos[3]' AND fecha_inicio = '$_FInicial' AND fecha_final = '$_FFinal' AND tipo=0 
+                    $sql2 = "SELECT * FROM reservas WHERE  horario = '$_cadenaDeDatos[3]' AND fecha_inicio = '$_FInicial' AND fecha_final = '$_FFinal' AND tipo=0 
                             AND docente = '$_cadenaDeDatos[5]'
                             AND id_Materia_Reserva = $_IdMateria ;";
-                    $result2=$this->dblink->query($sql2);
+                    $result2 = $this->dblink->query($sql2);
                     $result2->setFetchMode(PDO::FETCH_ASSOC);
-                    while ($fila = $result2->fetch()){;
-                        if(is_numeric($fila['id_Aula_Reservada']) ){
-                            $this->materiasQuePerdieronAula=true;
-                            array_push($this->arregloMateriasSinAula,$fila);
-                          //  echo "Existe una materia que perdio su aula";
+                    while ($fila = $result2->fetch()) {
+                        ;
+                        if (is_numeric($fila['id_Aula_Reservada'])) {
+                            $this->materiasQuePerdieronAula = true;
+                            array_push($this->arregloMateriasSinAula, $fila);
+                            //  echo "Existe una materia que perdio su aula";
                         }
                     }
                 }
@@ -339,30 +389,40 @@ class ReadExcel
 
     }
 
-    function anytrouble(){
-        if($this->contenidoExcel == 0 || $this->cruzeConReservasManuales == 1 || $this ->materiasQuePerdieronAula== 1){
 
-            if($this->contenidoExcel == 0){
+    /**
+     * Funcion que avisa si es que existe algun conflicto durante la lectura del documento excel
+     */
+    function anytrouble()
+    {
+        if ($this->IntegridadDeExcel == 0 || $this->cruzeConReservasManuales == 1 || $this->materiasQuePerdieronAula == 1) {
+
+            if ($this->IntegridadDeExcel == 0) {
                 echo "Existen problemas respecto al contenido del excel <br>";
             }
-            if($this->cruzeConReservasManuales == 1){
+            if ($this->cruzeConReservasManuales == 1) {
                 echo "Existen problemas respecto al cruce con reservas manuales<br>";
             }
-            if($this->materiasQuePerdieronAula == 1){
+            if ($this->materiasQuePerdieronAula == 1) {
                 echo "Existen problemas respecto a materias que perdieron su aula<br>";
             }
         }
 
     }
 
-    function sendmail(){
+    function sendmail()
+    {
 
     }
 
-    function deleteManualReserv(){
-        foreach ($this->arregloReservasManualesAfectadas as $row){
-            $reserv= array_values($row);
-            $sql  = "DELETE FROM reservas where id_Reservas = $reserv[0]";
+    /**
+     * Funcion que borra las reservas manuales que entran en conflicto con las nuevas reservas automaticas
+     */
+    function deleteManualReserv()
+    {
+        foreach ($this->arregloReservasManualesAfectadas as $row) {
+            $reserv = array_values($row);
+            $sql = "DELETE FROM reservas where id_Reservas = $reserv[0]";
             $this->dblink->query($sql);
         }
     }
