@@ -32,7 +32,6 @@ if (isset($_POST['Reserva'])) {
 }
 
 
-
 ?>
 
 <html>
@@ -46,7 +45,10 @@ if (isset($_POST['Reserva'])) {
 <!-- jQuery -->
 <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
-<link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
+<!-- Bootstrap JS -->
+<script src="../Booststrap/js/bootstrap.min.js"></script>
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="Home.php">Log Out</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -78,14 +80,17 @@ if (isset($_POST['Reserva'])) {
             <form method="post" enctype="multipart/form-data">
                 <input type="file" name="file">
                 <input type='hidden' name='id' value='<?php echo "$_idDeUsuario"; ?>'/>
-                <input type="submit" name="Reserva" value="Reservas">
+                <input type="submit" class="btn-dark" data-target="#warningMod" data-toggle="modal" name="Reserva"
+                       value="Reservas">
                 <input type="submit" name="Aulas" value="Ingresar Aulas">
+                <button class="btn-block" data-target="#warningMod" data-toggle="modal">ASDF</button>
 
             </form>
         </div>
         <br><br><br>
         <!--      <a class="btn btn-primary btn-lg" href="HomeLogeado.php" role="button">Log </a>-->
     </div>
+    <button class="btn-block" data-target="#warningMod" data-toggle="modal">ASDF</button>
 </div>
 
 <a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
@@ -94,10 +99,22 @@ if (isset($_POST['Reserva'])) {
     <div class="row">
         <div class="col-xs-12">
             <div class="modal" id="warningMod">
-                <div class="modal-dialog">
+                <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            Advertencias!!!!!!
+                            <h4 class="modal-title"> Advertencias!!!!!!</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h3>En esta pagina se ingresa el documento .xlsx para ingresar las materias que se realizan
+                                en el semestre</h3>
+                            Recordatorio: <br> El documeto debe contener unicamente una hoja con la lista de materias
+                            del semestre
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>
@@ -107,9 +124,10 @@ if (isset($_POST['Reserva'])) {
 </div>
 
 
-
 <!-- Inicio boton de Informacion -->
-<button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img  src="../Images/iconoInfo.png"  class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+<button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img
+            src="../Images/iconoInfo.png" class="img-fluid float-right" alt="Responsive image" height="42" width="42"
+            data-target="info"/></button>
 <div class="modal fade" id="infoA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -120,7 +138,9 @@ if (isset($_POST['Reserva'])) {
                 </button>
             </div>
             <div class="modal-body">
-                Esta es la pantalla donde se puede consultar la lista de Categorias dentro de la base de Datos
+                <h3>En esta pagina se ingresa el documento .xlsx para ingresar las materias que se realizan en el
+                    semestre</h3>
+                Recordatorio: <br> El documeto debe contener unicamente una hoja con la lista de materias del semestre
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
