@@ -23,32 +23,14 @@ if (isset($_POST['Aulas'])) {
 if (isset($_POST['Reserva'])) {
     //read( $_FILES['file']['tmp_name']);
     $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
-    //$readClass->checkIntegrity();
+    /*$readClass->checkIntegrity();
     $readClass->cruzeConReservManuales();
-    //$readClass->verificarReservaSeQuedaSinAula();
-    //$readClass->anytrouble();
-    //$readClass->deleteManualReserv();
-    //$readClass->import(0);
+    $readClass->verificarReservaSeQuedaSinAula();
+    $readClass->anytrouble();
+    $readClass->deleteManualReserv();
+    $readClass->import(0);*/
 }
 
-function read($routa)
-{
-    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
-    $spread = $reader->load($routa);
-    $sheet = $spread->getActiveSheet();
-    foreach ($sheet->getRowIterator(6) as $row) {
-
-        $mat = $sheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue();
-        $ini = $sheet->getCellByColumnAndRow(2, $row->getRowIndex())->getFormattedValue();
-        $fin = $sheet->getCellByColumnAndRow(3, $row->getRowIndex())->getFormattedValue();
-        $horario = $sheet->getCellByColumnAndRow(4, $row->getRowIndex());
-        $aula = $sheet->getCellByColumnAndRow(5, $row->getRowIndex());
-        $docente = $sheet->getCellByColumnAndRow(8, $row->getRowIndex());
-        if (!($mat[0] === 'T' && $mat[1] === 'o' && $mat[2] === 't' && $mat[3] === 'a')) {
-            echo $mat . " " . $ini . " " . $fin . " " . $horario . " " . $aula . " " . $docente . " " . "<br>";
-        }
-    }
-}
 
 
 ?>
@@ -60,6 +42,11 @@ function read($routa)
     <title>Upload Excel</title>
 </head>
 <body>
+
+<!-- jQuery -->
+<script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+
+<link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="Home.php">Log Out</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -101,8 +88,47 @@ function read($routa)
     </div>
 </div>
 
-
 <a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
+<!-- Modal de warning-->
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="modal" id="warningMod">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            Advertencias!!!!!!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Inicio boton de Informacion -->
+<button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img  src="../Images/iconoInfo.png"  class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
+<div class="modal fade" id="infoA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Esta es la pantalla donde se puede consultar la lista de Categorias dentro de la base de Datos
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Final boton de Informacion -->
 
 </body>
 </html>

@@ -75,6 +75,8 @@
   </div>
 </div>
 <!-- Final boton de Informacion -->
+
+
   <?php
    $dblink->close();
    ?>
