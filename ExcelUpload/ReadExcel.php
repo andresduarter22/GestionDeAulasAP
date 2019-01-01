@@ -16,9 +16,9 @@ class ReadExcel
     public $sheet;
 
     //flags
-    private $IntegridadDeExcel;
-    private $cruzeConReservasManuales;
-    private $materiasQuePerdieronAula;
+    public $IntegridadDeExcel;
+    public $cruzeConReservasManuales;
+    public $materiasQuePerdieronAula;
 
     //arreglos que contienen los conflictos en el proceso  de subir excel
     private $arregloReservasManualesAfectadas = array();
@@ -393,8 +393,7 @@ class ReadExcel
     /**
      * Funcion que avisa si es que existe algun conflicto durante la lectura del documento excel
      */
-    function anytrouble()
-    {
+    function anytrouble(){
         if ($this->IntegridadDeExcel == 0 || $this->cruzeConReservasManuales == 1 || $this->materiasQuePerdieronAula == 1) {
             if ($this->IntegridadDeExcel == 0) {
                 echo "Existen problemas respecto al contenido del excel <br>";
@@ -409,7 +408,6 @@ class ReadExcel
         }else{
             return false;
         }
-
     }
 
     function sendmail()

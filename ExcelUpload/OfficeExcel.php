@@ -76,30 +76,6 @@ $readClass;
 
 
 </body>
-<!-- Modal de warning-->
-<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"> Problemas</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <?php if ($existenProblemas == 0) { ?>
-                    No existen problemas
-                <?php } else { ?>
-                    <h3>Existen Problemas</h3>
-                <?php } ?>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <!-- Modal de Confirmacion-->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel" aria-hidden="true">
@@ -115,7 +91,7 @@ $readClass;
                     Esta seguro de subir el documento
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
@@ -162,8 +138,37 @@ if (isset($_POST['Reserva'])) {
     $readClass->checkIntegrity();
     $readClass->cruzeConReservManuales();
     $readClass->verificarReservaSeQuedaSinAula();
-    $existenProblemas = $readClass->anytrouble();
-    if($existenProblemas==1){
+    $GLOBALS['trouble']=  $readClass->anytrouble();
+    //echo $readClass->IntegridadDeExcel . $readClass->cruzeConReservasManuales . $readClass->materiasQuePerdieronAula;
+    ?>
+
+    <!-- Modal de warning-->
+    <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"> Problemas</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php if ($trouble) { ?>
+                        <h3>Existen Problemas</h3>
+                    <?php } else { ?>
+                        No existen problemas
+                    <?php } ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <?php if($trouble){
         echo "<script> window.onload =  $('#warningModal').modal('show'); </script>";
     }else{
         echo "<script> window.onload =  $('#confirmModal').modal('show'); </script>";
@@ -175,3 +180,4 @@ if (isset($_POST['Reserva'])) {
 }
 
 ?>
+
