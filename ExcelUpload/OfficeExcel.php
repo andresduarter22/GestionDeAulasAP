@@ -11,8 +11,8 @@ $_idDeUsuario = 1;
 require 'vendor/autoload.php';
 include "ReadExcel.php";
 
-$existenProblemas = false;
-
+$existenProblemas;
+$readClass;
 ?>
 <html>
 <!-- jQuery -->
@@ -74,37 +74,54 @@ $existenProblemas = false;
 
 <a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
 
+
+</body>
 <!-- Modal de warning-->
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="modal" id="warningModal">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title"> Problemas</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h3>En esta pagina se ingresa el documento .xlsx para ingresar las materias que se realizan
-                                en el semestre</h3>
-                            Recordatorio: <br> El documeto debe contener unicamente una hoja con la lista de materias
-                            del semestre
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Problemas</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php if ($existenProblemas == 0) { ?>
+                    No existen problemas
+                <?php } else { ?>
+                    <h3>Existen Problemas</h3>
+                <?php } ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
 
-</body>
+<!-- Modal de Confirmacion-->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Confirmacion</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                    Esta seguro de subir el documento
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- Inicio boton de Informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img
             src="../Images/iconoInfo.png" class="img-fluid float-right" alt="Responsive image" height="42" width="42"
@@ -146,7 +163,12 @@ if (isset($_POST['Reserva'])) {
     $readClass->cruzeConReservManuales();
     $readClass->verificarReservaSeQuedaSinAula();
     $existenProblemas = $readClass->anytrouble();
-    echo "<script>$('#warningModal').modal('show'); </script>"; ;
+    if($existenProblemas==1){
+        echo "<script> window.onload =  $('#warningModal').modal('show'); </script>";
+    }else{
+        echo "<script> window.onload =  $('#confirmModal').modal('show'); </script>";
+    }
+
     /*$readClass->deleteManualReserv();
       $readClass->import(0);*/
 
