@@ -11,42 +11,24 @@ $_idDeUsuario = 1;
 require 'vendor/autoload.php';
 include "ReadExcel.php";
 
-
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-
-if (isset($_POST['Aulas'])) {
-    //read( $_FILES['file']['tmp_name']);
-    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
-    $readClass->import(1);
-}
-
-if (isset($_POST['Reserva'])) {
-    //read( $_FILES['file']['tmp_name']);
-    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
-    /*$readClass->checkIntegrity();
-    $readClass->cruzeConReservManuales();
-    $readClass->verificarReservaSeQuedaSinAula();
-    $readClass->anytrouble();
-    $readClass->deleteManualReserv();
-    $readClass->import(0);*/
-}
-
+$existenProblemas = false;
 
 ?>
-
 <html>
-<head>
-    <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Upload Excel</title>
-</head>
-<body>
-
 <!-- jQuery -->
 <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
 <!-- Bootstrap JS -->
 <script src="../Booststrap/js/bootstrap.min.js"></script>
+
+
+<head>
+    <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Upload Excel</title>
+</head>
+<body>
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -77,32 +59,30 @@ if (isset($_POST['Reserva'])) {
     <div class="container">
         <p class="lead">Ingrese el Nuevo documento xlsx </p>
         <div class="container">
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" id="excelup">
                 <input type="file" name="file">
                 <input type='hidden' name='id' value='<?php echo "$_idDeUsuario"; ?>'/>
-                <input type="submit" class="btn-dark" data-target="#warningMod" data-toggle="modal" name="Reserva"
-                       value="Reservas">
+                <!--<input type="submit" class="btn-dark" data-target="#warningModal" data-toggle="modal" name="Reserva"  value="Reservas"> -->
+                <button class="btn-dark" type="submit" name="Reserva" value="submit">Reservas</button>
                 <input type="submit" name="Aulas" value="Ingresar Aulas">
-                <button class="btn-block" data-target="#warningMod" data-toggle="modal">ASDF</button>
-
             </form>
         </div>
         <br><br><br>
         <!--      <a class="btn btn-primary btn-lg" href="HomeLogeado.php" role="button">Log </a>-->
     </div>
-    <button class="btn-block" data-target="#warningMod" data-toggle="modal">ASDF</button>
 </div>
 
 <a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
+
 <!-- Modal de warning-->
 <div class="container">
     <div class="row">
         <div class="col-xs-12">
-            <div class="modal" id="warningMod">
+            <div class="modal" id="warningModal">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title"> Advertencias!!!!!!</h4>
+                            <h4 class="modal-title"> Problemas</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -124,11 +104,12 @@ if (isset($_POST['Reserva'])) {
 </div>
 
 
+</body>
 <!-- Inicio boton de Informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img
             src="../Images/iconoInfo.png" class="img-fluid float-right" alt="Responsive image" height="42" width="42"
             data-target="info"/></button>
-<div class="modal fade" id="infoA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="infoA" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,6 +131,25 @@ if (isset($_POST['Reserva'])) {
 </div>
 <!-- Final boton de Informacion -->
 
-</body>
 </html>
+<?php
+if (isset($_POST['Aulas'])) {
+    //read( $_FILES['file']['tmp_name']);
+    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+    $readClass->import(1);
+}
 
+if (isset($_POST['Reserva'])) {
+    //read( $_FILES['file']['tmp_name']);
+    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+    $readClass->checkIntegrity();
+    $readClass->cruzeConReservManuales();
+    $readClass->verificarReservaSeQuedaSinAula();
+    $existenProblemas = $readClass->anytrouble();
+    echo "<script>$('#warningModal').modal('show'); </script>"; ;
+    /*$readClass->deleteManualReserv();
+      $readClass->import(0);*/
+
+}
+
+?>

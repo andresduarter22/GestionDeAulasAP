@@ -396,7 +396,6 @@ class ReadExcel
     function anytrouble()
     {
         if ($this->IntegridadDeExcel == 0 || $this->cruzeConReservasManuales == 1 || $this->materiasQuePerdieronAula == 1) {
-
             if ($this->IntegridadDeExcel == 0) {
                 echo "Existen problemas respecto al contenido del excel <br>";
             }
@@ -406,6 +405,9 @@ class ReadExcel
             if ($this->materiasQuePerdieronAula == 1) {
                 echo "Existen problemas respecto a materias que perdieron su aula<br>";
             }
+            return true;
+        }else{
+            return false;
         }
 
     }
