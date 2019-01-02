@@ -328,7 +328,7 @@ class ReadExcel
                             $result = $this->dblink->query($sql);
                             $infoMaterias = $result->fetch();
 
-                            $arregloInfoMateriaABorra= array($infoUsuario[1],$q, $infoMaterias[1], $fila['docente']);
+                            $arregloInfoMateriaABorra= array($infoUsuario[1],$q, $infoMaterias[1], $fila['docente'],$infoUsuario[3]);
 
                             //echo implode(" | ", $result2) . "<br>";
                             array_push($this->arregloReservasManualesAfectadas, $arregloInfoMateriaABorra);

@@ -12,7 +12,8 @@ require 'vendor/autoload.php';
 include "ReadExcel.php";
 
 $existenProblemas;
-$readClass;
+
+
 ?>
 <html>
 <!-- jQuery -->
@@ -78,7 +79,6 @@ $readClass;
 </body>
 
 
-
 <!-- Inicio boton de Informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img
             src="../Images/iconoInfo.png" class="img-fluid float-right" alt="Responsive image" height="42" width="42"
@@ -120,6 +120,8 @@ if (isset($_POST['Reserva'])) {
     $readClass->cruzeConReservManuales();
     $readClass->verificarReservaSeQuedaSinAula();
     $GLOBALS['trouble'] = $readClass->anytrouble();
+
+
     //echo $readClass->IntegridadDeExcel . $readClass->cruzeConReservasManuales . $readClass->materiasQuePerdieronAula;
     ?>
 
@@ -138,7 +140,9 @@ if (isset($_POST['Reserva'])) {
                     Esta seguro de subir el documento
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick='subirRes() '>Enviar
+                        y Cerrar
+                    </button>
                 </div>
             </div>
         </div>
@@ -157,19 +161,19 @@ if (isset($_POST['Reserva'])) {
                 </div>
                 <div class="modal-body">
                     <?php
-                    if ($readClass->getIntegridadDeExcel() ) {
+                    if ($readClass->getIntegridadDeExcel()) {
                         echo "Respecto al contenido del excel <br>";
                         if ($readClass->getDatosIncompletos()) {
-                            echo "-Existen entradas en el documento con datos incompletos en la(s) fila(s)<br>";
+                            echo "Existen entradas en el documento con datos incompletos en la(s) fila(s)<br>";
                             foreach ($readClass->getArregloDeIntegridad() as $row) {
                                 if ($row[1] == 0) {
                                     echo "$row[0] ";
                                 }
                             }
                             echo "<br>";
-                         }
+                        }
                         if ($readClass->getAulaInexistentete()) {
-                            echo "-Se quiere ingresar un aula que no existe, por lo tanto no se realizara la reserva en la(s) fila(s)<br>";
+                            echo "Se quiere ingresar un aula que no existe, por lo tanto no se realizara la reserva en la(s) fila(s)<br>";
                             foreach ($readClass->getArregloDeIntegridad() as $row) {
                                 if ($row[1] == 1) {
                                     echo $row[0] . " ";
@@ -178,18 +182,19 @@ if (isset($_POST['Reserva'])) {
                             echo "<br>";
                         }
                     }
-                    if ($readClass->getCruzeConReservasManuales() == 1) {
+                    if ($readClass->getCruzeConReservasManuales()) {
                         echo "Respecto al cruce con reservas manuales:<br>";
                         echo "Las sigientes reservas seran borradas <br>";
                         $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
                         echo "<ul >";
+
                         foreach ($arreglsinRep as $row) {
-                            echo "<li> " . $row[2] . " con el docente $row[3] en el aula $row[1] realizado por" .  $row[0] . " </li>";
+                            echo "<li> " . $row[2] . " con el docente $row[3] en el aula $row[1] realizado por: " . $row[0] . " </li>";
                             //echo implode(" | ", $row) . "<br>";
                         }
                         echo "</ul>";
                     }
-                    if ($readClass->getMateriasQuePerdieronAula() == 1) {
+                    if ($readClass->getMateriasQuePerdieronAula()) {
                         echo "Respecto a materias que perdieron su aula<br>";
                         echo "<ul >";
                         foreach ($readClass->getArregloMateriasSinAula() as $row) {
@@ -201,8 +206,15 @@ if (isset($_POST['Reserva'])) {
                     ?>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" >Cerrar</button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmModal" data-dismiss="modal" >Continuar</button>
+                    <?php
+                    if ($readClass->getCruzeConReservasManuales()) {
+                        echo " <button type=\"button\" class=\"btn btn-dark\" id='sendEmail' onclick='sendEmail()'>Enviar correo a usuarios afectados</button> ";
+                    }
+                    ?>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmModal"
+                            data-dismiss="modal">Continuar
+                    </button>
                 </div>
             </div>
         </div>
@@ -214,10 +226,51 @@ if (isset($_POST['Reserva'])) {
         echo "<script> window.onload =  $('#confirmModal').modal('show'); </script>";
     }
 
-    /*$readClass->deleteManualReserv();
-      $readClass->import(0);*/
+    function sendE()
+    {
+        $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+        $readClass->cruzeConReservManuales();
+        $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
+
+        echo "Se enviaron correos a los usuarios Afectados ";
+
+        // the message
+        $msg = "Estimado usuario debido al cronograma del siguiente modulo su reserva que usted realizo sera borrada";
+        // use wordwrap() if lines are longer than 70 characters
+        $msg1 = wordwrap($msg, 70);
+        // send email
+        foreach ($arreglsinRep as $row) {
+            echo $row[4];
+            mail($row[4], "Prueba", $msg1);
+
+        }
+    }
+
+    function uploadReserv()
+    {
+        $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+        $readClass->deleteManualReserv();
+        $readClass->import(0);
+        echo "Reservas subidas correctamente";
+    }
+
 
 }
 
 ?>
 
+<script type="text/javascript">
+
+    function sendEmail() {
+        var result = "<?php sendE();?>";
+        alert(result);
+        return false;
+    }
+
+    function subirRes() {
+        var result = "<?php uploadReserv();?>";
+        alert(result);
+        return false;
+    }
+
+</script>
