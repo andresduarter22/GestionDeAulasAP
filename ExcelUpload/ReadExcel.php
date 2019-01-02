@@ -24,7 +24,7 @@ class ReadExcel
     private $DatosIncompletos;
     private $AulaInexistentete;
     //arrglo de integridad
-    private $arregloDeIntegridad=array();
+    private $arregloDeIntegridad = array();
 
 
     //arreglos que contienen los conflictos en el proceso  de subir excel
@@ -175,8 +175,6 @@ class ReadExcel
                         echo "Error: " . $sql3 . "<br>" . $this->dblink->error;
                     }
                 }
-            } else {
-                echo "$_Aula esta aula no existe en la base de Datos por lo tanto no sera ingrsada<br>";
             }
         }
 
@@ -239,18 +237,18 @@ class ReadExcel
                 if ($_cadenaDeDatos[0] == "" || $_cadenaDeDatos[1] == "" || $_cadenaDeDatos[2] == "" || $_cadenaDeDatos[3] == "") {
                     $this->IntegridadDeExcel = true;
                     $this->DatosIncompletos = true;
-                    $posicion= array($row->getRowIndex(),0);
-                    array_push($this->arregloDeIntegridad,$posicion);
+                    $posicion = array($row->getRowIndex(), 0);
+                    array_push($this->arregloDeIntegridad, $posicion);
                 }
                 if ($_cadenaDeDatos[4] != "") {
                     $sql = "SELECT * FROM aulas WHERE nombre='$_cadenaDeDatos[4]';";
-                    $result=$this->dblink->query($sql);
+                    $result = $this->dblink->query($sql);
                     $result->setFetchMode(PDO::FETCH_ASSOC);
-                    if($result->rowCount()==0){
+                    if ($result->rowCount() == 0) {
                         $this->IntegridadDeExcel = true;
-                        $this->AulaInexistentete=true;
-                        $posicion= array($row->getRowIndex(),1);
-                        array_push($this->arregloDeIntegridad,$posicion);
+                        $this->AulaInexistentete = true;
+                        $posicion = array($row->getRowIndex(), 1);
+                        array_push($this->arregloDeIntegridad, $posicion);
                     }
                 }
             }
@@ -315,17 +313,25 @@ class ReadExcel
                     if ($result->rowCount()) {
                         $this->cruzeConReservasManuales = true;
                         while ($fila = $result->fetch()) {
-                            $idUs=$fila['id_Usuario_Reserva'];
-                            $sql2="SELECT nombre FROM usuarios where id_Usuario= $idUs;";
+                            $idAula=$fila['id_Aula_Reservada'];
+                            $sql2 = "SELECT nombre FROM aulas WHERE id_Aulas =   $idAula; ";
                             $result2 = $this->dblink->query($sql2);
-                            $result2->setFetchMode(PDO::FETCH_ASSOC);
-                            $t= $result2->fetchColumn();
-                            var_dump($t);
-                            /**
-                             * obtener info para modales
-                             */
+                            $q = $result2->fetchColumn();
+
+                            $idUsuario=$fila['id_Usuario_Reserva'];
+                            $sql = "SELECT * FROM usuarios WHERE id_Usuario =  $idUsuario; ";
+                            $result = $this->dblink->query($sql);
+                            $infoUsuario = $result->fetch();
+
+                            $idMat=$fila['id_Materia_Reserva'];
+                            $sql = "SELECT * FROM materias WHERE id_Materias =  $idMat ; ";
+                            $result = $this->dblink->query($sql);
+                            $infoMaterias = $result->fetch();
+
+                            $arregloInfoMateriaABorra= array($infoUsuario[1],$q, $infoMaterias[1], $fila['docente']);
+
                             //echo implode(" | ", $result2) . "<br>";
-                            array_push($this->arregloReservasManualesAfectadas, $fila);
+                            array_push($this->arregloReservasManualesAfectadas, $arregloInfoMateriaABorra);
                         }
                     }
                 }
@@ -386,10 +392,15 @@ class ReadExcel
                     $result2 = $this->dblink->query($sql2);
                     $result2->setFetchMode(PDO::FETCH_ASSOC);
                     while ($fila = $result2->fetch()) {
-                        ;
                         if (is_numeric($fila['id_Aula_Reservada'])) {
                             $this->materiasQuePerdieronAula = true;
-                            array_push($this->arregloMateriasSinAula, $fila);
+                            $idMat=$fila['id_Materia_Reserva'];
+                            $sql = "SELECT * FROM materias WHERE id_Materias =  $idMat ; ";
+                            $result = $this->dblink->query($sql);
+                            $infoMaterias = $result->fetch();
+
+                            $arrayInfoMateriaSinAula= array($infoMaterias[1],$fila['docente']);
+                            array_push($this->arregloMateriasSinAula, $arrayInfoMateriaSinAula);
                             //  echo "Existe una materia que perdio su aula";
                         }
                     }

@@ -158,16 +158,16 @@ if (isset($_POST['Reserva'])) {
                 <div class="modal-body">
                     <?php
                     if ($readClass->getIntegridadDeExcel() ) {
-                        echo "Existen problemas respecto al contenido del excel <br>";
+                        echo "Respecto al contenido del excel <br>";
                         if ($readClass->getDatosIncompletos()) {
                             echo "-Existen entradas en el documento con datos incompletos en la(s) fila(s)<br>";
                             foreach ($readClass->getArregloDeIntegridad() as $row) {
                                 if ($row[1] == 0) {
-                                    echo $row[0] . " ";
+                                    echo "$row[0] ";
                                 }
                             }
                             echo "<br>";
-                        }
+                         }
                         if ($readClass->getAulaInexistentete()) {
                             echo "-Se quiere ingresar un aula que no existe, por lo tanto no se realizara la reserva en la(s) fila(s)<br>";
                             foreach ($readClass->getArregloDeIntegridad() as $row) {
@@ -179,19 +179,24 @@ if (isset($_POST['Reserva'])) {
                         }
                     }
                     if ($readClass->getCruzeConReservasManuales() == 1) {
-                        echo "Existen problemas respecto al cruce con reservas manuales:<br>";
+                        echo "Respecto al cruce con reservas manuales:<br>";
                         echo "Las sigientes reservas seran borradas <br>";
                         $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
+                        echo "<ul >";
                         foreach ($arreglsinRep as $row) {
-                            echo implode(" | ", $row) . "<br>";
+                            echo "<li> " . $row[2] . " con el docente $row[3] en el aula $row[1] realizado por" .  $row[0] . " </li>";
+                            //echo implode(" | ", $row) . "<br>";
                         }
+                        echo "</ul>";
                     }
                     if ($readClass->getMateriasQuePerdieronAula() == 1) {
-                        echo "Existen problemas respecto a materias que perdieron su aula<br>";
-                        foreach ($readClass->getMateriasQuePerdieronAula() as $row) {
-                            echo implode("|", $row) . "<br>";
+                        echo "Respecto a materias que perdieron su aula<br>";
+                        echo "<ul >";
+                        foreach ($readClass->getArregloMateriasSinAula() as $row) {
+                            echo "<li> Materia: $row[0] con el docente $row[1] </li>";
+                            //echo implode("|", $row) . "<br>";
                         }
-
+                        echo "</ul>";
                     }
                     ?>
                 </div>
