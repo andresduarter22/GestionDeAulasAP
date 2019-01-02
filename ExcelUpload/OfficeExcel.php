@@ -108,13 +108,11 @@ $existenProblemas;
 </html>
 <?php
 if (isset($_POST['Aulas'])) {
-    //read( $_FILES['file']['tmp_name']);
     $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
     $readClass->import(1);
 }
 
 if (isset($_POST['Reserva'])) {
-    //read( $_FILES['file']['tmp_name']);
     $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
     $readClass->checkIntegrity();
     $readClass->cruzeConReservManuales();
@@ -249,6 +247,7 @@ if (isset($_POST['Reserva'])) {
     function uploadReserv()
     {
         $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+        $readClass->cruzeConReservManuales();
         $readClass->deleteManualReserv();
         $readClass->import(0);
         echo "Reservas subidas correctamente";

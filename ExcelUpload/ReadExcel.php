@@ -270,6 +270,7 @@ class ReadExcel
      */
     function cruzeConReservManuales()
     {
+
         //variable que habilita lectura de excel
         $read = false;
 
@@ -328,7 +329,7 @@ class ReadExcel
                             $result = $this->dblink->query($sql);
                             $infoMaterias = $result->fetch();
 
-                            $arregloInfoMateriaABorra= array($infoUsuario[1],$q, $infoMaterias[1], $fila['docente'],$infoUsuario[3]);
+                            $arregloInfoMateriaABorra= array($infoUsuario[1],$q, $infoMaterias[1], $fila['docente'],$infoUsuario[3],$fila['id_Reservas']);
 
                             //echo implode(" | ", $result2) . "<br>";
                             array_push($this->arregloReservasManualesAfectadas, $arregloInfoMateriaABorra);
@@ -426,19 +427,18 @@ class ReadExcel
         }
     }
 
-    function sendmail()
-    {
-
-    }
 
     /**
      * Funcion que borra las reservas manuales que entran en conflicto con las nuevas reservas automaticas
      */
     function deleteManualReserv()
     {
-        foreach ($this->arregloReservasManualesAfectadas as $row) {
+        $arreglsinRep = array_unique($this->getArregloReservasManualesAfectadas());
+        foreach ($arreglsinRep as $row) {
             $reserv = array_values($row);
-            $sql = "DELETE FROM reservas where id_Reservas = $reserv[0]";
+            //echo  implode(";",$reserv);
+            //echo $reserv[0];
+            $sql = "DELETE FROM reservas where id_Reservas = $reserv[5]";
             $this->dblink->query($sql);
         }
     }
