@@ -16,9 +16,16 @@ class ReadExcel
     public $sheet;
 
     //flags
-    public $IntegridadDeExcel;
-    public $cruzeConReservasManuales;
-    public $materiasQuePerdieronAula;
+    private $IntegridadDeExcel;
+    private $cruzeConReservasManuales;
+    private $materiasQuePerdieronAula;
+
+    //flags de integrudad
+    private $DatosIncompletos;
+    private $AulaInexistentete;
+    //arrglo de integridad
+    private $arregloDeIntegridad=array();
+
 
     //arreglos que contienen los conflictos en el proceso  de subir excel
     private $arregloReservasManualesAfectadas = array();
@@ -210,7 +217,10 @@ class ReadExcel
         $read = false;
 
         //flag estado del excel
-        $this->IntegridadDeExcel = true;
+        $this->IntegridadDeExcel = false;
+
+        $this->DatosIncompletos = false;
+        $this->AulaInexistentete = false;
 
         foreach ($this->sheet->getRowIterator() as $row) {
             $_cadenaDeDatos = array(
@@ -227,19 +237,28 @@ class ReadExcel
             }
             if ($read) {
                 if ($_cadenaDeDatos[0] == "" || $_cadenaDeDatos[1] == "" || $_cadenaDeDatos[2] == "" || $_cadenaDeDatos[3] == "") {
-                    $this->IntegridadDeExcel = false;
+                    $this->IntegridadDeExcel = true;
+                    $this->DatosIncompletos = true;
+                    $posicion= array($row->getRowIndex(),0);
+                    array_push($this->arregloDeIntegridad,$posicion);
+                }
+                if ($_cadenaDeDatos[4] != "") {
+                    $sql = "SELECT * FROM aulas WHERE nombre='$_cadenaDeDatos[4]';";
+                    $result=$this->dblink->query($sql);
+                    $result->setFetchMode(PDO::FETCH_ASSOC);
+                    if($result->rowCount()==0){
+                        $this->IntegridadDeExcel = true;
+                        $this->AulaInexistentete=true;
+                        $posicion= array($row->getRowIndex(),1);
+                        array_push($this->arregloDeIntegridad,$posicion);
+                    }
                 }
             }
             //flag para iniciar ingreso de datos
             if ($_cadenaDeDatos[0] == 'Materia') {
                 $read = true;
             }
-        }/*
-        if (!$this->contenidoExcel) {
-            echo "El contenido del documento excel contiene conflictos como falta de materias fechas y horarios, estas reservas no seran anadidas a la base";
-        } else {
-            echo "Estado excel ... Ok";
-        }*/
+        }
     }
 
     /**
@@ -296,7 +315,16 @@ class ReadExcel
                     if ($result->rowCount()) {
                         $this->cruzeConReservasManuales = true;
                         while ($fila = $result->fetch()) {
-                            //echo implode(" | ", $fila) . "<br>";
+                            $idUs=$fila['id_Usuario_Reserva'];
+                            $sql2="SELECT nombre FROM usuarios where id_Usuario= $idUs;";
+                            $result2 = $this->dblink->query($sql2);
+                            $result2->setFetchMode(PDO::FETCH_ASSOC);
+                            $t= $result2->fetchColumn();
+                            var_dump($t);
+                            /**
+                             * obtener info para modales
+                             */
+                            //echo implode(" | ", $result2) . "<br>";
                             array_push($this->arregloReservasManualesAfectadas, $fila);
                         }
                     }
@@ -309,13 +337,6 @@ class ReadExcel
                 $read = true;
             }
         }
-        /*if ($this->cruzeConReservasManuales) {
-            //echo "Las sigientes reservas seran borradas";
-            $arreglsinRep = array_unique($this->arregloReservasManualesAfectadas);
-            foreach ($arreglsinRep as $row) {
-               //     echo implode(" | ", $row) . "<br>";
-            }
-        }*/
     }
 
     /**
@@ -379,33 +400,17 @@ class ReadExcel
                 $read = true;
             }
         }
-        /*
-        if($this->materiasQuePerdieronAula){
-            foreach ($this->arregloMateriasSinAula as $row){
-                echo implode(";",$row). "<br>";
-            }
-        }*/
-
-
     }
 
 
     /**
      * Funcion que avisa si es que existe algun conflicto durante la lectura del documento excel
      */
-    function anytrouble(){
-        if ($this->IntegridadDeExcel == 0 || $this->cruzeConReservasManuales == 1 || $this->materiasQuePerdieronAula == 1) {
-            if ($this->IntegridadDeExcel == 0) {
-                echo "Existen problemas respecto al contenido del excel <br>";
-            }
-            if ($this->cruzeConReservasManuales == 1) {
-                echo "Existen problemas respecto al cruce con reservas manuales<br>";
-            }
-            if ($this->materiasQuePerdieronAula == 1) {
-                echo "Existen problemas respecto a materias que perdieron su aula<br>";
-            }
+    function anytrouble()
+    {
+        if ($this->IntegridadDeExcel == 1 || $this->cruzeConReservasManuales == 1 || $this->materiasQuePerdieronAula == 1) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -426,4 +431,70 @@ class ReadExcel
             $this->dblink->query($sql);
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIntegridadDeExcel()
+    {
+        return $this->IntegridadDeExcel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCruzeConReservasManuales()
+    {
+        return $this->cruzeConReservasManuales;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMateriasQuePerdieronAula()
+    {
+        return $this->materiasQuePerdieronAula;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArregloReservasManualesAfectadas()
+    {
+        return $this->arregloReservasManualesAfectadas;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArregloMateriasSinAula()
+    {
+        return $this->arregloMateriasSinAula;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDatosIncompletos()
+    {
+        return $this->DatosIncompletos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAulaInexistentete()
+    {
+        return $this->AulaInexistentete;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArregloDeIntegridad()
+    {
+        return $this->arregloDeIntegridad;
+    }
+
+
 }

@@ -77,25 +77,6 @@ $readClass;
 
 </body>
 
-<!-- Modal de Confirmacion-->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"> Confirmacion</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                    Esta seguro de subir el documento
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!-- Inicio boton de Informacion -->
@@ -138,39 +119,93 @@ if (isset($_POST['Reserva'])) {
     $readClass->checkIntegrity();
     $readClass->cruzeConReservManuales();
     $readClass->verificarReservaSeQuedaSinAula();
-    $GLOBALS['trouble']=  $readClass->anytrouble();
+    $GLOBALS['trouble'] = $readClass->anytrouble();
     //echo $readClass->IntegridadDeExcel . $readClass->cruzeConReservasManuales . $readClass->materiasQuePerdieronAula;
     ?>
 
-    <!-- Modal de warning-->
-    <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel" aria-hidden="true">
+    <!-- Modal de Confirmacion-->
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"> Problemas</h4>
+                    <h4 class="modal-title"> Confirmacion</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?php if ($trouble) { ?>
-                        <h3>Existen Problemas</h3>
-                    <?php } else { ?>
-                        No existen problemas
-                    <?php } ?>
+                    Esta seguro de subir el documento
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Modal de warning-->
+    <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Se encontraron errores en el documento Excel</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    if ($readClass->getIntegridadDeExcel() ) {
+                        echo "Existen problemas respecto al contenido del excel <br>";
+                        if ($readClass->getDatosIncompletos()) {
+                            echo "-Existen entradas en el documento con datos incompletos en la(s) fila(s)<br>";
+                            foreach ($readClass->getArregloDeIntegridad() as $row) {
+                                if ($row[1] == 0) {
+                                    echo $row[0] . " ";
+                                }
+                            }
+                            echo "<br>";
+                        }
+                        if ($readClass->getAulaInexistentete()) {
+                            echo "-Se quiere ingresar un aula que no existe, por lo tanto no se realizara la reserva en la(s) fila(s)<br>";
+                            foreach ($readClass->getArregloDeIntegridad() as $row) {
+                                if ($row[1] == 1) {
+                                    echo $row[0] . " ";
+                                }
+                            }
+                            echo "<br>";
+                        }
+                    }
+                    if ($readClass->getCruzeConReservasManuales() == 1) {
+                        echo "Existen problemas respecto al cruce con reservas manuales:<br>";
+                        echo "Las sigientes reservas seran borradas <br>";
+                        $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
+                        foreach ($arreglsinRep as $row) {
+                            echo implode(" | ", $row) . "<br>";
+                        }
+                    }
+                    if ($readClass->getMateriasQuePerdieronAula() == 1) {
+                        echo "Existen problemas respecto a materias que perdieron su aula<br>";
+                        foreach ($readClass->getMateriasQuePerdieronAula() as $row) {
+                            echo implode("|", $row) . "<br>";
+                        }
 
+                    }
+                    ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" >Cerrar</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#confirmModal" data-dismiss="modal" >Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <?php if($trouble){
+    <?php if ($trouble) {
         echo "<script> window.onload =  $('#warningModal').modal('show'); </script>";
-    }else{
+    } else {
         echo "<script> window.onload =  $('#confirmModal').modal('show'); </script>";
     }
 
