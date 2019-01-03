@@ -45,6 +45,7 @@ $dblink = $db->getConnection();
 ?>
 <form action="CrearUsuario.php" method="post">
     <div class="container">
+        <label for="Rol">Rol:</label><br>
         <select class="custom-select" name="Categoria" style="width: 300px" required>
             <option disabled selected value> -- Seleccione una Categoria  -- </option>
             <option value="1">Administrador</option>
