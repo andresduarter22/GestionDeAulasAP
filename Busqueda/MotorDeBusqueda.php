@@ -28,6 +28,18 @@
     $result = $dblink->query($sql);
     $result->setFetchMode(PDO::FETCH_ASSOC);
   ?>
+  <div class="container">
+    <input id="date" type="date"  min="today" onclick="fecha()">
+
+    <p id="demo"></p>
+  <script>
+    function fecha() {
+      <?php $fecha_prueba =  'document.getElementById("date").value' ; ?>
+      <?php echo $fecha_prueba; ?>
+      document.getElementById("demo").innerHTML = x;
+    }
+  </script>
+  </div>
   <form action="Resultados.php" method="post">
     <div class="container" style="width:900px;">
       <div class="container row">
@@ -43,7 +55,7 @@
             </select>
           </div>
         </div>
-
+<br />
       <?php
       /*include 'FuncionCalendario.php';
 
@@ -51,11 +63,10 @@
 
       echo $calendar->show();*/
       ?>
-      <input id="date" type="date" >
           <div class="input-group-prepend">
-          <div class="input-group-text">
+          <!--<div class="input-group-text">
             <input type="checkbox" aria-label="Checkbox for following text input">
-          </div>
+          </div>-->
         </div>
         <input type="text" name="cantalumnos" class="form-control" aria-label="Text input with checkbox" placeholder="Cantidad de Alumnos">
         Horarios
