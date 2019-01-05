@@ -12,11 +12,14 @@ $arregDisp = 0;
 if (isset($_POST['startSearch'])) {
     echo "envio";
     echo $_POST['fechas'];
-    echo $_POST['radio-1'];
+    echo $_POST['TipoDeBusqueda'];
     echo $_POST['idDeAula'];
     echo $_POST['AulaEspecifica'];
     echo $_POST['horario'];
-    //$arregDisp=$se->busca();
+    echo $_POST['cat'];
+
+    $arregDisp=$se->busca();
+    //echo $arregDisp;
 }
 
 //echo implode(",",$data);

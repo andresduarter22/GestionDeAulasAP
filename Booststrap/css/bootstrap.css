@@ -9028,8 +9028,9 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 div.scro {
-    height: 400px;
+    height: 300px;
     width: 500px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 /*# sourceMappingURL=bootstrap.css.map */

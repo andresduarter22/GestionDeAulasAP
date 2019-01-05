@@ -22,7 +22,7 @@ include "../Config/Database.php";
 <body>
 <div>
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
-    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
+   <a href="../Homes/HomeLogeado.php" style="width: 300px"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
                                             alt="Responsive image"></a>
 </div>
 <?php
@@ -35,39 +35,60 @@ $result = $dblink->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
 <form action="Resultados.php" method="post">
-    <div class="container" style="width:900px;">
+    <div class="container" style="width:1200px;">
         <div class="col-sm-6">
             <label for="radio-1">Dias Especificos</label>
-            <input value="1" type="radio" name="radio-1" id="radio-1">
+            <input value="1" type="radio" name="TipoDeBusqueda" id="radio-1">
             <label for="radio-2">Dias Seguidos</label>
-            <input value="2" type="radio" name="radio-1" id="radio-2">
+            <input value="2" type="radio" name="TipoDeBusqueda" id="radio-2">
         </div>
-        <input id="date" name="fechas" placeholder="Ingrese fechas">
-        <!-- Actually works! implement something with jquery UI -->
-        <script>
-            $('#date').multiDatesPicker();
-        </script>
+        <a id="infoCalendarEspecificos">Elige cuantas fechas necesites</a><br>
+        <a id="infoCalendarSeguidos">Elige solo 2 fechas</a><br>
 
-        <select class="form-control col-xs-3" name="idDeAula" style="width: 400px">
-            <option disabled selected value> -- Seleccione una aula especifica --</option>
-            <?php while ($fila = $result->fetch()) { ?>
-                <option value=<?php echo $fila['id_Aulas']; ?>><?php echo $fila['nombre']; ?></option>
-            <?php } ?>
-        </select>
+        <input id="date" autocomplete="off" name="fechas" placeholder="Ingrese fechas">
 
+        <div class="row">
+            <select class="form-control col-xs-3" name="idDeAula" style="width: 400px" id="pickDeAula">
+                <option disabled selected value> -- Seleccione una aula especifica --</option>
+                <?php while ($fila = $result->fetch()) { ?>
+                    <option value=<?php echo $fila['id_Aulas']; ?>><?php echo $fila['nombre']; ?></option>
+                <?php } ?>
+            </select>
+
+            <div class="scro">
+                <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " id="pickDeCategoria">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th style="width: 30%"> Nombre de la Categoria</th>
+                        <th style="width: 10%"> Check</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $sql = 'select * from Categorias;';
+                    $result = $dblink->query($sql);
+                    while ($fila = $result->fetch()) { ?>
+                        <tr>
+                            <td><?php echo $fila['nombre_categoria']; ?></td>
+                            <td><?php echo "<input  type=\"checkbox\" name=\"cat[]\" id=\"cat\" value=\"" . $fila['id_Categorias'] . "\" enabled>"; ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div class="input-group-prepend">
             <div class="input-group-text">
                 <input type="checkbox" aria-label="Checkbox for following text input" name="AulaEspecifica">
             </div>
             <h6>Aula especifica</h6>
         </div>
-
         <input type="text" name="cantalumnos" class="form-control" aria-label="Text input with checkbox" multiple
                placeholder="Cantidad de Alumnos" style="width: 400px">
         Horario
         <div clkass="row-fluid">
             <select class="selectpicker" id="horario" name="horario" data-live-search="true">
-                <option disabled selected value> -- </option>
+                <option disabled selected value> --</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
                 <option value="C">C</option>
@@ -78,25 +99,6 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                 <option value="Z1">Z1</option>
             </select>
         </div>
-        <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar ">
-            <thead class="thead-dark">
-            <tr>
-                <th style="width: 30%"> Nombre de la Categoria</th>
-                <th style="width: 10%"> Check</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            $sql = 'select * from Categorias;';
-            $result = $dblink->query($sql);
-            while ($fila = $result->fetch()) { ?>
-                <tr>
-                    <td><?php echo $fila['nombre_categoria']; ?></td>
-                    <td><?php echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" value=\" " . $fila['id_Categorias'] . " \" enabled>"; ?></td>
-                </tr>
-            <?php } ?>
-            </tbody>
-        </table>
 
         <!-- boton para ir atras-->
 
@@ -130,6 +132,33 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
+<script>
+    $('#date').multiDatesPicker({});
+    $('#infoCalendarEspecificos').hide();
+    $('#infoCalendarSeguidos').hide();
+
+
+
+    $('input[name="idDeAula').click(function (e) {
+        if (e.target.value > 0) {
+            $('#pickDeAula').hide();
+        }
+    });
+
+
+    $('input[name="TipoDeBusqueda"]').click(function (e) {
+        if (e.target.value == 1) {
+            $('#infoCalendarEspecificos').show();
+            $('#infoCalendarSeguidos').hide();
+        } else {
+            $('#infoCalendarSeguidos').show();
+            $('#infoCalendarEspecificos').hide();
+        }
+    })
+
+
+
+</script>
 <?php
 $dblink->close();
 ?>
