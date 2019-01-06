@@ -208,8 +208,8 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Usuarios_Categorias` (
   CONSTRAINT `id_DeCategoria`
     FOREIGN KEY (`id_DeCategoria`)
     REFERENCES `BD_AulasPerronas`.`Categorias` (`id_Categorias`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
