@@ -133,7 +133,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
     </div>
 </div>
 <script>
-    $('#date').multiDatesPicker({});
+    $('#date').multiDatesPicker({
+
+    });
     $('#infoCalendarEspecificos').hide();
     $('#infoCalendarSeguidos').hide();
 
@@ -155,9 +157,6 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             $('#infoCalendarEspecificos').hide();
         }
     })
-
-
-
 </script>
 <?php
 $dblink->close();
