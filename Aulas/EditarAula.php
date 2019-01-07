@@ -26,7 +26,7 @@
   //echo $_SERVER['REQUEST_METHOD'];
   $_idAula = $_GET['id'];
   //echo var_dump($_GET['id']);
-  $sql = "select * from Aulas where id_Aulas= $_idAula;";
+  $sql = "SELECT * FROM Aulas WHERE id_Aulas= $_idAula;";
   //echo var_dump($sql);
   $result = $dblink->query($sql);
   $fila = $result->fetch();
