@@ -141,7 +141,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             </div>
 <script>
     $('#fechasEspecificas').multiDatesPicker({
-      beforeShowDay: $.datepicker.noWeekends,
+      //beforeShowDay: $.datepicker.noWeekends,
       minDate: 0
     }).hide();
     $('#fechasSeguidasInicio').multiDatesPicker({
