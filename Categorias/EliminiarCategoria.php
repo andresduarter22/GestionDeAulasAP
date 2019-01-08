@@ -81,6 +81,7 @@
         $res4=$dblink->query($sql4);
         $fila4 = $res4->fetch();
         if($fila4){
+          echo $fila4['num'];
           if($fila4['num'] == 1){
             $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aula.";";
             $res5=$dblink->query($sql5);

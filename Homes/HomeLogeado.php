@@ -85,7 +85,8 @@ $_tipoDeUsuario = 2;
                 </button>
             </div>
             <div class="modal-body">
-                Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos
+                Es la pantalla de inicio para un usuario, puede presionar el boton de realizar reserva para reservar directamente las
+                aulas las cuales se le asigne.
 
             </div>
             <div class="modal-footer">
