@@ -9033,4 +9033,12 @@ div.scro {
     overflow-y: auto;
     overflow-x: hidden;
 }
+
+div.scroMax{
+  height: 600px;
+  width: 800px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
 /*# sourceMappingURL=bootstrap.css.map */

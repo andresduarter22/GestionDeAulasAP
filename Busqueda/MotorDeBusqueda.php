@@ -18,6 +18,8 @@ include "../Config/Database.php";
 
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <title>Busqueda </title>
 </head>
 <body>
 <div>
@@ -38,9 +40,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
     <div class="container" style="width:1200px;">
         <div class="col-sm-6">
             <label for="radio-1">Dias Especificos</label>
-            <input value="1" type="radio" name="TipoDeBusqueda" id="radio-1">
+            <input value="0" type="radio" name="TipoDeBusqueda" id="radio-1">
             <label for="radio-2">Dias Seguidos</label>
-            <input value="2" type="radio" name="TipoDeBusqueda" id="radio-2">
+            <input value="1" type="radio" name="TipoDeBusqueda" id="radio-2">
         </div>
         <a id="infoCalendarEspecificos">Elige cuantas fechas necesites</a><br>
         <a id="infoCalendarSeguidos">Elige solo 2 fechas</a><br>
@@ -85,7 +87,8 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             </div>
             <h6>Aula especifica</h6>
         </div>
-        <input type="number" name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
+        <input type="number" min="0" max="100"
+               name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
                placeholder="Cantidad de Alumnos" style="width: 400px">
         Horario
         <div clkass="row-fluid">
@@ -140,16 +143,18 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                 </div>
             </div>
 <script>
+
     $('#fechasEspecificas').multiDatesPicker({
       //beforeShowDay: $.datepicker.noWeekends,
       minDate: 0
     }).hide();
+
     $('#fechasSeguidasInicio').multiDatesPicker({
       maxPicks: 1,
       minDate: 0,
       beforeShowDay: $.datepicker.noWeekends
-
     }).hide();
+
     $('#fechasSeguidasFin').multiDatesPicker({
       maxPicks: 1,
       minDate: 1,
@@ -168,7 +173,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 
 
     $('input[name="TipoDeBusqueda"]').click(function (e) {
-        if (e.target.value == 1) {
+        if (e.target.value == 0) {
             $('#infoCalendarEspecificos').show();
             $('#infoCalendarSeguidos').hide();
             $('#fechasEspecificas').show();

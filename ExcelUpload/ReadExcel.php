@@ -73,6 +73,10 @@ class ReadExcel
 
             //flag para detener lectura
             if ($_cadenaDeDatos[0] == 'Total Materias') {
+                /**
+                 * inserte log line
+                 */
+
                 break;
             }
 
