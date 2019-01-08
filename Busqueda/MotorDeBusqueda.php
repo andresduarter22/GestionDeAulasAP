@@ -141,15 +141,18 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             </div>
 <script>
     $('#fechasEspecificas').multiDatesPicker({
-      beforeShowDay: $.datepicker.noWeekends
+      beforeShowDay: $.datepicker.noWeekends,
+      minDate: 0
     }).hide();
     $('#fechasSeguidasInicio').multiDatesPicker({
       maxPicks: 1,
+      minDate: 0,
       beforeShowDay: $.datepicker.noWeekends
 
     }).hide();
     $('#fechasSeguidasFin').multiDatesPicker({
       maxPicks: 1,
+      minDate: 1,
       beforeShowDay: $.datepicker.noWeekends
     }).hide();
     $('#infoCalendarEspecificos').hide();
