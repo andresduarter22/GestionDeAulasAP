@@ -69,6 +69,7 @@ $existenProblemas;
                 <input type="submit" name="Aulas" value="Ingresar Aulas">
             </form>
         </div>
+        <span>Una vez subido el documento esperar hasta que la alerta de confirmacion aparezca </span>
         <br><br><br>
         <!--      <a class="btn btn-primary btn-lg" href="HomeLogeado.php" role="button">Log </a>-->
     </div>
@@ -243,6 +244,23 @@ if (isset($_POST['Reserva'])) {
 
 <script type="text/javascript">
 
+    function sendEmail() {
+        var exceldoc = "<?php echo $dirExcel; ?>";
+        var idUs = "<?php echo $_POST['id']; ?>";
+        console.log(exceldoc);
+        $.ajax({
+            type: "POST",
+            data: {
+                "exceltmp": exceldoc,
+                "idUs": idUs
+            },
+            url: "SendMailHandler.php",
+            datatype: "html",
+            success: function (res) {
+                alert(res);
+            }
+        });
+    }
 
     function subirRes() {
         var exceldoc = "<?php echo $dirExcel; ?>";
@@ -263,13 +281,7 @@ if (isset($_POST['Reserva'])) {
     }
 
 
-    /*
-    function subirRes {
-    // colocar php widg
-        var result = "<//uploadReserv(); ";
-        alert(result);
-        return true;
-    }*/
+
 
 </script>
 <?php
@@ -291,16 +303,6 @@ function sendE()
         mail($row[4], "Prueba", $msg1);
 
     }
-}
-
-function uploadReserv()
-{
-
-    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
-    $readClass->cruzeConReservManuales();
-    $readClass->deleteManualReserv();
-    $readClass->import(0);
-    echo "Reservas subidas correctamente";
 }
 
 ?>

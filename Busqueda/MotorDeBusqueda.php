@@ -85,7 +85,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             </div>
             <h6>Aula especifica</h6>
         </div>
-        <input type="text" name="cantalumnos" class="form-control" aria-label="Text input with checkbox" multiple
+        <input type="number" name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
                placeholder="Cantidad de Alumnos" style="width: 400px">
         Horario
         <div clkass="row-fluid">
@@ -183,8 +183,5 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         }
     })
 </script>
-<?php
-$dblink->close();
-?>
 </body>
 </html>

@@ -11,10 +11,13 @@ $se = new search();
 $arregDisp = 0;
 if (isset($_POST['startSearch'])) {
     echo "envio";
-    echo $_POST['fechas'];
+    echo $_POST['fechasEspecificas'];
+    echo $_POST['fechasSeguidasInicio'];
+    echo $_POST['fechasSeguidasFin'];
     echo $_POST['TipoDeBusqueda'];
     echo $_POST['idDeAula'];
     echo $_POST['AulaEspecifica'];
+    echo $_POST['cantalumnos'];
     echo $_POST['horario'];
     echo $_POST['cat'];
 

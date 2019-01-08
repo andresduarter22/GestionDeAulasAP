@@ -21,3 +21,5 @@ if (isset($_POST['exceltmp'] )) {
     $myRead->import(0);
     echo "Reservas subidas correctamente";
 }
+
+
