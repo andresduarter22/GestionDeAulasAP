@@ -134,8 +134,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 </div>
 <script>
     $('#date').multiDatesPicker({
-
+        maxPicks: 2
     });
+
     $('#infoCalendarEspecificos').hide();
     $('#infoCalendarSeguidos').hide();
 

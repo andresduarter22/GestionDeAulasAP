@@ -11,6 +11,7 @@ $_idDeUsuario = 1;
 require 'vendor/autoload.php';
 include "ReadExcel.php";
 
+
 $existenProblemas;
 
 
@@ -105,15 +106,24 @@ $existenProblemas;
 </div>
 <!-- Final boton de Informacion -->
 
-</html>
 <?php
 if (isset($_POST['Aulas'])) {
-    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+    $uploadDir= "../Uploads/"  ;
+    move_uploaded_file($_FILES["file"]["tmp_name"], $uploadDir . $_FILES['file']['name']);
+    $dirExcel="../Uploads/" . $_FILES['file']['name'];
+
+    $readClass = new ReadExcel($dirExcel, $_POST['id']);
     $readClass->import(1);
 }
 
 if (isset($_POST['Reserva'])) {
-    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+
+
+    $uploadDir= "../Uploads/"  ;
+    move_uploaded_file($_FILES["file"]["tmp_name"], $uploadDir . $_FILES['file']['name']);
+    $dirExcel="../Uploads/" . $_FILES['file']['name'];
+
+    $readClass = new ReadExcel($dirExcel, $_POST['id']);
     $readClass->checkIntegrity();
     $readClass->cruzeConReservManuales();
     $readClass->verificarReservaSeQuedaSinAula();
@@ -138,8 +148,10 @@ if (isset($_POST['Reserva'])) {
                     Esta seguro de subir el documento
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick='subirRes() '>Enviar
-                        y Cerrar
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="subirRes();">Enviar y
+                        Cerrar
+                    </button>
+                    <!-- <button type="button" class="btn btn-success" data-dismiss="modal" id="UploadEx">Enviar y Cerrar -->
                     </button>
                 </div>
             </div>
@@ -224,35 +236,6 @@ if (isset($_POST['Reserva'])) {
         echo "<script> window.onload =  $('#confirmModal').modal('show'); </script>";
     }
 
-    function sendE()
-    {
-        $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
-        $readClass->cruzeConReservManuales();
-        $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
-
-        echo "Se enviaron correos a los usuarios Afectados ";
-
-        // the message
-        $msg = "Estimado usuario debido al cronograma del siguiente modulo su reserva que usted realizo sera borrada";
-        // use wordwrap() if lines are longer than 70 characters
-        $msg1 = wordwrap($msg, 70);
-        // send email
-        foreach ($arreglsinRep as $row) {
-            echo $row[4];
-            mail($row[4], "Prueba", $msg1);
-
-        }
-    }
-
-    function uploadReserv()
-    {
-        $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
-        $readClass->cruzeConReservManuales();
-        $readClass->deleteManualReserv();
-        $readClass->import(0);
-        echo "Reservas subidas correctamente";
-    }
-
 
 }
 
@@ -260,16 +243,65 @@ if (isset($_POST['Reserva'])) {
 
 <script type="text/javascript">
 
-    function sendEmail() {
-        var result = "<?php sendE();?>";
-        alert(result);
-        return false;
-    }
 
     function subirRes() {
-        var result = "<?php uploadReserv();?>";
-        alert(result);
-        return false;
+        var exceldoc = "<?php echo $dirExcel; ?>";
+        var idUs = "<?php echo $_POST['id']; ?>";
+        console.log(exceldoc);
+        $.ajax({
+            type: "POST",
+            data: {
+                "exceltmp": exceldoc,
+                "idUs": idUs
+            },
+            url: "ExcelHandler.php",
+            datatype: "html",
+            success: function (res) {
+                alert(res);
+            }
+        });
     }
 
+
+    /*
+    function subirRes {
+    // colocar php widg
+        var result = "<//uploadReserv(); ";
+        alert(result);
+        return true;
+    }*/
+
 </script>
+<?php
+function sendE()
+{
+    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+    $readClass->cruzeConReservManuales();
+    $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
+
+    echo "Se enviaron correos a los usuarios Afectados ";
+
+    // the message
+    $msg = "Estimado usuario debido al cronograma del siguiente modulo su reserva que usted realizo sera borrada";
+    // use wordwrap() if lines are longer than 70 characters
+    $msg1 = wordwrap($msg, 70);
+    // send email
+    foreach ($arreglsinRep as $row) {
+        echo $row[4];
+        mail($row[4], "Prueba", $msg1);
+
+    }
+}
+
+function uploadReserv()
+{
+
+    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+    $readClass->cruzeConReservManuales();
+    $readClass->deleteManualReserv();
+    $readClass->import(0);
+    echo "Reservas subidas correctamente";
+}
+
+?>
+</html>

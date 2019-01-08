@@ -5,7 +5,7 @@ include "search.php";
 session_start();
 $db = new Database();
 $dblink = $db->getConnection();
-$idDeUsuarioReservador = 6;
+$idDeUsuarioReservador = 1;
 
 $se = new search();
 $arregDisp = 0;

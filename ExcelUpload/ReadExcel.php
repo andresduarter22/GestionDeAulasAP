@@ -55,6 +55,7 @@ class ReadExcel
      */
     public function import($tipoDeUpload)
     {
+
         //variable que habilita lectura de excel
         $read = false;
 
@@ -433,6 +434,7 @@ class ReadExcel
      */
     function deleteManualReserv()
     {
+        echo implode(";",$this->getArregloReservasManualesAfectadas());
         $arreglsinRep = array_unique($this->getArregloReservasManualesAfectadas());
         foreach ($arreglsinRep as $row) {
             $reserv = array_values($row);

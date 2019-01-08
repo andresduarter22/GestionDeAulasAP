@@ -4,7 +4,6 @@ session_start();
 $db = new Database();
 
 //header("Refresh:200");
-$_err = $_GET['err'];
 /*if($_err==true){
   echo "hubo un error";
   //echo "<div class= \"alert alert-danger \" role= \"alert \"> ";
