@@ -58,8 +58,8 @@ $_IDUsuarioTemporal = 3;
                     </button>
                 </div>
                 <div class="modal-body">
-                    Bienvenido al sistema de reserva de aulas UPB La Paz, en esta pagina puede logearse como usuario o
-                    realizar una consulta
+                    Bienvenido al sistema de reserva de aulas UPB La Paz, en esta pagina puede iniciar sesion como usuario o
+                    realizar una consulta sobre la disponibilidad de un aula.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

@@ -68,7 +68,8 @@
           </button>
         </div>
         <div class="modal-body">
-          Esta es la pantalla donde se puede consultar todas las reservas, ademas de la creacion, edicion y eliminacion de Aulas,Categorias y Usuarios.
+          En esta pantalla usted puede consultar la informacion todas la reservas, subida de un excel.
+          Ademas de la creacion, edicion o eliminacion de aulas, categorias y usuarios. 
 
         </div>
         <div class="modal-footer">

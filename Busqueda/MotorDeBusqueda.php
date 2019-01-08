@@ -45,7 +45,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <a id="infoCalendarEspecificos">Elige cuantas fechas necesites</a><br>
         <a id="infoCalendarSeguidos">Elige solo 2 fechas</a><br>
 
-        <input id="date" autocomplete="off" name="fechas" placeholder="Ingrese fechas">
+        <input id="fechasEspecificas" autocomplete="off" name="fechasEspecificas" placeholder="Ingrese fechas">
+        <input id="fechasSeguidasInicio" autocomplete="off" name="fechasSeguidasInicio" placeholder="Ingrese Inicio">
+        <input id="fechasSeguidasFin" autocomplete="off" name="fechasSeguidasFin" placeholder="Ingrese Fin">
 
         <div class="row">
             <select class="form-control col-xs-3" name="idDeAula" style="width: 400px" id="pickDeAula">
@@ -112,30 +114,42 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
             src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
             height="42" width="42" data-target="info"/></button>
-<div class="modal fade" id="info" name="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                AIUDA XD
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    $('#date').multiDatesPicker({
+            <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Esta es la pantalla donde se especifica la busqueda que se quiere realizar, primero escoja si quiere
+                            dias en espeficico para luego seleccionar cada fecha en el calendario que se desplegara o si prefiere
+                            varios dias seguidos donde se desplagaran dos campos donde tendra calendarios por separados y solo podra escoger una
+                            fecha para cada campo, luego si busca algun aula en especifico escoga una de la lista (opcional), luego escoja
+                            las caracteristicas que desea para su aula, como en que bloque o que piso, etc. Mientras mas caracteristicas elija,
+                            mas especifica sera la busqueda, luego si desea puede introducio la cantidad de alumnos minima que requiere y finalemnte el horario
+                            que quiere.
 
-    });
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<script>
+    $('#fechasEspecificas').multiDatesPicker({
+      beforeShowDay: $.datepicker.noWeekends
+    }).hide();
+    $('#fechasSeguidasInicio').multiDatesPicker({
+      beforeShowDay: $.datepicker.noWeekends
+      //maxPicks: 1;
+    }).hide();
+    $('#fechasSeguidasFin').multiDatesPicker({
+      beforeShowDay: $.datepicker.noWeekends
+    }).hide();
     $('#infoCalendarEspecificos').hide();
     $('#infoCalendarSeguidos').hide();
 
@@ -152,9 +166,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         if (e.target.value == 1) {
             $('#infoCalendarEspecificos').show();
             $('#infoCalendarSeguidos').hide();
+            $('#fechasEspecificas').show();
+            $('#fechasSeguidasInicio').hide();
+            $('#fechasSeguidasFin').hide();
         } else {
             $('#infoCalendarSeguidos').show();
             $('#infoCalendarEspecificos').hide();
+            $('#fechasEspecificas').hide();
+            $('#fechasSeguidasInicio').show();
+            $('#fechasSeguidasFin').show();
         }
     })
 </script>
