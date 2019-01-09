@@ -6,6 +6,7 @@ session_start();
 $db = new Database();
 $dblink = $db->getConnection();
 $idDeUsuarioReservador = 1;
+$tipoDeUsuario=2;
 
 $se = new search();
 $arregDisp = 0;
@@ -144,6 +145,7 @@ $_resultadosNoDisp = $arregDisp[1];
             }
             ?>
         </div>
+        <?php if($tipoDeUsuario==2 && !empty($_resultadosNoDisp)){?>
         Aulas Reservadas
         <div class="container scroMax">
 
@@ -194,6 +196,8 @@ $_resultadosNoDisp = $arregDisp[1];
                 ?>
             </table>
         </div>
+        <?php }?>
+
         <br><br><br>
     </div>
     <a class="btn btn-primary" href="MotorDeBusqueda.php">Atras</a>

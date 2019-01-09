@@ -241,11 +241,6 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </div>
     </div>
 </div>
-
-
-<?php
-$dblink->close();
-?>
 </div >
 </body>
 

@@ -94,6 +94,9 @@ class ReadExcel
                 $read = true;
             }
         }
+        $sql_log_eu = "INSERT INTO Logs  VALUES (NULL,'Andres','666','ad@gmail.com','m','Subio un archivo excel al sistema ',now())";
+        $this->dblink->query($sql_log_eu);
+
     }
 
 

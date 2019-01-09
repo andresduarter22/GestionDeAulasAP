@@ -17,7 +17,7 @@ $docente = $_POST['NombreDocente'];
 
 
 if (isset($_POST['confirmReservation'])) {
-   $id_DeAulaAReservar= $_POST['idAReserv'];
+    $id_DeAulaAReservar = $_POST['idAReserv'];
     $sql = "SELECT * FROM materias WHERE nombre_materia LIKE '$nombreDeMateria' ;";
     //echo $sql;
     $result = $dblink->query($sql);
@@ -38,26 +38,51 @@ if (isset($_POST['confirmReservation'])) {
         $fechafinal = $fechas['fechafin'];
         $sql = "INSERT INTO reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria,'$fechainicial', '$fechafinal', 1, '$horario', '$docente' ) ;";
         $dblink->query($sql);
+
+        $sql2 = "SELECT * FROM aulas WHERE id_Aulas=$id_DeAulaAReservar;";
+        $result2 = $dblink->query($sql2);
+        $infoAula = $result2->fetch();
+
+        $sql3 = "SELECT * FROM materias WHERE nombre_materia LIKE '$nombreDeMateria' ;";
+        $result3 = $dblink->query($sql3);
+        $infoMateria = $result3->fetch();
+
+        $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'Andres','666','ad@gmail.com','m','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] De $fechainicial a $fechafinal en el horario $horario con el docente $docente ',now())";
+        echo $sql_log_eu;
+        $dblink->query($sql_log_eu);
+
     } else {
         for ($i = 0; $i < count($fechas); $i++) {
             $sql = "INSERT INTO reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria,'$fechas[$i]' ,'$fechas[$i]' , 1, '$horario', '$docente' ) ;";
             $dblink->query($sql);
+
+            $sql3 = "SELECT * FROM aulas WHERE id_Aulas= $id_DeAulaAReservar ;";
+            $result3 = $dblink->query($sql3);
+            $infoAula = $result3->fetch();
+
+
+            $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'Andres','666','ad@gmail.com','m','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] el dia $fechas[$i]  en el horario $horario con el docente $docente ',now())";
+            //echo $sql_log_eu;
+            $dblink->query($sql_log_eu);
         }
     }
+
+
     //echo $sql . "<br>";
     //header("Location: MotorDeBusqueda");
 
 }
-$arrglodeMat=array();
+$arrglodeMat = array();
 
-function listaNombresMaterias(){
+function listaNombresMaterias()
+{
     $db = new Database();
     $dblink = $db->getConnection();
     $sql = "SELECT nombre_materia FROM materias;";
     $result = $dblink->query($sql);
-    $arrglodeMat= array();
-    while ($fila=$result->fetch()){
-        array_push($arrglodeMat,$fila[0]);
+    $arrglodeMat = array();
+    while ($fila = $result->fetch()) {
+        array_push($arrglodeMat, $fila[0]);
     }
     return $arrglodeMat;
 }
@@ -117,7 +142,7 @@ function listaNombresMaterias(){
             <input class="form-control" name="NombreDocente" id="NombreDocente" placeholder="Nombre de docente"
                    required>
         </div>
-         <input type="hidden" value="<?php echo $id_DeAulaAReservar?>" name="idAReserv">
+        <input type="hidden" value="<?php echo $id_DeAulaAReservar ?>" name="idAReserv">
 
         <button type="submit" class="btn btn-primary" name="confirmReservation" value="submit">Submit</button>
     </form>
@@ -131,11 +156,13 @@ function listaNombresMaterias(){
         the text field element and an array of possible autocompleted values:*/
         var currentFocus;
         /*execute a function when someone writes in the text field:*/
-        inp.addEventListener("input", function(e) {
+        inp.addEventListener("input", function (e) {
             var a, b, i, val = this.value;
             /*close any already open lists of autocompleted values*/
             closeAllLists();
-            if (!val) { return false;}
+            if (!val) {
+                return false;
+            }
             currentFocus = -1;
             /*create a DIV element that will contain the items (values):*/
             a = document.createElement("DIV");
@@ -155,7 +182,7 @@ function listaNombresMaterias(){
                     /*insert a input field that will hold the current array item's value:*/
                     b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
                     /*execute a function when someone clicks on the item value (DIV element):*/
-                    b.addEventListener("click", function(e) {
+                    b.addEventListener("click", function (e) {
                         /*insert the value for the autocomplete text field:*/
                         inp.value = this.getElementsByTagName("input")[0].value;
                         /*close the list of autocompleted values,
@@ -167,7 +194,7 @@ function listaNombresMaterias(){
             }
         });
         /*execute a function presses a key on the keyboard:*/
-        inp.addEventListener("keydown", function(e) {
+        inp.addEventListener("keydown", function (e) {
             var x = document.getElementById(this.id + "autocomplete-list");
             if (x) x = x.getElementsByTagName("div");
             if (e.keyCode == 40) {
@@ -191,6 +218,7 @@ function listaNombresMaterias(){
                 }
             }
         });
+
         function addActive(x) {
             /*a function to classify an item as "active":*/
             if (!x) return false;
@@ -201,12 +229,14 @@ function listaNombresMaterias(){
             /*add class "autocomplete-active":*/
             x[currentFocus].classList.add("autocomplete-active");
         }
+
         function removeActive(x) {
             /*a function to remove the "active" class from all autocomplete items:*/
             for (var i = 0; i < x.length; i++) {
                 x[i].classList.remove("autocomplete-active");
             }
         }
+
         function closeAllLists(elmnt) {
             /*close all autocomplete lists in the document,
             except the one passed as an argument:*/
@@ -217,6 +247,7 @@ function listaNombresMaterias(){
                 }
             }
         }
+
         /*execute a function when someone clicks in the document:*/
         document.addEventListener("click", function (e) {
             closeAllLists(e.target);
@@ -224,9 +255,9 @@ function listaNombresMaterias(){
     }
 
     /*An array containing all the country names in the world:*/
-    var countries =<?php echo  json_encode( listaNombresMaterias() )?>
-    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-    autocomplete(document.getElementById("NombreMateria"), countries);
+    var countries =<?php echo json_encode(listaNombresMaterias())?>
+        /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+        autocomplete(document.getElementById("NombreMateria"), countries);
 
 </script>
 </html>
