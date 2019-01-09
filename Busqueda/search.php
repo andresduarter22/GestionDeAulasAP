@@ -43,7 +43,7 @@ class search
             foreach ($fechasSinOrdenar as $fecha) {
                 //ordenando fechas
                 $ArregloFechaIni = explode('/', $fecha);
-                $_fechaOrdenada = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[1] . '-' . $ArregloFechaIni[0];
+                $_fechaOrdenada = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
                 //quitandole espacios inecesarios
                 $_fechaSinEspacios = str_replace(" ", "", $_fechaOrdenada);
                 array_push($this->_fechasArray, $_fechaSinEspacios);
@@ -53,8 +53,8 @@ class search
             $FechaIni = explode('/', $_POST['fechasSeguidasInicio']);
             $FechaFin = explode('/', $_POST['fechasSeguidasFin']);
 
-            $_fechaIniOrdenada = $FechaIni[2] . '-' . $FechaIni[1] . '-' . $FechaIni[0];
-            $_fechaFinOrdenada = $FechaFin[2] . '-' . $FechaFin[1] . '-' . $FechaFin[0];
+            $_fechaIniOrdenada = $FechaIni[2] . '-' . $FechaIni[0] . '-' . $FechaIni[1];
+            $_fechaFinOrdenada = $FechaFin[2] . '-' . $FechaFin[0] . '-' . $FechaFin[1];
             //quitandole espacios inecesarios
             $_fechaIniSinEsp = str_replace(" ", "", $_fechaIniOrdenada);
             $_fechaFinSinEsp = str_replace(" ", "", $_fechaFinOrdenada);

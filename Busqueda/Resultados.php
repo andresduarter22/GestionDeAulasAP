@@ -87,14 +87,12 @@ $_resultadosNoDisp = $arregDisp[1];
                         $sql = "SELECT * FROM aulas WHERE id_Aulas= $_resultadosDisp[$i] ";
                         $result = $dblink->query($sql);
                         $infoAulas = $result->fetch();
-
-                        $sql = "SELECT * FROM usuarios_aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
+                         $sql = "SELECT * FROM usuarios_aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
                         $infoUsCatego = $dblink->query($sql);
                         //  echo "$sql";
                         echo "<tr>";
                         //<input type=\"hidden\" name=\"id_AulasParaReservar\" value= " . $infoAulas[0] . " >
                         if ($infoUsCatego->rowCount()) {
-                            $_SESSION["id_AulasParaReservar"] = $infoAulas[0];
                             $_SESSION["id_UsuarioQueReserva"] = $idDeUsuarioReservador;
                             $_SESSION["fechas"] = $se->_fechasArray;
                             $_SESSION["tipoDeReserva"] = $se->_tipoDeReserva;
@@ -103,8 +101,8 @@ $_resultadosNoDisp = $arregDisp[1];
                             echo "<td class=\"table-success\">" . $infoAulas[1] . "</td> ";
                             echo "<td class=\"table-success\">
                           <form method=\"POST\" action= \"ConfrimReserva.php\">
-                                
-                          
+                                  
+                            <input type='hidden' value='$infoAulas[0]' name='id_AulasParaReservar'>
                             <input type=\"submit\" value=\"Realizar Reserva\" />
                           </form>
                          </td>";
