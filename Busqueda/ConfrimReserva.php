@@ -67,7 +67,9 @@ if (isset($_POST['confirmReservation'])) {
         }
     }
 
-
+    echo "<script>
+window.location.replace(\"http://127.0.0.1/GestionDeAulasAP/Homes/HomeLogeado.php\");
+</script>";
     //echo $sql . "<br>";
     //header("Location: MotorDeBusqueda");
 
@@ -146,7 +148,9 @@ function listaNombresMaterias()
 
         <button type="submit" class="btn btn-primary" name="confirmReservation" value="submit">Submit</button>
     </form>
+
 </div>
+<!-- <a href="Resultados.php" class="btn btn-primary">Atras</a> -->
 
 <!--  <a class="btn btn-primary" href="Resultados.php">Atras</a> -->
 </body>

@@ -106,12 +106,13 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             </select>
         </div>
 
-        <!-- boton para ir atras-->
 
         <input type="submit" class="btn btn-primary" name="startSearch" value="Buscar">
 
     </div>
 </form>
+<!-- boton para ir atras-->
+
 <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
 
 <!--boton de informacion-->

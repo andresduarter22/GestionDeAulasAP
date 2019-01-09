@@ -10,7 +10,10 @@ $tipoDeUsuario=2;
 
 $se = new search();
 $arregDisp = 0;
+echo $_POST['startSearch'];
+echo $_POST['horario'];
 if (isset($_POST['startSearch'])) {
+
     $arregDisp = $se->busca();
 }
 

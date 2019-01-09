@@ -50,7 +50,7 @@ class search
             }
         } else {
             //ordenando fechas
-            $FechaIni = explode('/', $_POST['fechasSeguidasInicio']);
+                $FechaIni = explode('/', $_POST['fechasSeguidasInicio']);
             $FechaFin = explode('/', $_POST['fechasSeguidasFin']);
 
             $_fechaIniOrdenada = $FechaIni[2] . '-' . $FechaIni[0] . '-' . $FechaIni[1];
