@@ -7,23 +7,26 @@ class search
     // TRUE Dias seguidos
     public $_tipoDeReserva; //=true; //$_POST['tipores'];
 
-
     //array para dias seguidos
-    public $_fechasArray = array('fechaini' => '2018-8-15 ', 'fechafin' => '2018-9-28'); //$_POST['fechas'];
+    //public $_fechasArray = array('fechaini' => '2018-8-15 ', 'fechafin' => '2018-9-28'); //$_POST['fechas'];
     //array para dias especificos
     //public $_fechasArray= array('2018-8-2','2018-8-15','2018-8-20'); //$_POST['fechas'];
-    public $_horario = "A";
-    public $_aulaEspecifica = 23; //$_POST['aulaEspecifica']
-    public $_esAula = false; //$_POST['esAula'];
+    public $_fechasArray = array();
+
     // true aula aulaEspecifica
     // false sin aula
-    public $_ReqcantidadAlumnos = false; //$_POST['reqcantAlumno'];
+    public $_esAula; //= false ; //$_POST['esAula'];
+
+    public $_aulaEspecifica; // = 23; //$_POST['aulaEspecifica']
+    public $_categoriasArrays; //= array(2, 1, 3); //$_POST['categorias'];
+
+
+    public $_horario; //= "A";
+    public $_ReqcantidadAlumnos; // = false; //$_POST['reqcantAlumno'];
     // true requiere preveer la cantidad de alumnos
     // false no importa cantdad de alumnos
-    public $_cantidadAlumnos = 10; //$_POST['cantAlumno'];
-    public $_categoriasArrays = array(2, 1, 3); //$_POST['categorias'];
-    public $dblink = 0;
-
+    public $_cantidadAlumnos; // = 10; //$_POST['cantAlumno'];
+    public $dblink;
     public $_AulasDisponibles = array();
     public $_AulasNoDisponibles = array();
 
@@ -33,30 +36,48 @@ class search
         include_once '../Config/Database.php';
         $db = new Database();
         $this->dblink = $db->getConnection();
-        echo $_POST['fechasEspecificas'];
-        echo $_POST['fechasSeguidasInicio'];
-        echo $_POST['fechasSeguidasFin'];
-
-        echo $_POST['idDeAula'];
-        echo $_POST['AulaEspecifica'];
-        echo $_POST['cantalumnos'];
-        echo $_POST['horario'];
-        echo $_POST['cat'];
         // Declaracion de variables
         $this->_tipoDeReserva = $_POST['TipoDeBusqueda'];
         if ($this->_tipoDeReserva == 0) {
-           // $this->_fechasArray = $_POST['fechasEspecificas'];
+            $fechasSinOrdenar = explode(',', $_POST['fechasEspecificas']);
+            foreach ($fechasSinOrdenar as $fecha) {
+                //ordenando fechas
+                $ArregloFechaIni = explode('/', $fecha);
+                $_fechaOrdenada = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[1] . '-' . $ArregloFechaIni[0];
+                //quitandole espacios inecesarios
+                $_fechaSinEspacios = str_replace(" ", "", $_fechaOrdenada);
+                array_push($this->_fechasArray, $_fechaSinEspacios);
+            }
         } else {
-         //   $this->_fechasArray = array('fechaini' => $_POST['fechasSeguidasInicio'], 'fechafin' => $_POST['fechasSeguidasFin'])
-      }
-        //$_fechasArray=0; //$_POST['fechas'];
-        //$_aulaEspecifica=0; //$_POST['aulaEspecifica']
-        //$_esAula=true; //$_POST['esAula'];
-        //$_ReqcantidadAlumnos=0; //$_POST['reqcantAlumno'];
-        //$_horario="A" // $_POST['horario']
-        $_cantidadAlumnos = $_POST['cantalumnos'];
-        //$_categoriasArrays=0;
-        //$_cantidadAlumnos= $_POST['cantalumnos'];
+            //ordenando fechas
+            $FechaIni = explode('/', $_POST['fechasSeguidasInicio']);
+            $FechaFin = explode('/', $_POST['fechasSeguidasFin']);
+
+            $_fechaIniOrdenada = $FechaIni[2] . '-' . $FechaIni[1] . '-' . $FechaIni[0];
+            $_fechaFinOrdenada = $FechaFin[2] . '-' . $FechaFin[1] . '-' . $FechaFin[0];
+            //quitandole espacios inecesarios
+            $_fechaIniSinEsp = str_replace(" ", "", $_fechaIniOrdenada);
+            $_fechaFinSinEsp = str_replace(" ", "", $_fechaFinOrdenada);
+
+            $this->_fechasArray = array('fechaini' => $_fechaIniSinEsp, 'fechafin' => $_fechaFinSinEsp);
+        }
+
+        if ($_POST['BuscaAulaEsp'] === 'on') {
+            $this->_esAula = true;
+            $this->_aulaEspecifica = $_POST['idDeAula'];
+        } else {
+            $this->_esAula = false;
+            $this->_categoriasArrays = $_POST['cat'];
+        }
+        //echo implode(";",$this->_categoriasArrays);
+
+        if ($_POST['requiereAlumnos'] === 'on') {
+            $this->_ReqcantidadAlumnos = true;
+            $this->_cantidadAlumnos = $_POST['cantalumnos'];
+        } else {
+            $this->_ReqcantidadAlumnos = false;
+        }
+        $this->_horario=$_POST['horario'];
     }
 
     /**
@@ -109,7 +130,7 @@ class search
                 }
                 $sql = $sql . ";";
             }
-            // echo $sql;
+            //echo $sql;
             $result = $this->dblink->query($sql);
             $result->setFetchMode(PDO::FETCH_ASSOC);
             //echo $this->_tipoDeReserva;

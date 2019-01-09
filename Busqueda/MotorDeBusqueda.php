@@ -29,7 +29,6 @@ include "../Config/Database.php";
 </div>
 <?php
 //Conexion con base
-session_start();
 $db = new Database();
 $dblink = $db->getConnection();
 $sql = 'select * from Aulas order by nombre;';
@@ -40,16 +39,18 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
     <div class="container" style="width:1200px;">
         <div class="col-sm-6">
             <label for="radio-1">Dias Especificos</label>
-            <input value="0" type="radio" name="TipoDeBusqueda" id="radio-1">
+            <input value="0" type="radio" name="TipoDeBusqueda" id="radio-1" required>
             <label for="radio-2">Dias Seguidos</label>
-            <input value="1" type="radio" name="TipoDeBusqueda" id="radio-2">
+            <input value="1" type="radio" name="TipoDeBusqueda" id="radio-2" required>
         </div>
         <a id="infoCalendarEspecificos">Elige cuantas fechas necesites</a><br>
         <a id="infoCalendarSeguidos">Elige solo 2 fechas</a><br>
 
-        <input id="fechasEspecificas" autocomplete="off" name="fechasEspecificas" placeholder="Ingrese fechas">
-        <input id="fechasSeguidasInicio" autocomplete="off" name="fechasSeguidasInicio" placeholder="Ingrese Inicio">
-        <input id="fechasSeguidasFin" autocomplete="off" name="fechasSeguidasFin" placeholder="Ingrese Fin">
+        <input id="fechasEspecificas" autocomplete="off" name="fechasEspecificas" placeholder="Ingrese fechas" >
+        <input id="fechasSeguidasInicio" autocomplete="off" name="fechasSeguidasInicio" placeholder="Ingrese Inicio" >
+        <input id="fechasSeguidasFin" autocomplete="off" name="fechasSeguidasFin" placeholder="Ingrese Fin" >
+<br>
+        <input type="checkbox" name="BuscaAulaEsp">Es aula
 
         <div class="row">
             <select class="form-control col-xs-3" name="idDeAula" style="width: 400px" id="pickDeAula">
@@ -83,7 +84,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </div>
         <div class="input-group-prepend">
             <div class="input-group-text">
-                <input type="checkbox" aria-label="Checkbox for following text input" name="AulaEspecifica">
+                <input type="checkbox" aria-label="Checkbox for following text input" name="requiereAlumnos">
             </div>
             <h6>Aula especifica</h6>
         </div>
@@ -92,7 +93,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                placeholder="Cantidad de Alumnos" style="width: 400px">
         Horario
         <div clkass="row-fluid">
-            <select class="selectpicker" id="horario" name="horario" data-live-search="true">
+            <select class="selectpicker" id="horario" name="horario" data-live-search="true" required>
                 <option disabled selected value> --</option>
                 <option value="A">A</option>
                 <option value="B">B</option>
