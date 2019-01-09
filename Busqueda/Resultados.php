@@ -66,7 +66,30 @@ $_resultadosNoDisp = $arregDisp[1];
         <span class="navbar-toggler-icon"></span>
     </button>
 </nav>
-<?php // echo implode(",",$_resultadosNoDisp[1]); ?>
+
+<!-- Modal de Confirmacion-->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Lo sentimos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Su cuenta no tiene el permiso necesario para realizar la reserva en esta aula o ambiente, por favor
+                entre en contacto con Alexis.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" >Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="jumbotron jumbotron-fluid">
     <div class="container ">
         <p class="display-5">Resultados De Busqueda </p>
@@ -87,7 +110,7 @@ $_resultadosNoDisp = $arregDisp[1];
                         $sql = "SELECT * FROM aulas WHERE id_Aulas= $_resultadosDisp[$i] ";
                         $result = $dblink->query($sql);
                         $infoAulas = $result->fetch();
-                         $sql = "SELECT * FROM usuarios_aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
+                        $sql = "SELECT * FROM usuarios_aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
                         $infoUsCatego = $dblink->query($sql);
                         //  echo "$sql";
                         echo "<tr>";
@@ -109,10 +132,8 @@ $_resultadosNoDisp = $arregDisp[1];
                         } else {
                             echo "<td class=\"table-danger\">" . $infoAulas[1] . "</td> ";
                             echo "<td class=\"table-danger\">
-                              <form action= \"AutoComplete.php\">
-                                <input type=\"submit\" value=\"RTest\" />
-                                </form>
-                         </td>";
+                                <button type=\"button\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#confirmModal\">Informacion</button>   
+                            </td>";
                         }
                         echo "</tr>";
                     }
