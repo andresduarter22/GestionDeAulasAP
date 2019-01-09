@@ -75,7 +75,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     echo "<a href=\"EditarUsuario.php?id=$_idUs\" class=\"btn btn-primary\">Editar";
                     ?>
                 </td>
-                <td><?php echo "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\"data-target=\"#exampleModal" . $fila['id_Usuario'] . "\"> Borrar";
+                <td><?php echo "<button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\"data-target=\"#exampleModal" . $fila['id_Usuario'] . "\"> Borrar";
                     $idDEUSUARI = $_idUs;
                     ?></td>
             </tr>
@@ -106,34 +106,32 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 </div>
-<button><a href="CrearUsuario.php">Crear nuevo usuario</a></button>
-
 <a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
+<a href="CrearUsuario.php" class="btn btn-primary">Crear nuevo usuario</a>
+
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
             src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
             height="42" width="42" data-target="info"/></button>
 <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Esta es la pantalla donde se puede consultar toda la lista de Usuarios dentro de la base de Datos
 
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="modal-body">
-                Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 
 </html>

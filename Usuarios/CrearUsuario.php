@@ -123,7 +123,7 @@ $dblink = $db->getConnection();
         </div>
         <br>
         <form action="CrearUsuario.php" method="post">
-            <input type="submit" name="creaUsuario" value="Crear Usuario">
+            <input type="submit" name="creaUsuario" value="Crear Usuario" class="btn btn-info">
         </form>
     </div>
 

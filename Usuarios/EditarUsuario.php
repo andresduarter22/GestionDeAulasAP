@@ -206,7 +206,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             </div>
         </div> <br>
         <form action="EditarUsuario.php?id= <?php echo $_idDeUsuario ?> " method="post">
-            <input type="submit" name="submit" value="Actualizar">
+            <input type="submit" name="submit" value="Actualizar" class="btn btn-info">
             <input type="hidden" name="idUs" value=<?php echo "$_idDeUsuario"; ?>>
         </form>
 
