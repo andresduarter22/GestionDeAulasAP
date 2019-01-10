@@ -53,7 +53,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <input id="fechasSeguidasFin" autocomplete="off" name="fechasSeguidasFin" placeholder="Ingrese Fin" >
 <br>
         <!--<input type="checkbox" name="BuscaAulaEsp">Es aula-->
-        <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Caracteristicas" data-on="Aula especifica"  data-onstyle="success" data-offstyle="info">
+        <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Categorias" data-on="Aula especifica"  data-onstyle="success" data-offstyle="info">
         <br/>
         <br/>
 
