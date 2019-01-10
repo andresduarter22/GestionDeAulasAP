@@ -116,9 +116,6 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
              </div>
             </div>
         </div>
-
-
-
         <input type="submit" class="btn btn-primary" name="startSearch" value="Buscar">
 
     </div>
