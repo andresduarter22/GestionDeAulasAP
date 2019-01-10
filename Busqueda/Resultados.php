@@ -128,15 +128,15 @@ $_resultadosNoDisp = $arregDisp[1];
                             echo "<td class=\"table-success\">" . $infoAulas[1] . "</td> ";
                             echo "<td class=\"table-success\">
                           <form method=\"POST\" action= \"ConfrimReserva.php\">
-                                  
+
                             <input type='hidden' value='$infoAulas[0]' name='id_AulasParaReservar'>
-                            <input type=\"submit\" value=\"Realizar Reserva\" />
+                            <input type=\"submit\" value=\"Realizar Reserva\" class=\"btn btn-info\"/>
                           </form>
                          </td>";
                         } else {
                             echo "<td class=\"table-danger\">" . $infoAulas[1] . "</td> ";
                             echo "<td class=\"table-danger\">
-                                <button type=\"button\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#confirmModal\">Informacion</button>   
+                                <button type=\"button\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#confirmModal\">Informacion</button>
                             </td>";
                         }
                         echo "</tr>";
