@@ -33,7 +33,7 @@ class search
 
     function __construct()
     {
-        include_once '../Config/Database.php';
+        include_once '../Config/DataBase.php';
         $db = new Database();
         $this->dblink = $db->getConnection();
         // Declaracion de variables

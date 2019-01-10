@@ -1,5 +1,5 @@
 <?php
-include "../Config/Database.php";
+include "../Config/DataBase.php";
 session_start();
 $db = new Database();
 
@@ -40,7 +40,7 @@ $db = new Database();
 <?php
 //Conexion con base
 $dblink = $db->getConnection();
-$sql = 'select * from usuarios;';
+$sql = 'SELECT * FROM Usuarios;';
 $result = $dblink->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>

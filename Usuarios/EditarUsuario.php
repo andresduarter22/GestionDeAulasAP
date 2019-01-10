@@ -8,7 +8,7 @@ if (!empty($_POST["submit"])) {
 }
 function actua()
 {
-    include_once "../Config/Database.php";
+    include_once "../Config/DataBase.php";
     $db = new Database();
     $dblink = $db->getConnection();
     $_categoriaUsuario = $_POST['Categoria'];
@@ -94,7 +94,7 @@ function actua()
 <a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
 <?php
 session_start();
-include_once "../Config/Database.php";
+include_once "../Config/DataBase.php";
 $db = new Database();
 $dblink = $db->getConnection();
 if ($dblink->connect_error) {

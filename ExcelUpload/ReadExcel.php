@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-include "../Config/Database.php";
+include "../Config/DataBase.php";
 
 class ReadExcel
 {
@@ -395,7 +395,7 @@ class ReadExcel
 
                     $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
                     $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
-                    $sql2 = "SELECT * FROM reservas WHERE  horario = '$_cadenaDeDatos[3]' AND fecha_inicio = '$_FInicial' AND fecha_final = '$_FFinal' AND tipo=0 
+                    $sql2 = "SELECT * FROM reservas WHERE  horario = '$_cadenaDeDatos[3]' AND fecha_inicio = '$_FInicial' AND fecha_final = '$_FFinal' AND tipo=0
                             AND docente = '$_cadenaDeDatos[5]'
                             AND id_Materia_Reserva = $_IdMateria ;";
                     $result2 = $this->dblink->query($sql2);

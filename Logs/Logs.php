@@ -14,7 +14,7 @@
     <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
     <?php
       //Conexion con base
-      include "../Config/Database.php";
+      include "../Config/DataBase.php";
       $db= new Database();
       $dblink= $db->getConnection();
 
@@ -69,7 +69,7 @@
         </div>
         <div class="modal-body">
           En esta pantalla usted puede consultar la informacion todas la reservas, subida de un excel.
-          Ademas de la creacion, edicion o eliminacion de aulas, categorias y usuarios. 
+          Ademas de la creacion, edicion o eliminacion de aulas, categorias y usuarios.
 
         </div>
         <div class="modal-footer">

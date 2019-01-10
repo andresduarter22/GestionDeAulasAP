@@ -2,7 +2,7 @@
 <html>
 <?php
 
-include "../Config/Database.php";
+include "../Config/DataBase.php";
 include "search.php";
 header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works

@@ -20,7 +20,7 @@
   <br/>
   <br/>
   <?php
-  include_once "../Config/Database.php";
+  include_once "../Config/DataBase.php";
   $db= new Database();
   $dblink= $db->getConnection();
   //echo $_SERVER['REQUEST_METHOD'];

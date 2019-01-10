@@ -13,7 +13,7 @@
   <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
     <?php
-      include "../Config/Database.php";
+      include "../Config/DataBase.php";
       $db= new Database();
       $dblink= $db->getConnection();
       $sql = 'SELECT * FROM Aulas ORDER BY nombre;';

@@ -1,5 +1,5 @@
 <?php
-  include_once "../Config/Database.php";
+  include_once "../Config/DataBase.php";
   $db= new Database();
   $dblink= $db->getConnection();
    $sql = "SELECT * FROM aulas WHERE id_Aulas=".$_GET['id'];

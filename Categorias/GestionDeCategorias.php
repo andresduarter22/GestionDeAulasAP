@@ -14,11 +14,12 @@
     <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
     <?php
       //Conexion con base
-      include "../Config/Database.php";
+      include "../Config/DataBase.php";
       $db= new Database();
       $dblink= $db->getConnection();
-      $sql = 'select * from Categorias;';
+      $sql = 'SELECT * FROM Categorias;';
       $result = $dblink->query($sql);
+      $result->setFetchMode(PDO::FETCH_ASSOC);
     ?>
 <div class="container form-group" >
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
