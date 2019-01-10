@@ -57,7 +57,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <br/>
         <br/>
 
-        <div class="row">
+        <div class="row justify-content-around">
             <select class="form-control col-xs-3" name="idDeAula" style="width: 400px" id="pickDeAula">
                 <option disabled selected value> -- Seleccione una aula especifica --</option>
                 <?php while ($fila = $result->fetch()) { ?>
@@ -89,28 +89,32 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </div>
         <br/>
         <br/>
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-                <input type="checkbox" aria-label="Checkbox for following text input" name="requiereAlumnos">
-            </div>
-            <input type="number" min="0" max="100"
-                   name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
-                   placeholder="Cantidad de Alumnos" style="width: 400px">
-        </div>
 
-        Horario
-        <div clkass="row-fluid">
-          <select class="selectpicker" id="horario" name="horario" data-live-search="true" required>
-            <option disabled selected value> --</option>
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
-            <option value="F">F</option>
-            <option value="Z">Z</option>
-            <option value="Z1">Z1</option>
-          </select>
+        <div class="row justify-content-around">
+          <div class="input-group-prepend">
+             <div class="input-group-text">
+                <input type="checkbox" aria-label="Checkbox for following text input" name="requiereAlumnos">
+              </div>
+            <input type="number" min="0" max="100"
+            name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
+            placeholder="Cantidad de Alumnos" style="width: 400px">
+         </div>
+         <div class="input-group-text">
+            Horario
+            <div clkass="row-fluid">
+              <select class="selectpicker" id="horario" name="horario" data-live-search="true" required>
+                <option disabled selected value> --</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="Z">Z</option>
+                <option value="Z1">Z1</option>
+              </select>
+             </div>
+            </div>
         </div>
 
 
