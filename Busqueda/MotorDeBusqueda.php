@@ -54,6 +54,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <br>
         <!--<input type="checkbox" name="BuscaAulaEsp">Es aula-->
         <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Caracteristicas" data-on="Aula especifica"  data-onstyle="success" data-offstyle="info">
+        <br/>
+        <br/>
+
         <div class="row">
             <select class="form-control col-xs-3" name="idDeAula" style="width: 400px" id="pickDeAula">
                 <option disabled selected value> -- Seleccione una aula especifica --</option>
