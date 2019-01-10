@@ -1,7 +1,12 @@
+
+<html>
 <?php
 
 include "../Config/Database.php";
 include "search.php";
+header('Cache-Control: no cache'); //no cache
+session_cache_limiter('private_no_expire'); // works
+
 session_start();
 $db = new Database();
 $dblink = $db->getConnection();
@@ -10,8 +15,6 @@ $tipoDeUsuario=2;
 
 $se = new search();
 $arregDisp = 0;
-echo $_POST['startSearch'];
-echo $_POST['horario'];
 if (isset($_POST['startSearch'])) {
 
     $arregDisp = $se->busca();
@@ -30,7 +33,6 @@ $_resultadosNoDisp = $arregDisp[1];
 
 ?>
 
-<html>
 <head>
     <!-- jQuery -->
     <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>

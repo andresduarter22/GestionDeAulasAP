@@ -150,7 +150,9 @@ function listaNombresMaterias()
     </form>
 
 </div>
-<!-- <a href="Resultados.php" class="btn btn-primary">Atras</a> -->
+<!-- <a href="Resultados.php" class="btn btn-primary">Atras</a>  -->
+
+
 
 <!--  <a class="btn btn-primary" href="Resultados.php">Atras</a> -->
 </body>
