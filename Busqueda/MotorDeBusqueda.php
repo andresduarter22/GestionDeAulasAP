@@ -4,14 +4,16 @@ include "../Config/Database.php";
 ?>
 <html>
 <head>
+
     <!-- jQuery -->
     <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
     <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script src="jquery-ui.multidatespicker.js"></script>
+    <script src="../Booststrap/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
 
     <!-- Bootstrap JS -->
     <script src="../Booststrap/js/bootstrap.min.js"></script>
-
+    <link href="../Booststrap/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
     <link rel="stylesheet" href="jquery-ui.multidatespicker.css">
     <link rel="stylesheet" href="jquery-ui-1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
@@ -50,8 +52,8 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <input id="fechasSeguidasInicio" autocomplete="off" name="fechasSeguidasInicio" placeholder="Ingrese Inicio" >
         <input id="fechasSeguidasFin" autocomplete="off" name="fechasSeguidasFin" placeholder="Ingrese Fin" >
 <br>
-        <input type="checkbox" name="BuscaAulaEsp">Es aula
-
+        <!--<input type="checkbox" name="BuscaAulaEsp">Es aula-->
+        <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Caracteristicas" data-on="Aula especifica"  data-onstyle="success" data-offstyle="info">
         <div class="row">
             <select class="form-control col-xs-3" name="idDeAula" style="width: 400px" id="pickDeAula">
                 <option disabled selected value> -- Seleccione una aula especifica --</option>
