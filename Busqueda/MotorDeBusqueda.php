@@ -87,29 +87,32 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                 </table>
             </div>
         </div>
+        <br/>
+        <br/>
         <div class="input-group-prepend">
             <div class="input-group-text">
                 <input type="checkbox" aria-label="Checkbox for following text input" name="requiereAlumnos">
             </div>
-            <h6>Aula especifica</h6>
+            <input type="number" min="0" max="100"
+                   name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
+                   placeholder="Cantidad de Alumnos" style="width: 400px">
         </div>
-        <input type="number" min="0" max="100"
-               name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
-               placeholder="Cantidad de Alumnos" style="width: 400px">
+
         Horario
         <div clkass="row-fluid">
-            <select class="selectpicker" id="horario" name="horario" data-live-search="true" required>
-                <option disabled selected value> --</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="Z">Z</option>
-                <option value="Z1">Z1</option>
-            </select>
+          <select class="selectpicker" id="horario" name="horario" data-live-search="true" required>
+            <option disabled selected value> --</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
+            <option value="Z">Z</option>
+            <option value="Z1">Z1</option>
+          </select>
         </div>
+
 
 
         <input type="submit" class="btn btn-primary" name="startSearch" value="Buscar">
