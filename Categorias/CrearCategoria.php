@@ -52,7 +52,6 @@ function create(){
   $dblink= $db->getConnection();
   $_nombre= strip_tags($_POST['NombreCategoria']);
   $_descripcion= strip_tags($_POST['Descripcion']);
-
   $sql = "INSERT INTO Categorias(id_Categorias,nombre_categoria,descripcion) VALUES(NULL,'$_nombre','$_descripcion')";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
