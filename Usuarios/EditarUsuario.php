@@ -215,7 +215,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 
 </form>
 
-<a class="btn btn-primary" href="GestionDeUsuarios.php">Atras</a>
+<a class="btn btn-primary" href="GestiondeUsuarios.php">Atras</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
             src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
