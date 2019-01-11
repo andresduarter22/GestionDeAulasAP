@@ -27,8 +27,8 @@
 
     //Using GET
     $_idDeCategoria = $_GET['id'];
-    $_nombre = $_POST['NombreCategoria'];
-    $_descripcion = $_POST['Descripcion'];
+    $_nombre = strip_tags($_POST['NombreCategoria']);
+    $_descripcion = strip_tags($_POST['Descripcion']);
     $sql = "SELECT * FROM Categorias WHERE id_Categorias= $_idDeCategoria ;";
     $result = $dblink->query($sql);
     //echo var_dump($_nombre);

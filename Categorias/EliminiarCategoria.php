@@ -119,7 +119,7 @@
     </div>
     <?php
     if(isset($_POST['id1'])){
-      $_id=$_POST['id1'];
+      $_id=strip_tags($_POST['id1']);
       $sql_nombre= "SELECT * FROM Categorias WHERE id_Categorias = ".$_id;
       $res_n = $dblink->query($sql_nombre);
       $_aux = $res_n->fetch();
