@@ -182,7 +182,7 @@ class search
             $fechainicial = $this->_fechasArray['fechaini'];
             $fechafinal = $this->_fechasArray['fechafin'];
             //busca en la tabla reserva si tiene la misma aula y mismo horario si existe cruces con los param de busqueda
-            $sql = "SELECT * FROM reservas WHERE id_Aula_Reservada= '$id_AulaEspecifica' AND horario= '$this->_horario'
+            $sql = "SELECT * FROM reservas WHERE id_Aula_Reservada= '$id_AulaEspecifica'  AND (dayofweek(fecha_inicio)>1) AND  (dayofweek(fecha_inicio)<7) AND horario= '$this->_horario'
                 AND ((fecha_inicio BETWEEN '$fechainicial' AND '$fechafinal' )
                  OR (fecha_final BETWEEN '$fechainicial' AND '$fechafinal' )) ORDER BY  fecha_inicio; ";
             //echo "$sql <br>";
