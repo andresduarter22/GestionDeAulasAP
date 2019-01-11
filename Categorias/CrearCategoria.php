@@ -50,8 +50,8 @@ if (isset($_POST['submit']))
 function create(){
   $db= new Database();
   $dblink= $db->getConnection();
-  $_nombre= $_POST['NombreCategoria'];
-  $_descripcion= $_POST['Descripcion'];
+  $_nombre= strip_tags($_POST['NombreCategoria']);
+  $_descripcion= strip_tags($_POST['Descripcion']);
 
   $sql = "INSERT INTO Categorias(id_Categorias,nombre_categoria,descripcion) VALUES(NULL,'$_nombre','$_descripcion')";
   if ($dblink->query($sql) === FALSE) {
