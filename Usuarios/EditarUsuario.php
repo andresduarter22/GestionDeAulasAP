@@ -182,7 +182,6 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     <?php
                     $sql = "SELECT * FROM Categorias;";
                     $result = $dblink->query($sql);
-                    $result->setFetchMode(PDO::FETCH_ASSOC);
                     while ($fila = $result->fetch()) {
                         ?>
                         <tr>
@@ -190,7 +189,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td>
                                 <?php
                                 $idcat = $fila['id_Categorias'];
-                                $sql2 = "SELECT * FROM usuarios_categorias WHERE id_DeCategoria= $idcat AND id_DeUsuario = $_idDeUsuario;";
+                                $sql2 = "SELECT * FROM Usuarios_Categorias WHERE id_DeCategoria= $idcat AND id_DeUsuario = $_idDeUsuario;";
                                 $resultado = $dblink->query($sql2);
                                 if ($resultado->fetch()) {
                                     echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" checked=\"checked\" value=\" " . $fila['id_Categorias'] . " \" enabled>";
