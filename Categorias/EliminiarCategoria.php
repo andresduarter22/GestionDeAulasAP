@@ -51,7 +51,7 @@
       <?php
           //Primer elemento de la tabla
           $aulas[0] = $comprobacion['id_Aula'];
-          $sql3 = "SELECT * FROM  aulas WHERE id_Aulas =".$aulas[0].";";
+          $sql3 = "SELECT * FROM Aulas WHERE id_Aulas =".$aulas[0].";";
                     $res1=$dblink->query($sql3);
                     $fila1 = $res1->fetch();
          ?>
@@ -61,7 +61,7 @@
       <?php
       while ($fila = $res->fetch()){
           $aulas[$contador] = $fila['id_Aula'];
-          $sql3 = "SELECT * FROM  aulas WHERE id_Aulas =".$aulas[$contador].";";
+          $sql3 = "SELECT * FROM  Aulas WHERE id_Aulas =".$aulas[$contador].";";
                     $res1=$dblink->query($sql3);
                     $fila1 = $res1->fetch();
          ?>
@@ -77,7 +77,7 @@
     <!--tabla 2 -->
     <?php
     foreach($aulas as $aula){
-        $sql4 = "SELECT count(id_Aula) AS num FROM aulas_categoria WHERE id_Aula =".$aula." ;";
+        $sql4 = "SELECT count(id_Aula) AS num FROM Aulas_Categoria WHERE id_Aula =".$aula." ;";
         $res4=$dblink->query($sql4);
         $fila4 = $res4->fetch();
         if($fila4){
@@ -120,11 +120,11 @@
     <?php
     if(isset($_POST['id1'])){
       $_id=$_POST['id1'];
-      $sql_nombre= "SELECT * from Categorias WHERE id_Categorias = ".$_id;
+      $sql_nombre= "SELECT * FROM Categorias WHERE id_Categorias = ".$_id;
       $res_n = $dblink->query($sql_nombre);
       $_aux = $res_n->fetch();
       $_nombre = $_aux['nombre_categoria'];
-      $sql1= "DELETE from Categorias WHERE id_Categorias = ".$_id;
+      $sql1= "DELETE FROM Categorias WHERE id_Categorias = ".$_id;
       //echo var_dump($sql1);
       $dblink->query($sql1);
       $sql_log_ec = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se elimino una categoria llamada $_nombre',now())";
@@ -157,7 +157,7 @@
 </div>
 <!-- Final boton de Informacion -->
 <?php
- $dblink->close();
+ //$dblink->close();
  ?>
 </body>
 

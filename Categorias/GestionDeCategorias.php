@@ -79,7 +79,7 @@
 
 
   <?php
-   $dblink->close();
+   //$dblink->close();
    ?>
  </body>
 

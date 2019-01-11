@@ -2,7 +2,7 @@
   include_once "../Config/DataBase.php";
   $db= new Database();
   $dblink= $db->getConnection();
-   $sql = "SELECT * FROM aulas WHERE id_Aulas=".$_GET['id'];
+   $sql = "SELECT * FROM Aulas WHERE id_Aulas=".$_GET['id'];
    //echo var_dump($sql);
    $result = $dblink->query($sql);
     $fila = $result->fetch();

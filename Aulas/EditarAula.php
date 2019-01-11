@@ -134,7 +134,7 @@ if (isset($_POST['id1']))
 </div>
 <!-- Final boton de Informacion -->
 <?php
- $dblink->close();
+ //$dblink->close();
  ?>
 </body>
 

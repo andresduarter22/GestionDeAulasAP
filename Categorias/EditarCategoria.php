@@ -101,7 +101,7 @@ header("Location: GestionDeCategorias.php");
 </div>
 <!-- Final boton de Informacion -->
 <?php
- $dblink->close();
+ //$dblink->close();
  ?>
 </body>
 
