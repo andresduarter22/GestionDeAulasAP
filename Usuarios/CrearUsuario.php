@@ -35,7 +35,7 @@ if (isset($_POST['creaUsuario'])) {
 </head>
 <body>
 <button type="button" class="btn btn-danger">Cerrar sesión</button>
-<a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
+<a href="GestiondeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
 <?php
 //Conexion con base
 // se crea una nueva instancia de la clase
@@ -127,9 +127,8 @@ $dblink = $db->getConnection();
         </form>
     </div>
 
-
-    <a class="btn btn-primary" href="GestionDeUsuarios.php">Atras</a>
 </form>
+<a class="btn btn-primary" href="GestiondeUsuarios.php">Atras</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
             src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
