@@ -47,7 +47,7 @@ $dblink = $db->getConnection();
     <div class="container">
         <label for="Rol">Rol:</label><br>
         <select class="custom-select" name="Categoria" style="width: 300px" required>
-            <option disabled selected value> -- Seleccione una Categoria  -- </option>
+            <option disabled selected value> -- Seleccione una Categoria --</option>
             <option value="1">Administrador</option>
             <option value="2">Actualizador</option>
             <option value="3">Reservador</option>
@@ -56,7 +56,7 @@ $dblink = $db->getConnection();
         <div class="form-group" style="width: 300px">
             <label for="NombreUsuario">Nombre:</label>
             <input type="text" class="form-control" id="usr" name="nombre" required>
-            <span class="error alert-danger" > <?php echo $NombreErr; ?></span>
+            <span class="error alert-danger"> <?php echo $NombreErr; ?></span>
         </div>
         <div class="form-group" style="width: 300px">
             <label for="num_interno">Numero de Interno:</label>
@@ -82,7 +82,7 @@ $dblink = $db->getConnection();
                     <tbody>
                     <?php
                     // se crea el query
-                    $sql = 'select * from aulas order by nombre;';
+                    $sql = 'SELECT * FROM Aulas ORDER BY  nombre;';
                     //  $result tiene el resultado de la busqueda
                     $result = $dblink->query($sql);
                     while ($fila = $result->fetch()) {
@@ -107,7 +107,7 @@ $dblink = $db->getConnection();
                     </thead>
                     <tbody>
                     <?php
-                    $sql = "select * from categorias;";
+                    $sql = "SELECT * FROM Categorias;";
                     $result = $dblink->query($sql);
                     $result->setFetchMode(PDO::FETCH_ASSOC);
                     while ($fila = $result->fetch()) {
@@ -167,7 +167,7 @@ function create()
     $_aulas = $_POST['aula'];
     $_categorias = $_POST['categoria'];
 
-    $sql = "insert into Usuarios(id_Usuario,nombre,num_interno,E_Mail,Rol) values(NULL,'$_nombre','$_interno','$_Email','$_categoriaUsuario')";
+    $sql = "INSERT INTO Usuarios VALUES (NULL,'$_nombre','$_interno','$_Email','$_categoriaUsuario')";
     if ($dblink->query($sql) === FALSE) {
         echo "Error: " . $sql . "<br>" . $dblink->error;
     }
@@ -175,40 +175,20 @@ function create()
 
     //revisa todas las categorias y saca la lista de los id de aulas
     foreach ($_categorias as $value) {
-        $sql2 = "insert into usuarios_categorias values(NULL,'$_idUsuarioCreado','$value')";
+        $sql2 = "INSERT INTO Usuarios_Categorias VALUES (NULL,'$_idUsuarioCreado','$value')";
         if ($dblink->query($sql2) === FALSE) {
             echo "Error: " . $sql2 . "<br>" . $dblink->error;
         }
 
-        /**
-         * Esta selecciona el id de Aula para cada categoria y la vuelve a ingresar a la tabla usuarios_aulas cada uno de
-         * los ids de aula que encuentra
-         * */
-        /*
-        $sql = "select id_Aula from aulas_categoria where id_Categoria = '$value' " ;
-        if ($dblink->query($sql) === FALSE) {
-          echo "Error: " . $sql . "<br>" . $dblink->error;
-        }
-        $result = $dblink->query($sql);
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        while ($fila = $result->fetch()){
-        //  echo $fila['id_Aula'];
-          $valorIDDeAula= $fila['id_Aula'];
-          $sql2 = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$valorIDDeAula','$_idUsuarioCreado')";
-          if ($dblink->query($sql2) === FALSE) {
-            echo "Error: " . $sql2 . "<br>" . $dblink->error;
-          }
-        }*/
     }
 
-
     foreach ($_aulas as $value) {
-        $sql = "insert into usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsuarioCreado')";
+        $sql = "INSERT INTO Usuarios_Aulas VALUES (NULL,'$value','$_idUsuarioCreado')";
         if ($dblink->query($sql) === FALSE) {
             echo "Error: " . $sql . "<br>" . $dblink->error;
         }
     }
-    $sql_log_cu = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se creo un usuario llamado $_nombre',now())";
+    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'Andres','666','ad@gmail.com','m','Se creo un usuario llamado $_nombre',now())";
     $dblink->query($sql_log_cu);
 }
 

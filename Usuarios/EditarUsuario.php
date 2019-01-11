@@ -19,18 +19,18 @@ function actua()
     $_categorias = $_POST['categoria'];
     $_idUsAEditar = $_POST['idUs'];
 //    echo "$_categoriaUsuario";
-    $sql = " UPDATE usuarios SET nombre = '$_nombre', num_interno ='$_interno', E_Mail= '$_Email', Rol=$_categoriaUsuario WHERE id_Usuario=$_idUsAEditar;";
+    $sql = " UPDATE Usuarios SET nombre = '$_nombre', num_interno ='$_interno', E_Mail= '$_Email', Rol=$_categoriaUsuario WHERE id_Usuario=$_idUsAEditar;";
     //  echo "$sql";
     if ($dblink->query($sql) === FALSE) {
         echo "Error en la modificacion de usuarios, uno o mas campos no fueron llenados ";
     }
 
-    $sql2 = "DELETE FROM usuarios_aulas WHERE id_DeUsuario= $_idUsAEditar  ";
+    $sql2 = "DELETE FROM Usuarios_Aulas WHERE id_DeUsuario= $_idUsAEditar  ";
     if ($dblink->query($sql2) === FALSE) {
         echo "Error: " . $sql2 . "<br>" . $dblink->error;
     }
 
-    $sql2 = "DELETE FROM usuarios_categorias WHERE id_DeUsuario= $_idUsAEditar";
+    $sql2 = "DELETE FROM Usuarios_Categorias WHERE id_DeUsuario= $_idUsAEditar";
     if ($dblink->query($sql2) === FALSE) {
         echo "Error: " . $sql2 . "<br>" . $dblink->error;
     }
@@ -38,7 +38,7 @@ function actua()
     //revisa todas las categorias y saca la lista de los id de aulas
     foreach ($_categorias as $value) {
 
-        $sql2 = "INSERT INTO usuarios_categorias values(NULL,'$_idUsAEditar','$value')";
+        $sql2 = "INSERT INTO Usuarios_Categorias values(NULL,'$_idUsAEditar','$value')";
         if ($dblink->query($sql2) === FALSE) {
             echo "Error: " . $sql2 . "<br>" . $dblink->error;
         }
@@ -66,7 +66,7 @@ function actua()
     }
     foreach ($_aulas as $value) {
         //    echo "$value";
-        $sql = "INSERT INTO usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsAEditar')";
+        $sql = "INSERT INTO Usuarios_Aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$value','$_idUsAEditar')";
         if ($dblink->query($sql) === FALSE) {
             echo "Error: " . $sql . "<br>" . $dblink->error;
         }
@@ -144,7 +144,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     </thead>
                     <tbody>
                     <?php
-                    $sql = 'select * from aulas order by nombre;';
+                    $sql = 'SELECT * FROM Aulas ORDER BY nombre;';
                     $result = $dblink->query($sql);
                     while ($fila = $result->fetch()) {
                         ?>
@@ -153,7 +153,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td>
                                 <?php
                                 $idaula = $fila['id_Aulas'];
-                                $sql2 = "SELECT * from usuarios_aulas where id_DeAula= $idaula AND id_DeUsuario = $_idDeUsuario;";
+                                $sql2 = "SELECT * FROM Usuarios_Aulas where id_DeAula= $idaula AND id_DeUsuario = $_idDeUsuario;";
                                 $resultado = $dblink->query($sql2);
                                 //  echo "$sql2";
                                 if ($resultado->fetch()) {
@@ -180,7 +180,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     </thead>
                     <tbody>
                     <?php
-                    $sql = "select * from categorias;";
+                    $sql = "SELECT * FROM Categorias;";
                     $result = $dblink->query($sql);
                     $result->setFetchMode(PDO::FETCH_ASSOC);
                     while ($fila = $result->fetch()) {
@@ -190,7 +190,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             <td>
                                 <?php
                                 $idcat = $fila['id_Categorias'];
-                                $sql2 = "SELECT * from usuarios_categorias where id_DeCategoria= $idcat AND id_DeUsuario = $_idDeUsuario;";
+                                $sql2 = "SELECT * FROM usuarios_categorias WHERE id_DeCategoria= $idcat AND id_DeUsuario = $_idDeUsuario;";
                                 $resultado = $dblink->query($sql2);
                                 if ($resultado->fetch()) {
                                     echo "<input  type=\"checkbox\" name=\"categoria[]\" id=\"categoria\" checked=\"checked\" value=\" " . $fila['id_Categorias'] . " \" enabled>";

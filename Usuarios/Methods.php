@@ -11,7 +11,7 @@ $dblink= $db->getConnection();
 
 $_idDeUsuario= $_GET['id'];
 //echo "$_idDeUsuario";
-$sql = "SELECT * FROM reservas WHERE id_Usuario_Reserva= $_idDeUsuario AND  tipo = 0;";
+$sql = "SELECT * FROM Reservas WHERE id_Usuario_Reserva= $_idDeUsuario AND  tipo = 0;";
 $resultadoExist=$dblink->query($sql);
 $resultadoExist->setFetchMode(PDO::FETCH_ASSOC);
 $sqlLog = "SELECT * FROM Usuarios WHERE id_Usuario = ".$_GET['id'].";";
@@ -27,13 +27,13 @@ if($resultadoExist->rowCount()){
         sus reservas y la integridad del sistema de informacion";
   header("Location: GestionDeUsuarios.php?err=true");
 }else {
-  $sql = " DELETE FROM reservas WHERE id_Usuario_Reserva= $_idDeUsuario;";
+  $sql = " DELETE FROM Reservas WHERE id_Usuario_Reserva= $_idDeUsuario;";
   //echo "$sql";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
   }
 
-  $sql = " DELETE FROM usuarios  WHERE id_Usuario= $_idDeUsuario;";
+  $sql = " DELETE FROM Usuarios  WHERE id_Usuario= $_idDeUsuario;";
   //echo "$sql";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
