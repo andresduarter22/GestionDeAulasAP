@@ -42,7 +42,7 @@ if($resultadoExist->rowCount()){
   $dblink->query($sql_log_eu);
   echo "hi stranger";
 
-  header("Location: GestionDeUsuarios.php?err=false");
+  header("Location: GestiondeUsuarios.php?err=false");
 }
 
 

@@ -109,7 +109,6 @@ $dblink = $db->getConnection();
                     <?php
                     $sql = "SELECT * FROM Categorias;";
                     $result = $dblink->query($sql);
-                    $result->setFetchMode(PDO::FETCH_ASSOC);
                     while ($fila = $result->fetch()) {
                         ?>
                         <tr>
