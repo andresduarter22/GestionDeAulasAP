@@ -174,7 +174,7 @@ $_resultadosNoDisp = $arregDisp[1];
                         $result = $dblink->query($sql);
                         $infoReserva = $result->fetch();
 
-                        $sql = "SELECT nombre FROM aulas WHERE id_Aulas =  $infoReserva[1] ; ";
+                        $sql = "SELECT nombre FROM Aulas WHERE id_Aulas =  $infoReserva[1] ; ";
                         $result = $dblink->query($sql);
                         $q = $result->fetch();
 
