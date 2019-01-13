@@ -4,6 +4,8 @@ require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
+
 
 include "../Config/DataBase.php";
 
@@ -40,13 +42,20 @@ class ReadExcel
 
         //librerias de PHPspreadsheet
         //se lee el archivo excel
+
+        //$reader = new Xls();
+        //$spread = $reader->load($fileName);
         try {
-            $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            //$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+            echo var_dump($reader);
             $spread = $reader->load($fileName);
             $this->sheet = $spread->getActiveSheet();
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
 
     }
 
@@ -73,10 +82,6 @@ class ReadExcel
 
             //flag para detener lectura
             if ($_cadenaDeDatos[0] == 'Total Materias') {
-                /**
-                 * inserte log line
-                 */
-
                 break;
             }
 
@@ -106,7 +111,7 @@ class ReadExcel
     public function borrarReservasPrevias()
     {
         //borrar todas las reservas automaticas previas
-        $sql = "DELETE FROM reservas WHERE tipo=0;";
+        $sql = "DELETE FROM Reservas WHERE tipo=0;";
         $this->dblink->query($sql);
         $dblink = null;
     }
@@ -127,7 +132,7 @@ class ReadExcel
         //echo "$_Materia $_FechaInicio $_FechaFinal $_Horario $_Aula $_Docente </br>";
 
         // Verificar si exite aula
-        $sql = "SELECT * FROM aulas WHERE nombre= '$_Aula';";
+        $sql = "SELECT * FROM Aulas WHERE nombre= '$_Aula';";
         //echo $sql . "<br>";
         $result = $this->dblink->query($sql);
         $result->setFetchMode(PDO::FETCH_ASSOC);
@@ -136,18 +141,18 @@ class ReadExcel
             // solo si el aula esta en blanco o existe en la base de datos la inserta
             if (($result->rowCount() || $_Aula == "")) {
                 $_IdMateria = 2;
-                $sql = "SELECT * FROM materias WHERE nombre_materia= '$_Materia';";
+                $sql = "SELECT * FROM Materias WHERE nombre_materia= '$_Materia';";
                 $result = $this->dblink->query($sql);
                 $result->setFetchMode(PDO::FETCH_ASSOC);
                 //busca el id de materia o ingresa la materia en la base de datos
                 if ($result->rowCount()) {
                     //echo "ya existio";
-                    $sql = "SELECT id_Materias FROM materias WHERE nombre_materia= '$_Materia';";
+                    $sql = "SELECT id_Materias FROM Materias WHERE nombre_materia= '$_Materia';";
                     $result2 = $this->dblink->query($sql);
                     $result2->setFetchMode(PDO::FETCH_ASSOC);
                     $_IdMateria = $result2->fetchColumn();
                 } else {
-                    $sql = "INSERT INTO materias values(NULL,'$_Materia');";
+                    $sql = "INSERT INTO Materias values(NULL,'$_Materia');";
                     //      echo "$sql <br>";
                     $this->dblink->query($sql);
                     $_IdMateria = $this->dblink->lastInsertId();
@@ -155,7 +160,7 @@ class ReadExcel
                 }
 
                 //obteniendo id de Aula
-                $sql = "SELECT id_Aulas from aulas WHERE nombre='$_Aula';";
+                $sql = "SELECT id_Aulas from Aulas WHERE nombre='$_Aula';";
                 $result = $this->dblink->query($sql);
                 $result->setFetchMode(PDO::FETCH_ASSOC);
                 $_IdAula = $result->fetchColumn();
@@ -171,13 +176,13 @@ class ReadExcel
 
                 //si el aula esta vacia la ingresa a la base como null
                 if ($_Aula == "") {
-                    $sql3 = "INSERT INTO reservas values(NULL,NULL,$idUploader,$_IdMateria,'$_FInicial','$_FFinal',0,'$_Horario','$_Docente');";
+                    $sql3 = "INSERT INTO Reservas values(NULL,NULL,$idUploader,$_IdMateria,'$_FInicial','$_FFinal',0,'$_Horario','$_Docente');";
                     if ($this->dblink->query($sql3) === FALSE) {
                         echo "Error: " . $sql3 . "<br>" . $this->dblink->error;
                     }
                 } else {
                     //insertando en la base
-                    $sql3 = "INSERT INTO reservas values(NULL,$_IdAula,$idUploader,$_IdMateria,'$_FInicial','$_FFinal',0,'$_Horario','$_Docente');";
+                    $sql3 = "INSERT INTO Reservas values(NULL,$_IdAula,$idUploader,$_IdMateria,'$_FInicial','$_FFinal',0,'$_Horario','$_Docente');";
 
                     if ($this->dblink->query($sql3) == FALSE) {
                         echo "Error: " . $sql3 . "<br>" . $this->dblink->error;
@@ -196,13 +201,13 @@ class ReadExcel
     {
         $_Aula = $cadena[4];
         if ($_Aula != '') {
-            $sql = "SELECT * FROM aulas WHERE nombre= '$_Aula';";
+            $sql = "SELECT * FROM Aulas WHERE nombre= '$_Aula';";
             $result = $this->dblink->query($sql);
             $result->setFetchMode(PDO::FETCH_ASSOC);
             if ($result->rowCount()) {
                 //echo "no se inserto";
             } else {
-                $sql = "INSERT INTO aulas values(NULL,'$_Aula',35);";
+                $sql = "INSERT INTO Aulas values(NULL,'$_Aula',35);";
                 $result = $this->dblink->query($sql);
                 //echo "insertada";
             }
@@ -249,7 +254,7 @@ class ReadExcel
                     array_push($this->arregloDeIntegridad, $posicion);
                 }
                 if ($_cadenaDeDatos[4] != "") {
-                    $sql = "SELECT * FROM aulas WHERE nombre='$_cadenaDeDatos[4]';";
+                    $sql = "SELECT * FROM Aulas WHERE nombre='$_cadenaDeDatos[4]';";
                     $result = $this->dblink->query($sql);
                     $result->setFetchMode(PDO::FETCH_ASSOC);
                     if ($result->rowCount() == 0) {
@@ -298,7 +303,7 @@ class ReadExcel
             }
             if ($read && $_cadenaDeDatos[4] != "") {
                 //obteniendo id de Aula
-                $sql = "SELECT id_Aulas from aulas WHERE nombre='$_cadenaDeDatos[4]';";
+                $sql = "SELECT id_Aulas from Aulas WHERE nombre='$_cadenaDeDatos[4]';";
                 $result = $this->dblink->query($sql);
                 $result->setFetchMode(PDO::FETCH_ASSOC);
                 if ($result->rowCount() >= 1) {
@@ -311,7 +316,7 @@ class ReadExcel
                     $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
                     $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
                     //query que busca similitud de entrada que tenga la misma aula, horario, y cruze de horarios.ademas de asegurarse de que es dia de semana
-                    $sql = "SELECT * FROM reservas WHERE  (tipo=1)  AND (dayofweek(fecha_inicio)>1 AND dayofweek(fecha_inicio)<7)
+                    $sql = "SELECT * FROM Reservas WHERE  (tipo=1)  AND (dayofweek(fecha_inicio)>1 AND dayofweek(fecha_inicio)<7)
                                             AND (dayofweek(fecha_final)>1 AND dayofweek(fecha_final)<7)
                                             AND (id_Aula_Reservada = $_IdAula)AND (horario = '$_cadenaDeDatos[3]')
                                             AND (('$_FInicial'  BETWEEN fecha_inicio AND  fecha_final) OR ('$_FFinal' BETWEEN fecha_inicio AND fecha_final)
@@ -322,22 +327,22 @@ class ReadExcel
                     if ($result->rowCount()) {
                         $this->cruzeConReservasManuales = true;
                         while ($fila = $result->fetch()) {
-                            $idAula=$fila['id_Aula_Reservada'];
-                            $sql2 = "SELECT nombre FROM aulas WHERE id_Aulas =   $idAula; ";
+                            $idAula = $fila['id_Aula_Reservada'];
+                            $sql2 = "SELECT nombre FROM Aulas WHERE id_Aulas =   $idAula; ";
                             $result2 = $this->dblink->query($sql2);
                             $q = $result2->fetchColumn();
 
-                            $idUsuario=$fila['id_Usuario_Reserva'];
-                            $sql = "SELECT * FROM usuarios WHERE id_Usuario =  $idUsuario; ";
+                            $idUsuario = $fila['id_Usuario_Reserva'];
+                            $sql = "SELECT * FROM Usuarios WHERE id_Usuario =  $idUsuario; ";
                             $result = $this->dblink->query($sql);
                             $infoUsuario = $result->fetch();
 
-                            $idMat=$fila['id_Materia_Reserva'];
-                            $sql = "SELECT * FROM materias WHERE id_Materias =  $idMat ; ";
+                            $idMat = $fila['id_Materia_Reserva'];
+                            $sql = "SELECT * FROM Materias WHERE id_Materias =  $idMat ; ";
                             $result = $this->dblink->query($sql);
                             $infoMaterias = $result->fetch();
 
-                            $arregloInfoMateriaABorra= array($infoUsuario[1],$q, $infoMaterias[1], $fila['docente'],$infoUsuario[3],$fila['id_Reservas']);
+                            $arregloInfoMateriaABorra = array($infoUsuario[1], $q, $infoMaterias[1], $fila['docente'], $infoUsuario[3], $fila['id_Reservas']);
 
                             //echo implode(" | ", $result2) . "<br>";
                             array_push($this->arregloReservasManualesAfectadas, $arregloInfoMateriaABorra);
@@ -381,7 +386,7 @@ class ReadExcel
                 break;
             }
             if ($read) {
-                $sql = "SELECT id_Materias FROM materias WHERE nombre_materia= '$_cadenaDeDatos[0]';";
+                $sql = "SELECT id_Materias FROM Materias WHERE nombre_materia= '$_cadenaDeDatos[0]';";
                 $result = $this->dblink->query($sql);
                 $result->setFetchMode(PDO::FETCH_ASSOC);
                 $_IdMateria = $result->fetchColumn();
@@ -395,7 +400,7 @@ class ReadExcel
 
                     $_FInicial = $ArregloFechaIni[2] . '-' . $ArregloFechaIni[0] . '-' . $ArregloFechaIni[1];
                     $_FFinal = $ArregloFechaFin[2] . '-' . $ArregloFechaFin[0] . '-' . $ArregloFechaFin[1];
-                    $sql2 = "SELECT * FROM reservas WHERE  horario = '$_cadenaDeDatos[3]' AND fecha_inicio = '$_FInicial' AND fecha_final = '$_FFinal' AND tipo=0
+                    $sql2 = "SELECT * FROM Reservas WHERE  horario = '$_cadenaDeDatos[3]' AND fecha_inicio = '$_FInicial' AND fecha_final = '$_FFinal' AND tipo=0
                             AND docente = '$_cadenaDeDatos[5]'
                             AND id_Materia_Reserva = $_IdMateria ;";
                     $result2 = $this->dblink->query($sql2);
@@ -403,12 +408,12 @@ class ReadExcel
                     while ($fila = $result2->fetch()) {
                         if (is_numeric($fila['id_Aula_Reservada'])) {
                             $this->materiasQuePerdieronAula = true;
-                            $idMat=$fila['id_Materia_Reserva'];
-                            $sql = "SELECT * FROM materias WHERE id_Materias =  $idMat ; ";
+                            $idMat = $fila['id_Materia_Reserva'];
+                            $sql = "SELECT * FROM Materias WHERE id_Materias =  $idMat ; ";
                             $result = $this->dblink->query($sql);
                             $infoMaterias = $result->fetch();
 
-                            $arrayInfoMateriaSinAula= array($infoMaterias[1],$fila['docente']);
+                            $arrayInfoMateriaSinAula = array($infoMaterias[1], $fila['docente']);
                             array_push($this->arregloMateriasSinAula, $arrayInfoMateriaSinAula);
                             //  echo "Existe una materia que perdio su aula";
                         }
@@ -441,13 +446,13 @@ class ReadExcel
      */
     function deleteManualReserv()
     {
-        echo implode(";",$this->getArregloReservasManualesAfectadas());
+        echo implode(";", $this->getArregloReservasManualesAfectadas());
         $arreglsinRep = array_unique($this->getArregloReservasManualesAfectadas());
         foreach ($arreglsinRep as $row) {
             $reserv = array_values($row);
             //echo  implode(";",$reserv);
             //echo $reserv[0];
-            $sql = "DELETE FROM reservas where id_Reservas = $reserv[5]";
+            $sql = "DELETE FROM Reservas where id_Reservas = $reserv[5]";
             $this->dblink->query($sql);
         }
     }

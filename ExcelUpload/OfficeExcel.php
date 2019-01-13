@@ -114,6 +114,7 @@ if (isset($_POST['Aulas'])) {
     $dirExcel="../Uploads/" . $_FILES['file']['name'];
 
     $readClass = new ReadExcel($dirExcel, $_POST['id']);
+
     $readClass->import(1);
 }
 
