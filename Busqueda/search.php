@@ -123,8 +123,8 @@ class search
                 $sql = $sql . ") AND A.cantidad_alumnos >=  $this->_cantidadAlumnos ; ";
             } else {
                 //Si no requiere cant de alumnos
-                //Query que busca el id_Aula de la tabla Aculas_categoria, seleccionando valores sin repetir
-                $sql = "SELECT DISTINCT id_Aula FROM aulas_categoria WHERE id_Categoria= $varArregloDeCategorias1[0] ";
+                //Query que busca el id_Aula de la tabla Aulas_categoria, seleccionando valores sin repetir
+                $sql = "SELECT DISTINCT id_Aula FROM Aulas_Categoria WHERE id_Categoria= $varArregloDeCategorias1[0] ";
                 for ($i = 1; $i < count($varArregloDeCategorias1); $i++) {
                     $sql = $sql . " OR id_Categoria= $varArregloDeCategorias1[$i] ";
                 }
@@ -157,7 +157,7 @@ class search
             $hora = $this->_horario;
 
             //query que busca en reservas si existe un reserva
-            $sql = "SELECT * FROM reservas WHERE id_Aula_Reservada= $id_AulaEspecifica AND horario= '$hora' AND";
+            $sql = "SELECT * FROM Reservas WHERE id_Aula_Reservada= $id_AulaEspecifica AND horario= '$hora' AND";
             $sql = $sql . "( '$varArregloDeCategorias1[0]' BETWEEN fecha_inicio AND fecha_final   ";
             for ($i = 1; $i < count($varArregloDeCategorias1); $i++) {
                 $sql = $sql . "OR '$varArregloDeCategorias1[$i]' BETWEEN fecha_inicio AND fecha_final ";
@@ -182,7 +182,7 @@ class search
             $fechainicial = $this->_fechasArray['fechaini'];
             $fechafinal = $this->_fechasArray['fechafin'];
             //busca en la tabla reserva si tiene la misma aula y mismo horario si existe cruces con los param de busqueda
-            $sql = "SELECT * FROM reservas WHERE id_Aula_Reservada= '$id_AulaEspecifica'  AND (dayofweek(fecha_inicio)>1) AND  (dayofweek(fecha_inicio)<7) AND horario= '$this->_horario'
+            $sql = "SELECT * FROM Reservas WHERE id_Aula_Reservada= '$id_AulaEspecifica'  AND (dayofweek(fecha_inicio)>1) AND  (dayofweek(fecha_inicio)<7) AND horario= '$this->_horario'
                 AND ((fecha_inicio BETWEEN '$fechainicial' AND '$fechafinal' )
                  OR (fecha_final BETWEEN '$fechainicial' AND '$fechafinal' )) ORDER BY  fecha_inicio; ";
             //echo "$sql <br>";

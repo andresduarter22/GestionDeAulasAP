@@ -113,10 +113,10 @@ $_resultadosNoDisp = $arregDisp[1];
                     <?php
                     for ($i = 0; $i < count($_resultadosDisp); $i++) {
                         //  echo "$valor";
-                        $sql = "SELECT * FROM aulas WHERE id_Aulas= $_resultadosDisp[$i] ";
+                        $sql = "SELECT * FROM Aulas WHERE id_Aulas= $_resultadosDisp[$i] ";
                         $result = $dblink->query($sql);
                         $infoAulas = $result->fetch();
-                        $sql = "SELECT * FROM usuarios_aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
+                        $sql = "SELECT * FROM Usuarios_Aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
                         $infoUsCatego = $dblink->query($sql);
                         //  echo "$sql";
                         echo "<tr>";
@@ -170,7 +170,7 @@ $_resultadosNoDisp = $arregDisp[1];
                         echo "<tr>";
                         $idReserv = $_resultadosNoDisp[$i][$j];
 
-                        $sql = "SELECT * FROM reservas WHERE id_Reservas =  $idReserv; ";
+                        $sql = "SELECT * FROM Reservas WHERE id_Reservas =  $idReserv; ";
                         $result = $dblink->query($sql);
                         $infoReserva = $result->fetch();
 
@@ -183,11 +183,11 @@ $_resultadosNoDisp = $arregDisp[1];
                         } else {
                             echo "<td> </td>";
                         }
-                        $sql = "SELECT * FROM usuarios WHERE id_Usuario =  $infoReserva[2] ; ";
+                        $sql = "SELECT * FROM Usuarios WHERE id_Usuario =  $infoReserva[2] ; ";
                         $result = $dblink->query($sql);
                         $infoUsuario = $result->fetch();
 
-                        $sql = "SELECT * FROM materias WHERE id_Materias =  $infoReserva[3] ; ";
+                        $sql = "SELECT * FROM Materias WHERE id_Materias =  $infoReserva[3] ; ";
                         $result = $dblink->query($sql);
                         $infoMaterias = $result->fetch();
                         echo "<td>";

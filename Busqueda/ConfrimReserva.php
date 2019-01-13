@@ -18,7 +18,7 @@ $docente = $_POST['NombreDocente'];
 
 if (isset($_POST['confirmReservation'])) {
     $id_DeAulaAReservar = $_POST['idAReserv'];
-    $sql = "SELECT * FROM materias WHERE nombre_materia LIKE '$nombreDeMateria' ;";
+    $sql = "SELECT * FROM Materias WHERE nombre_materia LIKE '$nombreDeMateria' ;";
     //echo $sql;
     $result = $dblink->query($sql);
     $idDeMateria = 0;
@@ -26,7 +26,7 @@ if (isset($_POST['confirmReservation'])) {
         $infoMateria = $result->fetch();
         $idDeMateria = $infoMateria[0];
     } else {
-        $sql = "INSERT INTO materias VALUES (NULL, '$nombreDeMateria'); ";
+        $sql = "INSERT INTO Materias VALUES (NULL, '$nombreDeMateria'); ";
         $result = $dblink->query($sql);
         //$idDeMateria = $dblink->lastInsertId();
     }
@@ -36,14 +36,14 @@ if (isset($_POST['confirmReservation'])) {
         //seguidos
         $fechainicial = $fechas['fechaini'];
         $fechafinal = $fechas['fechafin'];
-        $sql = "INSERT INTO reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria,'$fechainicial', '$fechafinal', 1, '$horario', '$docente' ) ;";
+        $sql = "INSERT INTO Reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria,'$fechainicial', '$fechafinal', 1, '$horario', '$docente' ) ;";
         $dblink->query($sql);
 
-        $sql2 = "SELECT * FROM aulas WHERE id_Aulas=$id_DeAulaAReservar;";
+        $sql2 = "SELECT * FROM Aulas WHERE id_Aulas=$id_DeAulaAReservar;";
         $result2 = $dblink->query($sql2);
         $infoAula = $result2->fetch();
 
-        $sql3 = "SELECT * FROM materias WHERE nombre_materia LIKE '$nombreDeMateria' ;";
+        $sql3 = "SELECT * FROM Materias WHERE nombre_materia LIKE '$nombreDeMateria' ;";
         $result3 = $dblink->query($sql3);
         $infoMateria = $result3->fetch();
 
@@ -53,10 +53,10 @@ if (isset($_POST['confirmReservation'])) {
 
     } else {
         for ($i = 0; $i < count($fechas); $i++) {
-            $sql = "INSERT INTO reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria,'$fechas[$i]' ,'$fechas[$i]' , 1, '$horario', '$docente' ) ;";
+            $sql = "INSERT INTO Reservas values (NULL, $id_DeAulaAReservar, $id_UsuarioQueReserva,$idDeMateria,'$fechas[$i]' ,'$fechas[$i]' , 1, '$horario', '$docente' ) ;";
             $dblink->query($sql);
 
-            $sql3 = "SELECT * FROM aulas WHERE id_Aulas= $id_DeAulaAReservar ;";
+            $sql3 = "SELECT * FROM Aulas WHERE id_Aulas= $id_DeAulaAReservar ;";
             $result3 = $dblink->query($sql3);
             $infoAula = $result3->fetch();
 
@@ -80,7 +80,7 @@ function listaNombresMaterias()
 {
     $db = new Database();
     $dblink = $db->getConnection();
-    $sql = "SELECT nombre_materia FROM materias;";
+    $sql = "SELECT nombre_materia FROM Materias;";
     $result = $dblink->query($sql);
     $arrglodeMat = array();
     while ($fila = $result->fetch()) {
