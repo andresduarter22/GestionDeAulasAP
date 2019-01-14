@@ -11,7 +11,7 @@ function actua()
     include_once "../Config/DataBase.php";
     $db = new Database();
     $dblink = $db->getConnection();
-    $_categoriaUsuario = $_POST['Categoria'];
+    $_categoriaUsuario = $_POST['CategUs'];
     $_nombre = $_POST['nombre'];
     $_interno = $_POST['numInt'];
     $_Email = $_POST['correo'];
@@ -112,10 +112,10 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <?php while ($fila = $result->fetch()) { ?>
 
         <label for="Rol">Rol:</label><br>
-        <select class="custom-select" name="Categoria" style="width: 300px" required>
-            <option value="1" <?php if ($fila['Rol'] == 2) echo "selected"; ?>>Administrador</option>
-            <option value="2" <?php if ($fila['Rol'] == 1) echo "selected"; ?>>Actualizador</option>
-            <option value="3" <?php if ($fila['Rol'] == 0) echo "selected"; ?>>Reservador</option>
+        <select class="custom-select" name="CategUs" style="width: 300px" required>
+            <option value="2" <?php if ($fila['Rol'] == 2) echo "selected"; ?>>Administrador</option>
+            <option value="1" <?php if ($fila['Rol'] == 1) echo "selected"; ?>>Actualizador</option>
+            <option value="0" <?php if ($fila['Rol'] == 0) echo "selected"; ?>>Reservador</option>
         </select>
         <div class="form-group" style="width: 300px">
             <label for="NombreAula">Nombre:</label>

@@ -1,4 +1,3 @@
-
 <html>
 <?php
 
@@ -11,7 +10,7 @@ session_start();
 $db = new Database();
 $dblink = $db->getConnection();
 $idDeUsuarioReservador = 1;
-$tipoDeUsuario=2;
+$tipoDeUsuario = 2;
 
 $se = new search();
 $arregDisp = 0;
@@ -73,28 +72,6 @@ $_resultadosNoDisp = $arregDisp[1];
     </button>
 </nav>
 
-<!-- Modal de Confirmacion-->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"> Lo sentimos</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Su cuenta no tiene el permiso necesario para realizar la reserva en esta aula o ambiente, por favor
-                entre en contacto con Alexis.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal" >Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container ">
@@ -127,7 +104,21 @@ $_resultadosNoDisp = $arregDisp[1];
                             $_SESSION["tipoDeReserva"] = $se->_tipoDeReserva;
                             $_SESSION["horario"] = $se->_horario;
 
-                            echo "<td class=\"table-success\">" . $infoAulas[1] . "</td> ";
+                            $sql5 = "SELECT id_Categoria FROM Aulas_Categoria WHERE id_Aula =$_resultadosDisp[$i]";
+                            $result5 = $dblink->query($sql5);
+                            $arrIdCategorias= $result5->fetch();
+
+                            echo "<td class=\"table-success\">" . $infoAulas[1] . "<br> ";
+                            echo var_dump($arrIdCategorias);
+                            /* for ($i=0; $i< count($arrIdCategorias); $i++){
+                                $sql6 = "SELECT nombre_categoria FROM Categorias WHERE id_Categorias= $arrIdCategorias[0]";
+                                $result6 = $dblink->query($sql6);
+                                $nombresCategorias= $result6->fetch();
+                                echo var_dump($nombresCategorias);
+
+                            }*/
+
+                            echo "  </td> ";
                             echo "<td class=\"table-success\">
                           <form method=\"POST\" action= \"ConfrimReserva.php\">
 
@@ -138,7 +129,46 @@ $_resultadosNoDisp = $arregDisp[1];
                         } else {
                             echo "<td class=\"table-danger\">" . $infoAulas[1] . "</td> ";
                             echo "<td class=\"table-danger\">
-                                <button type=\"button\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#confirmModal\">Informacion</button>
+                                <button type=\"button\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#confirmModal" . $infoAulas[0] . " \">Informacion</button>
+
+                                <!-- Modal Not your room-->
+<div class=\"modal fade\" id=\"confirmModal" . $infoAulas[0] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleMod  alLabel\"
+     aria-hidden=\"true\">
+    <div class=\"modal-dialog\" role=\"document\">
+        <div class=\"modal-content\">
+            <div class=\"modal-header\">
+                <h4 class=\"modal-title\"> Lo sentimos</h4>
+                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+                    <span aria-hidden=\"true\">&times;</span>
+                </button>
+            </div>
+            <div class=\"modal-body\">";
+                            $sql3 = "SELECT * FROM Usuarios_Aulas where id_DeAula= $infoAulas[0]";
+                            $cantUsuarios = $dblink->query($sql3);
+                            if ($cantUsuarios->rowCount() > 5) {
+                                echo "Por Favor contacte con su jefe de carrera";
+                            } else if ($cantUsuarios->rowCount() > 0) {
+                                echo "Usuario(s) a contactar ";
+                                foreach ($cantUsuarios as $fila) {
+                                    $sql4 = "SELECT * FROM Usuarios WHERE id_Usuario= $fila[2]";
+                                    $res4 = $dblink->query($sql4);
+                                    $infoDeUsuario = $res4->fetch();
+                                    echo "<li> " . $infoDeUsuario['nombre'] . " Interno: " . $infoDeUsuario['num_interno'] . " correo: " . $infoDeUsuario['E_Mail'] . "</li>";
+                                }
+                            } else {
+                                echo "Por favor entre en contacto con alexis";
+                            }
+
+                            echo "
+            </div>
+            <div class=\"modal-footer\">
+                <button type=\"button\" class=\"btn btn-success\" data-dismiss=\"modal\" >Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+                                                                                                            
                             </td>";
                         }
                         echo "</tr>";
@@ -150,58 +180,58 @@ $_resultadosNoDisp = $arregDisp[1];
             }
             ?>
         </div>
-        <?php if($tipoDeUsuario==2 && !empty($_resultadosNoDisp)){?>
-        Aulas Reservadas
-        <div class="container scroMax">
+        <?php if ($tipoDeUsuario >= 0 && !empty($_resultadosNoDisp)) { ?>
+            Aulas no disponibles
+            <div class="container scroMax">
 
-            <table class="table table-striped table-bordered  table-responsive-sm m-5s">
-                <thead class="thead-dark">
-                <tr>
-                    <th style="width: 40%">Nombre de aula</th>
-                    <th style="width: 30%">Informacion</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                for ($i = 0; $i < count($_resultadosNoDisp); $i++) {
-                    echo "<tr>";
-
-                    for ($j = 0; $j < count($_resultadosNoDisp[$i]); $j++) {
+                <table class="table table-striped table-bordered  table-responsive-sm m-5s">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th style="width: 40%">Nombre de aula</th>
+                        <th style="width: 30%">Informacion</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                    for ($i = 0; $i < count($_resultadosNoDisp); $i++) {
                         echo "<tr>";
-                        $idReserv = $_resultadosNoDisp[$i][$j];
 
-                        $sql = "SELECT * FROM Reservas WHERE id_Reservas =  $idReserv; ";
-                        $result = $dblink->query($sql);
-                        $infoReserva = $result->fetch();
+                        for ($j = 0; $j < count($_resultadosNoDisp[$i]); $j++) {
+                            echo "<tr>";
+                            $idReserv = $_resultadosNoDisp[$i][$j];
 
-                        $sql = "SELECT nombre FROM Aulas WHERE id_Aulas =  $infoReserva[1] ; ";
-                        $result = $dblink->query($sql);
-                        $q = $result->fetch();
+                            $sql = "SELECT * FROM Reservas WHERE id_Reservas =  $idReserv; ";
+                            $result = $dblink->query($sql);
+                            $infoReserva = $result->fetch();
 
-                        if ($j == 0) {
-                            echo "<td>" . $q[0] . "</td> ";
-                        } else {
-                            echo "<td> </td>";
+                            $sql = "SELECT nombre FROM Aulas WHERE id_Aulas =  $infoReserva[1] ; ";
+                            $result = $dblink->query($sql);
+                            $q = $result->fetch();
+
+                            if ($j == 0) {
+                                echo "<td>" . $q[0] . "</td> ";
+                            } else {
+                                echo "<td> </td>";
+                            }
+                            $sql = "SELECT * FROM Usuarios WHERE id_Usuario =  $infoReserva[2] ; ";
+                            $result = $dblink->query($sql);
+                            $infoUsuario = $result->fetch();
+
+                            $sql = "SELECT * FROM Materias WHERE id_Materias =  $infoReserva[3] ; ";
+                            $result = $dblink->query($sql);
+                            $infoMaterias = $result->fetch();
+                            echo "<td>";
+                            echo "--" . $infoUsuario[1] . " Interno:" . $infoUsuario[2] . "<br> Docente: " . $infoReserva[8] . "<br> Materia: " . $infoMaterias[1] . "<br> Fechas: Del " . $infoReserva[4] . " al " . $infoReserva[5] . "<br>";
+                            echo "</td>";
+
+                            echo "</tr>";
                         }
-                        $sql = "SELECT * FROM Usuarios WHERE id_Usuario =  $infoReserva[2] ; ";
-                        $result = $dblink->query($sql);
-                        $infoUsuario = $result->fetch();
-
-                        $sql = "SELECT * FROM Materias WHERE id_Materias =  $infoReserva[3] ; ";
-                        $result = $dblink->query($sql);
-                        $infoMaterias = $result->fetch();
-                        echo "<td>";
-                        echo "--" . $infoUsuario[1] . " Interno:" . $infoUsuario[2] . "<br> Docente: " . $infoReserva[8] . "<br> Materia: " . $infoMaterias[1] . "<br> Fechas: Del " . $infoReserva[4] . " al " . $infoReserva[5] . "<br>";
-                        echo "</td>";
-
                         echo "</tr>";
                     }
-                    echo "</tr>";
-                }
-                ?>
-            </table>
-        </div>
-        <?php }?>
+                    ?>
+                </table>
+            </div>
+        <?php } ?>
 
         <br><br><br>
     </div>
@@ -210,6 +240,7 @@ $_resultadosNoDisp = $arregDisp[1];
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
                 src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
                 height="42" width="42" data-target="info"/></button>
+
     <div class="modal fade" id="info" name="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -221,6 +252,8 @@ $_resultadosNoDisp = $arregDisp[1];
                     </button>
                 </div>
                 <div class="modal-body">
+
+
                     En esta pagina se pueden ver las aulas disponibles que cumplen los parametros requeridos
                     El color verde muestra que se puede realizar la reserva
                     El color rojo significa que este usuario no tiene el permiso para realizar la reserva

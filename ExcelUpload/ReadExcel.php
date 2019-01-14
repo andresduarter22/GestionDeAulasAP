@@ -47,9 +47,9 @@ class ReadExcel
         //$spread = $reader->load($fileName);
         try {
 
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-            //$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
-            echo var_dump($reader);
+            //$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+            //echo var_dump($reader);
             $spread = $reader->load($fileName);
             $this->sheet = $spread->getActiveSheet();
         } catch (Exception $e) {
@@ -413,7 +413,7 @@ class ReadExcel
                             $result = $this->dblink->query($sql);
                             $infoMaterias = $result->fetch();
 
-                            $arrayInfoMateriaSinAula = array($infoMaterias[1], $fila['docente']);
+                            $arrayInfoMateriaSinAula = array($infoMaterias[1], $fila['docente'], $fila['fecha_inicio'], $fila['horario']);
                             array_push($this->arregloMateriasSinAula, $arrayInfoMateriaSinAula);
                             //  echo "Existe una materia que perdio su aula";
                         }

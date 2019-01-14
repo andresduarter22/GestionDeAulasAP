@@ -210,7 +210,9 @@ if (isset($_POST['Reserva'])) {
                         echo "Respecto a materias que perdieron su aula<br>";
                         echo "<ul >";
                         foreach ($readClass->getArregloMateriasSinAula() as $row) {
-                            echo "<li> Materia: $row[0] con el docente $row[1] </li>";
+                            $fechaArray= explode("-",$row[2]);
+                            $fechaOrdenada= $fechaArray[2] ."-". $fechaArray[1] ."-". $fechaArray[0] ;
+                            echo "<li> Materia: $row[0] en el horario $row[3] que inicia en la fecha $fechaOrdenada con el docente $row[1]   </li>";
                             //echo implode("|", $row) . "<br>";
                         }
                         echo "</ul>";
