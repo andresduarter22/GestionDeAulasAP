@@ -11,8 +11,10 @@
 </head>
 <body>
   <div>
-    <button type="button" class="btn btn-danger">Cerrar sesión</button>
-      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button type="button" class="btn btn-danger">Log Out</button>
+    </nav>
+    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
   <br/>
   <br/>
@@ -52,19 +54,17 @@ function create(){
   $dblink= $db->getConnection();
   $_nombre= strip_tags($_POST['NombreCategoria']);
   $_descripcion= strip_tags($_POST['Descripcion']);
-  $sql = "INSERT INTO Categorias(id_Categorias,nombre_categoria,descripcion) VALUES(NULL,'$_nombre','$_descripcion')";
-  if ($dblink->query($sql) === FALSE) {
-    echo "Error: " . $sql . "<br>" . $dblink->error;
+  $sql_crear_info = "INSERT INTO Categorias(id_Categorias,nombre_categoria,descripcion) VALUES(NULL,'$_nombre','$_descripcion')";
+  if ($dblink->query($sql_crear_info) === FALSE) {
+    echo "Error: " . $sql_crear_info . "<br>" . $dblink->error;
   }
 
 // the message
-$msg = "Se creo la categoria: ";
-
+//$msg = "Se creo la categoria: ";
 // use wordwrap() if lines are longer than 70 characters
-$msg1 = wordwrap($msg,70);
-
+//$msg1 = wordwrap($msg,70);
 // send email
-mail("andresduarter13@gmail.com","Prueba",$msg1);
+//mail("andresduarter13@gmail.com","Prueba",$msg1);
 header("Location: GestionDeCategorias.php");
   $sql_log = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se creo una categoria llamada $_nombre',now())";
   $dblink->query($sql_log);
@@ -94,9 +94,6 @@ header("Location: GestionDeCategorias.php");
   </div>
 </div>
 <!-- Final boton de Informacion -->
-<?php
- //$dblink->close();
- ?>
 </body>
 
 </html>

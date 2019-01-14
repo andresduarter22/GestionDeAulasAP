@@ -88,17 +88,16 @@ if (isset($_POST['id1']))
   $_nombre= $_POST['NombreAula'];
   $_cantDeAlumnos= $_POST['CantidadAlumnos'];
   $_categorias= $_POST['categoria'];
-  //echo var_dump($_POST['CantidadAlumnos']);
-  //echo var_dump($_cantAulumnos);
+
   $sql3 = "UPDATE Aulas SET nombre = '$_nombre',cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_POST['id1'].";";
-  //echo var_dump($sql3);
   $dblink->query($sql3);
-  $sql4 = "DELETE FROM aulas_categoria WHERE id_Aula = $_id;";
-  //echo var_dump($sql4);
+
+  $sql4 = "DELETE FROM Aulas_Categoria WHERE id_Aula = $_id;";
   $dblink->query($sql4);
-  foreach ($_categorias as  $value) {
-    $sql5 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_id,$value);" ;
-    //echo var_dump($sql5);
+
+  foreach ($_categorias as  $Categoria) {
+    $sql5 = "INSERT INTO Aulas_Categoria(id_Aulas_Categoria,id_Aula,id_Categoria) VALUES(NULL,$_id,$Categoria);" ;
+
     $dblink->query($sql5);
     if ($dblink->query($sql) === FALSE) {
       echo "Error: " . $sql . "<br>" . $dblink->error;

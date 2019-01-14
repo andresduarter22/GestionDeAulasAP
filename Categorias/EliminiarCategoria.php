@@ -11,8 +11,10 @@
 </head>
 <body>
   <div>
-    <button type="button" class="btn btn-danger">Cerrar sesión</button>
-      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button type="button" class="btn btn-danger">Log Out</button>
+    </nav>
+    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
   <br/>
   <br />
@@ -76,45 +78,55 @@
     </table>
     <!--tabla 2 -->
     <?php
+    $aulasConfirmadas = array();
+    $i = 0;
     foreach($aulas as $aula){
         $sql4 = "SELECT count(id_Aula) AS num FROM Aulas_Categoria WHERE id_Aula =".$aula." ;";
         $res4=$dblink->query($sql4);
         $fila4 = $res4->fetch();
-        if($fila4){
           echo $fila4['num'];
           if($fila4['num'] == 1){
             $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aula.";";
             $res5=$dblink->query($sql5);
             $fila5 = $res5->fetch();
-
+            $aulasConfirmadas[$i] = $fila5['nombre'];
+            //echo var_dump($aulasConfirmadas[$i]);
+            $i ++;
               ?>
-    <table class="table table-striped table-bordered  table-responsive-sm m-5s">
-      <thead  class="thead-dark">
-      <tr>
-        <th style="width: 15%">Lista de Aulas que se que quedan sin categoria</th>
-      </tr>
-    </thead>
-    <tbody>
-                <tr>
-                  <td><?php echo $fila5['nombre'] ; ?></td>
-                </tr>
+
         <?php
-      }else{
-        echo "Ningun aula se quedara sin categoria";
+
           }
         }
-      }
-    }else{
-      echo "Ningun Aula sera afectada";
-    }
+      $i = 0;
          ?>
-
+         <?php if($aulasConfirmadas){  ?>
+         <table class="table table-striped table-bordered  table-responsive-sm m-5s">
+           <thead  class="thead-dark">
+           <tr>
+             <th style="width: 15%">Lista de Aulas que se que quedan sin categoria</th>
+           </tr>
+         </thead>
+         <tbody>
+           <?php foreach($aulasConfirmadas as $aula_i){ ?>
+                     <tr>
+                           <td><?php echo $aula_i; ?> </td>
+                     </tr>
+                   <?php } ?>
     </tbody>
   </table>
     </table>
+    <?php }else{
+      echo "Ningun aula se quedara sin categoria";
+    }
+  }else{
+    echo "Ningun Aula sera afectada";
+  }?>
+
+    <!-- Hasta aqui tabla 2  -->
     <form method="post" action=<?php echo '"EliminiarCategoria.php?id='.$_GET['id'].'"' ?>>
         <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
-        <input type="submit" name="submit" class="btn btn-primary" value="Confirmar" />
+        <input type="submit" name="submit" class="btn btn-info" value="Confirmar" />
     </form>
     </div>
     <?php

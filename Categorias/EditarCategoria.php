@@ -10,9 +10,11 @@
   <title>Editar Categoria</title>
 </head>
 <body>
-  <div >
-    <button type="button" class="btn btn-danger">Cerrar sesión</button>
-      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button type="button" class="btn btn-danger">Log Out</button>
+    </nav>
+    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
   <br/>
   <br/>
@@ -27,12 +29,8 @@
 
     //Using GET
     $_idDeCategoria = $_GET['id'];
-    $_nombre = strip_tags($_POST['NombreCategoria']);
-    $_descripcion = strip_tags($_POST['Descripcion']);
     $sql = "SELECT * FROM Categorias WHERE id_Categorias= $_idDeCategoria ;";
     $result = $dblink->query($sql);
-    //echo var_dump($_nombre);
-    //echo var_dump($_descripcion);
     //echo $_SERVER['REQUEST_METHOD']
   ?>
   <!-- holaaa -->
@@ -61,20 +59,14 @@ if (isset($_POST['id1'])){
   $_id= $_POST['id1'];
   $_nombre= $_POST['NombreCategoria'];
   $_descripcion= $_POST['Descripcion'];
-  //echo var_dump($_nombre);
-  //echo var_dump($_descripcion);
-  $sql1 = "UPDATE Categorias SET nombre_categoria ='".$_nombre."',descripcion='".$_descripcion."' WHERE id_Categorias =".$_POST['id1'].";";
-//  echo var_dump($sql1);
-  $dblink->query($sql1);
-  if ($dblink->query($sql1) === FALSE) {
-    echo "Error: " . $sql . "<br>" . $dblink->error;
+  $sql_editar_info = "UPDATE Categorias SET nombre_categoria ='".$_nombre."',descripcion='".$_descripcion."' WHERE id_Categorias =".$_POST['id1'].";";
+  if ($dblink->query($sql_editar_info) === FALSE) {
+    echo "Error: " . $sql_editar_info . "<br>" . $dblink->error;
   }
   $sql_log_ec = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se edito una categoria llamada $_nombre',now())";
   $dblink->query($sql_log_ec);
 header("Location: GestionDeCategorias.php");
 }
-
-
 ?>
 <!-- Boton para ir Atras -->
 <a class="btn btn-primary" href="GestionDeCategorias.php">Atras</a>
@@ -90,7 +82,7 @@ header("Location: GestionDeCategorias.php");
         </button>
       </div>
       <div class="modal-body">
-        Esta es la pantalla donde se puede editar la informacion del aula seleccionada
+        Esta es la pantalla donde se puede editar la informacion del aula seleccionada.
 
       </div>
       <div class="modal-footer">
@@ -100,9 +92,6 @@ header("Location: GestionDeCategorias.php");
   </div>
 </div>
 <!-- Final boton de Informacion -->
-<?php
- //$dblink->close();
- ?>
 </body>
 
 </html>
