@@ -96,9 +96,22 @@ $_resultadosNoDisp = $arregDisp[1];
                         $sql = "SELECT * FROM Usuarios_Aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
                         $infoUsCatego = $dblink->query($sql);
                         //  echo "$sql";
+
+                        $sql2 = "SELECT id_Categoria FROM Aulas_Categoria WHERE id_Aula= $_resultadosDisp[$i] ;";
+                        //echo $sql2;
+                        $arregloCategoriasDeAula = $dblink->query($sql2);
+                        $userHaveCategory = false;
+                        while ($row = $arregloCategoriasDeAula->fetch()) {
+                            $sqlHaveCategoria = "SELECT * FROM Usuarios_Categorias WHERE id_DeCategoria= $row[0] AND id_DeUsuario = $idDeUsuarioReservador  ;";
+                            $infoCategoriasDeAula = $dblink->query($sqlHaveCategoria);
+                            if ($infoCategoriasDeAula->rowCount()) {
+                                $userHaveCategory = true;
+                            }
+                        }
+
                         echo "<tr>";
                         //<input type=\"hidden\" name=\"id_AulasParaReservar\" value= " . $infoAulas[0] . " >
-                        if ($infoUsCatego->rowCount()) {
+                        if ($infoUsCatego->rowCount() || $userHaveCategory) {
                             $_SESSION["id_UsuarioQueReserva"] = $idDeUsuarioReservador;
                             $_SESSION["fechas"] = $se->_fechasArray;
                             $_SESSION["tipoDeReserva"] = $se->_tipoDeReserva;
@@ -112,9 +125,8 @@ $_resultadosNoDisp = $arregDisp[1];
                             while ($fila = $result5->fetch()) {
                                 $sql6 = "SELECT nombre_categoria FROM Categorias WHERE id_Categorias= $fila[0]";
                                 $result6 = $dblink->query($sql6);
-                                $nombresCategorias= $result6->fetch();
+                                $nombresCategorias = $result6->fetch();
                                 echo $nombresCategorias[0] . "  ";
-
                             }
 
                             echo "  </td> ";
@@ -126,7 +138,18 @@ $_resultadosNoDisp = $arregDisp[1];
                           </form>
                          </td>";
                         } else {
-                            echo "<td class=\"table-danger\">" . $infoAulas[1] . "</td> ";
+                            $sql5 = "SELECT id_Categoria FROM Aulas_Categoria WHERE id_Aula =$_resultadosDisp[$i];";
+                            $result5 = $dblink->query($sql5);
+
+                            echo "<td class=\"table-danger\">" . $infoAulas[1] . "<br>";
+                            while ($fila = $result5->fetch()) {
+                                $sql6 = "SELECT nombre_categoria FROM Categorias WHERE id_Categorias= $fila[0]";
+                                $result6 = $dblink->query($sql6);
+                                $nombresCategorias = $result6->fetch();
+                                echo $nombresCategorias[0] . "  ";
+                            }
+
+                            echo "</td> ";
                             echo "<td class=\"table-danger\">
                                 <button type=\"button\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#confirmModal" . $infoAulas[0] . " \">Informacion</button>
 
