@@ -48,9 +48,9 @@ $dblink = $db->getConnection();
         <label for="Rol">Rol:</label><br>
         <select class="custom-select" name="Categoria" style="width: 300px" required>
             <option disabled selected value> -- Seleccione una Categoria --</option>
-            <option value="1">Administrador</option>
-            <option value="2">Actualizador</option>
-            <option value="3">Reservador</option>
+            <option value="2">Administrador</option>
+            <option value="1">Actualizador</option>
+            <option value="0">Reservador</option>
         </select>
         <span class="error"> <?php echo $CatErr; ?></span>
         <div class="form-group" style="width: 300px">

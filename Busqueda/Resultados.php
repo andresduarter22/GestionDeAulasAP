@@ -90,7 +90,7 @@ $_resultadosNoDisp = $arregDisp[1];
                     <?php
                     for ($i = 0; $i < count($_resultadosDisp); $i++) {
                         //  echo "$valor";
-                        $sql = "SELECT * FROM Aulas WHERE id_Aulas= $_resultadosDisp[$i] ";
+                        $sql = "SELECT * FROM Aulas WHERE id_Aulas= $_resultadosDisp[$i]; ";
                         $result = $dblink->query($sql);
                         $infoAulas = $result->fetch();
                         $sql = "SELECT * FROM Usuarios_Aulas WHERE id_DeAula= $_resultadosDisp[$i] AND id_DeUsuario = $idDeUsuarioReservador ;";
@@ -104,19 +104,18 @@ $_resultadosNoDisp = $arregDisp[1];
                             $_SESSION["tipoDeReserva"] = $se->_tipoDeReserva;
                             $_SESSION["horario"] = $se->_horario;
 
-                            $sql5 = "SELECT id_Categoria FROM Aulas_Categoria WHERE id_Aula =$_resultadosDisp[$i]";
+                            $sql5 = "SELECT id_Categoria FROM Aulas_Categoria WHERE id_Aula =$_resultadosDisp[$i];";
                             $result5 = $dblink->query($sql5);
-                            $arrIdCategorias= $result5->fetch();
 
                             echo "<td class=\"table-success\">" . $infoAulas[1] . "<br> ";
-                            echo var_dump($arrIdCategorias);
-                            /* for ($i=0; $i< count($arrIdCategorias); $i++){
-                                $sql6 = "SELECT nombre_categoria FROM Categorias WHERE id_Categorias= $arrIdCategorias[0]";
+                            //echo var_dump($result5) . $sql5;
+                            while ($fila = $result5->fetch()) {
+                                $sql6 = "SELECT nombre_categoria FROM Categorias WHERE id_Categorias= $fila[0]";
                                 $result6 = $dblink->query($sql6);
                                 $nombresCategorias= $result6->fetch();
-                                echo var_dump($nombresCategorias);
+                                echo $nombresCategorias[0] . "  ";
 
-                            }*/
+                            }
 
                             echo "  </td> ";
                             echo "<td class=\"table-success\">
