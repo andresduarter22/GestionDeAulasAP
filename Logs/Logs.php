@@ -2,11 +2,14 @@
 <head>
   <!-- jQuery -->
   <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
-
+  <script src="../Booststrap/jquery-ui-1.12.1/jquery-ui.min.js"></script>
   <!-- Bootstrap JS -->
   <script src="../Booststrap/js/bootstrap.min.js" ></script>
+  <script src="../Booststrap/js/jquery-ui.multidatespicker.js" ></script>
   <title>Tabla de Logs</title>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
+  <link rel="stylesheet" href="../Booststrap/jquery-ui-1.12.1/jquery-ui.min.css">
+  <link rel="stylesheet" href="../Booststrap/css/jquery-ui.multidatespicker.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body >
@@ -19,7 +22,10 @@
       $dblink= $db->getConnection();
 
     ?>
-    <!--Manuales-->
+    <!--Filtro-->
+    <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" >
+      <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" >
+    <!--Tabla de Logs-->
 <div class="container form-group" >
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
@@ -80,7 +86,16 @@
   </div>
   <!-- Final boton de Informacion -->
 
+<script type="text/javascript">
+$('#fechaDeInicio').multiDatesPicker({
+  maxPicks: 1,
+})
 
+$('#fechaDeFin').multiDatesPicker({
+  maxPicks: 1,
+})
+
+</script>
   <?php
   // $dblink->close();
    ?>
