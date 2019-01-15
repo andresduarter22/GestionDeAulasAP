@@ -10,7 +10,7 @@ session_start();
 $db = new Database();
 $dblink = $db->getConnection();
 $idDeUsuarioReservador = 1;
-$tipoDeUsuario = 2;
+$tipoDeUsuario = 1;
 
 $se = new search();
 $arregDisp = 0;
@@ -55,21 +55,7 @@ $_resultadosNoDisp = $arregDisp[1];
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
     </div>
-    <a class="navbar-brand" href="../Usuarios/GestiondeUsuarios.php">Usuarios</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="../Aulas/GestionDeAulas.php">Aulas</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+
 </nav>
 
 
@@ -111,7 +97,7 @@ $_resultadosNoDisp = $arregDisp[1];
 
                         echo "<tr>";
                         //<input type=\"hidden\" name=\"id_AulasParaReservar\" value= " . $infoAulas[0] . " >
-                        if ($infoUsCatego->rowCount() || $userHaveCategory) {
+                        if (($infoUsCatego->rowCount() || $userHaveCategory ) && $tipoDeUsuario!=-1) {
                             $_SESSION["id_UsuarioQueReserva"] = $idDeUsuarioReservador;
                             $_SESSION["fechas"] = $se->_fechasArray;
                             $_SESSION["tipoDeReserva"] = $se->_tipoDeReserva;

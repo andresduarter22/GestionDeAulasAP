@@ -32,7 +32,6 @@ $existenProblemas;
 </head>
 <body>
 
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="Home.php">Log Out</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -41,21 +40,6 @@ $existenProblemas;
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
     </div>
-    <a class="navbar-brand" href="../Usuarios/GestiondeUsuarios.php">Usuarios</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="../Aulas/GestionDeAulas.php">Aulas</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 </nav>
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
