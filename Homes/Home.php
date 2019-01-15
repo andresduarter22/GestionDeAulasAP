@@ -33,7 +33,7 @@ $_IDUsuarioTemporal = 3;
 </nav>
 
 <div class="jumbotron jumbotron-fluid">
-    <img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image">
+    <img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image">
     <div class="container">
         <h1 class="display-4">Bienvenido al Sistema de Reservas UPB La Paz</h1>
         <div class="container">
