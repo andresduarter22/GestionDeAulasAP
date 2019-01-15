@@ -21,7 +21,7 @@ $_tipoDeUsuario = 2;
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="Home.php">Log Out</a>
+    <a class="navbar-brand" href="Home.php" onclick="signOut();">Sign out</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -96,6 +96,15 @@ $_tipoDeUsuario = 2;
     </div>
 </div>
 <!-- Final boton de Informacion -->
+
+<script>
+function signOut() {
+var auth2 = gapi.auth2.getAuthInstance();
+auth2.signOut().then(function () {
+  console.log('User signed out.');
+});
+}
+</script>
 </body>
 
 </html>
