@@ -29,7 +29,7 @@
     //echo $_SERVER['REQUEST_METHOD']
     $aulas = array("Hola");
     $aulas1 = array("Hola");
-    $contador=0;
+    $contador=1;
     $sql = "SELECT * FROM Categorias WHERE id_Categorias =".$_GET['id']." ;";
     $nombre_categoria = $dblink->query($sql);
     $nombre_catego = $nombre_categoria->fetch();
@@ -84,16 +84,14 @@
         $sql4 = "SELECT count(id_Aula) AS num FROM Aulas_Categoria WHERE id_Aula =".$aula." ;";
         $res4=$dblink->query($sql4);
         $fila4 = $res4->fetch();
-          echo $fila4['num'];
-          if($fila4['num'] == 1){
+          //Por si se tira el if $fila4['num'] == 1
+          if($fila4['num'] === '1'){
             $sql5 = "SELECT * FROM Aulas WHERE id_Aulas =".$aula.";";
             $res5=$dblink->query($sql5);
             $fila5 = $res5->fetch();
             $aulasConfirmadas[$i] = $fila5['nombre'];
-            //echo var_dump($aulasConfirmadas[$i]);
             $i ++;
               ?>
-
         <?php
 
           }
