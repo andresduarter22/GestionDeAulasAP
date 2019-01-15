@@ -11,8 +11,10 @@
 </head>
 <body>
   <div>
-    <button type="button" class="btn btn-danger">Cerrar sesión</button>
-      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button type="button" class="btn btn-danger">Log Out</button>
+    </nav>
+    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
   <br/>
   <br/>

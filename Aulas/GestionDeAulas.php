@@ -10,9 +10,13 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body >
-  <button type="button" class="btn btn-danger">Cerrar sesión</button>
-    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image" ></a>
-    <?php
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button type="button" class="btn btn-danger">Log Out</button>
+    </nav>
+    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+  </div>
+  <?php
       include "../Config/DataBase.php";
       $db= new Database();
       $dblink= $db->getConnection();
