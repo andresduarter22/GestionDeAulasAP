@@ -93,10 +93,12 @@
 <script type="text/javascript">
 $('#fechaDeInicio').multiDatesPicker({
   maxPicks: 1,
+  dateFormat: "dd/mm/yy"
 })
 
 $('#fechaDeFin').multiDatesPicker({
   maxPicks: 1,
+  dateFormat: "dd/mm/yy"
 })
 
 </script>
