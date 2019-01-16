@@ -1,10 +1,13 @@
 <?php
+session_start();
 //    $_idDeUsuario = $_GET['id'];
 $_idDeUsuario = 4;
 
 /**
  * pedir tipo de usuario
+ *
  */
+echo $_SESSION['idUsuario'];
 $_tipoDeUsuario = 2;
 ?>
 

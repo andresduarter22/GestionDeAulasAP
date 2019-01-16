@@ -16,7 +16,8 @@ $_IDUsuarioTemporal = 3;
     <!--Google    -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="722692492660-jdifs59bsljp70543hctlv1q0mkjem0u.apps.googleusercontent.com">
+    <meta name="google-signin-client_id"
+          content="722692492660-jdifs59bsljp70543hctlv1q0mkjem0u.apps.googleusercontent.com">
 
     <title>Home</title>
 </head>
@@ -59,7 +60,8 @@ $_IDUsuarioTemporal = 3;
                     </button>
                 </div>
                 <div class="modal-body">
-                    Bienvenido al sistema de reserva de aulas UPB La Paz, en esta pagina puede iniciar sesion como usuario o
+                    Bienvenido al sistema de reserva de aulas UPB La Paz, en esta pagina puede iniciar sesion como
+                    usuario o
                     realizar una consulta sobre la disponibilidad de un aula.
                 </div>
                 <div class="modal-footer">
@@ -73,18 +75,33 @@ $_IDUsuarioTemporal = 3;
     <!-- Log In GOOGLE-->
     <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <script>
-      function onSignIn(googleUser) {
-        // Useful data for your client-side scripts:
-        var profile = googleUser.getBasicProfile();
-        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-        console.log("Email: " + profile.getEmail());
+        function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log("Email: " + profile.getEmail());
 
-        // The ID token you need to pass to your backend:
-        var id_token = googleUser.getAuthResponse().id_token;
-        console.log("ID Token: " + id_token);
-      }
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
+            //como ya se encuentra logeado, redirige una y otra vez a home logeado
+            //window.location.replace("http://skynet.lp.upb.edu/~aduarte16/GestionDeAulasAP/Homes/HomeLogeado.php");
+
+            var email =profile.getEmail();
+            $.ajax({
+                type: "POST",
+                data: {
+                    "correoUs": email
+                },
+                url: "LogSession.php",
+                datatype: "html",
+                success: function (res) {
+                    alert("Bienvenido Usuario");
+                }
+            });
+        }
     </script>
-    
+
 
 </body>
 

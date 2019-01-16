@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 if (!empty($_POST["submit"])) {
     //  echo "string <br>";
     actua();
@@ -93,7 +95,6 @@ function actua()
 <button type="button" class="btn btn-danger">Cerrar sesión</button>
 <a href="GestionDeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right" alt="Responsive image"></a>
 <?php
-session_start();
 include_once "../Config/DataBase.php";
 $db = new Database();
 $dblink = $db->getConnection();
