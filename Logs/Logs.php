@@ -23,20 +23,24 @@
 
     ?>
     <!--Filtro-->
-    <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" >
-      <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" >
-    <!--Tabla de Logs-->
+    <div class="container">
+       Filtro
+       <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" />
+       <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" />
+       <input id="NombreFiltro" placeholder="Inserte nombre del usuario en especifico" name="NombreFiltro" />
+
+    </div>
+  <!--Tabla de Logs-->
 <div class="container form-group" >
 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
   <thead  class="thead-dark">
     <tr>
-      <th style="width: 5%">Nombre del Reservador</th>
-      <th style="width: 10%">Numero Interno dek Reservador</th>
-      <th style="width: 10%">Correo del Reservador</th>
-      <th style="width: 5%">Rango Reservador</th>
-      <th style="width: 40%">Accion</th>
+      <th style="width: 5%">Nombre</th>
+      <th style="width: 10%">Numero Interno</th>
+      <th style="width: 10%">Correo Electronico</th>
+      <th style="width: 5%">Rango</th>
+      <th style="width: 40%">Accion realizada</th>
       <th style="width: 30%">Fecha de la Accion realizada</th>
-
     </tr>
   </thead>
    <tbody>
