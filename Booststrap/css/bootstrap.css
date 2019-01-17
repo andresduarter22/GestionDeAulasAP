@@ -543,8 +543,13 @@ pre code {
 }
 
 .pre-scrollable {
-  max-height: 340px;
+  max-height: 1000px;
+  width: auto;
   overflow-y: auto;
+}
+.scrollable {
+  height: 4000px;
+  overflow: scroll;
 }
 
 .container {
@@ -9038,7 +9043,6 @@ div.scroMax{
   height: 600px;
   width: 800px;
   overflow-y: auto;
-  overflow-x: hidden;
 
 }
 /*# sourceMappingURL=bootstrap.css.map */

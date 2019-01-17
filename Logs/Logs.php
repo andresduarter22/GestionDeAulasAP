@@ -24,16 +24,22 @@
     ?>
     <!--Filtro-->
     <div class="container">
-       Filtro
-       <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" />
-       <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" />
-       <input id="NombreFiltro" placeholder="Inserte nombre del usuario en especifico" name="NombreFiltro" />
-
+      <form  action=<?php echo "Logs.php" ?> method="post">
+        Filtro
+        <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" />
+        <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" />
+        <input type="submit" name="submit_fechas" class="btn btn-info" value="Confirmar Filtro por fechas" />
+      </form>
+      <form action=<?php echo "Logs.php" ?> method="post">
+        <input id="NombreFiltro" placeholder="Inserte nombre del usuario en especifico" name="NombreFiltro" />
+        <input type="submit" name="submit_nombre" class="btn btn-info" value="Confirmar Filtro por Nombre de usuario" />
+      </form>
     </div>
   <!--Tabla de Logs-->
-<div class="container form-group" >
-<table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
-  <thead  class="thead-dark">
+<div class="container" >
+<div class=" pre-scrollable">
+  <table class="table table-striped table-bordered  " >
+    <thead  class="thead-dark">
     <tr>
       <th style="width: 5%">Nombre</th>
       <th style="width: 10%">Numero Interno</th>
@@ -42,8 +48,8 @@
       <th style="width: 40%">Accion realizada</th>
       <th style="width: 30%">Fecha de la Accion realizada</th>
     </tr>
-  </thead>
-   <tbody>
+   </thead>
+   <tbody >
     <?php
     $sql = "SELECT * FROM Logs;";
     $result = $dblink->query($sql);
@@ -62,7 +68,16 @@
   </tbody>
 </table>
 </div>
+</div>
+<?php if(isset($_POST['submit_fechas'])){
 
+  echo var_dump($_POST['fechaDeInicio']);
+} ?>
+<?php if(isset($_POST['submit_nombre'])){
+
+  echo var_dump($_POST['NombreFiltro']);
+
+} ?>
 
   <!-- Boton para ir atras-->
   <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
