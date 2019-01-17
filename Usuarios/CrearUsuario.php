@@ -209,8 +209,16 @@ function create()
     $resultado1 = $dblink->query($sql4);
     $infoUs = $resultado1->fetch();
 
+    if($infoUs['Rol']==0){
+        $rolDeUsuario="Reservador";
+    }else if ($infoUs['Rol']==1){
+        $rolDeUsuario="Actualizador";
+    }else{
+        $rolDeUsuario="Administrador";
+    }
 
-    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $infoUs['Rol'] . "','Se creo un usuario llamado $_nombre',now())";
+
+    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $rolDeUsuario . "','" . $infoUs['Rol'] . "','Se creo un usuario llamado $_nombre',now())";
     $dblink->query($sql_log_cu);
 }
 
