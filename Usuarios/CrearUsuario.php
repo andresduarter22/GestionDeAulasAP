@@ -218,7 +218,7 @@ function create()
     }
 
 
-    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $rolDeUsuario . "','" . $infoUs['Rol'] . "','Se creo un usuario llamado $_nombre',now())";
+    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" .$rolDeUsuario  . "','Se creo un usuario llamado $_nombre',now())";
     $dblink->query($sql_log_cu);
 }
 

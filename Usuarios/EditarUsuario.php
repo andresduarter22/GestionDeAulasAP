@@ -46,25 +46,6 @@ function actua()
         }
 
 
-        /**
-         * Saca una lista de id de Aula, respecto a las categorias y las inserta en usuarios aulas, repitiendo la inserccion de datos
-         *
-         * */
-        /*
-        $sql = "SELECT id_Aula FROM aulas_categoria where id_Categoria = '$value' " ;
-        if ($dblink->query($sql) === FALSE) {
-          echo "Error: " . $sql . "<br>" . $dblink->error;
-        }
-        $result = $dblink->query($sql);
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        while ($fila = $result->fetch()){
-        //  echo $fila['id_Aula'];
-          $valorIDDeAula= $fila['id_Aula'];
-          $sql2 = "INSERT INTO usuarios_aulas(idUsuarios_Aulas,id_DeAula,id_DeUsuario) values(NULL,'$valorIDDeAula','$_idUsAEditar')";
-          if ($dblink->query($sql2) === FALSE) {
-            echo "Error: " . $sql2 . "<br>" . $dblink->error;
-          }
-        }*/
     }
     foreach ($_aulas as $value) {
         //    echo "$value";
@@ -73,10 +54,27 @@ function actua()
             echo "Error: " . $sql . "<br>" . $dblink->error;
         }
     }
-    $sql_log_edu = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se edito un usuario llamado $_nombre',now())";
+
+    $idDeUsuario = $_SESSION['idUsuario'];
+    $sql4 = "SELECT * FROM Usuarios where id_Usuario=$idDeUsuario";
+    $resultado1 = $dblink->query($sql4);
+    $infoUs = $resultado1->fetch();
+
+    if($infoUs['Rol']==0){
+        $rolDeUsuario="Reservador";
+    }else if ($infoUs['Rol']==1){
+        $rolDeUsuario="Actualizador";
+    }else{
+        $rolDeUsuario="Administrador";
+    }
+
+
+    $sql_log_edu = "INSERT INTO Logs VALUES (NULL,'".$infoUs['nombre']."','". $infoUs['num_interno']  ."','". $infoUs['E_Mail'] ."','".$rolDeUsuario."','Se edito un usuario llamado $_nombre',now())";
     $dblink->query($sql_log_edu);
 }
 
+
+if (isset($_SESSION['idUsuario'])) {
 ?>
 
 <html>
@@ -245,3 +243,8 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 </body>
 
 </html>
+    <?php
+} else {
+    echo "Por favor resgistrese";
+}
+?>
