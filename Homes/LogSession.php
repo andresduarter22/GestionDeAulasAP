@@ -21,13 +21,19 @@ $resultado= $dblink->query($sql);
 
 
 $infoUs=$resultado->fetch();
+echo var_dump($infoUs);
 
+if($infoUs){
+    $_SESSION['idUsuario']=$infoUs[0];
+    $_SESSION['tipoDeUsuario']=$infoUs[4];
+    $_SESSION['nombreDeUsuario']=$infoUs[1];
 
-$_SESSION['idUsuario']=$infoUs[0];
-$_SESSION['tipoDeUsuario']=$infoUs[4];
-$_SESSION['nombreDeUsuario']=$infoUs[1];
-
-echo "session correcta mentelogeado ". $_SESSION['idUsuario'] ;
-
+    echo "Bienvenido $infoUs[1]" ;
+}else{
+    echo "su usuario no se encuentra registrado en el sistema";
+    $_SESSION['idUsuario']=0;
+    $_SESSION['tipoDeUsuario']=0;
+    $_SESSION['nombreDeUsuario']=0;
+}
 
 
