@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 /**
  * Created by PhpStorm.
  * User: luisfer
@@ -6,13 +8,16 @@
  * Time: 15:12
  */
 
-$_idDeUsuario = 1;
+
+if (isset($_SESSION['idUsuario'])) {
+
+
+$_idDeUsuario = $_SESSION['idUsuario'];
 
 require 'vendor/autoload.php';
 include "ReadExcel.php";
 
 
-$existenProblemas;
 
 
 ?>
@@ -93,9 +98,9 @@ $existenProblemas;
 
 <?php
 if (isset($_POST['Aulas'])) {
-    $uploadDir= "../Uploads/"  ;
+    $uploadDir = "../Uploads/";
     move_uploaded_file($_FILES["file"]["tmp_name"], $uploadDir . $_FILES['file']['name']);
-    $dirExcel="../Uploads/" . $_FILES['file']['name'];
+    $dirExcel = "../Uploads/" . $_FILES['file']['name'];
 
     $readClass = new ReadExcel($dirExcel, $_POST['id']);
 
@@ -105,48 +110,49 @@ if (isset($_POST['Aulas'])) {
 if (isset($_POST['Reserva'])) {
 
 
-    $uploadDir= "../Uploads/"  ;
-    move_uploaded_file($_FILES["file"]["tmp_name"], $uploadDir . $_FILES['file']['name']);
-    $dirExcel="../Uploads/" . $_FILES['file']['name'];
+$uploadDir = "../Uploads/";
+move_uploaded_file($_FILES["file"]["tmp_name"], $uploadDir . $_FILES['file']['name']);
+$dirExcel = "../Uploads/" . $_FILES['file']['name'];
 
-    $readClass = new ReadExcel($dirExcel, $_POST['id']);
-    $readClass->checkIntegrity();
-    $readClass->cruzeConReservManuales();
-    $readClass->verificarReservaSeQuedaSinAula();
-    $GLOBALS['trouble'] = $readClass->anytrouble();
+$readClass = new ReadExcel($dirExcel, $_POST['id']);
+$readClass->checkIntegrity();
+$readClass->cruzeConReservManuales();
+$readClass->verificarReservaSeQuedaSinAula();
+$GLOBALS['trouble'] = $readClass->anytrouble();
 
 
-    //echo $readClass->IntegridadDeExcel . $readClass->cruzeConReservasManuales . $readClass->materiasQuePerdieronAula;
-    ?>
+//echo $readClass->IntegridadDeExcel . $readClass->cruzeConReservasManuales . $readClass->materiasQuePerdieronAula;
+?>
 
-    <!-- Modal de Confirmacion-->
-    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"> Confirmacion</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Esta seguro de subir el documento
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="subirRes();">Enviar y
-                        Cerrar
-                    </button>
-                    <!-- <button type="button" class="btn btn-success" data-dismiss="modal" id="UploadEx">Enviar y Cerrar -->
-                    </button>
-                </div>
+<!-- Modal de Confirmacion-->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Confirmacion</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Esta seguro de subir el documento
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick="subirRes();">Enviar y
+                    Cerrar
+                </button>
+                <!-- <button type="button" class="btn btn-success" data-dismiss="modal" id="UploadEx">Enviar y Cerrar -->
+                </button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal de warning-->
-    <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel"
-         aria-hidden="true">
+<!-- Modal de warning-->
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleMod  alLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -194,8 +200,8 @@ if (isset($_POST['Reserva'])) {
                         echo "Respecto a materias que perdieron su aula<br>";
                         echo "<ul >";
                         foreach ($readClass->getArregloMateriasSinAula() as $row) {
-                            $fechaArray= explode("-",$row[2]);
-                            $fechaOrdenada= $fechaArray[2] ."-". $fechaArray[1] ."-". $fechaArray[0] ;
+                            $fechaArray = explode("-", $row[2]);
+                            $fechaOrdenada = $fechaArray[2] . "-" . $fechaArray[1] . "-" . $fechaArray[0];
                             echo "<li> Materia: $row[0] en el horario $row[3] que inicia en la fecha $fechaOrdenada con el docente $row[1]   </li>";
                             //echo implode("|", $row) . "<br>";
                         }
@@ -225,72 +231,72 @@ if (isset($_POST['Reserva'])) {
     }
 
 
-}
-
-?>
-
-<script type="text/javascript">
-
-    function sendEmail() {
-        var exceldoc = "<?php echo $dirExcel; ?>";
-        var idUs = "<?php echo $_POST['id']; ?>";
-        console.log(exceldoc);
-        $.ajax({
-            type: "POST",
-            data: {
-                "exceltmp": exceldoc,
-                "idUs": idUs
-            },
-            url: "SendMailHandler.php",
-            datatype: "html",
-            success: function (res) {
-                alert(res);
-            }
-        });
     }
 
-    function subirRes() {
-        var exceldoc = "<?php echo $dirExcel; ?>";
-        var idUs = "<?php echo $_POST['id']; ?>";
-        console.log(exceldoc);
-        $.ajax({
-            type: "POST",
-            data: {
-                "exceltmp": exceldoc,
-                "idUs": idUs
-            },
-            url: "ExcelHandler.php",
-            datatype: "html",
-            success: function (res) {
-                alert(res);
-            }
-        });
+    ?>
+
+    <script type="text/javascript">
+
+        function sendEmail() {
+            var exceldoc = "<?php echo $dirExcel; ?>";
+            var idUs = "<?php echo $_POST['id']; ?>";
+            console.log(exceldoc);
+            $.ajax({
+                type: "POST",
+                data: {
+                    "exceltmp": exceldoc,
+                    "idUs": idUs
+                },
+                url: "SendMailHandler.php",
+                datatype: "html",
+                success: function (res) {
+                    alert(res);
+                }
+            });
+        }
+
+        function subirRes() {
+            var exceldoc = "<?php echo $dirExcel; ?>";
+            var idUs = "<?php echo $_POST['id']; ?>";
+            console.log(exceldoc);
+            $.ajax({
+                type: "POST",
+                data: {
+                    "exceltmp": exceldoc,
+                    "idUs": idUs
+                },
+                url: "ExcelHandler.php",
+                datatype: "html",
+                success: function (res) {
+                    alert(res);
+                }
+            });
+        }
+
+
+    </script>
+    <?php
+    function sendE()
+    {
+        $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
+        $readClass->cruzeConReservManuales();
+        $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
+
+        echo "Se enviaron correos a los usuarios Afectados ";
+
+        // the message
+        $msg = "Estimado usuario debido al cronograma del siguiente modulo su reserva que usted realizo sera borrada";
+        // use wordwrap() if lines are longer than 70 characters
+        $msg1 = wordwrap($msg, 70);
+        // send email
+        foreach ($arreglsinRep as $row) {
+            echo $row[4];
+            mail($row[4], "Prueba", $msg1);
+
+        }
     }
-
-
-
-
-</script>
-<?php
-function sendE()
-{
-    $readClass = new ReadExcel($_FILES['file']['tmp_name'], $_POST[id]);
-    $readClass->cruzeConReservManuales();
-    $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
-
-    echo "Se enviaron correos a los usuarios Afectados ";
-
-    // the message
-    $msg = "Estimado usuario debido al cronograma del siguiente modulo su reserva que usted realizo sera borrada";
-    // use wordwrap() if lines are longer than 70 characters
-    $msg1 = wordwrap($msg, 70);
-    // send email
-    foreach ($arreglsinRep as $row) {
-        echo $row[4];
-        mail($row[4], "Prueba", $msg1);
+    } else {
 
     }
-}
-
-?>
+    ?>
 </html>

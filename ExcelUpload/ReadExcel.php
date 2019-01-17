@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Reader\Exception;
@@ -99,7 +99,21 @@ class ReadExcel
                 $read = true;
             }
         }
-        $sql_log_eu = "INSERT INTO Logs  VALUES (NULL,'Andres','666','ad@gmail.com','m','Subio un archivo excel al sistema ',now())";
+
+        $idDeUsuario = $_SESSION['idUsuario'];
+        $sql4 = "SELECT * FROM Usuarios where id_Usuario=$idDeUsuario";
+        $resultado1 = $this->dblink->query($sql4);
+        $infoUs = $resultado1->fetch();
+
+        if($infoUs['Rol']==0){
+            $rolDeUsuario="Reservador";
+        }else if ($infoUs['Rol']==1){
+            $rolDeUsuario="Actualizador";
+        }else{
+            $rolDeUsuario="Administrador";
+        }
+
+        $sql_log_eu = "INSERT INTO Logs  VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" .$rolDeUsuario  . "','Subio un archivo excel al sistema ',now())";
         $this->dblink->query($sql_log_eu);
 
     }

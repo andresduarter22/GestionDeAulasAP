@@ -19,12 +19,13 @@ $arreglsinRep = array_unique($readClass->getArregloReservasManualesAfectadas());
 echo "Se enviaron correos a los usuarios Afectados ";
 
 // the message
-$msg = "Estimado usuario debido al cronograma del siguiente modulo su reserva que usted realizo sera borrada";
+$msg = "Estimado usuario debido al cronograma del siguiente modulo su reserva que usted realizo sera borrada:";
 // use wordwrap() if lines are longer than 70 characters
 $msg1 = wordwrap($msg, 70);
 // send email
 foreach ($arreglsinRep as $row) {
+    $act= $msg. "   \n  La materia $row[2] dictada por el docente $row[3] en el aula  $row[1]";
     echo $row[4];
-    mail($row[4], "Prueba", $msg1);
-
+    $msg1 = wordwrap($act, 70);
+    mail($row[4], "Aviso del sistema de reserva de aulas", $msg1);
 }
