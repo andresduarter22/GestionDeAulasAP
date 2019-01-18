@@ -10,12 +10,15 @@
   <title>Editar Aula</title>
 </head>
 <body>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button type="button" class="btn btn-danger">Log Out</button>
-    </nav>
-    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
-  </div>
+  <?php session_start();
+  echo var_dump($_SESSION['idUsuario']);
+  if (isset($_SESSION['idUsuario'])) { ?>
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button type="button" class="btn btn-danger">Log Out</button>
+      </nav>
+      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+    </div>
   <br/>
   <br/>
   <br/>
@@ -47,6 +50,7 @@
   </div>
 
   <div class="container">
+    <div class=" pre-scrollable">
     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
     <thead  class="thead-dark">
       <tr>
@@ -80,6 +84,7 @@
      <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
      <input type="submit" name="submit" class="btn btn-info" value="Confirmar" />
    </form>
+  </div>
   </div>
 </form>
 
@@ -135,7 +140,16 @@ if (isset($_POST['id1']))
 </div>
 <!-- Final boton de Informacion -->
 <?php
- //$dblink->close();
+}else{
+  ?>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    </nav>
+    <a href="../Homes/Home.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+  </div>
+  <?php
+  echo "Por favor inicie sesion";
+}
  ?>
 </body>
 
