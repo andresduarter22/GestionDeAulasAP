@@ -11,7 +11,7 @@
 </head>
 <body>
   <?php session_start();
-  echo var_dump($_SESSION['idUsuario']);
+  //echo var_dump($_SESSION['idUsuario']);
   if (isset($_SESSION['idUsuario'])) { ?>
     <div>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -80,11 +80,11 @@
        <?php } ?>
      </tbody>
    </table>
+ </div>
    <form action="EditarAula.php" method="post">
      <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
      <input type="submit" name="submit" class="btn btn-info" value="Confirmar" />
    </form>
-  </div>
   </div>
 </form>
 

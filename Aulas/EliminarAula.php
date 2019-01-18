@@ -1,4 +1,5 @@
 <?php
+if (isset($_SESSION['idUsuario'])) {
   include_once "../Config/DataBase.php";
   $db= new Database();
   $dblink= $db->getConnection();
@@ -15,5 +16,5 @@
     $dblink->query($sql_log_ea);
 
    header("Location: GestionDeAulas.php");
-   //$dblink->close();
+ }
    ?>

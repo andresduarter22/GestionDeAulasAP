@@ -10,6 +10,9 @@
   <title>Crear Aula</title>
 </head>
 <body>
+  <?php session_start();
+  //echo var_dump($_SESSION['idUsuario']);
+  if (isset($_SESSION['idUsuario'])) { ?>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button type="button" class="btn btn-danger">Log Out</button>
@@ -117,7 +120,16 @@ if (isset($_POST['submit']))
 </div>
 <!-- Final boton de Informacion -->
 <?php
- //$dblink->close();
+}else{
+  ?>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    </nav>
+    <a href="../Homes/Home.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+  </div>
+  <?php
+  echo "Por favor inicie sesion";
+}
  ?>
 </body>
 
