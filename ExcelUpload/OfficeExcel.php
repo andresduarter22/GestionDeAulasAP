@@ -18,8 +18,6 @@ require 'vendor/autoload.php';
 include "ReadExcel.php";
 
 
-
-
 ?>
 <html>
 <!-- jQuery -->
@@ -296,7 +294,8 @@ $GLOBALS['trouble'] = $readClass->anytrouble();
         }
     }
     } else {
-
+        echo "Por favor resgistrese";
+        echo "<a  class=\"btn-dark\" href=\"../Homes/Home.php\"> Home Page</a>";
     }
     ?>
 </html>

@@ -13,6 +13,9 @@ $db = new Database();
 }else {
 
 }*/
+
+
+if (isset($_SESSION['idUsuario'])) {
 ?>
 
 <html>
@@ -135,3 +138,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 </body>
 
 </html>
+    <?php
+} else {
+    echo "Por favor resgistrese";
+    echo "<a  class=\"btn-dark\" href=\"../Homes/Home.php\"> Home Page</a>";
+}
+
