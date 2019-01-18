@@ -5,7 +5,7 @@ $db = new Database();
 $dblink = $db->getConnection();
 
 $id_DeAulaAReservar = $_POST["id_AulasParaReservar"];
-$id_UsuarioQueReserva = $_SESSION['id_UsuarioQueReserva'];
+$id_UsuarioQueReserva = $_SESSION['idUsuario'];
 $fechas = $_SESSION['fechas'];
 $tipoDeReserva = $_SESSION['tipoDeReserva'];
 $horario = $_SESSION['horario'];
@@ -47,7 +47,21 @@ if (isset($_POST['confirmReservation'])) {
         $result3 = $dblink->query($sql3);
         $infoMateria = $result3->fetch();
 
-        $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'Andres','666','ad@gmail.com','m','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] De $fechainicial a $fechafinal en el horario $horario con el docente $docente ',now())";
+        $idDeUsuario = $_SESSION['idUsuario'];
+        $sql4 = "SELECT * FROM Usuarios where id_Usuario=$idDeUsuario";
+        $resultado1 = $dblink->query($sql4);
+        $infoUs = $resultado1->fetch();
+
+        if($infoUs['Rol']==0){
+            $rolDeUsuario="Reservador";
+        }else if ($infoUs['Rol']==1){
+            $rolDeUsuario="Actualizador";
+        }else{
+            $rolDeUsuario="Administrador";
+        }
+
+
+        $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'".$infoUs['nombre']."','". $infoUs['num_interno']  ."','". $infoUs['E_Mail'] ."','".$rolDeUsuario."','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] De $fechainicial a $fechafinal en el horario $horario con el docente $docente ',now())";
         echo $sql_log_eu;
         $dblink->query($sql_log_eu);
 
@@ -60,8 +74,20 @@ if (isset($_POST['confirmReservation'])) {
             $result3 = $dblink->query($sql3);
             $infoAula = $result3->fetch();
 
+            $idDeUsuario = $_SESSION['idUsuario'];
+            $sql4 = "SELECT * FROM Usuarios where id_Usuario=$idDeUsuario";
+            $resultado1 = $dblink->query($sql4);
+            $infoUs = $resultado1->fetch();
 
-            $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'Andres','666','ad@gmail.com','m','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] el dia $fechas[$i]  en el horario $horario con el docente $docente ',now())";
+            if($infoUs['Rol']==0){
+                $rolDeUsuario="Reservador";
+            }else if ($infoUs['Rol']==1){
+                $rolDeUsuario="Actualizador";
+            }else{
+                $rolDeUsuario="Administrador";
+            }
+
+            $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'".$infoUs['nombre']."','". $infoUs['num_interno']  ."','". $infoUs['E_Mail'] ."','".$rolDeUsuario."','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] el dia $fechas[$i]  en el horario $horario con el docente $docente ',now())";
             //echo $sql_log_eu;
             $dblink->query($sql_log_eu);
         }
@@ -74,6 +100,8 @@ window.location.replace(\"http://skynet.lp.upb.edu/~aduarte16/GestionDeAulasAP/H
     //header("Location: MotorDeBusqueda");
 
 }
+
+
 $arrglodeMat = array();
 
 function listaNombresMaterias()
@@ -90,180 +118,189 @@ function listaNombresMaterias()
 }
 
 //echo implode(";",listaNombresMaterias());
+if (isset($_SESSION['idUsuario'])) {
+    ?>
 
-?>
+    <html>
+    <head>
+        <!-- jQuery -->
+        <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
 
-<html>
-<head>
-    <!-- jQuery -->
-    <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="../Booststrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Confirmacion de Reserva</title>
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="Home.php">Log Out</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+        </div>
+        <a class="navbar-brand" href="../Usuarios/GestiondeUsuarios.php">Usuarios</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="../Aulas/GestionDeAulas.php">Aulas</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <div class="container">
+        <form action="ConfrimReserva.php" method="post" autocomplete="off">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Materia</label>
+                <input type="text" name="NombreMateria" class="form-control" id="NombreMateria"
+                       placeholder="Ingrese Materia" required>
+                <small id="Materia Help" class="form-text text-muted">Ingrese el nombre de la materia a la cual se
+                    guardara
+                    la reserva
+                </small>
+            </div>
+            <div class="form-group">
+                <label>Nombre de Docente</label>
+                <input class="form-control" name="NombreDocente" id="NombreDocente" placeholder="Nombre de docente"
+                       required>
+            </div>
+            <input type="hidden" value="<?php echo $id_DeAulaAReservar ?>" name="idAReserv">
 
-    <!-- Bootstrap JS -->
-    <script src="../Booststrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Confirmacion de Reserva</title>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="Home.php">Log Out</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+            <button type="submit" class="btn btn-primary" name="confirmReservation" value="submit">Submit</button>
+        </form>
+
     </div>
-    <a class="navbar-brand" href="../Usuarios/GestiondeUsuarios.php">Usuarios</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <a class="navbar-brand" href="../Aulas/GestionDeAulas.php">Aulas</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</nav>
-<div class="container">
-    <form action="ConfrimReserva.php" method="post" autocomplete="off">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Materia</label>
-            <input type="text" name="NombreMateria" class="form-control" id="NombreMateria"
-                   placeholder="Ingrese Materia" required>
-            <small id="Materia Help" class="form-text text-muted">Ingrese el nombre de la materia a la cual se guardara
-                la reserva
-            </small>
-        </div>
-        <div class="form-group">
-            <label>Nombre de Docente</label>
-            <input class="form-control" name="NombreDocente" id="NombreDocente" placeholder="Nombre de docente"
-                   required>
-        </div>
-        <input type="hidden" value="<?php echo $id_DeAulaAReservar ?>" name="idAReserv">
-
-        <button type="submit" class="btn btn-primary" name="confirmReservation" value="submit">Submit</button>
-    </form>
-
-</div>
-<!-- <a href="Resultados.php" class="btn btn-primary">Atras</a>  -->
+    <!-- <a href="Resultados.php" class="btn btn-primary">Atras</a>  -->
 
 
+    <!--  <a class="btn btn-primary" href="Resultados.php">Atras</a> -->
+    </body>
+    <script>
+        function autocomplete(inp, arr) {
+            /*the autocomplete function takes two arguments,
+            the text field element and an array of possible autocompleted values:*/
+            var currentFocus;
+            /*execute a function when someone writes in the text field:*/
+            inp.addEventListener("input", function (e) {
+                var a, b, i, val = this.value;
+                /*close any already open lists of autocompleted values*/
+                closeAllLists();
+                if (!val) {
+                    return false;
+                }
+                currentFocus = -1;
+                /*create a DIV element that will contain the items (values):*/
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                /*append the DIV element as a child of the autocomplete container:*/
+                this.parentNode.appendChild(a);
+                /*for each item in the array...*/
+                for (i = 0; i < arr.length; i++) {
+                    /*check if the item starts with the same letters as the text field value:*/
+                    if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                        /*create a DIV element for each matching element:*/
+                        b = document.createElement("DIV");
+                        /*make the matching letters bold:*/
+                        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                        b.innerHTML += arr[i].substr(val.length);
+                        /*insert a input field that will hold the current array item's value:*/
+                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                        /*execute a function when someone clicks on the item value (DIV element):*/
+                        b.addEventListener("click", function (e) {
+                            /*insert the value for the autocomplete text field:*/
+                            inp.value = this.getElementsByTagName("input")[0].value;
+                            /*close the list of autocompleted values,
+                            (or any other open lists of autocompleted values:*/
+                            closeAllLists();
+                        });
+                        a.appendChild(b);
+                    }
+                }
+            });
+            /*execute a function presses a key on the keyboard:*/
+            inp.addEventListener("keydown", function (e) {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40) {
+                    /*If the arrow DOWN key is pressed,
+                    increase the currentFocus variable:*/
+                    currentFocus++;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 38) { //up
+                    /*If the arrow UP key is pressed,
+                    decrease the currentFocus variable:*/
+                    currentFocus--;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 13) {
+                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        /*and simulate a click on the "active" item:*/
+                        if (x) x[currentFocus].click();
+                    }
+                }
+            });
 
-<!--  <a class="btn btn-primary" href="Resultados.php">Atras</a> -->
-</body>
-<script>
-    function autocomplete(inp, arr) {
-        /*the autocomplete function takes two arguments,
-        the text field element and an array of possible autocompleted values:*/
-        var currentFocus;
-        /*execute a function when someone writes in the text field:*/
-        inp.addEventListener("input", function (e) {
-            var a, b, i, val = this.value;
-            /*close any already open lists of autocompleted values*/
-            closeAllLists();
-            if (!val) {
-                return false;
+            function addActive(x) {
+                /*a function to classify an item as "active":*/
+                if (!x) return false;
+                /*start by removing the "active" class on all items:*/
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                /*add class "autocomplete-active":*/
+                x[currentFocus].classList.add("autocomplete-active");
             }
-            currentFocus = -1;
-            /*create a DIV element that will contain the items (values):*/
-            a = document.createElement("DIV");
-            a.setAttribute("id", this.id + "autocomplete-list");
-            a.setAttribute("class", "autocomplete-items");
-            /*append the DIV element as a child of the autocomplete container:*/
-            this.parentNode.appendChild(a);
-            /*for each item in the array...*/
-            for (i = 0; i < arr.length; i++) {
-                /*check if the item starts with the same letters as the text field value:*/
-                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                    /*create a DIV element for each matching element:*/
-                    b = document.createElement("DIV");
-                    /*make the matching letters bold:*/
-                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                    b.innerHTML += arr[i].substr(val.length);
-                    /*insert a input field that will hold the current array item's value:*/
-                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                    /*execute a function when someone clicks on the item value (DIV element):*/
-                    b.addEventListener("click", function (e) {
-                        /*insert the value for the autocomplete text field:*/
-                        inp.value = this.getElementsByTagName("input")[0].value;
-                        /*close the list of autocompleted values,
-                        (or any other open lists of autocompleted values:*/
-                        closeAllLists();
-                    });
-                    a.appendChild(b);
+
+            function removeActive(x) {
+                /*a function to remove the "active" class from all autocomplete items:*/
+                for (var i = 0; i < x.length; i++) {
+                    x[i].classList.remove("autocomplete-active");
                 }
             }
-        });
-        /*execute a function presses a key on the keyboard:*/
-        inp.addEventListener("keydown", function (e) {
-            var x = document.getElementById(this.id + "autocomplete-list");
-            if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) {
-                /*If the arrow DOWN key is pressed,
-                increase the currentFocus variable:*/
-                currentFocus++;
-                /*and and make the current item more visible:*/
-                addActive(x);
-            } else if (e.keyCode == 38) { //up
-                /*If the arrow UP key is pressed,
-                decrease the currentFocus variable:*/
-                currentFocus--;
-                /*and and make the current item more visible:*/
-                addActive(x);
-            } else if (e.keyCode == 13) {
-                /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                e.preventDefault();
-                if (currentFocus > -1) {
-                    /*and simulate a click on the "active" item:*/
-                    if (x) x[currentFocus].click();
+
+            function closeAllLists(elmnt) {
+                /*close all autocomplete lists in the document,
+                except the one passed as an argument:*/
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                    if (elmnt != x[i] && elmnt != inp) {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
                 }
             }
-        });
 
-        function addActive(x) {
-            /*a function to classify an item as "active":*/
-            if (!x) return false;
-            /*start by removing the "active" class on all items:*/
-            removeActive(x);
-            if (currentFocus >= x.length) currentFocus = 0;
-            if (currentFocus < 0) currentFocus = (x.length - 1);
-            /*add class "autocomplete-active":*/
-            x[currentFocus].classList.add("autocomplete-active");
+            /*execute a function when someone clicks in the document:*/
+            document.addEventListener("click", function (e) {
+                closeAllLists(e.target);
+            });
         }
 
-        function removeActive(x) {
-            /*a function to remove the "active" class from all autocomplete items:*/
-            for (var i = 0; i < x.length; i++) {
-                x[i].classList.remove("autocomplete-active");
-            }
-        }
+        /*An array containing all the country names in the world:*/
+        var countries =<?php echo json_encode(listaNombresMaterias())?>
+            /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+            autocomplete(document.getElementById("NombreMateria"), countries);
 
-        function closeAllLists(elmnt) {
-            /*close all autocomplete lists in the document,
-            except the one passed as an argument:*/
-            var x = document.getElementsByClassName("autocomplete-items");
-            for (var i = 0; i < x.length; i++) {
-                if (elmnt != x[i] && elmnt != inp) {
-                    x[i].parentNode.removeChild(x[i]);
-                }
-            }
-        }
+    </script>
+    </html>
+    <?php
 
-        /*execute a function when someone clicks in the document:*/
-        document.addEventListener("click", function (e) {
-            closeAllLists(e.target);
-        });
-    }
+} else {
+    echo "Por favor registrese Aqui";
+    ?>
+    <a class="btn-dark" href="Home.php"> Home Page</a>
+    <?php
 
-    /*An array containing all the country names in the world:*/
-    var countries =<?php echo json_encode(listaNombresMaterias())?>
-        /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-        autocomplete(document.getElementById("NombreMateria"), countries);
-
-</script>
-</html>
+} ?>

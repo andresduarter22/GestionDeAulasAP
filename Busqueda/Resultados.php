@@ -7,6 +7,15 @@ header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works
 
 session_start();
+echo $_SESSION['idUsuario'];
+if (isset($_SESSION['idUsuario'])){
+    $idDeUsuarioReservador = $_SESSION['idUsuario'];
+    $tipoDeUsuario = $_SESSION['tipoDeUsuario'];
+}else {
+    $idDeUsuarioReservador = 1;
+    $tipoDeUsuario = -1;
+}
+
 $db = new Database();
 $dblink = $db->getConnection();
 $idDeUsuarioReservador = 1;
@@ -14,8 +23,8 @@ $tipoDeUsuario = 1;
 
 $se = new search();
 $arregDisp = 0;
-if (isset($_POST['startSearch'])) {
 
+if (isset($_POST['startSearch'])) {
     $arregDisp = $se->busca();
 }
 

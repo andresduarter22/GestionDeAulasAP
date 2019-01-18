@@ -116,7 +116,10 @@ if (isset($_SESSION['idUsuario'])) {
     </html>
     <?php
 } else {
-    echo "Por favor Registrese";
+    echo "Por favor registrese Aqui";
+    ?>
+    <a  class="btn-dark" href="Home.php"> Home Page</a>
+<?php
 
     //header("Location: Home.php ");
 }

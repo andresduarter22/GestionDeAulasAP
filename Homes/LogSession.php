@@ -31,9 +31,7 @@ if($infoUs){
     echo "Bienvenido $infoUs[1]" ;
 }else{
     echo "su usuario no se encuentra registrado en el sistema";
-    $_SESSION['idUsuario']=0;
-    $_SESSION['tipoDeUsuario']=0;
-    $_SESSION['nombreDeUsuario']=0;
+
 }
 
 
