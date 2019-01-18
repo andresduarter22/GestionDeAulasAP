@@ -19,9 +19,8 @@ $dblink = $db->getConnection();
 $sql= "SELECT * FROM Usuarios WHERE E_Mail='$correoDeUusario';";
 $resultado= $dblink->query($sql);
 
-
 $infoUs=$resultado->fetch();
-echo var_dump($infoUs);
+
 
 if($infoUs){
     $_SESSION['idUsuario']=$infoUs[0];

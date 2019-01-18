@@ -96,7 +96,7 @@ $_IDUsuarioTemporal = 3;
                 url: "LogSession.php",
                 datatype: "html",
                 success: function (res) {
-                    alert("Bienvenido Usuario");
+                    alert(res);
                 }
             });
         }
