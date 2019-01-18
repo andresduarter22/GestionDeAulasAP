@@ -10,6 +10,9 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body >
+  <?php session_start();
+  echo var_dump($_SESSION['idUsuario']);
+  if (isset($_SESSION['idUsuario'])) { ?>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button type="button" class="btn btn-danger">Log Out</button>
@@ -103,9 +106,18 @@
 </div>
 <!-- Final boton de Informacion -->
 
+<?php
+}else{
+  ?>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    </nav>
+    <a href="../Homes/Home.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+  </div>
   <?php
-  // $dblink->close();
-   ?>
+  echo "Por favor inicie sesion";
+}
+ ?>
  </body>
 
 </html>
