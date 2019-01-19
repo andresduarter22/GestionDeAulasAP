@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Usuarios` (
   `id_Usuario` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(200) NOT NULL,
   `num_interno` VARCHAR(10) NOT NULL,
-  `E_Mail` VARCHAR(100) NOT NULL,
+  `E_Mail` VARCHAR(100) UNIQUE NOT NULL,
   `Rol` TINYINT(2) NOT NULL,
   PRIMARY KEY (`id_Usuario`))
 ENGINE = InnoDB;
@@ -65,7 +65,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `BD_AulasPerronas`.`Materias` ;
 
-CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Materias` (
+CREATE TABLE IF NOT EXISTS `Materias` (
   `id_Materias` INT NOT NULL AUTO_INCREMENT,
   `nombre_materia` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id_Materias`))
@@ -88,7 +88,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `BD_AulasPerronas`.`Aulas_Categoria`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `BD_AulasPerronas`.`Aulas_Categoria` ;
+DROP TABLE IF EXISTS `Aulas_Categoria` ;
 
 CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Aulas_Categoria` (
   `id_Aulas_Categoria` INT NOT NULL AUTO_INCREMENT,
@@ -193,7 +193,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `BD_AulasPerronas`.`Usuarios_Categorias` ;
 
-CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Usuarios_Categorias` (
+CREATE TABLE IF NOT EXISTS `Usuarios_Categorias` (
   `idUsuarios_Categorias` INT NOT NULL  AUTO_INCREMENT,
   `id_DeUsuario` INT NOT NULL,
   `id_DeCategoria` INT NOT NULL,
@@ -202,12 +202,12 @@ CREATE TABLE IF NOT EXISTS `BD_AulasPerronas`.`Usuarios_Categorias` (
   INDEX `id_Categoria_idx` (`id_DeCategoria` ASC),
   CONSTRAINT `id_DeUsuarios`
     FOREIGN KEY (`id_DeUsuario`)
-    REFERENCES `BD_AulasPerronas`.`Usuarios` (`id_Usuario`)
+    REFERENCES `Usuarios` (`id_Usuario`)
     ON DELETE CASCADE
     ON UPDATE CASCADE ,
   CONSTRAINT `id_DeCategoria`
     FOREIGN KEY (`id_DeCategoria`)
-    REFERENCES `BD_AulasPerronas`.`Categorias` (`id_Categorias`)
+    REFERENCES `Categorias` (`id_Categorias`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;

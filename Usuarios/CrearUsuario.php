@@ -4,6 +4,12 @@ include "../Config/DataBase.php";
 $corrErr = $NumintErr = $NombreErr = $CatErr = "";
 
 
+//Conexion con base
+// se crea una nueva instancia de la clase
+$db = new Database();
+// se llama a la conexion, caulquier cosa que se quiera hacer con la base se llama a esa variable
+$dblink = $db->getConnection();
+
 if (isset($_POST['creaUsuario'])) {
 
     $name = $_POST["nombre"];
@@ -14,6 +20,16 @@ if (isset($_POST['creaUsuario'])) {
     $email = $_POST["correo"];
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $corrErr = "Formato de Correo invalido ";
+    }
+    if (!preg_match('/@gmail.com$/', $email)) {
+        $corrErr = "El correo debe ser Gmail";
+    }
+
+    $sql = "SELECT * FROM Usuarios WHERE E_Mail= '$email'";
+    $result=$dblink->query($sql);
+
+    if($result->rowCount()){
+        $corrErr = "El correo ya existe en la base de datos ";
     }
 
     if (empty($corrErr) && empty($NombreErr)) {
@@ -43,13 +59,7 @@ if (isset($_SESSION['idUsuario'])) {
     <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestiondeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
                                          alt="Responsive image"></a>
-    <?php
-    //Conexion con base
-    // se crea una nueva instancia de la clase
-    $db = new Database();
-    // se llama a la conexion, caulquier cosa que se quiera hacer con la base se llama a esa variable
-    $dblink = $db->getConnection();
-    ?>
+
     <form action="CrearUsuario.php" method="post">
         <div class="container">
             <label for="Rol">Rol:</label><br>
@@ -210,16 +220,16 @@ function create()
     $resultado1 = $dblink->query($sql4);
     $infoUs = $resultado1->fetch();
 
-    if($infoUs['Rol']==0){
-        $rolDeUsuario="Reservador";
-    }else if ($infoUs['Rol']==1){
-        $rolDeUsuario="Actualizador";
-    }else{
-        $rolDeUsuario="Administrador";
+    if ($infoUs['Rol'] == 0) {
+        $rolDeUsuario = "Reservador";
+    } else if ($infoUs['Rol'] == 1) {
+        $rolDeUsuario = "Actualizador";
+    } else {
+        $rolDeUsuario = "Administrador";
     }
 
 
-    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" .$rolDeUsuario  . "','Se creo un usuario llamado $_nombre',now())";
+    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se creo un usuario llamado $_nombre',now())";
     $dblink->query($sql_log_cu);
 }
 
