@@ -72,8 +72,9 @@ if (isset($_SESSION['idUsuario'])) {
             <a class="btn btn-success" href="../Busqueda/MotorDeBusqueda.php" role="button">Realizar Reserva</a>
         </div>
     </div>
-    <a class="btn btn-secondary" href="../Logs/Logs.php" role="button">Logs</a>
-
+<?php if($_tipoDeUsuario > 1){?>
+    <a class="btn btn-secondary" href="../Logs/Logs.php" >Logs</a>
+<?php } ?>
 
     <!-- Inicio boton de informacion -->
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
