@@ -27,26 +27,63 @@
       include "../Config/DataBase.php";
       $db= new Database();
       $dblink= $db->getConnection();
-
+      $sql;
     ?>
     <!--Filtro-->
+    <!--Por Fechas-->
     <div class="container">
       <form  action=<?php echo "Logs.php" ?> method="post">
-        Filtro
-        <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" class="form-control"/>
-        <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" class="form-control"/>
-        <input type="submit" name="submit_fechas" class="btn btn-info" value="Confirmar Filtro por fechas" />
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">  Filtro</span>
+          </div>
+          <input type="submit" name="submit_reseteo" class="btn btn-info" value="Resetear Filtro">
+        </div>
+        <div class="input-group mb-3">
+         <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" class="form-control"/>
+         <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" class="form-control"/>
+         <div class="input-group-append">
+         <input type="submit" name="submit_fechas" class="btn btn-info" value="Confirmar Filtro por fechas" />
+         </div>
+       </div>
       </form>
       <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <!--Por nombre-->
       <form action=<?php echo "Logs.php" ?> method="post">
+        <div class="input-group mb-3">
         <input id="NombreFiltro" placeholder="Inserte nombre del usuario en especifico" name="NombreFiltro" class="form-control"/>
+        <div class="input-group-append">
         <input type="submit" name="submit_nombre" class="btn btn-info" value="Confirmar Filtro por Nombre de usuario" />
+      </div>
+    </div>
+      </form>
+      <br/>
+      <!--Por E-Mail-->
+      <form action=<?php  echo "Logs.php"?> method="post">
+        <div class="input-group mb-3">
+            <input id="EmailFiltro" placeholder="Inserte E-Mail del usuario en especifico" name="EmailFiltro" class="form-control"/>
+          <div class="input-group-append">
+            <input type="submit" name="submit_Email" class="btn btn-info" value="Confirmar Filtro por E-Mail de usuario" />
+          </div>
+        </div>
       </form>
     </div>
+    <!-- logica de Filtro-->
+    <?php if(isset($_POST['submit_fechas'])){
+      $fecha_inicio = $_POST['fechaDeInicio'];
+      $fecha_fin = $_POST['fechaDeFin'];
+      $sql = "SELECT * FROM Logs WHERE Fecha_Accion >= '$fecha_inicio%' AND Fecha_Accion <= '$fecha_fin%' ;";
+    }else if(isset($_POST['submit_nombre'])){
+      $nombre_filtro = $_POST['NombreFiltro'];
+      $sql = "SELECT * FROM Logs WHERE nombre_usuario LIKE '%$nombre_filtro%' ;";
+    }else if(isset($_POST['submit_Email'])){
+      $email_filtro = $_POST['EmailFiltro'];
+      $sql = "SELECT * FROM Logs WHERE correo_usuario LIKE '$email_filtro';";
+    }else if(isset($_POST['submit_reseteo'])){
+      $sql = "SELECT * FROM Logs;";
+    }else{
+      $sql = "SELECT * FROM Logs;";
+    } ?>
   <!--Tabla de Logs-->
 <div class="container" >
 <div class=" pre-scrollable">
@@ -63,7 +100,7 @@
    </thead>
    <tbody >
     <?php
-    $sql = "SELECT * FROM Logs;";
+
     $result = $dblink->query($sql);
     if($result != null){
     while ($fila = $result->fetch()){  ?>
@@ -81,15 +118,7 @@
 </table>
 </div>
 </div>
-<?php if(isset($_POST['submit_fechas'])){
 
-  echo var_dump($_POST['fechaDeInicio']);
-} ?>
-<?php if(isset($_POST['submit_nombre'])){
-
-  echo var_dump($_POST['NombreFiltro']);
-
-} ?>
 
   <!-- Boton para ir atras-->
   <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
@@ -120,12 +149,12 @@
 <script type="text/javascript">
 $('#fechaDeInicio').multiDatesPicker({
   maxPicks: 1,
-  dateFormat: "dd/mm/yy"
+  dateFormat: "yy/mm/dd"
 })
 
 $('#fechaDeFin').multiDatesPicker({
   maxPicks: 1,
-  dateFormat: "dd/mm/yy"
+  dateFormat: "yy/mm/dd"
 })
 
 </script>
