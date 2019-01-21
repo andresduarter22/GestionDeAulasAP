@@ -9031,7 +9031,7 @@ div.scroMax{
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: auto;
+  width: 390px;
   background-color: black;
   color: #fff;
   text-align: center;
