@@ -45,7 +45,8 @@
     </div>
   </div>
   <div class="container">
-    <table class="table table-striped table-bordered  table-responsive-sm m-5s">
+    <div class=" pre-scrollable">
+    <table class="table table-striped table-bordered" >
     <thead  class="thead-dark">
       <tr>
         <th style="width: 15%">Nombre de Aula </th>
@@ -68,13 +69,14 @@
      <input type="submit" name="submit" value="Confirmar" class="btn btn-info">
    </form>
   </div>
+</div>
 </form>
 <?php
 if (isset($_POST['submit']))
 {
   $_nombre= strip_tags($_POST['NombreAula']);
   $_cantAulumnos= strip_tags($_POST['CantidadAlumnos']);
-  $_categorias= strip_tags($_POST['categoria']);
+  $_categorias= $_POST['categoria'];
   $sql = "INSERT INTO Aulas(id_Aulas,nombre,cantidad_alumnos) VALUES(NULL,'$_nombre','$_cantAulumnos');";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;

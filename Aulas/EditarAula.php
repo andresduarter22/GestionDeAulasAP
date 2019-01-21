@@ -51,7 +51,7 @@
 
   <div class="container">
     <div class=" pre-scrollable">
-    <table class="table table-striped table-bordered  table-responsive-sm m-5s">
+    <table class="table table-striped table-bordered" >
     <thead  class="thead-dark">
       <tr>
         <th style="width: 15%">Nombre de Aula </th>
@@ -81,6 +81,7 @@
      </tbody>
    </table>
  </div>
+</div>
    <form action="EditarAula.php" method="post">
      <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
      <input type="submit" name="submit" class="btn btn-info" value="Confirmar" />
@@ -94,7 +95,7 @@ if (isset($_POST['id1']))
   $_id = strip_tags($_POST['id1']);
   $_nombre= strip_tags($_POST['NombreAula']);
   $_cantDeAlumnos= strip_tags($_POST['CantidadAlumnos']);
-  $_categorias= strip_tags($_POST['categoria']);
+  $_categorias= $_POST['categoria'];
 
   $sql3 = "UPDATE Aulas SET nombre = '$_nombre',cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_POST['id1'].";";
   $dblink->query($sql3);

@@ -26,10 +26,12 @@
       $sql = 'SELECT * FROM Aulas ORDER BY nombre;';
       $result = $dblink->query($sql);
     ?>
-<div class="container form-group" >
-<table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
-  <thead  class="thead-dark">
-    <tr>
+  </br>
+<div class="container" >
+  <div class="pre-scrollable">
+   <table class="table table-striped table-bordered" >
+    <thead  class="thead-dark">
+     <tr>
       <th style="width: 30%">Nombre Del Aula </th>
       <th style="width: 10%">Editar</th>
       <th style="width: 20%">Borrar</th>
@@ -77,8 +79,9 @@
          </div>
     <?php } ?>
 
-  </tbody>
-</table>
+   </tbody>
+  </table>
+ </div>
 </div>
 <!-- Boton para ir Atras -->
 <a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>

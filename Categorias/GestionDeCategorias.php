@@ -25,10 +25,12 @@
       $result = $dblink->query($sql);
       $result->setFetchMode(PDO::FETCH_ASSOC);
     ?>
+  </br>
 <div class="container form-group" >
-<table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " >
-  <thead  class="thead-dark">
-    <tr>
+  <div class=" pre-scrollable">
+   <table class="table table-striped table-bordered" >
+    <thead  class="thead-dark">
+     <tr>
       <th style="width: 30%">Nombre de la Categoria</th>
       <th style="width: 10%">Editar</th>
       <th style="width: 20%">Borrar</th>
@@ -53,8 +55,9 @@
          </tr>
     <?php } ?>
 
-  </tbody>
-</table>
+   </tbody>
+  </table>
+ </div>
 </div>
 <!-- Boton para ir Atras -->
 <a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
