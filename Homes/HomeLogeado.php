@@ -109,6 +109,17 @@ if (isset($_SESSION['idUsuario'])) {
             auth2.signOut().then(function () {
                 console.log('User signed out.');
             });
+            var email =profile.getEmail();
+
+
+            $.ajax({
+                type: "POST",
+                url: "Logout.php",
+                datatype: "html",
+                success: function (res) {
+                    alert(res);
+                }
+            });
         }
     </script>
     </body>
