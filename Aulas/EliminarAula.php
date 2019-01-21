@@ -29,7 +29,11 @@
     $dblink->query($sql_log_ea);
 
    header("Location: GestionDeAulas.php");
- }else{
-echo "Por favor inicie sesion";
- }
+
+   } else {
+       echo "Por favor registrese Aqui";
+       ?>
+       <a  class="btn btn-dark" href="Home.php"> Home Page</a>
+<?php
+   }
    ?>

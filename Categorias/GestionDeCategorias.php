@@ -9,7 +9,10 @@
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
-<body >
+<body>
+  <?php session_start();
+  //echo var_dump($_SESSION['idUsuario']);
+  if (isset($_SESSION['idUsuario'])) { ?>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <button type="button" class="btn btn-danger">Log Out</button>
@@ -85,9 +88,14 @@
 <!-- Final boton de Informacion -->
 
 
-  <?php
-   //$dblink->close();
-   ?>
+<?php
+} else {
+    echo "Por favor registrese Aqui";
+    ?>
+    <a  class="btn btn-dark" href="Home.php"> Home Page</a>
+<?php
+}
+?>
  </body>
 
 </html>

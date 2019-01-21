@@ -159,17 +159,13 @@ $('#fechaDeFin').multiDatesPicker({
 
 </script>
 <?php
-}else{
-  ?>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    </nav>
-    <a href="../Homes/Home.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
-  </div>
-  <?php
-  echo "Por favor inicie sesion";
+} else {
+    echo "Por favor registrese Aqui";
+    ?>
+    <a  class="btn btn-dark" href="Home.php"> Home Page</a>
+<?php
 }
- ?>
+?>
  </body>
 
 </html>
