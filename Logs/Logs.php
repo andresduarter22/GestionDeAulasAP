@@ -70,14 +70,14 @@
     </div>
     <!-- logica de Filtro-->
     <?php if(isset($_POST['submit_fechas'])){
-      $fecha_inicio = $_POST['fechaDeInicio'];
-      $fecha_fin = $_POST['fechaDeFin'];
+      $fecha_inicio = strip_tags($_POST['fechaDeInicio']);
+      $fecha_fin = strip_tags($_POST['fechaDeFin']);
       $sql = "SELECT * FROM Logs WHERE Fecha_Accion >= '$fecha_inicio%' AND Fecha_Accion <= '$fecha_fin%' ;";
     }else if(isset($_POST['submit_nombre'])){
-      $nombre_filtro = $_POST['NombreFiltro'];
+      $nombre_filtro = strip_tags($_POST['NombreFiltro']);
       $sql = "SELECT * FROM Logs WHERE nombre_usuario LIKE '%$nombre_filtro%' ;";
     }else if(isset($_POST['submit_Email'])){
-      $email_filtro = $_POST['EmailFiltro'];
+      $email_filtro = strip_tags($_POST['EmailFiltro']);
       $sql = "SELECT * FROM Logs WHERE correo_usuario LIKE '$email_filtro';";
     }else if(isset($_POST['submit_reseteo'])){
       $sql = "SELECT * FROM Logs;";
@@ -87,7 +87,7 @@
   <!--Tabla de Logs-->
 <div class="container" >
 <div class=" pre-scrollable">
-  <table class="table table-striped table-bordered  " >
+  <table class="table table-striped table-bordered ">
     <thead  class="thead-dark">
     <tr>
       <th style="width: 5%">Nombre</th>

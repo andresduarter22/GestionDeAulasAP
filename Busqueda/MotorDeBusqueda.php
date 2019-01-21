@@ -79,7 +79,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     $result = $dblink->query($sql);
                     while ($fila = $result->fetch()) { ?>
                         <tr>
-                            <td><?php echo $fila['nombre_categoria']; ?></td>
+                            <td><div class="tooltip"><?php echo $fila['nombre_categoria']; ?> <span class="tooltiptext"><?php echo $fila['descripcion']; ?></span></div></td>
                             <td><?php echo "<input  type=\"checkbox\" name=\"cat[]\" id=\"cat\" value=\"" . $fila['id_Categorias'] . "\" enabled>"; ?></td>
                         </tr>
                     <?php } ?>

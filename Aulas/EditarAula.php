@@ -91,10 +91,10 @@
 <?php
 if (isset($_POST['id1']))
 {
-  $_id = $_POST['id1'];
-  $_nombre= $_POST['NombreAula'];
-  $_cantDeAlumnos= $_POST['CantidadAlumnos'];
-  $_categorias= $_POST['categoria'];
+  $_id = strip_tags($_POST['id1']);
+  $_nombre= strip_tags($_POST['NombreAula']);
+  $_cantDeAlumnos= strip_tags($_POST['CantidadAlumnos']);
+  $_categorias= strip_tags($_POST['categoria']);
 
   $sql3 = "UPDATE Aulas SET nombre = '$_nombre',cantidad_alumnos = $_cantDeAlumnos WHERE id_Aulas=".$_POST['id1'].";";
   $dblink->query($sql3);

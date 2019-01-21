@@ -72,11 +72,9 @@
 <?php
 if (isset($_POST['submit']))
 {
-  $db= new Database();
-  $dblink= $db->getConnection();
-  $_nombre= $_POST['NombreAula'];
-  $_cantAulumnos= $_POST['CantidadAlumnos'];
-  $_categorias= $_POST['categoria'];
+  $_nombre= strip_tags($_POST['NombreAula']);
+  $_cantAulumnos= strip_tags($_POST['CantidadAlumnos']);
+  $_categorias= strip_tags($_POST['categoria']);
   $sql = "INSERT INTO Aulas(id_Aulas,nombre,cantidad_alumnos) VALUES(NULL,'$_nombre','$_cantAulumnos');";
   if ($dblink->query($sql) === FALSE) {
     echo "Error: " . $sql . "<br>" . $dblink->error;
