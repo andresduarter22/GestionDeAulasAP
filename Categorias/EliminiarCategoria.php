@@ -10,12 +10,15 @@
   <title>Borrar Categoria</title>
 </head>
 <body>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button type="button" class="btn btn-danger">Log Out</button>
-    </nav>
-    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
-  </div>
+  <?php session_start();
+  //echo var_dump($_SESSION['idUsuario']);
+  if (isset($_SESSION['idUsuario'])) { ?>
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button type="button" class="btn btn-danger">Log Out</button>
+      </nav>
+      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+    </div>
   <br/>
   <br />
   <br />
@@ -137,7 +140,19 @@
       $sql1= "DELETE FROM Categorias WHERE id_Categorias = ".$_id;
       //echo var_dump($sql1);
       $dblink->query($sql1);
-      $sql_log_ec = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se elimino una categoria llamada $_nombre',now())";
+      $idDeUsuario = $_SESSION['idUsuario'];
+      $sql_validacion_loggeo = "SELECT * FROM Usuarios where id_Usuario=$idDeUsuario";
+      $info_usuario = $dblink->query($sql_validacion_loggeo);
+      $infoUs = $info_usuario->fetch();
+
+      if ($infoUs['Rol'] == 0) {
+          $rolDeUsuario = "Reservador";
+      } else if ($infoUs['Rol'] == 1) {
+          $rolDeUsuario = "Actualizador";
+      } else {
+          $rolDeUsuario = "Administrador";
+      }
+      $sql_log_ec = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se elimino una categoria llamada $_nombre',now())";
       $dblink->query($sql_log_ec);
       header("Location: GestionDeCategorias.php");
     }
@@ -167,7 +182,16 @@
 </div>
 <!-- Final boton de Informacion -->
 <?php
- //$dblink->close();
+}else{
+  ?>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    </nav>
+    <a href="../Homes/Home.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+  </div>
+  <?php
+  echo "Por favor inicie sesion";
+}
  ?>
 </body>
 

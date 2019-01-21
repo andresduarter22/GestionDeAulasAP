@@ -110,7 +110,21 @@ if (isset($_POST['id1']))
       echo "Error: " . $sql . "<br>" . $dblink->error;
     }
   }
-  $sql_log_eda = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se edito un aula llamada $_nombre',now())";
+
+  $idDeUsuario = $_SESSION['idUsuario'];
+  $sql_validacion_loggeo = "SELECT * FROM Usuarios where id_Usuario=$idDeUsuario";
+  $info_usuario = $dblink->query($sql_validacion_loggeo);
+  $infoUs = $info_usuario->fetch();
+
+  if ($infoUs['Rol'] == 0) {
+      $rolDeUsuario = "Reservador";
+  } else if ($infoUs['Rol'] == 1) {
+      $rolDeUsuario = "Actualizador";
+  } else {
+      $rolDeUsuario = "Administrador";
+  }
+
+  $sql_log_eda = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se edito un aula llamada $_nombre',now())";
   $dblink->query($sql_log_eda);
   header("Location: GestionDeAulas.php");
 }

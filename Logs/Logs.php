@@ -28,10 +28,15 @@
         Filtro
         <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" class="form-control"/>
         <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" class="form-control"/>
-        <input type="submit" name="submit_fechas" class="btn btn-info" value="Confirmar Filtro por fechas" class="form-control"/>
+        <input type="submit" name="submit_fechas" class="btn btn-info" value="Confirmar Filtro por fechas" />
       </form>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <form action=<?php echo "Logs.php" ?> method="post">
-        <input id="NombreFiltro" placeholder="Inserte nombre del usuario en especifico" name="NombreFiltro" />
+        <input id="NombreFiltro" placeholder="Inserte nombre del usuario en especifico" name="NombreFiltro" class="form-control"/>
         <input type="submit" name="submit_nombre" class="btn btn-info" value="Confirmar Filtro por Nombre de usuario" />
       </form>
     </div>

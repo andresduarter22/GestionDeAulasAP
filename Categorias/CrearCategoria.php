@@ -10,12 +10,15 @@
   <title>Crear Categoria</title>
 </head>
 <body>
-  <div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button type="button" class="btn btn-danger">Log Out</button>
-    </nav>
-    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
-  </div>
+  <?php session_start();
+  //echo var_dump($_SESSION['idUsuario']);
+  if (isset($_SESSION['idUsuario'])) { ?>
+    <div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button type="button" class="btn btn-danger">Log Out</button>
+      </nav>
+      <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+    </div>
   <br/>
   <br/>
   <br/>
@@ -39,35 +42,34 @@
       <label for="CantidadDeAlumnos">Descripcion:</label>
       <textarea class="form-control" id="Descripcion" name="Descripcion" required></textarea/>
     </div>
-    <form action="CrearCategoria.php" method="post">
       <input type="submit" name="submit" value="Confirmar" class="btn btn-info">
-    </form>
   </div>
 </form>
 <?php
 if (isset($_POST['submit']))
 {
-   create();
-}
-function create(){
-  $db= new Database();
-  $dblink= $db->getConnection();
   $_nombre= strip_tags($_POST['NombreCategoria']);
   $_descripcion= strip_tags($_POST['Descripcion']);
   $sql_crear_info = "INSERT INTO Categorias(id_Categorias,nombre_categoria,descripcion) VALUES(NULL,'$_nombre','$_descripcion')";
   if ($dblink->query($sql_crear_info) === FALSE) {
     echo "Error: " . $sql_crear_info . "<br>" . $dblink->error;
   }
+  $idDeUsuario = $_SESSION['idUsuario'];
+  $sql_validacion_loggeo = "SELECT * FROM Usuarios where id_Usuario=$idDeUsuario";
+  $info_usuario = $dblink->query($sql_validacion_loggeo);
+  $infoUs = $info_usuario->fetch();
 
-// the message
-//$msg = "Se creo la categoria: ";
-// use wordwrap() if lines are longer than 70 characters
-//$msg1 = wordwrap($msg,70);
-// send email
-//mail("andresduarter13@gmail.com","Prueba",$msg1);
+  if ($infoUs['Rol'] == 0) {
+      $rolDeUsuario = "Reservador";
+  } else if ($infoUs['Rol'] == 1) {
+      $rolDeUsuario = "Actualizador";
+  } else {
+      $rolDeUsuario = "Administrador";
+  }
+
+  $sql_log_cc = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se creo una categoria llamada $_nombre',now())";
+  $dblink->query($sql_log_cc);
 header("Location: GestionDeCategorias.php");
-  $sql_log = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'Andres','666','ad@gmail.com','m','Se creo una categoria llamada $_nombre',now())";
-  $dblink->query($sql_log);
 }
 ?>
 <!-- Boton para ir Atras -->
@@ -94,6 +96,18 @@ header("Location: GestionDeCategorias.php");
   </div>
 </div>
 <!-- Final boton de Informacion -->
+<?php
+}else{
+  ?>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    </nav>
+    <a href="../Homes/Home.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
+  </div>
+  <?php
+  echo "Por favor inicie sesion";
+}
+ ?>
 </body>
 
 </html>
