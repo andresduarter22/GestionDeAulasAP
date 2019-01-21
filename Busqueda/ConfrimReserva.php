@@ -52,16 +52,16 @@ if (isset($_POST['confirmReservation'])) {
         $resultado1 = $dblink->query($sql4);
         $infoUs = $resultado1->fetch();
 
-        if($infoUs['Rol']==0){
-            $rolDeUsuario="Reservador";
-        }else if ($infoUs['Rol']==1){
-            $rolDeUsuario="Actualizador";
-        }else{
-            $rolDeUsuario="Administrador";
+        if ($infoUs['Rol'] == 0) {
+            $rolDeUsuario = "Reservador";
+        } else if ($infoUs['Rol'] == 1) {
+            $rolDeUsuario = "Actualizador";
+        } else {
+            $rolDeUsuario = "Administrador";
         }
 
 
-        $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'".$infoUs['nombre']."','". $infoUs['num_interno']  ."','". $infoUs['E_Mail'] ."','".$rolDeUsuario."','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] De $fechainicial a $fechafinal en el horario $horario con el docente $docente ',now())";
+        $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] De $fechainicial a $fechafinal en el horario $horario con el docente $docente ',now())";
         echo $sql_log_eu;
         $dblink->query($sql_log_eu);
 
@@ -79,23 +79,24 @@ if (isset($_POST['confirmReservation'])) {
             $resultado1 = $dblink->query($sql4);
             $infoUs = $resultado1->fetch();
 
-            if($infoUs['Rol']==0){
-                $rolDeUsuario="Reservador";
-            }else if ($infoUs['Rol']==1){
-                $rolDeUsuario="Actualizador";
-            }else{
-                $rolDeUsuario="Administrador";
+            if ($infoUs['Rol'] == 0) {
+                $rolDeUsuario = "Reservador";
+            } else if ($infoUs['Rol'] == 1) {
+                $rolDeUsuario = "Actualizador";
+            } else {
+                $rolDeUsuario = "Administrador";
             }
 
-            $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'".$infoUs['nombre']."','". $infoUs['num_interno']  ."','". $infoUs['E_Mail'] ."','".$rolDeUsuario."','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] el dia $fechas[$i]  en el horario $horario con el docente $docente ',now())";
+            $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Inserto una reserva en el aula  $infoAula[1] por la materia $infoMateria[1] el dia $fechas[$i]  en el horario $horario con el docente $docente ',now())";
             //echo $sql_log_eu;
             $dblink->query($sql_log_eu);
         }
     }
 
     echo "<script>
-window.location.replace(\"http://skynet.lp.upb.edu/~aduarte16/GestionDeAulasAP/Homes/HomeLogeado.php\");
-</script>";
+            window.location.replace(\"http://skynet.lp.upb.edu/~aduarte16/GestionDeAulasAP/Homes/HomeLogeado.php\");
+          </script>";
+
     //echo $sql . "<br>";
     //header("Location: MotorDeBusqueda");
 

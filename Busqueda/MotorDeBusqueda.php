@@ -40,9 +40,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <form action="Resultados.php" method="post">
     <div class="container" style="width:1200px;">
         <div class="col-sm-6">
-            <label for="radio-1">Dias Especificos</label>
+            <label for="radio-1">Días Específicos</label>
             <input value="0" type="radio" name="TipoDeBusqueda" id="radio-1" required>
-            <label for="radio-2">Dias Seguidos</label>
+            <label for="radio-2">Días Seguidos</label>
             <input value="1" type="radio" name="TipoDeBusqueda" id="radio-2" required>
         </div>
         <a id="infoCalendarEspecificos">Elige cuantas fechas necesites</a><br>
