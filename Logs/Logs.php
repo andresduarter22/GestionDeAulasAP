@@ -30,49 +30,52 @@
       $sql;
     ?>
     <!--Filtro-->
-    <!--Por Fechas-->
     <div class="container">
-      <form  action=<?php echo "Logs.php" ?> method="post">
+      <form action=<?php echo "Logs.php" ?> method="post">
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">  Filtro</span>
           </div>
           <input type="submit" name="submit_reseteo" class="btn btn-info" value="Resetear Filtro">
         </div>
-        <div class="input-group mb-3">
-         <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" class="form-control"/>
-         <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" class="form-control"/>
-         <div class="input-group-append">
-         <input type="submit" name="submit_fechas" class="btn btn-info" value="Confirmar Filtro por fechas" />
-         </div>
-       </div>
       </form>
-      <br/>
-      <!--Por nombre-->
-      <form action=<?php echo "Logs.php" ?> method="post">
-        <div class="input-group mb-3">
-        <input id="NombreFiltro" placeholder="Inserte nombre del usuario en especifico" name="NombreFiltro" class="form-control"/>
-        <div class="input-group-append">
-        <input type="submit" name="submit_nombre" class="btn btn-info" value="Confirmar Filtro por Nombre de usuario" />
-      </div>
-    </div>
-      </form>
-      <br/>
+      <!--Por nombre -->
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#filtro_nombre" >Filtro Por Nombre</button>
       <!--Por E-Mail-->
-      <form action=<?php  echo "Logs.php"?> method="post">
-        <div class="input-group mb-3">
-            <input id="EmailFiltro" placeholder="Inserte E-Mail del usuario en especifico" name="EmailFiltro" class="form-control"/>
-          <div class="input-group-append">
-            <input type="submit" name="submit_Email" class="btn btn-info" value="Confirmar Filtro por E-Mail de usuario" />
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#filtro_email" >Filtro Por E-Mail</button>
+    </br>
+      <!--Por Fechas-->
+        <!--Por Intervalo-->
+        <form action=<?php echo "Logs.php" ?> method="post">
+          <div class="input-group mb-3">
+           <input id="fechaDeInicio" autocomplete="off" name="fechaDeInicio" placeholder="Ingrese fecha de inicio" class="form-control"/>
+           <input id="fechaDeFin" autocomplete="off" name="fechaDeFin" placeholder="Ingrese fecha de fin" class="form-control"/>
+           <div class="input-group-append">
+             <input type="submit" name="submit_fechas" class="btn btn-info" value="Confirmar Filtro por fechas" />
+           </div>
           </div>
+        </form>
+    </br>
+        <!--Por Fecha Especifica-->
+      <form action=<?php echo "Logs.php" ?> method="post">
+          <div class="input-group mb-3">
+           <input id="fechaEspecifica" autocomplete="off" name="fechaEspecifica" placeholder="Ingrese fecha" class="form-control"/>
+          <div class="input-group-append">
+            <input type="submit" name="submit_fecha_especifica" class="btn btn-info" value="Confirmar Filtro por Fecha" />
         </div>
+      </div>
       </form>
     </div>
     <!-- logica de Filtro-->
     <?php if(isset($_POST['submit_fechas'])){
       $fecha_inicio = strip_tags($_POST['fechaDeInicio']);
       $fecha_fin = strip_tags($_POST['fechaDeFin']);
+      echo var_dump($fecha_inicio);
+      echo var_dump($fecha_fin);
       $sql = "SELECT * FROM Logs WHERE Fecha_Accion >= '$fecha_inicio%' AND Fecha_Accion <= '$fecha_fin%' ;";
+    }else if(isset($_POST['submit_fecha_especifica'])){
+      $fecha = strip_tags($_POST['fechaEspecifica']);
+      $sql = "SELECT * FROM Logs WHERE Fecha_Accion LIKE '$fecha%' ;";
     }else if(isset($_POST['submit_nombre'])){
       $nombre_filtro = strip_tags($_POST['NombreFiltro']);
       $sql = "SELECT * FROM Logs WHERE nombre_usuario LIKE '%$nombre_filtro%' ;";
@@ -100,7 +103,6 @@
    </thead>
    <tbody >
     <?php
-
     $result = $dblink->query($sql);
     if($result != null){
     while ($fila = $result->fetch()){  ?>
@@ -118,8 +120,58 @@
 </table>
 </div>
 </div>
-
-
+<!-- Modal filtro por  nombre-->
+<div class="modal fade" id="filtro_nombre" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtro por nombre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action=<?php echo "Logs.php" ?> method="post">
+          <div class="input-group mb-3">
+          <input id="NombreFiltro" placeholder="Inserte nombre del usuario en especifico" name="NombreFiltro" class="form-control"/>
+          <div class="input-group-append">
+        </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" name="submit_nombre" class="btn btn-primary" value="Confirmar Filtro por Nombre de usuario" />
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!-- Modal filtro por  E-Mail-->
+<div class="modal fade" id="filtro_email" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Filtro por nombre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action=<?php echo "Logs.php" ?> method="post">
+            <div class="input-group mb-3">
+                <input id="EmailFiltro" placeholder="Inserte E-Mail del usuario en especifico" name="EmailFiltro" class="form-control"/>
+              <div class="input-group-append">
+              </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" name="submit_Email" class="btn btn-info" value="Confirmar Filtro por E-Mail de usuario" />
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
   <!-- Boton para ir atras-->
   <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
   <!-- Inicio boton de informacion -->
@@ -149,12 +201,17 @@
 <script type="text/javascript">
 $('#fechaDeInicio').multiDatesPicker({
   maxPicks: 1,
-  dateFormat: "yy/mm/dd"
+  dateFormat: "yy-mm-dd"
 })
 
 $('#fechaDeFin').multiDatesPicker({
   maxPicks: 1,
-  dateFormat: "yy/mm/dd"
+  dateFormat: "yy-mm-dd"
+})
+
+$('#fechaEspecifica').multiDatesPicker({
+  maxPicks: 1,
+  dateFormat: "yy-mm-dd"
 })
 
 </script>
