@@ -7,7 +7,6 @@ header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works
 
 session_start();
-echo $_SESSION['idUsuario'];
 if (isset($_SESSION['idUsuario'])){
     $idDeUsuarioReservador = $_SESSION['idUsuario'];
     $tipoDeUsuario = $_SESSION['tipoDeUsuario'];

@@ -69,7 +69,7 @@ class search
             $this->_esAula = false;
             $this->_categoriasArrays = $_POST['cat'];
         }
-        //echo implode(";",$this->_categoriasArrays);
+        //echo implode(";",$this->_categoriasArrays);:wq
 
         if ($_POST['requiereAlumnos'] === 'on') {
             $this->_ReqcantidadAlumnos = true;
@@ -155,15 +155,28 @@ class search
             //recibe el arreglo de fechas y horario
             $varArregloDeCategorias1 = $this->_fechasArray;
             $hora = $this->_horario;
-
             //query que busca en reservas si existe un reserva
-            $sql = "SELECT * FROM Reservas WHERE id_Aula_Reservada= $id_AulaEspecifica AND horario= '$hora' AND";
-            $sql = $sql . "( '$varArregloDeCategorias1[0]' BETWEEN fecha_inicio AND fecha_final   ";
+            $sql = "SELECT * FROM Reservas WHERE id_Aula_Reservada= $id_AulaEspecifica  AND horario= '$hora' AND";
+
+            $dayofweek = date('w', strtotime($varArregloDeCategorias1[0]));
+
+            if($dayofweek==0 || $dayofweek==6 ){
+                $sql = $sql . "( ('$varArregloDeCategorias1[0]' = fecha_inicio OR '$varArregloDeCategorias1[0]' = fecha_final   )";
+            }else{
+                $sql = $sql . "( ('$varArregloDeCategorias1[0]' BETWEEN fecha_inicio AND fecha_final )";
+            }
             for ($i = 1; $i < count($varArregloDeCategorias1); $i++) {
-                $sql = $sql . "OR '$varArregloDeCategorias1[$i]' BETWEEN fecha_inicio AND fecha_final ";
+                $dayofweek = date('w', strtotime($varArregloDeCategorias1[$i]));
+                if($dayofweek==0 || $dayofweek==6 ){
+                    $sql = $sql . "OR ('$varArregloDeCategorias1[$i]' = fecha_inicio OR '$varArregloDeCategorias1[$i]' = fecha_final  )";
+                }else{
+                    $sql = $sql . "OR ('$varArregloDeCategorias1[$i]' BETWEEN fecha_inicio AND fecha_final )";
+                }
+
+         //       $sql = $sql . "OR ('$varArregloDeCategorias1[$i]' BETWEEN fecha_inicio AND fecha_final )";
             }
             $sql = $sql . " ) ORDER BY fecha_inicio;";
-            // echo $sql . "<br>";
+            //echo $sql . "<br>";
             $result = $this->dblink->query($sql);
 
             //  echo $id_AulaEspecifica;
