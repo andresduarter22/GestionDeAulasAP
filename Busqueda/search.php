@@ -176,7 +176,7 @@ class search
          //       $sql = $sql . "OR ('$varArregloDeCategorias1[$i]' BETWEEN fecha_inicio AND fecha_final )";
             }
             $sql = $sql . " ) ORDER BY fecha_inicio;";
-            //echo $sql . "<br>";
+            //  echo $sql . "<br>";
             $result = $this->dblink->query($sql);
 
             //  echo $id_AulaEspecifica;
