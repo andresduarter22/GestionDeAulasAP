@@ -70,8 +70,6 @@
     <?php if(isset($_POST['submit_fechas'])){
       $fecha_inicio = strip_tags($_POST['fechaDeInicio']);
       $fecha_fin = strip_tags($_POST['fechaDeFin']);
-      echo var_dump($fecha_inicio);
-      echo var_dump($fecha_fin);
       $sql = "SELECT * FROM Logs WHERE Fecha_Accion >= '$fecha_inicio%' AND Fecha_Accion <= '$fecha_fin%' ;";
     }else if(isset($_POST['submit_fecha_especifica'])){
       $fecha = strip_tags($_POST['fechaEspecifica']);
