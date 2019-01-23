@@ -185,7 +185,7 @@
 } else {
     echo "Por favor registrese Aqui";
     ?>
-    <a  class="btn btn-dark" href="Home.php"> Home Page</a>
+    <a  class="btn btn-dark" href="../Homes/Home.php"> Home Page</a>
 <?php
 }
 ?>
