@@ -1,6 +1,43 @@
 <?php
 include "../Config/DataBase.php";
 
+if (isset($_POST['startSearch'])) {
+
+    if($_POST['TipoDeBusqueda']==0){
+        if($_POST['fechasEspecificas']===""){
+            $faltafecha="No fue Ingresada la fecha";
+        }
+    }else{
+        if(($_POST['fechasSeguidasInicio']=== "") || ($_POST['fechasSeguidasFin']=== "") ){
+            $faltafecha="Una o mas fechas no fueron ingrsadas correctamente";
+        }
+    }
+
+    if ($_POST['BuscaAulaEsp'] === 'on') {
+        if(!isset($_POST['idDeAula'])){
+            $faltaAula="No selecciono el aula específica";
+        }
+    } else {
+        if(!isset($_POST['cat'])){
+            $faltaCategoria="No eligio al menos una categoria";
+        }
+    }
+
+    if ($_POST['requiereAlumnos'] === 'on') {
+        echo $_POST['cantalumnos'];
+        if(($_POST['cantalumnos']==="")){
+            $faltaCantidadDeAlumnos= "No fue ingresada la cantidad de Alumnos";
+        }
+    }
+
+    if(empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos) ){
+        echo "hola";
+        header("Location: Resultados.php");
+
+    }
+
+}
+
 ?>
 <html>
 <head>
@@ -37,7 +74,7 @@ $sql = 'select * from Aulas order by nombre;';
 $result = $dblink->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
-<form action="Resultados.php" method="post">
+<form action="MotorDeBusqueda.php" method="post">
     <div class="container" style="width:1200px;">
         <div class="col-sm-6">
             <label for="radio-1">Días Específicos</label>
@@ -51,7 +88,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <input id="fechasEspecificas" autocomplete="off" name="fechasEspecificas" placeholder="Ingrese fechas" >
         <input id="fechasSeguidasInicio" autocomplete="off" name="fechasSeguidasInicio" placeholder="Ingrese Inicio" >
         <input id="fechasSeguidasFin" autocomplete="off" name="fechasSeguidasFin" placeholder="Ingrese Fin" >
-<br>
+
+        <?php if(isset($faltafecha)){    ?>
+        <span class="error alert-danger"> <?php echo $faltafecha; ?></span>
+        <?php }?>
+
+        <br>
         <!--<input type="checkbox" name="BuscaAulaEsp">Es aula-->
         <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Categorias" data-on="Aula especifica"  data-onstyle="success" data-offstyle="info">
         <br/>
@@ -64,7 +106,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     <option value=<?php echo $fila['id_Aulas']; ?>><?php echo $fila['nombre']; ?></option>
                 <?php } ?>
             </select>
-
+            <?php if(isset($faltaAula)){?>
+            <span class="error alert-danger"> <?php echo $faltaAula; ?></span>
+            <?php }?>
             <div class="scro">
                 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " id="pickDeCategoria">
                     <thead class="thead-dark">
@@ -86,6 +130,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     </tbody>
                 </table>
             </div>
+            <?php if(isset($faltaCategoria)){?>
+            <span class="error alert-danger"> <?php echo $faltaCategoria; ?></span>
+            <?php }?>
         </div>
         <br/>
         <br/>
@@ -99,6 +146,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
             name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
             placeholder="Cantidad de Alumnos" style="width: 400px">
          </div>
+            <?php if(isset($faltaCantidadDeAlumnos)){    ?>
+                <span class="error alert-danger"> <?php echo $faltaCantidadDeAlumnos; ?></span>
+            <?php }?>
          <div class="input-group-text">
             Horario
             <div clkass="row-fluid">

@@ -116,7 +116,7 @@ class search
                 //Si requiera cantidad de aulas especificas
                 //Query que busca el id_Aula de la tabla aulas_categoria, seleccionando valores sin repetir andemas de
                 // agregar la cantidad de alumnos a la busqueda
-                $sql = "SELECT DISTINCT id_Aula FROM Aulas_Categoria AC  INNER JOIN aulas A ON AC.id_Aula=A.id_Aulas WHERE (AC.id_Categoria= $varArregloDeCategorias1[0] ";
+                $sql = "SELECT DISTINCT id_Aula FROM Aulas_Categoria AC  INNER JOIN Aulas A ON AC.id_Aula=A.id_Aulas WHERE (AC.id_Categoria= $varArregloDeCategorias1[0] ";
                 for ($i = 1; $i < count($varArregloDeCategorias1); $i++) {
                     $sql = $sql . " OR AC.id_Categoria= $varArregloDeCategorias1[$i] ";
                 }

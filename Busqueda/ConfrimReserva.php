@@ -93,12 +93,12 @@ if (isset($_POST['confirmReservation'])) {
         }
     }
 
-    echo "<script>
-            window.location.replace(\"http://skynet.lp.upb.edu/~aduarte16/GestionDeAulasAP/Homes/HomeLogeado.php\");
-          </script>";
+    //echo "<script>
+    //        window.location.replace(\"http://skynet.lp.upb.edu/~aduarte16/GestionDeAulasAP/Homes/HomeLogeado.php\");
+     //     </script>";
 
     //echo $sql . "<br>";
-    //header("Location: MotorDeBusqueda");
+    header("Location: ../Homes/HomeLogeado.php");
 
 }
 
