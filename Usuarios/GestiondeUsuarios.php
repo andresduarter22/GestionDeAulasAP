@@ -33,10 +33,7 @@ if (isset($_SESSION['idUsuario'])) {
 
 </head>
 <body>
-<?php
 
-?>
-<button type="button" class="btn btn-danger">Cerrar sesión</button>
 
 <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
                                         alt="Responsive image"></a>

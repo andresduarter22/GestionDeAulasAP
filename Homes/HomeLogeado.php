@@ -16,6 +16,7 @@ if (isset($_SESSION['idUsuario'])) {
     <head>
         <!-- jQuery -->
         <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+         <meta name="google-signin-client_id" content="722692492660-jdifs59bsljp70543hctlv1q0mkjem0u.apps.googleusercontent.com">
 
         <!-- Bootstrap JS -->
         <script src="../Booststrap/js/bootstrap.min.js"></script>
@@ -26,6 +27,7 @@ if (isset($_SESSION['idUsuario'])) {
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="Home.php" onclick="signOut();">Sign out</a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -108,11 +110,9 @@ if (isset($_SESSION['idUsuario'])) {
         function signOut() {
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
-                console.log('User signed out.');
+                console.log("User signed out");
+                auth2.disconnect();
             });
-            var email =profile.getEmail();
-
-
             $.ajax({
                 type: "POST",
                 url: "Logout.php",
@@ -122,7 +122,15 @@ if (isset($_SESSION['idUsuario'])) {
                 }
             });
         }
+
+        function onLoad() {
+            gapi.load('auth2' , function () {
+               gapi.auth2.init();
+            });
+        }
     </script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+
     </body>
 
     </html>

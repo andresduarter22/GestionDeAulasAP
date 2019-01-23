@@ -115,7 +115,6 @@ if (isset($_SESSION['idUsuario'])) {
         <title>Editar Usuarios</title>
     </head>
     <body>
-    <button type="button" class="btn btn-danger">Cerrar sesión</button>
     <a href="GestiondeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
                                          alt="Responsive image"></a>
     <?php
