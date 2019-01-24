@@ -2,7 +2,7 @@
 
 session_start();
 include "../Config/DataBase.php";
-
+$faltaAula = $faltaAula = $faltaCantidadDeAlumnos= $faltaCategoria= "";
 if (isset($_POST['startSearch'])) {
 
     if($_POST['TipoDeBusqueda']==0){
@@ -33,7 +33,7 @@ if (isset($_POST['startSearch'])) {
     }
 
     if(empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos) ){
-        header("Location: Resultados.php?s=1");
+        header("Location: Resultados.php");
 
     }
 
@@ -75,7 +75,7 @@ $sql = 'select * from Aulas order by nombre;';
 $result = $dblink->query($sql);
 $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
-<form action="MotorDeBusqueda.php" method="post">
+<form action="Resultados.php" method="post">
     <div class="container" style="width:1200px;">
         <div class="col-sm-6">
             <label for="radio-1">Días Específicos</label>
