@@ -15,7 +15,7 @@
   if (isset($_SESSION['idUsuario'])) { ?>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button type="button" class="btn btn-danger">Log Out</button>
+      
     </nav>
     <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
