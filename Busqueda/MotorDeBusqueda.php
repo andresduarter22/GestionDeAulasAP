@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 include "../Config/DataBase.php";
 
 if (isset($_POST['startSearch'])) {
@@ -31,8 +33,7 @@ if (isset($_POST['startSearch'])) {
     }
 
     if(empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos) ){
-        echo "hola";
-        header("Location: Resultados.php");
+        header("Location: Resultados.php?s=1");
 
     }
 
@@ -172,7 +173,15 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 </form>
 <!-- boton para ir atras-->
 
-<a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
+<?php
+if(isset($_SESSION['idUsuario'])){
+    echo "<a href=\"../Homes/HomeLogeado.php\" class=\"btn btn-primary\">Atras</a>";
+}else{
+    echo "<a href=\"../Homes/Home.php\" class=\"btn btn-primary\">Atras</a>";
+}
+?>
+
+ <!--<a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a> -->
 
 <!--boton de informacion-->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
