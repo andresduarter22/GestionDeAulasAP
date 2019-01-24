@@ -55,11 +55,11 @@ $_resultadosNoDisp = $arregDisp[1];
 </head>
 <body>
 <div>
-    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
+    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right"
                                             alt="Responsive image"></a>
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="Home.php">Log Out</a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -187,7 +187,7 @@ $_resultadosNoDisp = $arregDisp[1];
     </div>
 </div>
 
-                                                                                                            
+
                             </td>";
                         }
                         echo "</tr>";

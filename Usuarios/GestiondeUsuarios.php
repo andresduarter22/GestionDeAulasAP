@@ -33,9 +33,11 @@ if (isset($_SESSION['idUsuario'])) {
 
 </head>
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
+  </nav>
 
-<a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
+<a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right"
                                         alt="Responsive image"></a>
 <?php
 //Conexion con base
@@ -50,7 +52,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <tr>
             <th style="width: 15%">Nombre de usuario</th>
             <th style="width: 10%">Numero de interno</th>
-            <th style="width: 20%">Correo</th>
+            <th style="width: 20%">E-Mail</th>
             <th style="width: 10%">Rol</th>
             <th style="width: 10%">Editar</th>
             <th style="width: 10%">Borrar</th>
@@ -140,4 +142,3 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
     echo "Por favor resgistrese";
     echo "<a  class=\"btn-dark\" href=\"../Homes/Home.php\"> Home Page</a>";
 }
-

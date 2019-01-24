@@ -115,7 +115,10 @@ if (isset($_SESSION['idUsuario'])) {
         <title>Editar Usuarios</title>
     </head>
     <body>
-    <a href="GestiondeUsuarios.php"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+      </nav>
+    <a href="GestiondeUsuarios.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right"
                                          alt="Responsive image"></a>
     <?php
     include_once "../Config/DataBase.php";

@@ -63,8 +63,8 @@ if (isset($_POST['startSearch'])) {
 </head>
 <body>
 <div>
-    <button type="button" class="btn btn-danger">Cerrar sesión</button>
-   <a href="../Homes/HomeLogeado.php" style="width: 300px"><img src="../Images/Logo_UPB.jpg" class="img-fluid float-right"
+
+   <a href="../Homes/HomeLogeado.php" style="width: 300px"><img src="../Images/Logo_UPB.png" class="img-fluid float-right"
                                             alt="Responsive image"></a>
 </div>
 <?php
