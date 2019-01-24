@@ -133,7 +133,7 @@ class search
             }
             //echo $sql;
             $result = $this->dblink->query($sql);
-            $result->setFetchMode(PDO::FETCH_ASSOC);
+            
             //echo $this->_tipoDeReserva;
             //Busqueda por cada id_Aula encontrado
             while ($fila = $result->fetch()) {

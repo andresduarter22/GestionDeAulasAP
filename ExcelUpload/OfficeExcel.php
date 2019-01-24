@@ -36,7 +36,7 @@ include "ReadExcel.php";
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -49,11 +49,11 @@ include "ReadExcel.php";
         <p class="lead">Ingrese el Nuevo documento xlsx </p>
         <div class="container">
             <form method="post" enctype="multipart/form-data" id="excelup">
-                <input type="file" name="file">
+                <input type="file" name="file" class="btn btn-dark">
                 <input type='hidden' name='id' value='<?php echo "$_idDeUsuario"; ?>'/>
                 <!--<input type="submit" class="btn-dark" data-target="#warningModal" data-toggle="modal" name="Reserva"  value="Reservas"> -->
-                <button class="btn-dark" type="submit" name="Reserva" value="submit">Reservas</button>
-                <input type="submit" name="Aulas" value="Ingresar Aulas">
+                <button class="btn btn-success" type="submit" name="Reserva" value="submit">Reservas</button>
+                <input class="btn btn-success" type="hidden" name="Aulas" value="Ingresar Aulas">
             </form>
         </div>
         <span>Una vez subido el documento esperar hasta que la alerta de confirmacion aparezca </span>
@@ -295,7 +295,7 @@ $GLOBALS['trouble'] = $readClass->anytrouble();
     }
     } else {
         echo "Por favor resgistrese";
-        echo "<a  class=\"btn-dark\" href=\"../Homes/Home.php\"> Home Page</a>";
+        echo "<a  class=\"btn-dark\" href=\"../index.php\"> Home Page</a>";
     }
     ?>
 </html>

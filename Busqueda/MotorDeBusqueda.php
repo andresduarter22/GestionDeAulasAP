@@ -177,7 +177,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 if(isset($_SESSION['idUsuario'])){
     echo "<a href=\"../Homes/HomeLogeado.php\" class=\"btn btn-primary\">Atras</a>";
 }else{
-    echo "<a href=\"../Homes/Home.php\" class=\"btn btn-primary\">Atras</a>";
+    echo "<a href=\"../index.php\" class=\"btn btn-primary\">Atras</a>";
 }
 ?>
 

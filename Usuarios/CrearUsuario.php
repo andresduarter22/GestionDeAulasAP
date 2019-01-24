@@ -181,7 +181,7 @@ if (isset($_SESSION['idUsuario'])) {
     <?php
 } else {
     echo "Por favor resgistrese";
-    echo "<a  class=\"btn-dark\" href=\"../Homes/Home.php\"> Home Page</a>";
+    echo "<a  class=\"btn-dark\" href=\"../index.php\"> Home Page</a>";
 }
 
 function create()

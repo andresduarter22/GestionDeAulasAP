@@ -15,7 +15,7 @@
   if (isset($_SESSION['idUsuario'])) { ?>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    
+
     </nav>
     <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
   </div>
@@ -92,7 +92,7 @@
 } else {
     echo "Por favor registrese Aqui";
     ?>
-    <a  class="btn btn-dark" href="../Homes/Home.php"> Home Page</a>
+    <a  class="btn btn-dark" href="../index.php"> Home Page</a>
 <?php
 }
 ?>

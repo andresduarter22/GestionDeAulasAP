@@ -26,7 +26,7 @@ if (isset($_SESSION['idUsuario'])) {
     </head>
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="Home.php" onclick="signOut();">Sign out</a>
+        <a class="navbar-brand" href="../index.php" onclick="signOut();">Sign out</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -138,7 +138,7 @@ if (isset($_SESSION['idUsuario'])) {
 } else {
     echo "Por favor registrese Aqui";
     ?>
-    <a  class="btn-dark" href="Home.php"> Home Page</a>
+    <a  class="btn-dark" href="../index.php"> Home Page</a>
 <?php
 
     //header("Location: Home.php ");

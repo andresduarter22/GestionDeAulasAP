@@ -5,11 +5,11 @@ $_IDUsuarioTemporal = 3;
 <html>
 <head>
     <!-- jQuery -->
-    <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
+    <script src="Booststrap/js/jquery-3.3.1.min.js"></script>
 
     <!-- Bootstrap JS -->
-    <script src="../Booststrap/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
+    <script src="Booststrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="Booststrap/css/bootstrap.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 
@@ -23,7 +23,7 @@ $_IDUsuarioTemporal = 3;
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="HomeLogeado.php?id=<?php echo $_IDUsuarioTemporal; ?> ">Acceder</a>
+    <a class="navbar-brand" href="Homes/HomeLogeado.php?id=<?php echo $_IDUsuarioTemporal; ?> ">Acceder</a>
 
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -34,12 +34,12 @@ $_IDUsuarioTemporal = 3;
 </nav>
 
 <div class="jumbotron jumbotron-fluid">
-    <img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image">
+    <img src="Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image">
     <div class="container">
         <h1 class="display-4">Bienvenido al Sistema de Reservas UPB La Paz</h1>
         <div class="container">
             <br>
-            <a class="btn btn-success" href="../Busqueda/MotorDeBusqueda.php" role="button">Realizar Consulta</a>
+            <a class="btn btn-success" href="Busqueda/MotorDeBusqueda.php" role="button">Realizar Consulta</a>
 
             <!--      <a class="btn btn-primary btn-lg" href="HomeLogeado.php" role="button">Log </a>
                   <a class="btn btn-success" href="HomeLogeado.php" role="button">Consultar Reserva</a> -->
@@ -47,7 +47,7 @@ $_IDUsuarioTemporal = 3;
     </div>
     <!-- Inicio boton de informacion -->
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
-                src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
+                src="Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
                 height="42" width="42" data-target="info"/></button>
     <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -93,7 +93,7 @@ $_IDUsuarioTemporal = 3;
                 data: {
                     "correoUs": email
                 },
-                url: "LogSession.php",
+                url: "Homes/LogSession.php",
                 datatype: "html",
                 success: function (res) {
                     alert(res);

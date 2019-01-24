@@ -25,10 +25,10 @@ $arregDisp = 0;
 
 echo isset($_POST['startSearch']);
 
-if (isset($_POST['startSearch'])) {
-    echo "hola";
+//if (isset($_POST['startSearch'])) {
+    //echo "hola";
     $arregDisp = $se->busca();
-}
+//}
 
 //echo implode(",",$data);
 //echo $data;
