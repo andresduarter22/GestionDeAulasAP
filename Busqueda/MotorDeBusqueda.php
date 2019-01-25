@@ -2,37 +2,42 @@
 
 session_start();
 include "../Config/DataBase.php";
-$faltaAula = $faltaAula = $faltaCantidadDeAlumnos= $faltaCategoria= "";
+$faltaAula = $faltaAula = $faltaCantidadDeAlumnos = $faltaCategoria = "";
+
+if (isset($_GET['err'])) {
+    $faltafecha = "Datos incompletos, Por favor Ingrese de nuevo";
+}
+
 if (isset($_POST['startSearch'])) {
 
-    if($_POST['TipoDeBusqueda']==0){
-        if($_POST['fechasEspecificas']===""){
-            $faltafecha="No fue Ingresada la fecha";
+    if ($_POST['TipoDeBusqueda'] == 0) {
+        if ($_POST['fechasEspecificas'] === "") {
+            $faltafecha = "No fue Ingresada la fecha";
         }
-    }else{
-        if(($_POST['fechasSeguidasInicio']=== "") || ($_POST['fechasSeguidasFin']=== "") ){
-            $faltafecha="Una o mas fechas no fueron ingrsadas correctamente";
+    } else {
+        if (($_POST['fechasSeguidasInicio'] === "") || ($_POST['fechasSeguidasFin'] === "")) {
+            $faltafecha = "Una o mas fechas no fueron ingrsadas correctamente";
         }
     }
 
     if ($_POST['BuscaAulaEsp'] === 'on') {
-        if(!isset($_POST['idDeAula'])){
-            $faltaAula="No selecciono el aula específica";
+        if (!isset($_POST['idDeAula'])) {
+            $faltaAula = "No selecciono el aula específica";
         }
     } else {
-        if(!isset($_POST['cat'])){
-            $faltaCategoria="No eligio al menos una categoria";
+        if (!isset($_POST['cat'])) {
+            $faltaCategoria = "No eligio al menos una categoria";
         }
     }
 
     if ($_POST['requiereAlumnos'] === 'on') {
         echo $_POST['cantalumnos'];
-        if(($_POST['cantalumnos']==="")){
-            $faltaCantidadDeAlumnos= "No fue ingresada la cantidad de Alumnos";
+        if (($_POST['cantalumnos'] === "")) {
+            $faltaCantidadDeAlumnos = "No fue ingresada la cantidad de Alumnos";
         }
     }
 
-    if(empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos) ){
+    if (empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos)) {
         header("Location: Resultados.php");
 
     }
@@ -62,11 +67,12 @@ if (isset($_POST['startSearch'])) {
 </head>
 <body>
 <div>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-  </nav>
-   <a href="../Homes/HomeLogeado.php" style="width: 300px"><img src="../Images/Logo_UPB.png" class="img-fluid float-right"
-                                            alt="Responsive image"></a>
+    </nav>
+    <a href="../Homes/HomeLogeado.php" style="width: 300px"><img src="../Images/Logo_UPB.png"
+                                                                 class="img-fluid float-right"
+                                                                 alt="Responsive image"></a>
 </div>
 <?php
 //Conexion con base
@@ -78,6 +84,11 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 ?>
 <form action="Resultados.php" method="post">
     <div class="container" style="width:1200px;">
+        <?php if (isset($faltafecha)) { ?>
+            <span class="error alert-danger"> <?php echo $faltafecha; ?></span>
+        <?php } ?>
+
+        <h5>Ingrese la(s) fecha(s) de su reserva</h5>
         <div class="col-sm-6">
             <label for="radio-1">Días Específicos</label>
             <input value="0" type="radio" name="TipoDeBusqueda" id="radio-1" required>
@@ -87,17 +98,18 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <a id="infoCalendarEspecificos">Elige cuantas fechas necesites</a><br>
         <a id="infoCalendarSeguidos">Elige solo 2 fechas</a><br>
 
-        <input id="fechasEspecificas" autocomplete="off" name="fechasEspecificas" placeholder="Ingrese fechas" >
-        <input id="fechasSeguidasInicio" autocomplete="off" name="fechasSeguidasInicio" placeholder="Ingrese Inicio" >
-        <input id="fechasSeguidasFin" autocomplete="off" name="fechasSeguidasFin" placeholder="Ingrese Fin" >
+        <input id="fechasEspecificas" autocomplete="off" name="fechasEspecificas" placeholder="Ingrese fechas">
+        <input id="fechasSeguidasInicio" autocomplete="off" name="fechasSeguidasInicio" placeholder="Ingrese Inicio">
+        <input id="fechasSeguidasFin" autocomplete="off" name="fechasSeguidasFin" placeholder="Ingrese Fin">
 
-        <?php if(isset($faltafecha)){    ?>
-        <span class="error alert-danger"> <?php echo $faltafecha; ?></span>
-        <?php }?>
+        <?php if (isset($faltafecha)) { ?>
+            <span class="error alert-danger"> <?php echo $faltafecha; ?></span>
+        <?php } ?>
 
         <br>
         <!--<input type="checkbox" name="BuscaAulaEsp">Es aula-->
-        <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Categorías" data-on="Aula específica"  data-onstyle="success" data-offstyle="info">
+        <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Categorías" data-on="Aula específica"
+               data-onstyle="success" data-offstyle="info">
         <br/>
         <br/>
 
@@ -108,11 +120,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     <option value=<?php echo $fila['id_Aulas']; ?>><?php echo $fila['nombre']; ?></option>
                 <?php } ?>
             </select>
-            <?php if(isset($faltaAula)){?>
-            <span class="error alert-danger"> <?php echo $faltaAula; ?></span>
-            <?php }?>
+            <?php if (isset($faltaAula)) { ?>
+                <span class="error alert-danger"> <?php echo $faltaAula; ?></span>
+            <?php } ?>
             <div class="scro">
-                <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " id="pickDeCategoria">
+                <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar "
+                       id="pickDeCategoria">
                     <thead class="thead-dark">
                     <tr>
                         <th style="width: 30%"> Nombre de la Categoría</th>
@@ -125,47 +138,51 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                     $result = $dblink->query($sql);
                     while ($fila = $result->fetch()) { ?>
                         <tr>
-                            <td><div class="tooltip"><?php echo $fila['nombre_categoria']; ?> <span class="tooltiptext"><?php echo $fila['descripcion']; ?></span></div></td>
+                            <td>
+                                <div class="tooltip"><?php echo $fila['nombre_categoria']; ?> <span
+                                            class="tooltiptext"><?php echo $fila['descripcion']; ?></span></div>
+                            </td>
                             <td><?php echo "<input  type=\"checkbox\" name=\"cat[]\" id=\"cat\" value=\"" . $fila['id_Categorias'] . "\" enabled>"; ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>
                 </table>
             </div>
-            <?php if(isset($faltaCategoria)){?>
-            <span class="error alert-danger"> <?php echo $faltaCategoria; ?></span>
-            <?php }?>
+            <?php if (isset($faltaCategoria)) { ?>
+                <span class="error alert-danger"> <?php echo $faltaCategoria; ?></span>
+            <?php } ?>
         </div>
         <br/>
         <br/>
+        <h5>Cantidad de alumnos (Opcional)</h5>
 
         <div class="row justify-content-around">
-          <div class="input-group-prepend">
-             <div class="input-group-text">
-                <input type="checkbox" aria-label="Checkbox for following text input" name="requiereAlumnos">
-              </div>
-            <input type="number" min="0" max="100"
-            name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
-            placeholder="Cantidad de Alumnos" style="width: 400px">
-         </div>
-            <?php if(isset($faltaCantidadDeAlumnos)){    ?>
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="checkbox" aria-label="Checkbox for following text input" name="requiereAlumnos">
+                </div>
+                <input type="number" min="0" max="100"
+                       name="cantalumnos" n class="form-control" aria-label="Text input with checkbox" multiple
+                       placeholder="Cantidad de Alumnos" style="width: 400px">
+            </div>
+            <?php if (isset($faltaCantidadDeAlumnos)) { ?>
                 <span class="error alert-danger"> <?php echo $faltaCantidadDeAlumnos; ?></span>
-            <?php }?>
-         <div class="input-group-text">
-            Horario
-            <div clkass="row-fluid">
-              <select class="selectpicker" id="horario" name="horario" data-live-search="true" required>
-                <option disabled selected value> --</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="Z">Z</option>
-                <option value="Z1">Z1</option>
-              </select>
-             </div>
+            <?php } ?>
+            <div class="input-group-text">
+                Horario
+                <div clkass="row-fluid">
+                    <select class="selectpicker" id="horario" name="horario" data-live-search="true" required>
+                        <option disabled selected value> --</option>
+                        <option value="A">A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                        <option value="F">F</option>
+                        <option value="Z">Z</option>
+                        <option value="Z1">Z1</option>
+                    </select>
+                </div>
             </div>
         </div>
         <input type="submit" class="btn btn-primary" name="startSearch" value="Buscar">
@@ -175,65 +192,65 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 <!-- boton para ir atras-->
 
 <?php
-if(isset($_SESSION['idUsuario'])){
+if (isset($_SESSION['idUsuario'])) {
     echo "<a href=\"../Homes/HomeLogeado.php\" class=\"btn btn-primary\">Atrás</a>";
-}else{
+} else {
     echo "<a href=\"../index.php\" class=\"btn btn-primary\">Atrás</a>";
 }
 ?>
 
- <!--<a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a> -->
+<!--<a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a> -->
 
 <!--boton de informacion-->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
             src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
             height="42" width="42" data-target="info"/></button>
-            <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Información</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Esta es la pantalla donde se especifíca la búsqueda que se quiere realizar, primero escoja si quiere
-                            dias en espeficíco para luego seleccionar cada fecha en el calendario que se desplegara o si prefiere
-                            varios dias seguidos donde se desplagaran dos campos donde tendra calendarios por separado y solo podra escoger una
-                            fecha para cada campo, luego tiene dos opciones, buscar por un aula específica donde los resultados solo
-                            serán de dicha o por categorías donde los resultados serán deacuerdo a que aulas cumplen dichas características.
-                            Luego, si desea puede introducio la cantidad de alumnos mínima que requiere(opcional, seleccione la opción con el checkbox a lado)
-                             y finalemnte el horario que desea consultar.
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
+<div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Información</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                En esta pagina se ingresa se realiza consulta de disponibilidad de aulas: <br>
+                Primero se elige el tipo de fecha, si desea ciertos dias especificos o todos los dias entre 2 fechas.
+                <br>
+                Luego el tipo de busqueda si busca la disponibilidad de un aula especifica, o la disponibilidad de aulas
+                que cumplan ciertas categorias. <br>
+                Opcionalmente se puede elegir la cantidad de alumnos minima que debe cumplir el aula. (Deber seleccionar el checkbox) <br>
+                Finalmente se elige el horario
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 
     $('#fechasEspecificas').multiDatesPicker({
-      //beforeShowDay: $.datepicker.noWeekends,
-      minDate: 0
+        //beforeShowDay: $.datepicker.noWeekends,
+        minDate: 0
     }).hide();
 
     $('#fechasSeguidasInicio').multiDatesPicker({
-      maxPicks: 1,
-      minDate: 0,
-      beforeShowDay: $.datepicker.noWeekends
+        maxPicks: 1,
+        minDate: 0,
+        beforeShowDay: $.datepicker.noWeekends
     }).hide();
 
     $('#fechasSeguidasFin').multiDatesPicker({
-      maxPicks: 1,
-      minDate: 1,
-      beforeShowDay: $.datepicker.noWeekends
+        maxPicks: 1,
+        minDate: 1,
+        beforeShowDay: $.datepicker.noWeekends
     }).hide();
     $('#infoCalendarEspecificos').hide();
     $('#infoCalendarSeguidos').hide();
-
 
 
     $('input[name="idDeAula').click(function (e) {

@@ -36,7 +36,7 @@ if (isset($_POST['startSearch'])) {
     }
 
     if ($_POST['requiereAlumnos'] === 'on') {
-        echo $_POST['cantalumnos'];
+
         if(($_POST['cantalumnos']==="")){
             $faltaCantidadDeAlumnos= "No fue ingresada la cantidad de Alumnos";
         }
@@ -44,9 +44,9 @@ if (isset($_POST['startSearch'])) {
 
     if(empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos) ){
         //header("Location: Resultados.php");
-        echo "todo correcto";
+
     }else{
-        header("Location: MotorDeBusqueda.php");
+        header("Location: MotorDeBusqueda.php?err=1");
     }
 
 }
@@ -61,7 +61,6 @@ $tipoDeUsuario = 1;
 $se = new search();
 $arregDisp = 0;
 
-echo isset($_POST['startSearch']);
 
 if (isset($_POST['startSearch'])) {
     //echo "hola";

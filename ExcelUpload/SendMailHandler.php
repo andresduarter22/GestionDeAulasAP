@@ -25,6 +25,7 @@ $msg1 = wordwrap($msg, 70);
 // send email
 foreach ($arreglsinRep as $row) {
     $act= $msg. "   \n  La materia $row[2] dictada por el docente $row[3] en el aula  $row[1]";
+    $act= $act . "\n \n Por favor no responder a este correo";
     echo $row[4];
     $msg1 = wordwrap($act, 70);
     mail($row[4], "Aviso del sistema de reserva de aulas", $msg1);
