@@ -20,6 +20,7 @@ if (isset($_POST['exceltmp'] )) {
     $myRead->deleteManualReserv();
     $myRead->import(0);
     echo "Reservas subidas correctamente";
+        
 }
 
 

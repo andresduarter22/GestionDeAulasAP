@@ -54,7 +54,7 @@ include "ReadExcel.php";
                 <input type='hidden' name='id' value='<?php echo "$_idDeUsuario"; ?>'/>
                 <!--<input type="submit" class="btn-dark" data-target="#warningModal" data-toggle="modal" name="Reserva"  value="Reservas"> -->
                 <button class="btn btn-success" type="submit" name="Reserva" value="submit">Reservas</button>
-                <input class="btn btn-success" type="hidden" name="Aulas" value="Ingresar Aulas">
+                <!-- <input class="btn btn-success" type="hidden" name="Aulas" value="Ingresar Aulas"> -->
             </form>
         </div>
         <span>Una vez subido el documento esperar hasta que la alerta de confirmación aparezca </span>
