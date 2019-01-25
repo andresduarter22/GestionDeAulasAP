@@ -182,7 +182,7 @@ $_resultadosNoDisp = $arregDisp[1];
 
                             echo "</td> ";
                             echo "<td class=\"table-danger\">
-                                <button type=\"button\" class=\"btn btn-info btn-lg\" data-toggle=\"modal\" data-target=\"#confirmModal" . $infoAulas[0] . " \">Informacion</button>
+                                <button type=\"button\" class=\"btn btn-info \" data-toggle=\"modal\" data-target=\"#confirmModal" . $infoAulas[0] . " \">Informacion</button>
 
                                 <!-- Modal Not your room-->
 <div class=\"modal fade\" id=\"confirmModal" . $infoAulas[0] . "\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleMod  alLabel\"
