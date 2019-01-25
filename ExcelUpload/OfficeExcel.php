@@ -44,9 +44,10 @@ include "ReadExcel.php";
     <div class="collapse navbar-collapse" id="navbarNav">
     </div>
 </nav>
+<a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image" ></a>
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        <p class="lead">Ingrese el Nuevo documento xlsx </p>
+        <p class="lead">Ingrese el Nuevo documento .xlsx </p>
         <div class="container">
             <form method="post" enctype="multipart/form-data" id="excelup">
                 <input type="file" name="file" class="btn btn-dark">
@@ -56,13 +57,13 @@ include "ReadExcel.php";
                 <input class="btn btn-success" type="hidden" name="Aulas" value="Ingresar Aulas">
             </form>
         </div>
-        <span>Una vez subido el documento esperar hasta que la alerta de confirmacion aparezca </span>
+        <span>Una vez subido el documento esperar hasta que la alerta de confirmación aparezca </span>
         <br><br><br>
         <!--      <a class="btn btn-primary btn-lg" href="HomeLogeado.php" role="button">Log </a>-->
     </div>
 </div>
 
-<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
+<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atrás</a>
 
 
 </body>
@@ -76,15 +77,15 @@ include "ReadExcel.php";
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Información</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <h3>En esta pagina se ingresa el documento .xlsx para ingresar las materias que se realizan en el
-                    semestre</h3>
-                Recordatorio: <br> El documeto debe contener unicamente una hoja con la lista de materias del semestre
+                    semestre.</h3>
+                Recordatorio: <br> El documeto debe contener unicamente una hoja con la lista de materias del semestre.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -128,13 +129,13 @@ $GLOBALS['trouble'] = $readClass->anytrouble();
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title"> Confirmacion</h4>
+                <h4 class="modal-title"> Confirmación</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Esta seguro de subir el documento
+                ¿Está seguro de subir el documento?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal" onclick="subirRes();">Enviar y

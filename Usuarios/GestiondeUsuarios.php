@@ -25,7 +25,7 @@ if (isset($_SESSION['idUsuario'])) {
 
     <!-- Bootstrap JS -->
     <script src="../Booststrap/js/bootstrap.min.js"></script>
-    <title>Gestion de Usuarios</title>
+    <title>Gestión de Usuarios</title>
 
     <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
 
@@ -39,7 +39,7 @@ if (isset($_SESSION['idUsuario'])) {
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
+    <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorías</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -65,7 +65,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         <thead class="thead-dark">
         <tr>
             <th style="width: 15%">Nombre de usuario</th>
-            <th style="width: 10%">Numero de interno</th>
+            <th style="width: 10%">Número de interno</th>
             <th style="width: 20%">E-Mail</th>
             <th style="width: 10%">Rol</th>
             <th style="width: 10%">Editar</th>
@@ -106,13 +106,12 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                             </button>
                         </div>
                         <div class="modal-body">
-                            Esta seguro que desea borrar el usuario, incluidas sus reservas y todo lo relacionado a este
-                            usuario?
+                        ¿Está seguro que desea borrar el usuario, incluidas sus reservas y todo lo relacionado a este
+                        usuario?
                         </div>
                         <div class="modal-footer">
-
                             <a class="btn btn-primary" href="Methods.php?id=<?php echo $fila['id_Usuario']; ?>"
-                               value="Eliminar"> Confirmar </a>
+                               value="Eliminar"> Confirmar</a>
 
                         </div>
                     </div>
@@ -122,7 +121,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 </div>
-<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
+<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atrás</a>
 <a href="CrearUsuario.php" class="btn btn-primary">Crear nuevo usuario</a>
 
 <!-- Inicio boton de informacion -->
@@ -133,13 +132,13 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Información</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
-                    Esta es la pantalla donde se puede consultar toda la lista de Usuarios dentro de la base de Datos
+                    Esta es la pantalla donde se puede consultar toda la lista de Usuarios dentro de la base de Datos.
 
                   </div>
                   <div class="modal-footer">

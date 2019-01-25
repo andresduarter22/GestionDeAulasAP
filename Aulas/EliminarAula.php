@@ -25,13 +25,13 @@
     } else {
         $rolDeUsuario = "Administrador";
     }
-    $sql_log_ea = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se elimino un aula llamada $_nombre',now())";
+    $sql_log_ea = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se eliminó un aula llamada $_nombre',now())";
     $dblink->query($sql_log_ea);
 
    header("Location: GestionDeAulas.php");
 
    } else {
-       echo "Por favor registrese Aqui";
+       echo "Por favor registrese Aquí";
        ?>
        <a  class="btn btn-dark" href="../index.php"> Home Page</a>
 <?php

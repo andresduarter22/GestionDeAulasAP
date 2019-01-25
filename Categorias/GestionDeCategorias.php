@@ -5,7 +5,7 @@
 
   <!-- Bootstrap JS -->
   <script src="../Booststrap/js/bootstrap.min.js" ></script>
-  <title>Gestion de Categorias</title>
+  <title>Gestión de Categorías</title>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -20,7 +20,7 @@
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="GestionDeCategorias.php">Categorias</a>
+      <a class="navbar-brand" href="GestionDeCategorias.php">Categorías</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -48,7 +48,7 @@
    <table class="table table-striped table-bordered" >
     <thead  class="thead-dark">
      <tr>
-      <th style="width: 30%">Nombre de la Categoria</th>
+      <th style="width: 30%">Nombre de la Categoría</th>
       <th style="width: 10%">Editar</th>
       <th style="width: 20%">Borrar</th>
     </tr>
@@ -77,7 +77,7 @@
  </div>
 </div>
 <!-- Boton para ir Atras -->
-<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
+<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atrás</a>
 <a href="CrearCategoria.php" class="btn btn-primary" >Crear Categoria</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img  src="../Images/iconoInfo.png"  class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
@@ -85,13 +85,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Información</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Esta es la pantalla donde se puede consultar la lista de Categorias dentro de la base de Datos
+        Esta es la pantalla donde se puede consultar la lista de Categorías que existen dentro de la base de Datos
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
@@ -104,7 +104,7 @@
 
 <?php
 } else {
-    echo "Por favor registrese Aqui";
+    echo "Por favor registrese Aquí";
     ?>
     <a  class="btn btn-dark" href="../index.php"> Home Page</a>
 <?php

@@ -7,7 +7,7 @@
   <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Crear Categoria</title>
+  <title>Crear Categoría</title>
 </head>
 <body>
   <?php session_start();
@@ -20,7 +20,7 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="GestionDeCategorias.php">Categorias</a>
+        <a class="navbar-brand" href="GestionDeCategorias.php">Categorías</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -81,26 +81,26 @@ if (isset($_POST['submit']))
       $rolDeUsuario = "Administrador";
   }
 
-  $sql_log_cc = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se creo una categoria llamada $_nombre',now())";
+  $sql_log_cc = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se creó una categoría llamada $_nombre',now())";
   $dblink->query($sql_log_cc);
 header("Location: GestionDeCategorias.php");
 }
 ?>
 <!-- Boton para ir Atras -->
-<a class="btn btn-primary" href="GestionDeCategorias.php">Atras</a>
+<a class="btn btn-primary" href="GestionDeCategorias.php">Atrás</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img  src="../Images/iconoInfo.png"  class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 <div class="modal fade" id="infoA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Información</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Esta es la pantalla donde se puede crear una nueva categoria.
+        Esta es la pantalla donde se puede crear una nueva categoría.
 
       </div>
       <div class="modal-footer">
@@ -112,7 +112,7 @@ header("Location: GestionDeCategorias.php");
 <!-- Final boton de Informacion -->
 <?php
 } else {
-    echo "Por favor registrese Aqui";
+    echo "Por favor registrese Aquí";
     ?>
     <a  class="btn btn-dark" href="../index.php"> Home Page</a>
 <?php

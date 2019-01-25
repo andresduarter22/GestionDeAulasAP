@@ -54,13 +54,13 @@ $_IDUsuarioTemporal = 3;
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Información</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Bienvenido al sistema de reserva de aulas UPB La Paz, en esta pagina puede iniciar sesion como
+                    Bienvenido al sistema de reserva de aulas UPB La Paz, en esta página puede iniciar sesión como
                     usuario o
                     realizar una consulta sobre la disponibilidad de un aula.
                 </div>

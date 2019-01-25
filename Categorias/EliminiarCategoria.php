@@ -7,7 +7,7 @@
   <script src="../Booststrap/js/bootstrap.min.js" ></script>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Borrar Categoria</title>
+  <title>Borrar Categoría</title>
 </head>
 <body>
   <?php session_start();
@@ -20,7 +20,7 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="GestionDeCategorias.php">Categorias</a>
+        <a class="navbar-brand" href="GestionDeCategorias.php">Categorías</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -52,7 +52,7 @@
     $nombre_catego = $nombre_categoria->fetch();
   ?>
     <div class="container">
-    <input type="text" name="id1" value= "Desea borrar la categoria: <?php echo  $nombre_catego['nombre_categoria'];?> ?" class="form-control" disabled/>
+    <input type="text" name="id1" value= "Desea borrar la categoría: <?php echo  $nombre_catego['nombre_categoria'];?> ?" class="form-control" disabled/>
     <!--tabla 1 -->
     <?php
     $sql2 = "SELECT * FROM Aulas_Categoria WHERE id_Categoria = ".$_GET['id'].";";
@@ -119,7 +119,7 @@
          <table class="table table-striped table-bordered  table-responsive-sm m-5s">
            <thead  class="thead-dark">
            <tr>
-             <th style="width: 15%">Lista de Aulas que se que quedan sin categoria</th>
+             <th style="width: 15%">Lista de Aulas que se que quedan sin categoría</th>
            </tr>
          </thead>
          <tbody>
@@ -132,10 +132,10 @@
   </table>
     </table>
     <?php }else{
-      echo "Ningun aula se quedara sin categoria";
+      echo "Ningún aula se quedara sin categoría";
     }
   }else{
-    echo "Ningun Aula sera afectada";
+    echo "Ningún Aula sera afectada";
   }?>
 
     <!-- Hasta aqui tabla 2  -->
@@ -166,26 +166,28 @@
       } else {
           $rolDeUsuario = "Administrador";
       }
-      $sql_log_ec = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se elimino una categoria llamada $_nombre',now())";
+      $sql_log_ec = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se eliminó una categoría llamada $_nombre',now())";
       $dblink->query($sql_log_ec);
       header("Location: GestionDeCategorias.php");
     }
      ?>
 <!-- Boton para ir Atras -->
-<a class="btn btn-primary" href="GestionDeCategorias.php">Atras</a>
+<a class="btn btn-primary" href="GestionDeCategorias.php">Atrás</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img  src="../Images/iconoInfo.png"  class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 <div class="modal fade" id="infoA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Información</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Esta es la pantalla donde se puede eliminar el aula seleccionada.
+        Esta es la pantalla donde se puede eliminar la categoría seleccionada, puede llegar a contener dos tablas,
+        la primera representa a todas las aulas que tienen esta categoría y la perderán,
+        la segunda representa todas las aulas que al borrar esta categoría ya no tendran ninguna.
 
       </div>
       <div class="modal-footer">
@@ -197,7 +199,7 @@
 <!-- Final boton de Informacion -->
 <?php
 } else {
-    echo "Por favor registrese Aqui";
+    echo "Por favor registrese Aquí";
     ?>
     <a  class="btn btn-dark" href="../index.php"> Home Page</a>
 <?php

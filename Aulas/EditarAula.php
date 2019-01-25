@@ -20,7 +20,7 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
+        <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorías</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -95,12 +95,12 @@
      </tbody>
    </table>
  </div>
-</div>
    <form action="EditarAula.php" method="post">
      <input type="hidden" value="<?php echo $_GET['id'] ;?>" name="id1" class="form-control"/>
      <input type="submit" name="submit" class="btn btn-info" value="Confirmar" />
    </form>
   </div>
+</div>
 </form>
 
 <?php
@@ -139,26 +139,26 @@ if (isset($_POST['id1']))
       $rolDeUsuario = "Administrador";
   }
 
-  $sql_log_eda = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se edito un aula llamada $_nombre',now())";
+  $sql_log_eda = "INSERT INTO Logs (id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se editó un aula llamada $_nombre',now())";
   $dblink->query($sql_log_eda);
   header("Location: GestionDeAulas.php");
 }
 ?>
 <!-- Boton para ir Atras -->
-<a class="btn btn-primary" href="GestionDeAulas.php">Atras</a>
+<a class="btn btn-primary" href="GestionDeAulas.php">Atrás</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Información</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Esta es la pantalla donde se puede editar la informacion del aula seleccioanda.
+        Esta es la pantalla donde se puede editar la información del aula seleccioanda.
 
       </div>
       <div class="modal-footer">
@@ -170,7 +170,7 @@ if (isset($_POST['id1']))
 <!-- Final boton de Informacion -->
 <?php
 } else {
-    echo "Por favor registrese Aqui";
+    echo "Por favor registrese Aquí";
     ?>
     <a  class="btn btn-dark" href="../index.php"> Home Page</a>
 <?php

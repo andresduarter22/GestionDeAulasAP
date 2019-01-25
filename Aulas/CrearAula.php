@@ -20,7 +20,7 @@
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
+      <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorías</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -115,7 +115,7 @@ if (isset($_POST['submit']))
   } else {
       $rolDeUsuario = "Administrador";
   }
-  $sql_log_ca = "INSERT INTO Logs(id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se creo un aula llamada $_nombre',now())";
+  $sql_log_ca = "INSERT INTO Logs(id_Log,nombre_usuario,num_interno_usuario,correo_usuario,tipo_usuario,Accion,Fecha_Accion) VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se creó un aula llamada $_nombre',now())";
   $dblink->query($sql_log_ca);
 
   header("Location: GestionDeAulas.php");
@@ -123,14 +123,14 @@ if (isset($_POST['submit']))
 
 ?>
 <!-- Boton para ir Atras -->
-<a class="btn btn-primary" href="GestionDeAulas.php">Atras</a>
+<a class="btn btn-primary" href="GestionDeAulas.php">Atrás</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Información</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -148,7 +148,7 @@ if (isset($_POST['submit']))
 <!-- Final boton de Informacion -->
 <?php
 } else {
-    echo "Por favor registrese Aqui";
+    echo "Por favor registrese Aquí";
     ?>
     <a  class="btn btn-dark" href="../index.php"> Home Page</a>
 <?php

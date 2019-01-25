@@ -23,7 +23,7 @@
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
+        <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorías</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -50,7 +50,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">  Filtro</span>
           </div>
-          <input type="submit" name="submit_reseteo" class="btn btn-info" value="Resetear Filtro">
+          <a href="Logs.php" name="submit_reseteo" class="btn btn-info">Resetear Filtro</a>
         </div>
       </form>
       <!--Por nombre -->
@@ -94,8 +94,6 @@
     }else if(isset($_POST['submit_Email'])){
       $email_filtro = strip_tags($_POST['EmailFiltro']);
       $sql = "SELECT * FROM Logs WHERE correo_usuario LIKE '$email_filtro';";
-    }else if(isset($_POST['submit_reseteo'])){
-      $sql = "SELECT * FROM Logs;";
     }else{
       $sql = "SELECT * FROM Logs;";
     } ?>
@@ -106,11 +104,11 @@
     <thead  class="thead-dark">
     <tr>
       <th style="width: 5%">Nombre</th>
-      <th style="width: 10%">Numero Interno</th>
-      <th style="width: 10%">Correo Electronico</th>
+      <th style="width: 10%">Número Interno</th>
+      <th style="width: 10%">E-Mail</th>
       <th style="width: 5%">Rango</th>
       <th style="width: 40%">Accion realizada</th>
-      <th style="width: 30%">Fecha de la Accion realizada</th>
+      <th style="width: 30%">Fecha de la Acción realizada</th>
     </tr>
    </thead>
    <tbody >
@@ -185,21 +183,21 @@
   </div>
 </div>
   <!-- Boton para ir atras-->
-  <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atras</a>
+  <a href="../Homes/HomeLogeado.php" class="btn btn-primary">Atrás</a>
   <!-- Inicio boton de informacion -->
   <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img  src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
   <div class="modal fade" id="info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Información</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          En esta pantalla usted puede consultar la informacion todas la reservas, subida de un excel.
-          Ademas de la creacion, edicion o eliminacion de aulas, categorias y usuarios.
+          En esta pantalla usted puede consultar la información todas la reservas, subida de un excel.
+          Además de la creación, edición o eliminación de aulas, categorías y usuarios.
 
         </div>
         <div class="modal-footer">

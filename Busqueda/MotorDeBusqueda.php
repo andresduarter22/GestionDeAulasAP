@@ -42,7 +42,6 @@ if (isset($_POST['startSearch'])) {
 ?>
 <html>
 <head>
-
     <!-- jQuery -->
     <script src="../Booststrap/js/jquery-3.3.1.min.js"></script>
     <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
@@ -59,11 +58,13 @@ if (isset($_POST['startSearch'])) {
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-    <title>Busqueda </title>
+    <title>Búsqueda </title>
 </head>
 <body>
 <div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
+  </nav>
    <a href="../Homes/HomeLogeado.php" style="width: 300px"><img src="../Images/Logo_UPB.png" class="img-fluid float-right"
                                             alt="Responsive image"></a>
 </div>
@@ -96,7 +97,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 
         <br>
         <!--<input type="checkbox" name="BuscaAulaEsp">Es aula-->
-        <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Categorias" data-on="Aula especifica"  data-onstyle="success" data-offstyle="info">
+        <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Categorías" data-on="Aula específica"  data-onstyle="success" data-offstyle="info">
         <br/>
         <br/>
 
@@ -114,7 +115,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                 <table class=" table table-striped table-bordered  table-responsive-sm m-5 scrollbar " id="pickDeCategoria">
                     <thead class="thead-dark">
                     <tr>
-                        <th style="width: 30%"> Nombre de la Categoria</th>
+                        <th style="width: 30%"> Nombre de la Categoría</th>
                         <th style="width: 10%"> Check</th>
                     </tr>
                     </thead>
@@ -175,9 +176,9 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 
 <?php
 if(isset($_SESSION['idUsuario'])){
-    echo "<a href=\"../Homes/HomeLogeado.php\" class=\"btn btn-primary\">Atras</a>";
+    echo "<a href=\"../Homes/HomeLogeado.php\" class=\"btn btn-primary\">Atrás</a>";
 }else{
-    echo "<a href=\"../index.php\" class=\"btn btn-primary\">Atras</a>";
+    echo "<a href=\"../index.php\" class=\"btn btn-primary\">Atrás</a>";
 }
 ?>
 
@@ -191,19 +192,19 @@ if(isset($_SESSION['idUsuario'])){
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Información</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            Esta es la pantalla donde se especifica la busqueda que se quiere realizar, primero escoja si quiere
-                            dias en espeficico para luego seleccionar cada fecha en el calendario que se desplegara o si prefiere
-                            varios dias seguidos donde se desplagaran dos campos donde tendra calendarios por separados y solo podra escoger una
-                            fecha para cada campo, luego si busca algun aula en especifico escoga una de la lista (opcional), luego escoja
-                            las caracteristicas que desea para su aula, como en que bloque o que piso, etc. Mientras mas caracteristicas elija,
-                            mas especifica sera la busqueda, luego si desea puede introducio la cantidad de alumnos minima que requiere y finalemnte el horario
-                            que quiere.
+                            Esta es la pantalla donde se especifíca la búsqueda que se quiere realizar, primero escoja si quiere
+                            dias en espeficíco para luego seleccionar cada fecha en el calendario que se desplegara o si prefiere
+                            varios dias seguidos donde se desplagaran dos campos donde tendra calendarios por separado y solo podra escoger una
+                            fecha para cada campo, luego tiene dos opciones, buscar por un aula específica donde los resultados solo
+                            serán de dicha o por categorías donde los resultados serán deacuerdo a que aulas cumplen dichas características.
+                            Luego, si desea puede introducio la cantidad de alumnos mínima que requiere(opcional, seleccione la opción con el checkbox a lado)
+                             y finalemnte el horario que desea consultar.
 
                         </div>
                         <div class="modal-footer">

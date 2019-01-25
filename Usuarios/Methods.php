@@ -56,7 +56,7 @@ if ($resultadoExist->rowCount()) {
     }
 
 
-    $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'".$infoUs['nombre']."','". $infoUs['num_interno']  ."','". $infoUs['E_Mail'] ."','".$rolDeUsuario."','Se elimino un usuario llamado $borrado_u',now())";
+    $sql_log_eu = "INSERT INTO Logs VALUES (NULL,'".$infoUs['nombre']."','". $infoUs['num_interno']  ."','". $infoUs['E_Mail'] ."','".$rolDeUsuario."','Se eliminó un usuario llamado $borrado_u',now())";
     $dblink->query($sql_log_eu);
 
 

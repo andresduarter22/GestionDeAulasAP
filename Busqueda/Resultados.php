@@ -51,28 +51,25 @@ $_resultadosNoDisp = $arregDisp[1];
     <script src="../Booststrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Resultados de Busqueda</title>
+    <title>Resultados de Búsqueda</title>
 </head>
 <body>
 <div>
-    <a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right"
-                                            alt="Responsive image"></a>
 </div>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
     </div>
-
 </nav>
+<a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image"></a>
 
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container ">
-        <p class="display-5">Resultados De Busqueda </p>
+        <p class="display-5">Resultados De Búsqueda </p>
         <div class="container" style="width: 800px">
             <?php if (!empty($_resultadosDisp)) { ?>
                 Aulas Diponibles
@@ -175,7 +172,7 @@ $_resultadosNoDisp = $arregDisp[1];
                                     echo "<li> " . $infoDeUsuario['nombre'] . " Interno: " . $infoDeUsuario['num_interno'] . " correo: " . $infoDeUsuario['E_Mail'] . "</li>";
                                 }
                             } else {
-                                echo "Por favor entre en contacto con alexis";
+                                echo "Por favor entre en contacto con Alexis";
                             }
 
                             echo "
@@ -207,7 +204,7 @@ $_resultadosNoDisp = $arregDisp[1];
                     <thead class="thead-dark">
                     <tr>
                         <th style="width: 40%">Nombre de aula</th>
-                        <th style="width: 30%">Informacion</th>
+                        <th style="width: 30%">Información</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -254,7 +251,7 @@ $_resultadosNoDisp = $arregDisp[1];
 
         <br><br><br>
     </div>
-    <a class="btn btn-primary" href="MotorDeBusqueda.php">Atras</a>
+    <a class="btn btn-primary" href="MotorDeBusqueda.php">Atrás</a>
     <!--boton de informacion-->
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
                 src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
@@ -265,21 +262,19 @@ $_resultadosNoDisp = $arregDisp[1];
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Información</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
 
-
-                    En esta pagina se pueden ver las aulas disponibles que cumplen los parametros requeridos
-                    El color verde muestra que se puede realizar la reserva
-                    El color rojo significa que este usuario no tiene el permiso para realizar la reserva
+                    En esta pagina se pueden ver las aulas disponibles que cumplen los parametros requeridos.
+                    El color verde muestra que se puede realizar la reserva.
+                    El color rojo significa que este usuario no tiene el permiso para realizar la reserva.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

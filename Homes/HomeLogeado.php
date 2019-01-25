@@ -50,7 +50,7 @@ if (isset($_SESSION['idUsuario'])) {
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
+            <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorías</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -87,15 +87,14 @@ if (isset($_SESSION['idUsuario'])) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Información</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     Es la pantalla de inicio para un usuario, puede presionar el boton de realizar reserva para reservar
-                    directamente las
-                    aulas las cuales se le asigne.
+                    directamente las aulas las cuales se le asigne.
 
                 </div>
                 <div class="modal-footer">

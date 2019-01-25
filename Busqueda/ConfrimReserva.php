@@ -131,31 +131,11 @@ if (isset($_SESSION['idUsuario'])) {
         <script src="../Booststrap/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="../Booststrap/css/bootstrap.css">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Confirmacion de Reserva</title>
+        <title>Confirmación de Reserva</title>
     </head>
     <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-        </div>
-        <a class="navbar-brand" href="../Usuarios/GestiondeUsuarios.php">Usuarios</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="../Aulas/GestionDeAulas.php">Aulas</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+
     </nav>
     <div class="container">
         <form action="ConfrimReserva.php" method="post" autocomplete="off">
@@ -165,7 +145,7 @@ if (isset($_SESSION['idUsuario'])) {
                        placeholder="Ingrese Materia" required>
                 <small id="Materia Help" class="form-text text-muted">Ingrese el nombre de la materia a la cual se
                     guardara
-                    la reserva
+                    la reserva.
                 </small>
             </div>
             <div class="form-group">

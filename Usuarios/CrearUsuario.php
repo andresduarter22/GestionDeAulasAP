@@ -62,7 +62,7 @@ if (isset($_SESSION['idUsuario'])) {
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
+        <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorías</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -80,7 +80,7 @@ if (isset($_SESSION['idUsuario'])) {
         <div class="container">
             <label for="Rol">Rol:</label><br>
             <select class="custom-select" name="Categoria" style="width: 300px" required>
-                <option disabled selected value> -- Seleccione una Categoria --</option>
+                <option disabled selected value> -- Seleccione una Categoría --</option>
                 <option value="2">Administrador</option>
                 <option value="1">Actualizador</option>
                 <option value="0">Reservador</option>
@@ -92,7 +92,7 @@ if (isset($_SESSION['idUsuario'])) {
                 <span class="error alert-danger"> <?php echo $NombreErr; ?></span>
             </div>
             <div class="form-group" style="width: 300px">
-                <label for="num_interno">Numero de Interno:</label>
+                <label for="num_interno">Número de Interno:</label>
                 <input type="number" class="form-control" id="interno" name="numInt" required>
                 <span class="error alert-danger"> <?php echo $NumintErr; ?></span>
             </div>
@@ -134,7 +134,7 @@ if (isset($_SESSION['idUsuario'])) {
                     <table class="table table-striped table-bordered  table-responsive-sm m-5s">
                         <thead class="thead-dark">
                         <tr>
-                            <th style="width: 15%">Nombre de categoria</th>
+                            <th style="width: 15%">Nombre de categoría</th>
                             <th style="width: 15%">Check</th>
                         </tr>
                         </thead>
@@ -160,7 +160,7 @@ if (isset($_SESSION['idUsuario'])) {
         </div>
 
     </form>
-    <a class="btn btn-primary" href="GestiondeUsuarios.php">Atras</a>
+    <a class="btn btn-primary" href="GestiondeUsuarios.php">Atrás</a>
     <!-- Inicio boton de informacion -->
     <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#info"><img
                 src="../Images/iconoInfo.png" onclick="info" class="img-fluid float-right" alt="Responsive image"
@@ -170,18 +170,17 @@ if (isset($_SESSION['idUsuario'])) {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Información</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos
+                    Esta es la pantalla donde se puede consultar toda la lista de Usuarios registrados dentro de la base de Datos.
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -245,7 +244,7 @@ function create()
     }
 
 
-    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se creo un usuario llamado $_nombre',now())";
+    $sql_log_cu = "INSERT INTO Logs VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" . $rolDeUsuario . "','Se creó un usuario llamado $_nombre',now())";
     $dblink->query($sql_log_cu);
 }
 

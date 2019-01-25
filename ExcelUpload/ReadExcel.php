@@ -113,7 +113,7 @@ class ReadExcel
             $rolDeUsuario="Administrador";
         }
 
-        $sql_log_eu = "INSERT INTO Logs  VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" .$rolDeUsuario  . "','Subio un archivo excel al sistema ',now())";
+        $sql_log_eu = "INSERT INTO Logs  VALUES (NULL,'" . $infoUs['nombre'] . "','" . $infoUs['num_interno'] . "','" . $infoUs['E_Mail'] . "','" .$rolDeUsuario  . "','Subió un archivo excel al sistema ',now())";
         $this->dblink->query($sql_log_eu);
 
     }

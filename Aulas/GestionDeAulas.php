@@ -5,7 +5,7 @@
 
   <!-- Bootstrap JS -->
   <script src="../Booststrap/js/bootstrap.min.js" ></script>
-  <title>Gestion de Aulas</title>
+  <title>Gestión de Aulas</title>
   <link rel="stylesheet" href="../Booststrap/css/bootstrap.css" >
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
@@ -20,7 +20,7 @@
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorias</a>
+      <a class="navbar-brand" href="../Categorias/GestionDeCategorias.php">Categorías</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -83,10 +83,10 @@
                  </button>
                </div>
                <div class="modal-body">
-                 Esta seguro que desea borrar esta aula?
+                 ¿Está seguro que desea borrar esta aula?
                </div>
                <div class="modal-footer">
-                 <a class="btn btn-primary" href="EliminarAula.php?id=<?php echo $fila['id_Aulas'];?>" value = "Eliminar" Name="id_borrar">  Confirmar </a>
+                 <a class="btn btn-primary" href="EliminarAula.php?id=<?php echo $fila['id_Aulas'];?>" value = "Eliminar" Name="id_borrar"> Confirmar </a>
                </div>
              </div>
            </div>
@@ -98,21 +98,21 @@
  </div>
 </div>
 <!-- Boton para ir Atras -->
-<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atras</a>
-<a href="CrearAula.php" class="btn btn-primary " >Crear Aula</a>
+<a class="btn btn-primary" href="../Homes/HomeLogeado.php">Atrás</a>
+<a href="CrearAula.php" class="btn btn-primary ">Crear Aula</a>
 <!-- Inicio boton de informacion -->
 <button type="button" class="btn btn-light float-right" data-toggle="modal" data-target="#infoA"><img  src="../Images/iconoInfo.png"  class="img-fluid float-right" alt="Responsive image" height="42" width="42"  data-target="info"/></button>
 <div class="modal fade" id="infoA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Informacion</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Información</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos
+        Esta es la pantalla donde se puede consultar toda la lista de Aulas dentro de la base de Datos.
 
       </div>
       <div class="modal-footer">
@@ -125,7 +125,7 @@
 
 <?php
 } else {
-    echo "Por favor registrese Aqui";
+    echo "Por favor registrese Aquí";
     ?>
     <a  class="btn btn-dark" href="../index.php"> Home Page</a>
 <?php
