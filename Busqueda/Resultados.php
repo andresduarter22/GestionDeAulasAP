@@ -14,6 +14,44 @@ if (isset($_SESSION['idUsuario'])){
     $idDeUsuarioReservador = 1;
     $tipoDeUsuario = -1;
 }
+if (isset($_POST['startSearch'])) {
+    if($_POST['TipoDeBusqueda']==0){
+        if($_POST['fechasEspecificas']===""){
+            $faltafecha="No fue Ingresada la fecha";
+        }
+    }else{
+        if(($_POST['fechasSeguidasInicio']=== "") || ($_POST['fechasSeguidasFin']=== "") ){
+            $faltafecha="Una o mas fechas no fueron ingrsadas correctamente";
+        }
+    }
+
+    if ($_POST['BuscaAulaEsp'] === 'on') {
+        if(!isset($_POST['idDeAula'])){
+            $faltaAula="No selecciono el aula específica";
+        }
+    } else {
+        if(!isset($_POST['cat'])){
+            $faltaCategoria="No eligio al menos una categoria";
+        }
+    }
+
+    if ($_POST['requiereAlumnos'] === 'on') {
+        echo $_POST['cantalumnos'];
+        if(($_POST['cantalumnos']==="")){
+            $faltaCantidadDeAlumnos= "No fue ingresada la cantidad de Alumnos";
+        }
+    }
+
+    if(empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos) ){
+        //header("Location: Resultados.php");
+        echo "todo correcto";
+    }else{
+        header("Location: MotorDeBusqueda.php");
+    }
+
+}
+
+
 
 $db = new Database();
 $dblink = $db->getConnection();
@@ -23,7 +61,7 @@ $tipoDeUsuario = 1;
 $se = new search();
 $arregDisp = 0;
 
-//echo isset($_POST['startSearch']);
+echo isset($_POST['startSearch']);
 
 if (isset($_POST['startSearch'])) {
     //echo "hola";
