@@ -206,7 +206,7 @@ $_resultadosNoDisp = $arregDisp[1];
                             if ($cantUsuarios->rowCount() > 5) {
                                 echo "Por Favor contacte con su jefe de carrera";
                             } else if ($cantUsuarios->rowCount() > 0) {
-                                echo "Usuario(s) a contactar ";
+                                echo "Si desea reservar esta aula por favor entre en contacto con:  ";
                                 foreach ($cantUsuarios as $fila) {
                                     $sql4 = "SELECT * FROM Usuarios WHERE id_Usuario= $fila[2]";
                                     $res4 = $dblink->query($sql4);
