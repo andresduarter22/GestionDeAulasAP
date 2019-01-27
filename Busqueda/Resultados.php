@@ -7,56 +7,53 @@ header('Cache-Control: no cache'); //no cache
 session_cache_limiter('private_no_expire'); // works
 
 session_start();
-if (isset($_SESSION['idUsuario'])){
+if (isset($_SESSION['idUsuario'])) {
     $idDeUsuarioReservador = $_SESSION['idUsuario'];
     $tipoDeUsuario = $_SESSION['tipoDeUsuario'];
-}else {
+} else {
     $idDeUsuarioReservador = 1;
     $tipoDeUsuario = -1;
 }
 if (isset($_POST['startSearch'])) {
-    if($_POST['TipoDeBusqueda']==0){
-        if($_POST['fechasEspecificas']===""){
-            $faltafecha="No fue Ingresada la fecha";
+    if ($_POST['TipoDeBusqueda'] == 0) {
+        if ($_POST['fechasEspecificas'] === "") {
+            $faltafecha = "No fue Ingresada la fecha";
         }
-    }else{
-        if(($_POST['fechasSeguidasInicio']=== "") || ($_POST['fechasSeguidasFin']=== "") ){
-            $faltafecha="Una o mas fechas no fueron ingrsadas correctamente";
+    } else {
+        if (($_POST['fechasSeguidasInicio'] === "") || ($_POST['fechasSeguidasFin'] === "")) {
+            $faltafecha = "Una o mas fechas no fueron ingrsadas correctamente";
         }
     }
 
     if ($_POST['BuscaAulaEsp'] === 'on') {
-        if(!isset($_POST['idDeAula'])){
-            $faltaAula="No selecciono el aula específica";
+        if (!isset($_POST['idDeAula'])) {
+            $faltaAula = "No selecciono el aula específica";
         }
     } else {
-        if(!isset($_POST['cat'])){
-            $faltaCategoria="No eligio al menos una categoria";
+        if (!isset($_POST['cat'])) {
+            $faltaCategoria = "No eligio al menos una categoria";
         }
     }
 
     if ($_POST['requiereAlumnos'] === 'on') {
 
-        if(($_POST['cantalumnos']==="")){
-            $faltaCantidadDeAlumnos= "No fue ingresada la cantidad de Alumnos";
+        if (($_POST['cantalumnos'] === "")) {
+            $faltaCantidadDeAlumnos = "No fue ingresada la cantidad de Alumnos";
         }
     }
 
-    if(empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos) ){
+    if (empty($faltafecha) && empty($faltaAula) && empty($faltaCategoria) && empty($faltaCantidadDeAlumnos)) {
         //header("Location: Resultados.php");
 
-    }else{
+    } else {
         header("Location: MotorDeBusqueda.php?err=1");
     }
 
 }
 
 
-
 $db = new Database();
 $dblink = $db->getConnection();
-$idDeUsuarioReservador = 1;
-$tipoDeUsuario = 1;
 
 $se = new search();
 $arregDisp = 0;
@@ -101,7 +98,15 @@ $_resultadosNoDisp = $arregDisp[1];
     <div class="collapse navbar-collapse" id="navbarNav">
     </div>
 </nav>
-<a href="../Homes/HomeLogeado.php"><img src="../Images/Logo_UPB.png" class="img-fluid float-right" alt="Responsive image"></a>
+
+<?php if (isset($_SESSION['idUsuario'])) {
+    echo "<a href=\"../Homes/HomeLogeado.php\"><img src=\"../Images/Logo_UPB.png\" class=\"img-fluid float-right\"
+                                        alt=\"Responsive image\"></a>";
+} else {
+    echo "<a href=\"../index.php\"><img src=\"../Images/Logo_UPB.png\" class=\"img-fluid float-right\"
+                                        alt=\"Responsive image\"></a>";
+}
+?>
 
 
 <div class="jumbotron jumbotron-fluid">
@@ -142,7 +147,7 @@ $_resultadosNoDisp = $arregDisp[1];
 
                         echo "<tr>";
                         //<input type=\"hidden\" name=\"id_AulasParaReservar\" value= " . $infoAulas[0] . " >
-                        if (($infoUsCatego->rowCount() || $userHaveCategory ) && $tipoDeUsuario!=-1) {
+                        if (($infoUsCatego->rowCount() || $userHaveCategory) && $tipoDeUsuario != -1) {
                             $_SESSION["id_UsuarioQueReserva"] = $idDeUsuarioReservador;
                             $_SESSION["fechas"] = $se->_fechasArray;
                             $_SESSION["tipoDeReserva"] = $se->_tipoDeReserva;
