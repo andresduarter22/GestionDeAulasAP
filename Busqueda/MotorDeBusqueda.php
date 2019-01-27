@@ -108,7 +108,7 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
 
         <br>
         <!--<input type="checkbox" name="BuscaAulaEsp">Es aula-->
-        <input type="checkbox" name="BuscaAulaEsp" data-toggle="toggle" data-off="Categorías" data-on="Aula específica"
+        <input type="checkbox" name="BuscaAulaEsp"  data-toggle="toggle" onchange="show(this)" data-off="Categorías" data-on="Aula específica"
                data-onstyle="success" data-offstyle="info">
         <br/>
         <br/>
@@ -238,6 +238,9 @@ if (isset($_SESSION['idUsuario'])) {
         minDate: 0
     }).hide();
 
+    $('#pickDeAula').hide();
+
+
     $('#fechasSeguidasInicio').multiDatesPicker({
         maxPicks: 1,
         minDate: 0,
@@ -252,13 +255,19 @@ if (isset($_SESSION['idUsuario'])) {
     $('#infoCalendarEspecificos').hide();
     $('#infoCalendarSeguidos').hide();
 
+    r=1;
 
-    $('input[name="idDeAula').click(function (e) {
-        if (e.target.value > 0) {
+    function show(e){
+        console.log(r );
+        if(r%2==0){
             $('#pickDeAula').hide();
+            $('#pickDeCategoria').show();
+        }else{
+            $('#pickDeAula').show();
+            $('#pickDeCategoria').hide();
         }
-    });
-
+        r++;
+    }
 
     $('input[name="TipoDeBusqueda"]').click(function (e) {
         if (e.target.value == 0) {
