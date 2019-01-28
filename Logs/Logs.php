@@ -84,7 +84,7 @@
     <?php if(isset($_POST['submit_fechas'])){
       $fecha_inicio = strip_tags($_POST['fechaDeInicio']);
       $fecha_fin = strip_tags($_POST['fechaDeFin']);
-      $sql = "SELECT * FROM Logs WHERE Fecha_Accion >= '$fecha_inicio%' AND Fecha_Accion <= '$fecha_fin%' ;";
+      $sql = "SELECT * FROM Logs WHERE Fecha_Accion >= '$fecha_inicio 00:00:00' AND Fecha_Accion <= '$fecha_fin 23:59:59' ;";
     }else if(isset($_POST['submit_fecha_especifica'])){
       $fecha = strip_tags($_POST['fechaEspecifica']);
       $sql = "SELECT * FROM Logs WHERE Fecha_Accion LIKE '$fecha%' ;";
@@ -93,7 +93,7 @@
       $sql = "SELECT * FROM Logs WHERE nombre_usuario LIKE '%$nombre_filtro%' ;";
     }else if(isset($_POST['submit_Email'])){
       $email_filtro = strip_tags($_POST['EmailFiltro']);
-      $sql = "SELECT * FROM Logs WHERE correo_usuario LIKE '$email_filtro';";
+      $sql = "SELECT * FROM Logs WHERE correo_usuario LIKE '%$email_filtro%';";
     }else{
       $sql = "SELECT * FROM Logs;";
     } ?>
