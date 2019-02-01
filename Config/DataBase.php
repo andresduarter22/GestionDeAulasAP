@@ -5,9 +5,9 @@ class Database
     // parametros para la conexion al SQL, nombre de host, nombre de bd
     // nombre de usuarios y password
     private $host = "localhost";
-    private $db_name = "aduarte16";
-    private $db_username = "aduarte16";
-    private $db_password = "isc891";
+    private $db_name = "aulas";
+    private $db_username = "aulas";
+    private $db_password = "4ul4s2019!";
     public $connection;
 
 

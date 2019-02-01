@@ -179,8 +179,6 @@ $result->setFetchMode(PDO::FETCH_ASSOC);
                         <option value="D">D</option>
                         <option value="E">E</option>
                         <option value="F">F</option>
-                        <option value="Z">Z</option>
-                        <option value="Z1">Z1</option>
                     </select>
                 </div>
             </div>
